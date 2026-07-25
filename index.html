@@ -23,9 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
-        /* ============================================================
-           КРАТКИЙ CSS (только основное, чтобы не раздувать)
-           ============================================================ */
+        /* ===== ВСЕ СТИЛИ (кратко, но полностью) ===== */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -39,7 +37,6 @@
             --shadow: 0 4px 20px rgba(0,0,0,0.4);
             --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.1);
             --gold: #C9A96E;
-            --gold-dark: #B8974D;
             --gold-gradient: linear-gradient(135deg, #C9A96E, #E8D5A8, #C9A96E);
             --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --header-height: 64px;
@@ -73,18 +70,7 @@
             min-height: 100vh;
             background: var(--bg-primary);
         }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 0;
-            pointer-events: none;
-            background: var(--bg-primary);
-        }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; pointer-events: none; background: var(--bg-primary); }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
 
@@ -97,11 +83,7 @@
             border-radius: var(--radius);
             padding: 20px;
         }
-        .glass-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--border-hover);
-            box-shadow: var(--shadow-hover);
-        }
+        .glass-card:hover { background: var(--bg-card-hover); border-color: var(--border-hover); box-shadow: var(--shadow-hover); }
 
         .btn {
             display: inline-flex;
@@ -128,10 +110,7 @@
         .btn-danger { background: #E74C3C; box-shadow: 0 4px 24px rgba(231, 76, 60, 0.3); }
         .btn-danger:hover { background: #C0392B; }
         .btn-pulse { animation: pulseGlow 2s ease-in-out infinite; }
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 4px 24px rgba(201, 169, 110, 0.25); }
-            50% { box-shadow: 0 4px 40px rgba(201, 169, 110, 0.4); }
-        }
+        @keyframes pulseGlow { 0%, 100% { box-shadow: 0 4px 24px rgba(201, 169, 110, 0.25); } 50% { box-shadow: 0 4px 40px rgba(201, 169, 110, 0.4); } }
 
         .shimmer-text {
             background: var(--gold-gradient);
@@ -142,16 +121,14 @@
             animation: shimmer 4s ease-in-out infinite;
             display: inline-block;
         }
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 200% 50%; }
-        }
+        @keyframes shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 200% 50%; } }
 
         .section-title { font-size: clamp(26px, 5vw, 40px); font-weight: 700; margin-bottom: 8px; }
         .section-title span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .section-subtitle { font-size: clamp(15px, 2vw, 18px); color: var(--text-muted); margin-bottom: 32px; }
         section { padding: 50px 0; position: relative; z-index: 1; }
 
+        /* ХЕДЕР */
         header {
             position: fixed;
             top: 0;
@@ -229,59 +206,24 @@
         .menu-toggle { display: none; font-size: 24px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50%; width: 44px; height: 44px; cursor: pointer; color: var(--text-primary); }
         #mainNav { display: flex; gap: 16px; align-items: center; }
 
-        .hero {
-            padding: 60px 0 80px;
-            text-align: center;
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-        }
+        /* HERO */
+        .hero { padding: 60px 0 80px; text-align: center; min-height: 70vh; display: flex; align-items: center; border-bottom: 1px solid var(--border-color); }
         .hero h1 { font-size: clamp(32px, 8vw, 62px); font-weight: 700; margin-bottom: 16px; }
         .hero p { font-size: clamp(16px, 2.5vw, 20px); color: var(--text-muted); max-width: 580px; margin: 0 auto 28px; }
         .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-        .hero-badge {
-            display: inline-block;
-            background: var(--bg-card);
-            padding: 6px 20px;
-            border-radius: 60px;
-            border: 1px solid var(--border-color);
-            font-size: 13px;
-            color: var(--gold);
-            font-weight: 500;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .hero-badge { display: inline-block; background: var(--bg-card); padding: 6px 20px; border-radius: 60px; border: 1px solid var(--border-color); font-size: 13px; color: var(--gold); font-weight: 500; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
 
+        /* УСЛУГИ */
         .services-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        .service-item {
-            background: var(--bg-card);
-            padding: 14px 18px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            min-height: 56px;
-        }
+        .service-item { background: var(--bg-card); padding: 14px 18px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); transition: var(--transition); display: flex; justify-content: space-between; align-items: center; cursor: pointer; min-height: 56px; }
         .service-item:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
         .service-item .name { font-weight: 500; }
         .service-item .category { font-size: 12px; color: var(--text-muted); }
         .service-item .price { font-weight: 600; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
+        /* МАСТЕРА */
         .masters-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .master-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 24px 16px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-            cursor: pointer;
-        }
+        .master-card { background: var(--bg-card); border-radius: var(--radius); padding: 24px 16px; text-align: center; border: 1px solid var(--border-color); transition: var(--transition); cursor: pointer; }
         .master-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
         .master-card .image-wrapper { width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 14px; overflow: hidden; border: 2px solid var(--gold); background: var(--bg-secondary); position: relative; }
         .master-card .image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -292,13 +234,8 @@
         .master-card .rating i { color: #F5B342; }
         .master-card .btn { margin-top: 10px; width: 100%; }
 
-        .calendar-container {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            margin: 16px 0;
-        }
+        /* КАЛЕНДАРЬ */
+        .calendar-container { background: var(--bg-card); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border-color); margin: 16px 0; }
         .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
         .calendar-nav-btn { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 16px; cursor: pointer; color: var(--text-secondary); transition: var(--transition); }
         .calendar-nav-btn:hover { background: var(--gold); color: #fff; }
@@ -310,7 +247,6 @@
         .calendar-day.selected { background: var(--gold); color: #fff; border-color: var(--gold); transform: scale(1.05); }
         .calendar-day.disabled { opacity: 0.3; cursor: not-allowed; }
         .calendar-day.today { border-color: var(--gold); }
-
         .time-slots { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color); }
         .time-slot { padding: 10px 18px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-secondary); cursor: pointer; transition: var(--transition); font-size: 14px; font-weight: 500; }
         .time-slot:hover:not(.booked) { background: var(--gold); color: #fff; border-color: var(--gold); }
@@ -318,22 +254,14 @@
         .time-slot.booked { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
         .time-slot.past-time { opacity: 0.2; cursor: not-allowed; }
 
+        /* КОНТАКТЫ */
         .contact-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
         .contact-info-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
         .contact-info-item i { font-size: 20px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; width: 24px; margin-top: 3px; }
         .contact-info-item .label { font-weight: 600; font-size: 14px; }
         .contact-info-item .value { color: var(--text-secondary); font-size: 14px; }
 
-        .working-hours {
-            margin: 16px 0 24px;
-            padding: 16px 18px;
-            background: var(--bg-card);
-            border-radius: var(--radius-sm);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 24px;
-            border: 1px solid var(--border-color);
-        }
+        .working-hours { margin: 16px 0 24px; padding: 16px 18px; background: var(--bg-card); border-radius: var(--radius-sm); display: flex; flex-wrap: wrap; gap: 12px 24px; border: 1px solid var(--border-color); }
         .status-open { color: #27AE60; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
         .status-closed { color: #E74C3C; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
         .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; animation: pulse 1.5s ease-in-out infinite; }
@@ -348,120 +276,34 @@
         .map-container { border-radius: var(--radius); overflow: hidden; height: 240px; border: 1px solid var(--border-color); }
         .map-container iframe { width: 100%; height: 100%; display: block; border: 0; }
 
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(12px);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); z-index: 2000; align-items: center; justify-content: center; padding: 16px; }
         .modal-overlay.active { display: flex; }
-        .modal {
-            background: var(--bg-primary);
-            backdrop-filter: blur(24px);
-            max-width: 700px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            border-radius: 24px;
-            padding: 28px 20px 24px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 24px 64px rgba(0,0,0,0.4);
-            transform: scale(0.96) translateY(20px);
-            opacity: 0;
-            transition: all 0.35s ease;
-        }
+        .modal { background: var(--bg-primary); backdrop-filter: blur(24px); max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 24px; padding: 28px 20px 24px; border: 1px solid var(--border-color); box-shadow: 0 24px 64px rgba(0,0,0,0.4); transform: scale(0.96) translateY(20px); opacity: 0; transition: all 0.35s ease; }
         .modal-overlay.active .modal { transform: scale(1) translateY(0); opacity: 1; }
-        .modal-close {
-            float: right;
-            font-size: 24px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: var(--transition);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .modal-close { float: right; font-size: 24px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50%; cursor: pointer; color: var(--text-muted); transition: var(--transition); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
         .modal-close:hover { background: var(--gold); color: #fff; border-color: var(--gold); transform: rotate(90deg); }
         .modal h2 { font-size: clamp(22px, 5vw, 28px); margin-bottom: 4px; padding-right: 48px; }
         .modal .subtitle { color: var(--text-muted); margin-bottom: 20px; font-size: 14px; }
 
         .modal form { display: flex; flex-direction: column; gap: 14px; }
         .modal form label { font-weight: 500; font-size: 14px; color: var(--text-secondary); }
-        .modal form input, .modal form select, .modal form textarea {
-            padding: 12px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            font-size: 16px;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            width: 100%;
-            transition: var(--transition);
-            min-height: var(--touch-target);
-        }
-        .modal form input:focus, .modal form select:focus, .modal form textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
-        }
+        .modal form input, .modal form select, .modal form textarea { padding: 12px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 16px; background: var(--bg-secondary); color: var(--text-primary); width: 100%; transition: var(--transition); min-height: var(--touch-target); }
+        .modal form input:focus, .modal form select:focus, .modal form textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12); }
         .modal form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .modal form button { width: 100%; padding: 16px; font-size: 17px; }
 
-        .cabinet-section {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 20px 16px;
-            border: 1px solid var(--border-color);
-            margin-top: 16px;
-        }
+        .cabinet-section { background: var(--bg-card); border-radius: var(--radius); padding: 20px 16px; border: 1px solid var(--border-color); margin-top: 16px; }
         .cabinet-section .booking-item { display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid var(--border-color); }
         .cabinet-section .booking-item:last-child { border-bottom: none; }
         .cabinet-section .empty-state { text-align: center; padding: 32px 16px; color: var(--text-muted); }
         .cabinet-section .empty-state i { font-size: 40px; color: var(--gold); margin-bottom: 12px; }
 
-        .sticky-book {
-            position: fixed;
-            bottom: 16px;
-            right: 16px;
-            z-index: 999;
-            background: var(--gold-gradient);
-            color: #fff;
-            border: none;
-            border-radius: 60px;
-            padding: 14px 20px;
-            font-weight: 600;
-            font-size: clamp(14px, 3vw, 16px);
-            box-shadow: 0 8px 32px rgba(201, 169, 110, 0.25);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .sticky-book { position: fixed; bottom: 16px; right: 16px; z-index: 999; background: var(--gold-gradient); color: #fff; border: none; border-radius: 60px; padding: 14px 20px; font-weight: 600; font-size: clamp(14px, 3vw, 16px); box-shadow: 0 8px 32px rgba(201, 169, 110, 0.25); cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 8px; }
         .sticky-book:hover { transform: scale(1.05); box-shadow: 0 12px 48px rgba(201, 169, 110, 0.35); }
 
-        footer {
-            background: var(--bg-secondary);
-            padding: 32px 16px;
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-muted);
-        }
+        footer { background: var(--bg-secondary); padding: 32px 16px; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); }
         footer span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-        /* Админка */
         .admin-page { padding-top: 0; min-height: 100vh; background: var(--bg-primary); }
         .admin-page header, .admin-page footer, .admin-page .sticky-book { display: none; }
         .admin-panel { padding: 30px 0 60px; }
@@ -480,73 +322,15 @@
         .filter-chip.active { background: var(--gold); color: #fff; border-color: var(--gold); }
 
         .search-filter-bar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; align-items: center; }
-        .search-filter-bar input {
-            flex: 1;
-            min-width: 200px;
-            padding: 12px 16px 12px 44px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-size: 15px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238A8580' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: 14px center;
-        }
+        .search-filter-bar input { flex: 1; min-width: 200px; padding: 12px 16px 12px 44px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 15px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238A8580' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 14px center; }
         .search-filter-bar input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12); }
 
-        #scrollTop {
-            position: fixed;
-            bottom: 80px;
-            right: 16px;
-            z-index: 998;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--gold-gradient);
-            color: #fff;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.25);
-            transition: var(--transition);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-        }
+        #scrollTop { position: fixed; bottom: 80px; right: 16px; z-index: 998; width: 44px; height: 44px; border-radius: 50%; background: var(--gold-gradient); color: #fff; border: none; font-size: 18px; cursor: pointer; box-shadow: 0 4px 20px rgba(201, 169, 110, 0.25); transition: var(--transition); opacity: 0; visibility: hidden; transform: translateY(20px); }
         #scrollTop.visible { opacity: 1; visibility: visible; transform: translateY(0); }
         #scrollTop:hover { transform: scale(1.1); }
 
-        #toast-container {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 380px;
-            width: 100%;
-            pointer-events: none;
-        }
-        .toast {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            padding: 16px 20px;
-            box-shadow: var(--shadow-hover);
-            color: var(--text-primary);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transform: translateX(120%);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            pointer-events: auto;
-            min-height: 56px;
-        }
+        #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; max-width: 380px; width: 100%; pointer-events: none; }
+        .toast { background: var(--bg-card); backdrop-filter: blur(20px); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 16px 20px; box-shadow: var(--shadow-hover); color: var(--text-primary); font-size: 14px; display: flex; align-items: center; gap: 12px; transform: translateX(120%); opacity: 0; transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); pointer-events: auto; min-height: 56px; }
         .toast.show { transform: translateX(0); opacity: 1; }
         .toast .icon { font-size: 20px; }
         .toast.success .icon { color: #27AE60; }
@@ -554,19 +338,7 @@
         .toast.info .icon { color: var(--gold); }
         .toast .close { margin-left: auto; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 18px; padding: 4px 8px; }
 
-        .progress-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-        }
+        .progress-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); z-index: 9999; align-items: center; justify-content: center; }
         .progress-overlay.active { display: flex; }
         .progress-box { background: var(--bg-primary); padding: 40px 48px; border-radius: var(--radius); border: 1px solid var(--border-color); text-align: center; max-width: 400px; width: 90%; }
         .progress-bar-track { width: 100%; height: 6px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; margin: 16px 0; }
@@ -581,7 +353,6 @@
         .admin-bookings-list .booking-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 8px; }
         .admin-bookings-list .booking-row:hover { background: var(--bg-card-hover); }
 
-        /* Адаптив */
         @media (min-width: 480px) { .services-grid { grid-template-columns: 1fr 1fr; } }
         @media (min-width: 600px) {
             .masters-grid { grid-template-columns: 1fr 1fr; }
@@ -600,20 +371,7 @@
         }
         @media (max-width: 768px) {
             .menu-toggle { display: flex; align-items: center; justify-content: center; }
-            #mainNav {
-                display: none;
-                flex-direction: column;
-                gap: 12px;
-                background: var(--bg-primary);
-                position: absolute;
-                top: var(--header-height);
-                left: 0;
-                right: 0;
-                padding: 20px 24px 28px;
-                box-shadow: var(--shadow-hover);
-                border-bottom: 1px solid var(--border-color);
-                backdrop-filter: blur(20px);
-            }
+            #mainNav { display: none; flex-direction: column; gap: 12px; background: var(--bg-primary); position: absolute; top: var(--header-height); left: 0; right: 0; padding: 20px 24px 28px; box-shadow: var(--shadow-hover); border-bottom: 1px solid var(--border-color); backdrop-filter: blur(20px); }
             #mainNav.open { display: flex; }
             #mainNav a { padding: 12px 0; text-align: center; border-bottom: 1px solid var(--border-color); }
             #mainNav .nav-book-btn { justify-content: center; padding: 12px; }
@@ -730,7 +488,7 @@
                                 <a href="#" aria-label="VK"><i class="fab fa-vk"></i></a>
                                 <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                             </div>
-                            <a href="https://yandex.ru/maps/?rtext=~55.355864,86.084475" target="_blank" class="btn btn-outline btn-sm"><i class="fas fa-directions"></i> Маршрут</a>
+                            <a href="https://yandex.ru/maps/?text=Пионерский бульвар, 3, 224, Кемерово" target="_blank" class="btn btn-outline btn-sm"><i class="fas fa-directions"></i> Маршрут</a>
                         </div>
                     </div>
                     <div class="map-container">
@@ -829,15 +587,31 @@
 
     <script>
         // ============================================================
-        // SUPABASE КОНФИГ (ПРАВИЛЬНЫЙ ANON KEY)
+        // SUPABASE — ПРАВИЛЬНАЯ ИНИЦИАЛИЗАЦИЯ (без конфликтов)
         // ============================================================
-        const SUPABASE_URL = 'https://oiidkkqepzrxcykidvnr.supabase.co';
-        const SUPABASE_ANON_KEY =
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9paWRra3FlcHpyeGN5a2lkdm5yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5ODQwNTAsImV4cCI6MjEwMDU2MDA1MH0.dSo1niO8Yf7ba60SBlSYOCG7eFbnWk_uQAsj-r-pkj4';
+        const SB_URL = 'https://oiidkkqepzrxcykidvnr.supabase.co';
+        const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9paWRra3FlcHpyeGN5a2lkdm5yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5ODQwNTAsImV4cCI6MjEwMDU2MDA1MH0.dSo1niO8Yf7ba60SBlSYOCG7eFbnWk_uQAsj-r-pkj4';
 
-        let supabase;
-        let MASTERS_DATA = [];
-        let SERVICES_DATA = [];
+        // Используем другое имя переменной, чтобы избежать конфликта
+        let sb = null;
+
+        function initSB() {
+            try {
+                const { createClient } = supabaseJs;
+                sb = createClient(SB_URL, SB_KEY);
+                console.log('✅ Supabase подключен');
+                return true;
+            } catch (e) {
+                console.error('❌ Ошибка Supabase:', e);
+                return false;
+            }
+        }
+
+        // ============================================================
+        // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
+        // ============================================================
+        let mastersData = [];
+        let servicesData = [];
         let currentUser = null;
         let isAdminLoggedIn = false;
         let servicesExpanded = false;
@@ -853,40 +627,34 @@
         let selectedTime = null;
 
         // ============================================================
-        // ИНИЦИАЛИЗАЦИЯ
+        // ЗАГРУЗКА ДАННЫХ
         // ============================================================
-        function initSupabase() {
-            try {
-                const { createClient } = supabaseJs;
-                supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                console.log('✅ Supabase подключен');
-            } catch (e) {
-                console.error('❌ Ошибка Supabase:', e);
-                showToast('❌ Ошибка подключения к БД', 'error');
-            }
-        }
-
         async function loadData() {
+            if (!sb) {
+                if (!initSB()) {
+                    loadLocalData();
+                    return;
+                }
+            }
+
             try {
-                // Загружаем мастеров
-                const { data: masters, error: mErr } = await supabase
+                const { data: masters, error: mErr } = await sb
                     .from('masters')
                     .select('*');
 
                 if (mErr) throw mErr;
 
                 if (masters && masters.length > 0) {
-                    MASTERS_DATA = masters;
+                    mastersData = masters;
 
-                    // Загружаем услуги
-                    const { data: services, error: sErr } = await supabase
+                    const { data: services, error: sErr } = await sb
                         .from('services')
                         .select('*');
 
                     if (!sErr && services) {
-                        SERVICES_DATA = services;
-                        MASTERS_DATA.forEach(m => {
-                            m.services = SERVICES_DATA.filter(s => s.master_id === m.id);
+                        servicesData = services;
+                        mastersData.forEach(m => {
+                            m.services = servicesData.filter(s => s.master_id === m.id);
                         });
                     }
 
@@ -898,20 +666,19 @@
                 // Если нет данных — создаём
                 await seedData();
             } catch (e) {
-                console.warn('⚠️ Ошибка загрузки:', e);
-                // Пробуем локальные данные
+                console.warn('⚠️ Ошибка загрузки из Supabase:', e);
                 loadLocalData();
             }
         }
 
         // ============================================================
-        // ЗАГРУЗКА ЛОКАЛЬНЫХ ДАННЫХ
+        // ЛОКАЛЬНЫЕ ДАННЫЕ
         // ============================================================
         function loadLocalData() {
             const saved = localStorage.getItem('studio_masters_data');
             if (saved) {
                 try {
-                    MASTERS_DATA = JSON.parse(saved);
+                    mastersData = JSON.parse(saved);
                     renderAll();
                     updateWorkStatus();
                     return;
@@ -919,12 +686,10 @@
             }
 
             // Данные по умолчанию
-            MASTERS_DATA = [{
+            mastersData = [{
                 id: 'natalia',
                 name: 'Наталья Мельникова',
                 specialty: 'Парикмахер-колорист',
-                description: 'Колорист, мастер по стрижкам с наставничеством',
-                education: 'г. Москва, академия парикмахерского искусства Sointera Academy',
                 photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EНМ%3C/text%3E%3C/svg%3E',
                 rating: 4.9,
                 reviews: 55,
@@ -933,10 +698,7 @@
                 weekdays: [1, 2, 3, 4, 5, 6],
                 services: [
                     { id: 's1', name: 'Стрижка женская', category: 'Стрижки', price: 2500, duration: '1 ч 30 м' },
-                    { id: 's2', name: 'Окрашивание тон в тон', category: 'Окрашивание', price: 3500,
-                    duration: '2 ч' },
-                    { id: 's3', name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000,
-                        duration: '2 ч' }
+                    { id: 's2', name: 'Окрашивание тон в тон', category: 'Окрашивание', price: 3500, duration: '2 ч' }
                 ]
             }, {
                 id: 'victoria',
@@ -949,10 +711,8 @@
                 work_end: '21:00',
                 weekdays: [1, 2, 3, 4, 5, 6],
                 services: [
-                    { id: 's4', name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000,
-                        duration: '2 ч 30 м' },
-                    { id: 's5', name: 'Перманентный макияж губ', category: 'Перманент', price: 9000,
-                        duration: '3 ч' }
+                    { id: 's3', name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000,
+                        duration: '2 ч 30 м' }
                 ]
             }, {
                 id: 'tatiana',
@@ -965,10 +725,7 @@
                 work_end: '21:00',
                 weekdays: [1, 2, 3, 4, 5, 6],
                 services: [
-                    { id: 's6', name: 'Загар премиум (1 минута)', category: 'Солярий', price: 33,
-                        duration: '20 м' },
-                    { id: 's7', name: 'Абонемент VIP Сияние (200 мин)', category: 'Солярий', price: 4900,
-                        duration: '20 м' }
+                    { id: 's4', name: 'Загар премиум (1 минута)', category: 'Солярий', price: 33, duration: '20 м' }
                 ]
             }, {
                 id: 'yulia',
@@ -981,29 +738,25 @@
                 work_end: '21:00',
                 weekdays: [1, 2, 3, 4, 5, 6],
                 services: [
-                    { id: 's8', name: 'Педикюр Smart с покрытием', category: 'Педикюр', price: 2500,
-                        duration: '1 ч 30 м' },
-                    { id: 's9', name: 'Японский эко маникюр', category: 'Маникюр', price: 2000, duration: '1 ч' }
+                    { id: 's5', name: 'Педикюр Smart с покрытием', category: 'Педикюр', price: 2500,
+                        duration: '1 ч 30 м' }
                 ]
             }];
 
-            localStorage.setItem('studio_masters_data', JSON.stringify(MASTERS_DATA));
+            localStorage.setItem('studio_masters_data', JSON.stringify(mastersData));
             renderAll();
             updateWorkStatus();
         }
 
         // ============================================================
-        // ЗАПОЛНЕНИЕ БД (SEED)
+        // SEED ДАННЫХ
         // ============================================================
         async function seedData() {
             try {
-                // Сначала создаём таблицы через SQL вручную, потом заполняем
                 const masters = [{
                     id: 'natalia',
                     name: 'Наталья Мельникова',
                     specialty: 'Парикмахер-колорист',
-                    description: 'Колорист, мастер по стрижкам',
-                    education: 'г. Москва, академия парикмахерского искусства Sointera Academy',
                     photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EНМ%3C/text%3E%3C/svg%3E',
                     rating: 4.9,
                     reviews: 55,
@@ -1043,7 +796,7 @@
                 }];
 
                 for (const m of masters) {
-                    await supabase.from('masters').upsert(m, { onConflict: 'id' });
+                    await sb.from('masters').upsert(m, { onConflict: 'id' });
                 }
 
                 showToast('✅ Данные загружены в БД', 'success');
@@ -1057,12 +810,10 @@
         // ============================================================
         // КАЛЕНДАРЬ
         // ============================================================
-        function getDayOfWeek(date) {
-            return date.getDay();
-        }
+        function getDayOfWeek(date) { return date.getDay(); }
 
         function isMasterWorking(masterId, date) {
-            const master = MASTERS_DATA.find(m => m.id === masterId);
+            const master = mastersData.find(m => m.id === masterId);
             if (!master) return false;
             const day = getDayOfWeek(date);
             const dayIndex = day === 0 ? 7 : day;
@@ -1070,7 +821,7 @@
         }
 
         function getMasterWorkHours(masterId) {
-            const master = MASTERS_DATA.find(m => m.id === masterId);
+            const master = mastersData.find(m => m.id === masterId);
             return { start: master?.work_start || '09:00', end: master?.work_end || '21:00' };
         }
 
@@ -1082,10 +833,7 @@
             return (h ? parseInt(h[1]) * 60 : 0) + (m ? parseInt(m[1]) : 0) || 60;
         }
 
-        function timeToMinutes(t) {
-            const [h, m] = t.split(':').map(Number);
-            return h * 60 + m;
-        }
+        function timeToMinutes(t) { const [h, m] = t.split(':').map(Number); return h * 60 + m; }
 
         function minutesToTime(min) {
             const h = Math.floor(min / 60);
@@ -1095,8 +843,9 @@
 
         async function getBookingsForDate(masterId, date) {
             try {
+                if (!sb) return [];
                 const dateStr = date.toISOString().split('T')[0];
-                const { data, error } = await supabase
+                const { data, error } = await sb
                     .from('bookings')
                     .select('*')
                     .eq('master_id', masterId)
@@ -1188,7 +937,7 @@
             const container = document.getElementById('timeSlotsContainer');
             if (!selectedDate || !selectedMasterId || !selectedServiceId) return;
 
-            const master = MASTERS_DATA.find(m => m.id === selectedMasterId);
+            const master = mastersData.find(m => m.id === selectedMasterId);
             if (!master) return;
 
             const service = master.services.find(s => s.id === selectedServiceId || s.name === selectedServiceId);
@@ -1212,8 +961,7 @@
             const slots = await getAvailableSlots(selectedMasterId, date, duration);
 
             if (slots.length === 0) {
-                container.innerHTML =
-                    `<span style="color:var(--text-muted);">❌ Нет свободного времени</span>`;
+                container.innerHTML = `<span style="color:var(--text-muted);">❌ Нет свободного времени</span>`;
                 return;
             }
 
@@ -1273,7 +1021,7 @@
             serviceSelect.innerHTML = '<option value="">Выберите услугу</option>';
 
             if (selectedMasterId) {
-                const master = MASTERS_DATA.find(m => m.id === selectedMasterId);
+                const master = mastersData.find(m => m.id === selectedMasterId);
                 if (master && master.services) {
                     master.services.forEach(s => {
                         const opt = document.createElement('option');
@@ -1310,7 +1058,7 @@
 
             const masterSelect = document.getElementById('bookingMaster');
             masterSelect.innerHTML = '<option value="">Выберите мастера</option>';
-            MASTERS_DATA.forEach(m => {
+            mastersData.forEach(m => {
                 const opt = document.createElement('option');
                 opt.value = m.id;
                 opt.textContent = `${m.name} (${m.specialty})`;
@@ -1366,7 +1114,7 @@
                 return;
             }
 
-            const master = MASTERS_DATA.find(m => m.id === masterId);
+            const master = mastersData.find(m => m.id === masterId);
             if (!master) { showToast('❌ Мастер не найден', 'error'); return; }
 
             const service = master.services.find(s => s.id === serviceName || s.name === serviceName);
@@ -1390,24 +1138,26 @@
             progress.update(30, 'Проверка...');
 
             try {
-                const { error } = await supabase
-                    .from('bookings')
-                    .insert({
-                        master_id: masterId,
-                        service_name: service.name,
-                        client_name: name,
-                        client_phone: phone,
-                        client_email: email,
-                        comment: comment || '',
-                        date: date,
-                        time_start: time,
-                        time_end: timeEnd,
-                        status: 'active',
-                        price: service.price,
-                        duration: service.duration
-                    });
+                if (sb) {
+                    const { error } = await sb
+                        .from('bookings')
+                        .insert({
+                            master_id: masterId,
+                            service_name: service.name,
+                            client_name: name,
+                            client_phone: phone,
+                            client_email: email,
+                            comment: comment || '',
+                            date: date,
+                            time_start: time,
+                            time_end: timeEnd,
+                            status: 'active',
+                            price: service.price,
+                            duration: service.duration
+                        });
 
-                if (error) throw error;
+                    if (error) throw error;
+                }
 
                 progress.update(100, 'Готово! ✅');
 
@@ -1452,7 +1202,7 @@
             const minutes = now.getMinutes();
             const current = hours * 60 + minutes;
 
-            const master = MASTERS_DATA[0];
+            const master = mastersData[0];
             if (!master) return;
 
             const isWeekend = day === 0;
@@ -1493,7 +1243,7 @@
             const toggleBtn = document.getElementById('toggleServicesBtn');
 
             let allServices = [];
-            MASTERS_DATA.forEach(master => {
+            mastersData.forEach(master => {
                 (master.services || []).forEach(s => {
                     allServices.push({
                         name: s.name,
@@ -1574,7 +1324,7 @@
         function updateFilterChips() {
             const container = document.getElementById('filterChips');
             const categories = new Set();
-            MASTERS_DATA.forEach(m => {
+            mastersData.forEach(m => {
                 (m.services || []).forEach(s => categories.add(s.category || 'Услуга'));
             });
 
@@ -1589,12 +1339,12 @@
         function renderMasters() {
             const container = document.getElementById('mastersContainer');
 
-            if (!MASTERS_DATA || !MASTERS_DATA.length) {
+            if (!mastersData || !mastersData.length) {
                 container.innerHTML = `<p style="color:var(--text-muted);text-align:center;">Нет данных о мастерах</p>`;
                 return;
             }
 
-            container.innerHTML = MASTERS_DATA.map((master, index) => {
+            container.innerHTML = mastersData.map((master, index) => {
                 const initials = master.name.split(' ').map(w => w[0]).join('');
                 const isFavorite = currentUser && currentUser.favorites && currentUser.favorites.includes(master.id);
                 const services = master.services || [];
@@ -1671,7 +1421,7 @@
             if (bookings.length) {
                 html += `<h3 style="margin-bottom:16px;">📅 Мои записи</h3>`;
                 bookings.forEach((b, i) => {
-                    const master = MASTERS_DATA.find(m => m.id === b.masterId);
+                    const master = mastersData.find(m => m.id === b.masterId);
                     html += `
                         <div class="booking-item">
                             <div class="info">
@@ -1689,7 +1439,7 @@
             if (favorites.length) {
                 html += `<h3 style="margin:24px 0 16px;">❤️ Избранные мастера</h3>`;
                 favorites.forEach(masterId => {
-                    const master = MASTERS_DATA.find(m => m.id === masterId);
+                    const master = mastersData.find(m => m.id === masterId);
                     if (master) {
                         html += `
                             <div class="booking-item">
@@ -1775,8 +1525,10 @@
 
             let allBookings = [];
             try {
-                const { data } = await supabase.from('bookings').select('*').order('date', { ascending: false });
-                allBookings = data || [];
+                if (sb) {
+                    const { data } = await sb.from('bookings').select('*').order('date', { ascending: false });
+                    allBookings = data || [];
+                }
             } catch (e) { console.warn('Ошибка загрузки записей:', e); }
 
             let html = `
@@ -1795,8 +1547,8 @@
             // Мастера
             html += `
                 <div class="glass-card" style="margin-bottom:20px;">
-                    <h3 style="margin-bottom:12px;">👩‍🎨 Мастера</h3>
-                    ${MASTERS_DATA.map((m, i) => `
+                    <h3 style="margin-bottom:12px;">👩‍🎨 Мастера и расписание</h3>
+                    ${mastersData.map((m, i) => `
                         <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-color);">
                             <span style="font-weight:600;min-width:180px;">${escapeHTML(m.name)}</span>
                             <input type="time" value="${m.work_start || '09:00'}" 
@@ -1830,7 +1582,7 @@
                     ${allBookings.length === 0 ? '<p style="color:var(--text-muted);padding:16px 0;">Нет записей</p>' : `
                         <div class="admin-bookings-list">
                             ${allBookings.map(b => {
-                                const master = MASTERS_DATA.find(m => m.id === b.master_id);
+                                const master = mastersData.find(m => m.id === b.master_id);
                                 return `
                                     <div class="booking-row">
                                         <div class="booking-info">
@@ -1860,51 +1612,57 @@
         }
 
         async function updateMasterWork(index, type, value) {
-            if (!MASTERS_DATA[index]) return;
-            if (type === 'start') MASTERS_DATA[index].work_start = value;
-            else MASTERS_DATA[index].work_end = value;
+            if (!mastersData[index]) return;
+            if (type === 'start') mastersData[index].work_start = value;
+            else mastersData[index].work_end = value;
 
             try {
-                await supabase
-                    .from('masters')
-                    .update({ [type === 'start' ? 'work_start' : 'work_end']: value })
-                    .eq('id', MASTERS_DATA[index].id);
+                if (sb) {
+                    await sb
+                        .from('masters')
+                        .update({ [type === 'start' ? 'work_start' : 'work_end']: value })
+                        .eq('id', mastersData[index].id);
+                }
             } catch (e) { console.warn(e); }
 
-            localStorage.setItem('studio_masters_data', JSON.stringify(MASTERS_DATA));
+            localStorage.setItem('studio_masters_data', JSON.stringify(mastersData));
             updateWorkStatus();
             showToast('✅ Расписание обновлено', 'success', 1500);
         }
 
         async function updateMasterWeekday(index, day, isWorking) {
-            if (!MASTERS_DATA[index]) return;
-            let weekdays = MASTERS_DATA[index].weekdays || [1, 2, 3, 4, 5, 6];
+            if (!mastersData[index]) return;
+            let weekdays = mastersData[index].weekdays || [1, 2, 3, 4, 5, 6];
             if (isWorking && !weekdays.includes(day)) weekdays.push(day);
             else if (!isWorking) weekdays = weekdays.filter(d => d !== day);
-            MASTERS_DATA[index].weekdays = weekdays;
+            mastersData[index].weekdays = weekdays;
 
             try {
-                await supabase
-                    .from('masters')
-                    .update({ weekdays })
-                    .eq('id', MASTERS_DATA[index].id);
+                if (sb) {
+                    await sb
+                        .from('masters')
+                        .update({ weekdays })
+                        .eq('id', mastersData[index].id);
+                }
             } catch (e) { console.warn(e); }
 
-            localStorage.setItem('studio_masters_data', JSON.stringify(MASTERS_DATA));
+            localStorage.setItem('studio_masters_data', JSON.stringify(mastersData));
             updateWorkStatus();
             showToast('✅ Расписание обновлено', 'success', 1500);
         }
 
         async function removeMaster(index) {
-            if (!confirm(`Удалить "${MASTERS_DATA[index].name}"?`)) return;
-            const id = MASTERS_DATA[index].id;
+            if (!confirm(`Удалить "${mastersData[index].name}"?`)) return;
+            const id = mastersData[index].id;
 
             try {
-                await supabase.from('bookings').delete().eq('master_id', id);
-                await supabase.from('services').delete().eq('master_id', id);
-                await supabase.from('masters').delete().eq('id', id);
-                MASTERS_DATA.splice(index, 1);
-                localStorage.setItem('studio_masters_data', JSON.stringify(MASTERS_DATA));
+                if (sb) {
+                    await sb.from('bookings').delete().eq('master_id', id);
+                    await sb.from('services').delete().eq('master_id', id);
+                    await sb.from('masters').delete().eq('id', id);
+                }
+                mastersData.splice(index, 1);
+                localStorage.setItem('studio_masters_data', JSON.stringify(mastersData));
                 renderAll();
                 renderAdminPanel();
                 showToast('✅ Мастер удалён', 'success');
@@ -1933,9 +1691,11 @@
             };
 
             try {
-                await supabase.from('masters').insert(newMaster);
-                MASTERS_DATA.push(newMaster);
-                localStorage.setItem('studio_masters_data', JSON.stringify(MASTERS_DATA));
+                if (sb) {
+                    await sb.from('masters').insert(newMaster);
+                }
+                mastersData.push(newMaster);
+                localStorage.setItem('studio_masters_data', JSON.stringify(mastersData));
                 document.getElementById('newMasterName').value = '';
                 document.getElementById('newMasterSpecialty').value = '';
                 renderAll();
@@ -1949,7 +1709,9 @@
         async function cancelBookingAdmin(bookingId) {
             if (!confirm('Отменить запись?')) return;
             try {
-                await supabase.from('bookings').update({ status: 'canceled' }).eq('id', bookingId);
+                if (sb) {
+                    await sb.from('bookings').update({ status: 'canceled' }).eq('id', bookingId);
+                }
                 showToast('✅ Запись отменена', 'success');
                 renderAdminPanel();
             } catch (e) {
@@ -1964,10 +1726,14 @@
             const isAdmin = isAdminRoute();
             document.getElementById('app').style.display = isAdmin ? 'none' : 'block';
             document.getElementById('adminApp').style.display = isAdmin ? 'block' : 'none';
-            document.querySelector('header').style.display = isAdmin ? 'none' : 'flex';
-            document.querySelector('footer').style.display = isAdmin ? 'none' : 'block';
-            document.querySelector('.sticky-book').style.display = isAdmin ? 'none' : 'flex';
-            document.getElementById('scrollTop').style.display = isAdmin ? 'none' : 'block';
+            const header = document.querySelector('header');
+            const footer = document.querySelector('footer');
+            const sticky = document.querySelector('.sticky-book');
+            const scroll = document.getElementById('scrollTop');
+            if (header) header.style.display = isAdmin ? 'none' : 'flex';
+            if (footer) footer.style.display = isAdmin ? 'none' : 'block';
+            if (sticky) sticky.style.display = isAdmin ? 'none' : 'flex';
+            if (scroll) scroll.style.display = isAdmin ? 'none' : 'block';
 
             if (isAdmin && !isAdminLoggedIn) renderAdminLogin();
             else if (isAdmin && isAdminLoggedIn) renderAdminPanel();
@@ -2053,7 +1819,7 @@
         }
 
         // ============================================================
-        // AUTH (Google + Яндекс)
+        // AUTH
         // ============================================================
         function handleYandexAuth() {
             const YANDEX_CLIENT_ID = 'b6ca89ed68034695991003fc3c35a675';
@@ -2260,15 +2026,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Студия №1 запущена!');
 
-            initSupabase();
+            initSB();
             initTheme();
             handleRouting();
             window.addEventListener('hashchange', handleRouting);
 
-            // Загружаем данные
             loadData();
 
-            // Авторизация
             handleYandexRedirect();
             if (typeof google === 'undefined') {
                 const script = document.createElement('script');
@@ -2279,10 +2043,8 @@
                 initGoogleAuth();
             }
 
-            // Обновляем статус каждую минуту
             setInterval(updateWorkStatus, 60000);
 
-            // Меню
             document.getElementById('menuToggle').addEventListener('click', function() {
                 document.getElementById('mainNav').classList.toggle('open');
             });
@@ -2298,7 +2060,6 @@
                 });
             });
 
-            // Scroll Top
             window.addEventListener('scroll', () => {
                 document.getElementById('scrollTop').classList.toggle('visible', window.pageYOffset > 400);
             });
