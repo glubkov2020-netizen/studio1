@@ -26,7 +26,7 @@
 
     <style>
         /* ============================================================
-           ПЕРЕМЕННЫЕ — УЛУЧШЕННАЯ ТЁМНАЯ ТЕМА
+           ПЕРЕМЕННЫЕ
            ============================================================ */
         :root {
             --bg-primary: #0A0A0A;
@@ -71,9 +71,6 @@
             --shadow-glow: 0 0 80px rgba(201, 169, 110, 0.04);
         }
 
-        /* ============================================================
-           БАЗОВЫЕ СТИЛИ
-           ============================================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
@@ -122,13 +119,9 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-secondary); }
         ::-webkit-scrollbar-thumb { background: var(--gold-gradient); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
 
-        /* ============================================================
-           GLASS-КАРТОЧКИ
-           ============================================================ */
         .glass-card {
             background: var(--bg-card);
             backdrop-filter: blur(16px) saturate(1.2);
@@ -145,14 +138,6 @@
             transform: translateY(-4px);
         }
 
-        .glow-text {
-            text-shadow: 0 0 40px rgba(201, 169, 110, 0.06);
-            transition: text-shadow 0.6s ease;
-        }
-        .glow-text:hover {
-            text-shadow: 0 0 80px rgba(201, 169, 110, 0.12);
-        }
-
         .shimmer-text {
             background: var(--gold-gradient-strong);
             -webkit-background-clip: text;
@@ -166,31 +151,30 @@
             50% { background-position: 200% center; }
         }
 
-        .section-divider {
-            width: 80px;
-            height: 3px;
-            background: var(--gold-gradient);
-            border-radius: 4px;
-            margin: 12px auto 28px;
-            position: relative;
-            box-shadow: 0 0 30px rgba(201, 169, 110, 0.15);
+        .section-title {
+            font-size: clamp(30px, 5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            line-height: 1.15;
+            text-align: center;
         }
-        .section-divider::after {
-            content: '✦';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--gold);
-            font-size: 14px;
-            background: var(--bg-primary);
-            padding: 0 12px;
-            -webkit-text-fill-color: var(--gold);
+        .section-title span {
+            background: var(--gold-gradient-strong);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 300% auto;
+            animation: shimmerLong 8s ease-in-out infinite;
+        }
+        .section-subtitle {
+            font-size: clamp(16px, 2vw, 19px);
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: 400;
         }
 
-        /* ============================================================
-           КНОПКИ
-           ============================================================ */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -214,7 +198,6 @@
             will-change: transform;
             touch-action: manipulation;
             user-select: none;
-            letter-spacing: 0.3px;
         }
         [data-theme="dark"] .btn { color: #0A0A0A; }
         .btn::before {
@@ -250,8 +233,6 @@
             box-shadow: 0 4px 32px rgba(201, 169, 110, 0.2);
             border-color: var(--gold);
         }
-        [data-theme="dark"] .btn-outline:hover { color: #0A0A0A; }
-
         .btn-sm { padding: 12px 24px; font-size: 14px; min-height: 44px; border-radius: 40px; }
         .btn-danger { background: #E74C3C; box-shadow: 0 4px 24px rgba(231, 76, 60, 0.3); color: #fff; }
         .btn-danger:hover { background: #C0392B; transform: translateY(-4px); }
@@ -263,9 +244,6 @@
             50% { box-shadow: 0 4px 48px rgba(201, 169, 110, 0.4), 0 0 80px rgba(201, 169, 110, 0.06); }
         }
 
-        /* ============================================================
-           ХЕДЕР
-           ============================================================ */
         header {
             position: fixed;
             top: 0;
@@ -305,7 +283,6 @@
             white-space: nowrap;
             flex-shrink: 0;
             letter-spacing: -0.5px;
-            text-shadow: 0 0 40px rgba(201, 169, 110, 0.1);
         }
         .logo span {
             -webkit-text-fill-color: var(--text-primary);
@@ -322,7 +299,6 @@
             padding: 6px 0;
             white-space: nowrap;
             text-decoration: none;
-            letter-spacing: 0.2px;
         }
         nav a::after {
             content: '';
@@ -432,9 +408,6 @@
         }
         .menu-toggle:hover { border-color: var(--gold); color: var(--gold); }
 
-        /* ============================================================
-           HERO
-           ============================================================ */
         .hero {
             padding: 80px 0 100px;
             background: transparent;
@@ -445,18 +418,6 @@
             display: flex;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-        }
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 2px;
-            background: var(--gold-gradient);
-            border-radius: 2px;
-            opacity: 0.3;
         }
         .hero h1 {
             font-size: clamp(38px, 9vw, 72px);
@@ -472,7 +433,6 @@
             margin: 0 auto 32px;
             padding: 0 12px;
             font-weight: 400;
-            letter-spacing: 0.2px;
         }
         .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .hero-buttons .btn { flex: 1; min-width: 160px; max-width: 300px; }
@@ -496,39 +456,9 @@
         }
         .hero-badge i { font-size: 12px; }
 
-        /* ============================================================
-           СЕКЦИИ
-           ============================================================ */
         section { padding: 80px 0; position: relative; z-index: 1; transition: background 0.5s ease; }
         section:nth-child(even) { background: var(--bg-secondary); }
 
-        .section-title {
-            font-size: clamp(30px, 5vw, 44px);
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-            line-height: 1.15;
-            text-align: center;
-        }
-        .section-title span {
-            background: var(--gold-gradient-strong);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 300% auto;
-            animation: shimmerLong 8s ease-in-out infinite;
-        }
-        .section-subtitle {
-            font-size: clamp(16px, 2vw, 19px);
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            text-align: center;
-            font-weight: 400;
-        }
-
-        /* ============================================================
-           УСЛУГИ
-           ============================================================ */
         .services-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -586,9 +516,6 @@
             flex-shrink: 0;
         }
 
-        /* ============================================================
-           МАСТЕРА
-           ============================================================ */
         .masters-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -608,19 +535,6 @@
             position: relative;
             overflow: hidden;
         }
-        .master-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(201, 169, 110, 0.03) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            pointer-events: none;
-        }
-        .master-card:hover::before { opacity: 1; }
         .master-card:hover {
             transform: translateY(-10px);
             border-color: var(--gold);
@@ -735,9 +649,6 @@
         }
         .master-card .btn { margin-top: 12px; width: 100%; min-height: 48px; }
 
-        /* ============================================================
-           КОНТАКТЫ
-           ============================================================ */
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -847,25 +758,6 @@
         }
         .map-container iframe { width: 100%; height: 100%; display: block; border: 0; }
 
-        .pulse-dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #27AE60;
-            animation: dotPulse 1.8s ease-in-out infinite;
-            box-shadow: 0 0 30px rgba(39, 174, 96, 0.2);
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-        @keyframes dotPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.4); opacity: 0.6; }
-        }
-
-        /* ============================================================
-           КАБИНЕТ
-           ============================================================ */
         .cabinet-section {
             background: var(--bg-glass);
             border-radius: var(--radius);
@@ -927,9 +819,7 @@
             display: block;
         }
 
-        /* ============================================================
-           КАЛЕНДАРЬ (НОВЫЙ — КАК НА DIKIDI)
-           ============================================================ */
+        /* ===== КАЛЕНДАРЬ ===== */
         .calendar-container {
             background: var(--bg-glass);
             border-radius: var(--radius-sm);
@@ -952,7 +842,6 @@
             font-weight: 700;
             font-size: 17px;
             color: var(--text-primary);
-            letter-spacing: 0.5px;
         }
         .calendar-nav-btn {
             background: var(--bg-secondary);
@@ -986,7 +875,6 @@
             color: var(--text-muted);
             padding: 10px 0;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         .calendar-grid .day {
             text-align: center;
@@ -1024,17 +912,13 @@
             cursor: not-allowed;
             text-decoration: line-through;
             opacity: 0.5;
-            border-color: rgba(231, 76, 60, 0.1);
         }
         .calendar-grid .day.disabled {
             opacity: 0.3;
             cursor: not-allowed;
         }
-        .calendar-grid .day.today {
-            border-color: var(--gold);
-        }
+        .calendar-grid .day.today { border-color: var(--gold); }
 
-        /* Слоты времени */
         .time-slots-container {
             margin-top: 12px;
             padding-top: 12px;
@@ -1071,13 +955,11 @@
             color: #0A0A0A;
             border-color: var(--gold);
             transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.15);
         }
         .time-slot.selected {
             background: var(--gold-gradient-strong);
             color: #0A0A0A;
             border-color: var(--gold);
-            box-shadow: 0 0 30px rgba(201, 169, 110, 0.15);
         }
         .time-slot.booked {
             opacity: 0.3;
@@ -1089,7 +971,6 @@
             cursor: not-allowed;
         }
 
-        /* Информация о выбранном мастере в календаре */
         .calendar-master-info {
             display: flex;
             align-items: center;
@@ -1117,9 +998,6 @@
             color: var(--text-muted);
         }
 
-        /* ============================================================
-           МОДАЛКИ
-           ============================================================ */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -1234,7 +1112,6 @@
             font-weight: 600;
             font-size: 14px;
             color: var(--text-secondary);
-            letter-spacing: 0.2px;
         }
         .modal form input,
         .modal form select,
@@ -1280,9 +1157,129 @@
             font-weight: 700;
         }
 
-        /* ============================================================
-           АДМИНКА (КРАСИВАЯ И ФУНКЦИОНАЛЬНАЯ)
-           ============================================================ */
+        .sticky-book {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            background: var(--gold-gradient-strong);
+            color: #0A0A0A;
+            border: none;
+            border-radius: 60px;
+            padding: 16px 28px;
+            font-weight: 700;
+            font-size: clamp(15px, 3vw, 17px);
+            box-shadow: 0 8px 40px rgba(201, 169, 110, 0.25);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-size: 200% auto;
+            will-change: transform;
+            touch-action: manipulation;
+            min-height: var(--touch-target);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .sticky-book:hover {
+            transform: scale(1.08) translateY(-4px);
+            box-shadow: 0 12px 56px rgba(201, 169, 110, 0.35);
+        }
+        .sticky-book:active { transform: scale(0.95); }
+        .sticky-book i { font-size: clamp(18px, 2.5vw, 20px); }
+
+        #scrollTop {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            z-index: 998;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gold-gradient-strong);
+            color: #0A0A0A;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 32px rgba(201, 169, 110, 0.2);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            touch-action: manipulation;
+        }
+        #scrollTop.visible { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+        #scrollTop:hover { transform: scale(1.1) translateY(-4px); box-shadow: 0 8px 40px rgba(201, 169, 110, 0.3); }
+        #scrollTop:active { transform: scale(0.92); }
+
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            transition: background 0.5s ease, border-color 0.5s ease;
+        }
+        footer p {
+            font-size: clamp(14px, 2vw, 15px);
+        }
+        footer span {
+            background: var(--gold-gradient-strong);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        #toast-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 380px;
+            width: 100%;
+            pointer-events: none;
+        }
+        .toast {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-hover);
+            color: var(--text-primary);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: auto;
+            min-height: 56px;
+        }
+        .toast.show { transform: translateX(0); opacity: 1; }
+        .toast .icon { font-size: 20px; flex-shrink: 0; }
+        .toast.success .icon { color: #27AE60; }
+        .toast.error .icon { color: #E74C3C; }
+        .toast.info .icon { color: var(--gold); }
+        .toast .close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px 8px;
+            transition: var(--transition);
+        }
+        .toast .close:hover { color: var(--text-primary); transform: rotate(90deg); }
+
+        /* ===== АДМИНКА ===== */
         .admin-page {
             padding-top: 0;
             min-height: 100vh;
@@ -1325,9 +1322,6 @@
             margin-top: 4px;
         }
 
-        .admin-table-wrap {
-            overflow-x: auto;
-        }
         .admin-table {
             width: 100%;
             border-collapse: collapse;
@@ -1341,7 +1335,6 @@
             font-weight: 700;
             font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         .admin-table td {
             padding: 14px 16px;
@@ -1349,7 +1342,6 @@
             vertical-align: middle;
         }
         .admin-table tr:hover td { background: var(--bg-card-hover); }
-
         .admin-table .actions {
             display: flex;
             gap: 8px;
@@ -1416,167 +1408,14 @@
             display: none;
         }
 
-        /* ============================================================
-           STICKY BOOK & SCROLL TOP
-           ============================================================ */
-        .sticky-book {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 999;
-            background: var(--gold-gradient-strong);
-            color: #0A0A0A;
-            border: none;
-            border-radius: 60px;
-            padding: 16px 28px;
-            font-weight: 700;
-            font-size: clamp(15px, 3vw, 17px);
-            box-shadow: 0 8px 40px rgba(201, 169, 110, 0.25);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-size: 200% auto;
-            will-change: transform;
-            touch-action: manipulation;
-            min-height: var(--touch-target);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .sticky-book:hover {
-            transform: scale(1.08) translateY(-4px);
-            box-shadow: 0 12px 56px rgba(201, 169, 110, 0.35);
-        }
-        .sticky-book:active { transform: scale(0.95); }
-        .sticky-book i { font-size: clamp(18px, 2.5vw, 20px); }
-
-        #scrollTop {
-            position: fixed;
-            bottom: 100px;
-            right: 24px;
-            z-index: 998;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--gold-gradient-strong);
-            color: #0A0A0A;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            box-shadow: 0 4px 32px rgba(201, 169, 110, 0.2);
-            transition: var(--transition);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px) scale(0.8);
-            touch-action: manipulation;
-        }
-        #scrollTop.visible { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
-        #scrollTop:hover { transform: scale(1.1) translateY(-4px); box-shadow: 0 8px 40px rgba(201, 169, 110, 0.3); }
-        #scrollTop:active { transform: scale(0.92); }
-
-        /* ============================================================
-           FOOTER
-           ============================================================ */
-        footer {
-            background: var(--bg-secondary);
-            color: var(--text-muted);
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-            transition: background 0.5s ease, border-color 0.5s ease;
-        }
-        footer p {
-            font-size: clamp(14px, 2vw, 15px);
-            letter-spacing: 0.2px;
-        }
-        footer span {
-            background: var(--gold-gradient-strong);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-        }
-        footer .footer-divider {
-            width: 40px;
-            height: 2px;
-            background: var(--gold-gradient);
-            margin: 12px auto;
-            border-radius: 2px;
-            opacity: 0.3;
-        }
-
-        /* ============================================================
-           REVEAL АНИМАЦИИ
-           ============================================================ */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
             transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal-delay-1 { transition-delay: 0.05s; }
-        .reveal-delay-2 { transition-delay: 0.1s; }
-        .reveal-delay-3 { transition-delay: 0.15s; }
-        .reveal-delay-4 { transition-delay: 0.2s; }
 
-        /* ============================================================
-           TOAST
-           ============================================================ */
-        #toast-container {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 380px;
-            width: 100%;
-            pointer-events: none;
-        }
-        .toast {
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            padding: 16px 20px;
-            box-shadow: var(--shadow-hover);
-            color: var(--text-primary);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transform: translateX(120%);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            pointer-events: auto;
-            min-height: 56px;
-        }
-        .toast.show { transform: translateX(0); opacity: 1; }
-        .toast.hide { transform: translateX(120%); opacity: 0; }
-        .toast .icon { font-size: 20px; flex-shrink: 0; }
-        .toast.success .icon { color: #27AE60; }
-        .toast.error .icon { color: #E74C3C; }
-        .toast.info .icon { color: var(--gold); }
-        .toast .close {
-            margin-left: auto;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 18px;
-            padding: 4px 8px;
-            transition: var(--transition);
-        }
-        .toast .close:hover { color: var(--text-primary); transform: rotate(90deg); }
-
-        /* ============================================================
-           АДАПТИВ
-           ============================================================ */
-        @media (min-width: 480px) {
-            .services-grid { grid-template-columns: 1fr 1fr; }
-        }
+        @media (min-width: 480px) { .services-grid { grid-template-columns: 1fr 1fr; } }
         @media (min-width: 600px) {
             .masters-grid { grid-template-columns: 1fr 1fr; }
             .contact-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
@@ -1601,14 +1440,7 @@
             section { padding: 120px 0; }
             .hero { padding: 120px 0 140px; min-height: 85vh; }
             .modal { padding: 48px 40px; }
-            .cabinet-section { padding: 36px 32px; }
-            #scrollTop { bottom: 110px; right: 32px; }
         }
-        @media (min-width: 1400px) {
-            .container { max-width: 1400px; padding: 0 60px; }
-            .hero h1 { font-size: 80px; }
-        }
-
         @media (max-width: 768px) {
             .menu-toggle { display: flex; align-items: center; justify-content: center; }
             #mainNav {
@@ -1665,37 +1497,18 @@
         }
         @media (max-width: 400px) {
             .hero h1 { font-size: 28px; }
-            .hero p { font-size: 15px; }
-            .hero-buttons .btn { font-size: 14px; padding: 14px 24px; min-width: 120px; }
             .service-item { padding: 14px 16px; min-height: 56px; }
-            .service-item .name { font-size: 14px; }
-            .service-item .price { font-size: 15px; }
             .master-card { padding: 20px 14px 18px; }
             .master-card .image-wrapper { width: 80px; height: 80px; }
             .master-card .image-wrapper .placeholder { font-size: 24px; }
-            .master-card h3 { font-size: 17px; }
             .calendar-grid .day { font-size: 12px; padding: 6px 2px; min-height: 34px; }
             .modal { padding: 20px 14px; }
             .modal h2 { font-size: 20px; }
             .sticky-book { padding: 12px 18px; font-size: 13px; bottom: 16px; right: 16px; }
-            .sticky-book i { font-size: 14px; }
-            .cabinet-section .booking-item .actions .btn { font-size: 12px; padding: 8px 14px; }
-            .logo { font-size: 18px; }
-            .auth-btn { font-size: 12px; padding: 6px 12px; }
-            .auth-btn .avatar { width: 22px; height: 22px; }
-            .theme-toggle { font-size: 17px; padding: 8px; }
-            .nav-book-btn { font-size: 12px; padding: 6px 14px; }
-            #scrollTop { width: 40px; height: 40px; font-size: 15px; bottom: 80px; right: 16px; }
             .admin-stats { grid-template-columns: 1fr; }
             .admin-table td,
             .admin-table th { padding: 8px 10px; }
             .time-slot { padding: 6px 12px; font-size: 12px; }
-        }
-        @media (max-width: 1024px) and (min-width: 769px) {
-            nav a { font-size: 13px; }
-            nav { gap: 12px; }
-            .auth-btn { font-size: 12px; padding: 6px 14px; }
-            .nav-book-btn { font-size: 12px; padding: 6px 16px; }
         }
     </style>
 </head>
@@ -1732,7 +1545,6 @@
         <section id="services">
             <div class="container">
                 <h2 class="section-title">Все <span>услуги</span></h2>
-                <div class="section-divider"></div>
                 <p class="section-subtitle">Выберите процедуру и мастера</p>
                 <div class="services-grid" id="allServicesContainer"></div>
                 <div style="text-align:center;margin-top:32px;">
@@ -1744,7 +1556,6 @@
         <section id="masters" style="background:var(--bg-secondary);">
             <div class="container">
                 <h2 class="section-title">Наши <span>мастера</span></h2>
-                <div class="section-divider"></div>
                 <p class="section-subtitle">Профессионалы с золотыми руками</p>
                 <div class="masters-grid" id="mastersContainer"></div>
             </div>
@@ -1753,7 +1564,6 @@
         <section id="cabinet">
             <div class="container">
                 <h2 class="section-title">Личный <span>кабинет</span></h2>
-                <div class="section-divider"></div>
                 <p class="section-subtitle">Ваши записи и избранное</p>
                 <div class="cabinet-section" id="cabinetContainer"></div>
             </div>
@@ -1762,7 +1572,6 @@
         <section id="contact" style="background:var(--bg-secondary);">
             <div class="container">
                 <h2 class="section-title">Наши <span>контакты</span></h2>
-                <div class="section-divider"></div>
                 <p class="section-subtitle">Мы всегда рады вам. Приходите!</p>
                 <div class="contact-grid">
                     <div>
@@ -1813,8 +1622,6 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 <span>Студия №1</span> — Премиальный салон красоты в Кемерово</p>
-            <div class="footer-divider"></div>
-            <p style="font-size:13px;color:var(--text-muted);">Золотой стандарт красоты ✦</p>
         </div>
     </footer>
 
@@ -1847,7 +1654,6 @@
                         <button class="calendar-nav-btn" onclick="changeMonth(1)">Вперёд ›</button>
                     </div>
 
-                    <!-- Информация о выбранном мастере -->
                     <div class="calendar-master-info" id="calendarMasterInfo" style="display:none;">
                         <img id="calendarMasterAvatar" src="" alt="" />
                         <div>
@@ -1901,9 +1707,6 @@
 
     <div id="googleButtonContainer" style="display:none;"></div>
 
-    <!-- ============================================================
-    ВЕСЬ JS
-    ============================================================ -->
     <script>
         // ============================================================
         // SUPABASE
@@ -1926,7 +1729,7 @@
         // ============================================================
         let MASTERS_DATA = [];
         let currentUser = null;
-        let googleInitialized = false;
+        let gAuthInitialized = false;
         let servicesExpanded = false;
         let allServicesList = [];
         let isAdminLoggedIn = false;
@@ -1938,7 +1741,6 @@
         let selectedTime = null;
         let selectedMasterId = null;
         let selectedServiceId = null;
-        let availableSlots = [];
 
         // ============================================================
         // ЗАГРУЗКА ДАННЫХ
@@ -1968,14 +1770,12 @@
         function getMastersData() { return MASTERS_DATA; }
 
         // ============================================================
-        // ДАННЫЕ ПО УМОЛЧАНИЮ
+        // ДАННЫЕ ПО УМОЛЧАНИЮ (сокращённые для примера)
         // ============================================================
         const DEFAULT_MASTERS = [{
             id: 'natalia',
             name: 'Наталья Мельникова',
             specialty: 'Парикмахер-колорист',
-            description: 'Колорист, мастер по стрижкам с наставничеством',
-            education: 'г. Москва, академия парикмахерского искусства Sointera Academy',
             photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Inter"%3EНМ%3C/text%3E%3C/svg%3E',
             rating: 4.9,
             reviews: 55,
@@ -1983,45 +1783,14 @@
             work_end: '21:00',
             weekdays: [1, 2, 3, 4, 5, 6],
             services: [
-                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
-                { name: 'Ламинирование ресниц', category: 'Ресницы', price: 2300, duration: '1 ч 15 м' },
-                { name: 'Наращивание ресниц (Классика)', category: 'Ресницы', price: 2000, duration: '1 ч 30 м' },
-                { name: 'Наращивание ресниц (2D)', category: 'Ресницы', price: 3000, duration: '2 ч' },
-                { name: 'Наращивание ногтей', category: 'Маникюр', price: 3000, duration: '2 ч' },
-                { name: 'Маникюр без покрытия', category: 'Маникюр', price: 1300, duration: '1 ч' },
-                { name: 'Ремонт ногтя', category: 'Маникюр', price: 200, duration: '30 м' },
-                { name: 'Пенный Пилинг-хамам для кожи головы', category: 'Спа-сервисы', price: 1000, duration: '40 м' },
-                { name: 'Экспресс мытьё и сушка головы', category: 'Спа-сервисы', price: 500, duration: '50 м' },
-                { name: 'Прикорневой объём', category: 'Спа-сервисы', price: 3500, duration: '2 ч' },
-                { name: 'Стойкое окрашивание', category: 'Окрашивание', price: 3500, duration: '2 ч 30 м' },
                 { name: 'Стрижка женская', category: 'Стрижки', price: 2500, duration: '1 ч 30 м' },
-                { name: 'Подбор и стрижка челки', category: 'Стрижки', price: 600, duration: '30 м' },
-                { name: 'Контуринг (Аура сияния)', category: 'Окрашивание', price: 3500, duration: '2 ч 30 м' },
-                { name: 'Тотал блонд (первично)', category: 'Окрашивание', price: 6000, duration: '3 ч' },
-                { name: 'Коррекция тотал блонд', category: 'Окрашивание', price: 5000, duration: '2 ч' },
-                { name: 'Первичное окрашивание (Airtouch, шатуш, балаяж)', category: 'Окрашивание', price: 7000,
-                    duration: '4 ч' },
-                { name: 'Вторичное окрашивание (коррекция)', category: 'Окрашивание', price: 6000, duration: '2 ч 30 м' },
-                { name: 'Выход из черного', category: 'Окрашивание', price: 7000, duration: '3 ч' },
                 { name: 'Окрашивание тон в тон', category: 'Окрашивание', price: 3500, duration: '2 ч' },
-                { name: 'Стойкие локоны (укладка)', category: 'Спа-сервисы', price: 2500, duration: '1 ч' },
-                { name: 'Пилочный маникюр', category: 'Маникюр', price: 1800, duration: '1 ч' },
-                { name: 'Японский эко маникюр', category: 'Маникюр', price: 2000, duration: '1 ч' },
-                { name: 'Долговременная биозавивка', category: 'Биозавивка', price: 5000, duration: '3 ч' },
-                { name: 'Консультация и тест прядь на биозавивку', category: 'Биозавивка', price: 700,
-                    duration: '1 ч 30 м' },
-                { name: 'Ультра Пектинирование', category: 'Спа-сервисы', price: 1900, duration: '1 ч' },
-                { name: 'Экспресс легкие локоны', category: 'Спа-сервисы', price: 1000, duration: '30 м' },
-                { name: 'Онлайн подбор стрижки и окрашивания', category: 'Стрижки', price: 2000, duration: '1 ч' },
-                { name: 'Онлайн подбор образа (нейровизуал)', category: 'Стрижки', price: 2900, duration: '1 ч' },
-                { name: 'Весенний спешл (подбор + стрижка + спа)', category: 'Стрижки', price: 3900, duration: '2 ч' }
+                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' }
             ]
         }, {
             id: 'victoria',
             name: 'Виктория Селитренникова',
             specialty: 'Мастер перманентного макияжа',
-            description: 'Специалист по перманентному макияжу',
-            education: 'Сертифицированный мастер перманентного макияжа',
             photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Inter"%3EВС%3C/text%3E%3C/svg%3E',
             rating: 0,
             reviews: 0,
@@ -2029,34 +1798,13 @@
             work_end: '21:00',
             weekdays: [1, 2, 3, 4, 5, 6],
             services: [
-                { name: 'Комбо «Акварельные губы» + «межресничка»', category: 'Перманент', price: 14000,
-                    duration: '3 ч 30 м' },
-                { name: 'Перманентный макияж бровей (пудровое напыление)', category: 'Перманент', price: 9000,
-                    duration: '2 ч 30 м' },
-                { name: 'Перманентный макияж век (межресничка)', category: 'Перманент', price: 7500, duration: '45 м' },
-                { name: 'Перманентный макияж губ (акварельная техника)', category: 'Перманент', price: 9000,
-                    duration: '3 ч' },
-                { name: 'Комбо: «Пудровые брови» + «межресничка»', category: 'Перманент', price: 12000,
-                    duration: '3 ч 30 м' },
-                { name: 'Коррекция перманентного макияжа бровей', category: 'Перманент', price: 5000, duration: '2 ч' },
-                { name: 'Коррекция перманентного макияжа век', category: 'Перманент', price: 4000, duration: '45 м' },
-                { name: 'Коррекция перманентного макияжа губ', category: 'Перманент', price: 5000, duration: '2 ч' },
-                { name: 'Камуфляж темных кругов под глазами', category: 'Перманент', price: 6000, duration: '1 ч 30 м' },
-                { name: 'Удаление татуажа ремувером', category: 'Перманент', price: 2500, duration: '1 ч' },
-                { name: 'Комбо: «Акварельные губы» + «пудровые брови»', category: 'Перманент', price: 15000,
-                    duration: '4 ч' },
-                { name: 'Комбо: «Всё и сразу»', category: 'Перманент', price: 18000, duration: '4 ч' },
-                { name: 'Стрелка с растушевкой', category: 'Перманент', price: 9000, duration: '1 ч 30 м' },
-                { name: 'Коррекция стрелки с растушевкой', category: 'Перманент', price: 4000, duration: '1 ч' },
-                { name: 'Комбо: «Межресничка + ламинирование ресниц»', category: 'Перманент', price: 7500,
-                    duration: '2 ч' }
+                { name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000, duration: '2 ч 30 м' },
+                { name: 'Перманентный макияж губ', category: 'Перманент', price: 9000, duration: '3 ч' }
             ]
         }, {
             id: 'tatiana',
             name: 'Татьяна Тысячина',
             specialty: 'Специалист по солярию',
-            description: 'Администратор и специалист по солярию',
-            education: 'Сертифицированный специалист премиальных ламп Rubino+Collatan',
             photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Inter"%3EТТ%3C/text%3E%3C/svg%3E',
             rating: 4.7,
             reviews: 24,
@@ -2065,17 +1813,12 @@
             weekdays: [1, 2, 3, 4, 5, 6],
             services: [
                 { name: 'Загар премиум (1 минута)', category: 'Солярий', price: 33, duration: '20 м' },
-                { name: 'Первый визит «Сияние» (5-7 мин)', category: 'Солярий', price: 299, duration: '20 м' },
-                { name: 'Абонемент «VIP Сияние» (200 мин)', category: 'Солярий', price: 4900, duration: '20 м' },
-                { name: 'Абонемент «Идеальный загар» (100 мин)', category: 'Солярий', price: 3000, duration: '1 ч 40 м' },
-                { name: 'Абонемент «START Сияние» (50 мин)', category: 'Солярий', price: 1600, duration: '50 м' }
+                { name: 'Абонемент VIP Сияние (200 мин)', category: 'Солярий', price: 4900, duration: '20 м' }
             ]
         }, {
             id: 'yulia',
             name: 'Юлия Скуртол',
             specialty: 'Мастер педикюра и маникюра',
-            description: 'Специалист по педикюру и маникюру',
-            education: 'Сертифицированный мастер ногтевого сервиса',
             photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Inter"%3EЮС%3C/text%3E%3C/svg%3E',
             rating: 5.0,
             reviews: 3,
@@ -2083,27 +1826,8 @@
             work_end: '21:00',
             weekdays: [1, 2, 3, 4, 5, 6],
             services: [
-                { name: 'Педикюр Smart (стопы + пальчики)', category: 'Педикюр', price: 1900, duration: '45 м' },
-                { name: 'Обработка пальчиков ног + покрытие гель-лак', category: 'Педикюр', price: 1900,
-                    duration: '1 ч' },
-                { name: 'Smart Педикюр с покрытием', category: 'Педикюр', price: 2500, duration: '1 ч 30 м' },
-                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
-                { name: 'Гигиеническая обработка пальчиков без покрытия', category: 'Педикюр', price: 1300,
-                    duration: '30 м' },
-                { name: 'Снятие покрытия с пальчиков ног', category: 'Педикюр', price: 500, duration: '40 м' },
-                { name: 'Лечение трещин (осмотр, консультация)', category: 'Педикюр', price: 300, duration: '10 м' },
-                { name: 'Спа-ритуал для ног', category: 'Педикюр', price: 1000, duration: '30 м' },
-                { name: 'Smart обработка только стопы', category: 'Педикюр', price: 1300, duration: '30 м' },
-                { name: 'Наращивание ногтей', category: 'Маникюр', price: 3000, duration: '2 ч' },
-                { name: 'Маникюр без покрытия', category: 'Маникюр', price: 1300, duration: '1 ч' },
-                { name: 'Ремонт ногтя', category: 'Маникюр', price: 200, duration: '30 м' },
-                { name: 'Покрытие лаком IQ BEAUTY', category: 'Маникюр', price: 400, duration: '1 ч' },
-                { name: 'Пилочный маникюр', category: 'Маникюр', price: 1800, duration: '1 ч' },
-                { name: 'Японский эко маникюр', category: 'Маникюр', price: 2000, duration: '1 ч' },
-                { name: 'Снятие старого покрытия (не наша работа)', category: 'Маникюр', price: 1600, duration: '1 ч' },
-                { name: 'Снятие покрытия при коррекции', category: 'Маникюр', price: 500, duration: '20 м' },
-                { name: 'Укрепление ногтей (достройка)', category: 'Маникюр', price: 1000, duration: '1 ч' },
-                { name: 'Дизайн на все ногти (+500₽)', category: 'Маникюр', price: 500, duration: '30 м' }
+                { name: 'Педикюр Smart с покрытием', category: 'Педикюр', price: 2500, duration: '1 ч 30 м' },
+                { name: 'Японский эко маникюр', category: 'Маникюр', price: 2000, duration: '1 ч' }
             ]
         }];
 
@@ -2143,7 +1867,7 @@
         };
 
         // ============================================================
-        // КАЛЕНДАРЬ — НОВАЯ ВЕРСИЯ (КАК НА DIKIDI)
+        // КАЛЕНДАРЬ
         // ============================================================
         function getDayOfWeek(date) { return date.getDay(); }
 
@@ -2255,30 +1979,23 @@
                 if (isSelected) classes += ' selected';
                 if (isPast || !isWorking || isWeekend) classes += ' disabled';
 
-                // Проверяем, есть ли записи на эту дату
-                // (будет заполнено позже при загрузке)
-
                 html += `<div class="${classes}" onclick="selectDate('${dateStr}')">${i}</div>`;
             }
 
             grid.innerHTML = html;
-
-            // Обновляем информацию о мастере
             updateCalendarMasterInfo();
 
-            // Если есть выбранная дата — показываем слоты
             if (selectedDate && selectedMasterId && selectedServiceId) {
                 renderTimeSlots();
             } else {
-                const container = document.getElementById('timeSlotsContainer');
+                const labelEl = document.querySelector('#timeSlotsContainer .time-slots-label');
                 const gridSlots = document.getElementById('timeSlotsGrid');
-                const labelEl = container.querySelector('.time-slots-label');
                 if (labelEl) {
                     labelEl.textContent = !selectedMasterId ? 'Выберите мастера' :
                         !selectedServiceId ? 'Выберите услугу' :
                         'Выберите дату';
                 }
-                gridSlots.innerHTML = '';
+                if (gridSlots) gridSlots.innerHTML = '';
             }
         }
 
@@ -2381,8 +2098,6 @@
             selectedTime = time;
             document.getElementById('bookingTime').value = time;
             renderTimeSlots();
-
-            // Визуально подсвечиваем выбранный слот
             document.querySelectorAll('.time-slot').forEach(el => {
                 el.classList.toggle('selected', el.textContent.trim() === time);
             });
@@ -2422,11 +2137,9 @@
                 }
             }
 
-            // Сбрасываем дату и время
             document.getElementById('bookingDate').value = '';
             document.getElementById('bookingTime').value = '';
             document.getElementById('timeSlotsGrid').innerHTML = '';
-
             renderCalendar();
         }
 
@@ -2458,12 +2171,6 @@
             });
 
             if (masterId) {
-                selectedMasterId = masterId;
-                onMasterChange();
-            }
-
-            // Если передан masterId, но не выбран — выбираем
-            if (masterId) {
                 masterSelect.value = masterId;
                 onMasterChange();
             }
@@ -2473,14 +2180,12 @@
                 document.getElementById('bookingEmail').value = currentUser.email;
             }
 
-            // Сбрасываем выбор
             selectedDate = null;
             selectedTime = null;
             selectedServiceId = null;
             document.getElementById('bookingDate').value = '';
             document.getElementById('bookingTime').value = '';
 
-            // Устанавливаем календарь на текущий месяц
             const now = new Date();
             calMonth = now.getMonth();
             calYear = now.getFullYear();
@@ -2708,7 +2413,6 @@
         function openBookingByService(serviceName, masterId) {
             openBooking(masterId);
 
-            // Ждём загрузки и выбираем нужную услугу
             let attempts = 0;
             const maxAttempts = 30;
             const selectService = setInterval(() => {
@@ -2719,7 +2423,6 @@
                         if (serviceSelect.options[i].text.includes(serviceName)) {
                             serviceSelect.selectedIndex = i;
                             selectedServiceId = serviceSelect.value;
-                            // Триггерим событие изменения
                             if (serviceSelect.onchange) serviceSelect.onchange();
                             onServiceChange();
                             clearInterval(selectService);
@@ -2783,7 +2486,6 @@
         }
 
         function openMasterModal(masterId) {
-            // Используем простой alert для демонстрации
             const master = MASTERS_DATA.find(m => m.id === masterId);
             if (!master) { showToast('❌ Мастер не найден', 'error'); return; }
 
@@ -2905,10 +2607,8 @@
             const booking = bookings[index];
             if (!booking) { showToast('❌ Запись не найдена', 'error'); return; }
 
-            // Открываем календарь с этим мастером
             openBooking(booking.masterId);
 
-            // Ждём загрузки и выбираем ту же услугу
             let attempts = 0;
             const maxAttempts = 30;
             const selectService = setInterval(() => {
@@ -2930,10 +2630,7 @@
                 }
             }, 150);
 
-            // Удаляем старую запись после создания новой
-            // (пользователь сам создаст новую, а старую удалим после)
             if (confirm('После переноса старая запись будет удалена. Продолжить?')) {
-                // Удаляем старую запись
                 bookings.splice(index, 1);
                 currentUser.bookings = bookings;
                 Storage.set(`bookings_${currentUser.id}`, bookings);
@@ -2944,7 +2641,7 @@
         }
 
         // ============================================================
-        // АДМИНКА (КРАСИВАЯ И ФУНКЦИОНАЛЬНАЯ)
+        // АДМИНКА
         // ============================================================
         const ADMIN_CREDENTIALS = { login: 'admin', password: 'studio2026' };
 
@@ -2994,7 +2691,6 @@
         async function renderAdminPanel() {
             const panel = document.getElementById('adminPanel');
 
-            // Загружаем все записи из Supabase
             let allBookings = [];
             try {
                 if (sb) {
@@ -3007,7 +2703,6 @@
                 }
             } catch (e) { console.warn('Ошибка загрузки записей:', e); }
 
-            // Считаем статистику
             const totalBookings = allBookings.length;
             const today = new Date().toISOString().split('T')[0];
             const todayBookings = allBookings.filter(b => b.date === today).length;
@@ -3025,7 +2720,6 @@
                 </div>
             `;
 
-            // Статистика
             html += `
                 <div class="admin-stats">
                     <div class="admin-stat">
@@ -3047,7 +2741,6 @@
                 </div>
             `;
 
-            // Управление мастерами
             html += `
                 <div class="glass-card" style="margin-bottom:24px;">
                     <h3 style="margin-bottom:16px;font-weight:700;">👩‍🎨 Мастера и расписание</h3>
@@ -3078,12 +2771,11 @@
                 </div>
             `;
 
-            // Все записи с возможностью редактирования
             html += `
                 <div class="glass-card">
                     <h3 style="margin-bottom:16px;font-weight:700;">📋 Все записи (${allBookings.length})</h3>
                     ${allBookings.length === 0 ? '<p style="color:var(--text-muted);padding:20px 0;">Нет записей</p>' : `
-                        <div class="admin-table-wrap">
+                        <div style="overflow-x:auto;">
                             <table class="admin-table">
                                 <thead>
                                     <tr>
@@ -3138,9 +2830,6 @@
             panel.innerHTML = html;
         }
 
-        // ============================================================
-        // АДМИНКА — ФУНКЦИИ УПРАВЛЕНИЯ
-        // ============================================================
         async function updateMasterWork(index, type, value) {
             if (!MASTERS_DATA[index]) return;
             if (type === 'start') MASTERS_DATA[index].work_start = value;
@@ -3333,7 +3022,6 @@
         }
 
         const GOOGLE_CLIENT_ID = '347823580542-qrffjq1lk24rbci3h4sijiefn581vude.apps.googleusercontent.com';
-        let googleInitialized = false;
 
         function initGoogleAuth() {
             if (typeof google === 'undefined') return;
@@ -3366,7 +3054,7 @@
                     text: 'signin_with',
                     shape: 'pill'
                 });
-                googleInitialized = true;
+                gAuthInitialized = true;
             } catch (e) { console.warn(e); }
 
             const saved = localStorage.getItem('beauty_user');
@@ -3401,7 +3089,7 @@
         function openLoginModal() {
             const modal = document.getElementById('profileModal');
             const content = document.getElementById('profileContent');
-            if (!googleInitialized && typeof google !== 'undefined') {
+            if (!gAuthInitialized && typeof google !== 'undefined') {
                 try {
                     google.accounts.id.renderButton(document.getElementById('googleButtonContainer'), {
                         theme: 'outline',
@@ -3410,7 +3098,7 @@
                         text: 'signin_with',
                         shape: 'pill'
                     });
-                    googleInitialized = true;
+                    gAuthInitialized = true;
                 } catch (e) {}
             }
             content.innerHTML = `
