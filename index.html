@@ -19,1290 +19,428 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
         /* ============================================================
-           ПЕРЕМЕННЫЕ — УЛУЧШЕННАЯ ТЁМНАЯ ТЕМА
+           ПЕРЕМЕННЫЕ — ТЁМНАЯ ТЕМА ПО УМОЛЧАНИЮ
            ============================================================ */
         :root {
-            --bg-primary: #0A0A0A;
-            --bg-secondary: #121212;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --bg-card-hover: rgba(255, 255, 255, 0.07);
-            --bg-glass: rgba(255, 255, 255, 0.04);
-            --text-primary: #F5F0EB;
-            --text-secondary: #D5CFC8;
+            --bg-primary: #0D0D0D;
+            --bg-secondary: #161616;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.08);
+            --text-primary: #F0EBE6;
+            --text-secondary: #D0CBC6;
             --text-muted: #8A8580;
-            --border-color: rgba(201, 169, 110, 0.12);
+            --border-color: rgba(201, 169, 110, 0.15);
             --border-hover: rgba(201, 169, 110, 0.3);
-            --shadow: 0 8px 32px rgba(0,0,0,0.6);
-            --shadow-hover: 0 16px 48px rgba(0,0,0,0.8), 0 0 0 1px rgba(201,169,110,0.05);
-            --shadow-glow: 0 0 80px rgba(201, 169, 110, 0.04);
+            --shadow: 0 4px 20px rgba(0,0,0,0.4);
+            --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.1);
+            --shadow-glow: 0 0 60px rgba(201, 169, 110, 0.04);
             --gold: #C9A96E;
             --gold-dark: #B8974D;
             --gold-light: #E8D5A8;
             --gold-gradient: linear-gradient(135deg, #C9A96E, #E8D5A8, #C9A96E);
-            --gold-gradient-strong: linear-gradient(135deg, #D4B87A, #F0E0C0, #D4B87A);
-            --transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-            --header-height: 72px;
-            --touch-target: 48px;
-            --radius: 20px;
-            --radius-sm: 14px;
-            --radius-xs: 10px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --header-height: 64px;
+            --touch-target: 44px;
+            --radius: 16px;
+            --radius-sm: 12px;
         }
 
         [data-theme="light"] {
             --bg-primary: #FCF9F5;
-            --bg-secondary: #F8F4EF;
+            --bg-secondary: #F8F5F0;
             --bg-card: rgba(0, 0, 0, 0.02);
             --bg-card-hover: rgba(0, 0, 0, 0.04);
-            --bg-glass: rgba(255, 255, 255, 0.6);
-            --text-primary: #1A1A1A;
-            --text-secondary: #3A3A3A;
+            --text-primary: #1E1E1E;
+            --text-secondary: #3D3D3D;
             --text-muted: #7A7A7A;
-            --border-color: rgba(201, 169, 110, 0.15);
-            --border-hover: rgba(201, 169, 110, 0.35);
-            --shadow: 0 8px 32px rgba(0,0,0,0.06);
-            --shadow-hover: 0 16px 48px rgba(0,0,0,0.1), 0 0 0 1px rgba(201,169,110,0.08);
-            --shadow-glow: 0 0 80px rgba(201, 169, 110, 0.04);
+            --border-color: rgba(201, 169, 110, 0.12);
+            --border-hover: rgba(201, 169, 110, 0.25);
+            --shadow: 0 4px 20px rgba(0,0,0,0.04);
+            --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.12);
+            --shadow-glow: 0 0 60px rgba(201, 169, 110, 0.04);
         }
 
         /* ============================================================
-           БАЗОВЫЕ СТИЛИ
+           НОВЫЙ ПРЕМИАЛЬНЫЙ ФОН — ЖИВОЙ ГРАДИЕНТ С ДЫМКОЙ
            ============================================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.7;
-            transition: background 0.5s ease, color 0.5s ease;
+            line-height: 1.6;
+            transition: background 0.4s ease, color 0.4s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             padding-top: var(--header-height);
             min-height: 100vh;
+            background: var(--bg-primary);
+            position: relative;
         }
 
-        /* Динамический фон с золотым сиянием */
+        /* --- НОВЫЙ ФОН: многослойный анимированный градиент + абстрактные размытые пятна --- */
         body::before {
             content: '';
             position: fixed;
-            top: -50%;
-            left: -50%;
-            right: -50%;
-            bottom: -50%;
-            background:
-                radial-gradient(ellipse at 20% 30%, rgba(201, 169, 110, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(201, 169, 110, 0.04) 0%, transparent 40%),
-                radial-gradient(ellipse at 50% 50%, rgba(201, 169, 110, 0.02) 0%, transparent 60%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             z-index: 0;
             pointer-events: none;
-            animation: bgFloat 30s ease-in-out infinite alternate;
-            transform-origin: center;
+            background:
+                /* Основной тёмный/светлый слой */
+                var(--bg-primary),
+                /* Живые градиентные пятна */
+                radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(201, 169, 110, 0.03) 0%, transparent 70%),
+                radial-gradient(ellipse at 10% 85%, rgba(232, 213, 168, 0.06) 0%, transparent 45%),
+                radial-gradient(ellipse at 90% 15%, rgba(232, 213, 168, 0.04) 0%, transparent 40%);
+            animation: floatingGradients 18s ease-in-out infinite alternate;
+            will-change: transform, opacity;
         }
 
         [data-theme="light"] body::before {
             background:
-                radial-gradient(ellipse at 20% 30%, rgba(201, 169, 110, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(201, 169, 110, 0.05) 0%, transparent 40%);
+                var(--bg-primary),
+                radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.20) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(201, 169, 110, 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse at 10% 85%, rgba(232, 213, 168, 0.12) 0%, transparent 45%),
+                radial-gradient(ellipse at 90% 15%, rgba(232, 213, 168, 0.08) 0%, transparent 40%);
         }
 
-        @keyframes bgFloat {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.6; }
-            33% { transform: translate(2%, -2%) scale(1.05) rotate(1deg); opacity: 1; }
-            66% { transform: translate(-1%, 1%) scale(0.98) rotate(-1deg); opacity: 0.8; }
-            100% { transform: translate(1%, -1%) scale(1.03) rotate(0.5deg); opacity: 0.9; }
+        @keyframes floatingGradients {
+            0% {
+                transform: scale(1) rotate(0deg) translate(0, 0);
+                opacity: 0.7;
+            }
+            25% {
+                transform: scale(1.05) rotate(1.5deg) translate(-1%, 1%);
+                opacity: 0.9;
+            }
+            50% {
+                transform: scale(1.02) rotate(-1deg) translate(1%, -1%);
+                opacity: 0.85;
+            }
+            75% {
+                transform: scale(1.07) rotate(2deg) translate(-0.5%, 0.5%);
+                opacity: 0.95;
+            }
+            100% {
+                transform: scale(1.03) rotate(-1.5deg) translate(0.5%, -0.5%);
+                opacity: 0.75;
+            }
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-gradient); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
+        /* Дополнительный слой — тонкие световые линии для глубины */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(201, 169, 110, 0.015) 40px,
+                    rgba(201, 169, 110, 0.015) 41px
+                ),
+                repeating-linear-gradient(-45deg,
+                    transparent,
+                    transparent 60px,
+                    rgba(201, 169, 110, 0.01) 60px,
+                    rgba(201, 169, 110, 0.01) 61px
+                );
+            animation: lineShift 30s linear infinite;
+        }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+        [data-theme="light"] body::after {
+            background:
+                repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(201, 169, 110, 0.03) 40px,
+                    rgba(201, 169, 110, 0.03) 41px
+                ),
+                repeating-linear-gradient(-45deg,
+                    transparent,
+                    transparent 60px,
+                    rgba(201, 169, 110, 0.02) 60px,
+                    rgba(201, 169, 110, 0.02) 61px
+                );
+        }
+
+        @keyframes lineShift {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(40px) translateY(40px); }
+        }
+
+        /* Убираем старую анимацию частиц — они больше не нужны */
+        #particles-canvas {
+            display: none;
+        }
+
+        /* Все контейнеры поверх фона */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
 
         /* ============================================================
-           GLASS-КАРТОЧКИ — УЛУЧШЕННЫЕ
+           GLASS-КАРТОЧКИ
            ============================================================ */
         .glass-card {
             background: var(--bg-card);
-            backdrop-filter: blur(16px) saturate(1.2);
-            -webkit-backdrop-filter: blur(16px) saturate(1.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow);
             transition: var(--transition);
-            border-radius: var(--radius);
         }
         .glass-card:hover {
             background: var(--bg-card-hover);
             border-color: var(--border-hover);
             box-shadow: var(--shadow-hover), var(--shadow-glow);
-            transform: translateY(-4px);
         }
 
         .glow-text {
-            text-shadow: 0 0 40px rgba(201, 169, 110, 0.06);
-            transition: text-shadow 0.6s ease;
+            text-shadow: 0 0 30px rgba(201, 169, 110, 0.08);
+            transition: text-shadow 0.5s ease;
         }
         .glow-text:hover {
-            text-shadow: 0 0 80px rgba(201, 169, 110, 0.12);
+            text-shadow: 0 0 60px rgba(201, 169, 110, 0.15);
         }
 
         .shimmer-text {
-            background: var(--gold-gradient-strong);
+            background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             background-size: 300% auto;
-            animation: shimmerLong 8s ease-in-out infinite;
+            animation: shimmerLong 6s ease-in-out infinite;
         }
         @keyframes shimmerLong {
             0%, 100% { background-position: 0% center; }
             50% { background-position: 200% center; }
         }
 
-        /* Декоративная линия под заголовками */
-        .section-divider {
-            width: 80px;
-            height: 3px;
-            background: var(--gold-gradient);
-            border-radius: 4px;
-            margin: 12px auto 28px;
-            position: relative;
-            box-shadow: 0 0 30px rgba(201, 169, 110, 0.15);
-        }
-        .section-divider::after {
-            content: '✦';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--gold);
-            font-size: 14px;
-            background: var(--bg-primary);
-            padding: 0 12px;
-            -webkit-text-fill-color: var(--gold);
-        }
-
-        /* ============================================================
-           КНОПКИ — ПРЕМИУМ
-           ============================================================ */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 18px 36px;
-            min-height: var(--touch-target);
-            min-width: var(--touch-target);
-            background: var(--gold-gradient-strong);
-            color: #1A1A1A;
-            font-weight: 700;
-            font-size: 16px;
-            border: none;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 32px rgba(201, 169, 110, 0.25);
-            background-size: 200% auto;
-            position: relative;
-            overflow: hidden;
-            will-change: transform;
-            touch-action: manipulation;
-            user-select: none;
-            letter-spacing: 0.3px;
-        }
-        [data-theme="dark"] .btn {
-            color: #0A0A0A;
-        }
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: skewX(-25deg);
-            transition: 0.8s;
-        }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 32px; min-height: var(--touch-target); min-width: var(--touch-target); background: var(--gold-gradient); color: #fff; font-weight: 600; font-size: 16px; border: none; border-radius: 60px; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 24px rgba(201, 169, 110, 0.25); background-size: 200% auto; position: relative; overflow: hidden; will-change: transform; touch-action: manipulation; user-select: none; }
+        .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 200%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); transform: skewX(-25deg); transition: 0.6s; }
         .btn:hover::before { left: 100%; }
-        .btn:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 12px 48px rgba(201, 169, 110, 0.35);
-            background-position: right center;
-        }
-        .btn:active { transform: scale(0.96); }
+        .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 40px rgba(201, 169, 110, 0.35); background-position: right center; }
+        .btn:active { transform: scale(0.97); }
+        .btn-outline { background: transparent; color: var(--gold); border: 2px solid var(--gold); box-shadow: none; }
+        .btn-outline:hover { background: var(--gold); color: #fff; box-shadow: 0 4px 24px rgba(201, 169, 110, 0.2); }
+        .btn-sm { padding: 10px 20px; font-size: 14px; min-height: 40px; }
+        .btn-danger { background: #E74C3C; box-shadow: 0 4px 24px rgba(231, 76, 60, 0.3); }
+        .btn-danger:hover { background: #C0392B; }
+        .btn-pulse { animation: pulseBtn 2s ease-in-out infinite; }
+        @keyframes pulseBtn { 0%, 100% { box-shadow: 0 4px 24px rgba(201, 169, 110, 0.25); } 50% { box-shadow: 0 4px 40px rgba(201, 169, 110, 0.4), 0 0 60px rgba(201, 169, 110, 0.05); } }
+        .btn-ripple { position: relative; overflow: hidden; }
+        .btn-ripple .ripple { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.2); transform: scale(0); animation: rippleAnim 0.6s linear; pointer-events: none; }
+        @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
 
-        .btn-outline {
-            background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            box-shadow: none;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .btn-outline:hover {
-            background: var(--gold);
-            color: #0A0A0A;
-            box-shadow: 0 4px 32px rgba(201, 169, 110, 0.2);
-            border-color: var(--gold);
-        }
-        [data-theme="dark"] .btn-outline:hover {
-            color: #0A0A0A;
-        }
+        [data-tooltip] { position: relative; }
+        [data-tooltip]::after { content: attr(data-tooltip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) scale(0.9); background: var(--bg-card); color: var(--text-primary); padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; white-space: nowrap; opacity: 0; visibility: hidden; transition: var(--transition); box-shadow: var(--shadow-hover); border: 1px solid var(--border-color); pointer-events: none; }
+        [data-tooltip]:hover::after { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
 
-        .btn-sm { padding: 12px 24px; font-size: 14px; min-height: 44px; border-radius: 40px; }
-        .btn-danger { background: #E74C3C; box-shadow: 0 4px 24px rgba(231, 76, 60, 0.3); color: #fff; }
-        .btn-danger:hover { background: #C0392B; transform: translateY(-4px); }
-        .btn-pulse { animation: pulseBtn 2.5s ease-in-out infinite; }
-        @keyframes pulseBtn {
-            0%, 100% { box-shadow: 0 4px 32px rgba(201, 169, 110, 0.25); }
-            50% { box-shadow: 0 4px 48px rgba(201, 169, 110, 0.4), 0 0 80px rgba(201, 169, 110, 0.06); }
-        }
+        #scrollTop { position: fixed; bottom: 80px; right: 16px; z-index: 998; width: 44px; height: 44px; border-radius: 50%; background: var(--gold-gradient); color: #fff; border: none; font-size: 18px; cursor: pointer; box-shadow: 0 4px 20px rgba(201, 169, 110, 0.25); transition: var(--transition); opacity: 0; visibility: hidden; transform: translateY(20px); touch-action: manipulation; }
+        #scrollTop.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        #scrollTop:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(201, 169, 110, 0.35); }
+        #scrollTop:active { transform: scale(0.92); }
+
+        .breadcrumbs { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--text-muted); padding: 8px 0 16px; }
+        .breadcrumbs a { color: var(--gold); text-decoration: none; transition: var(--transition); }
+        .breadcrumbs a:hover { color: var(--gold-dark); }
+        .breadcrumbs .separator { color: var(--text-muted); opacity: 0.4; }
+        .breadcrumbs .current { color: var(--text-secondary); }
 
         /* ============================================================
-           ХЕДЕР — СТЕКЛЯННЫЙ
+           ХЕДЕР
            ============================================================ */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--header-height);
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(24px) saturate(1.3);
-            -webkit-backdrop-filter: blur(24px) saturate(1.3);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 20px;
-            transition: background 0.5s ease, border-color 0.5s ease;
-            display: flex;
-            align-items: center;
-        }
-        [data-theme="light"] header {
-            background: rgba(252, 249, 245, 0.88);
-        }
+        header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-height); background: rgba(13, 13, 13, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--border-color); padding: 0 16px; transition: background 0.4s ease, border-color 0.4s ease; display: flex; align-items: center; }
+        [data-theme="light"] header { background: rgba(252, 249, 245, 0.85); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; gap: 12px; }
+        .logo { font-size: clamp(20px, 4vw, 26px); font-weight: 700; color: var(--gold); background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; white-space: nowrap; flex-shrink: 0; letter-spacing: -0.5px; }
+        .logo span { -webkit-text-fill-color: var(--text-primary); }
 
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            gap: 16px;
-        }
+        nav { display: flex; gap: 12px; align-items: center; }
+        nav a { font-size: 14px; font-weight: 500; color: var(--text-secondary); transition: var(--transition); position: relative; padding: 4px 0; white-space: nowrap; text-decoration: none; }
+        nav a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--gold-gradient); transition: width 0.3s ease; border-radius: 2px; }
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: var(--gold); }
 
-        .logo {
-            font-size: clamp(22px, 4vw, 28px);
-            font-weight: 800;
-            color: var(--gold);
-            background: var(--gold-gradient-strong);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            white-space: nowrap;
-            flex-shrink: 0;
-            letter-spacing: -0.5px;
-            text-shadow: 0 0 40px rgba(201, 169, 110, 0.1);
-        }
-        .logo span {
-            -webkit-text-fill-color: var(--text-primary);
-            font-weight: 300;
-        }
-
-        nav {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
-        nav a {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            transition: var(--transition);
-            position: relative;
-            padding: 6px 0;
-            white-space: nowrap;
-            text-decoration: none;
-            letter-spacing: 0.2px;
-        }
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--gold-gradient);
-            transition: all 0.4s ease;
-            border-radius: 2px;
-            transform: translateX(-50%);
-        }
-        nav a:hover::after {
-            width: 100%;
-        }
-        nav a:hover {
-            color: var(--gold);
-            transform: translateY(-1px);
-        }
-
-        .nav-book-btn {
-            font-weight: 600;
-            color: #0A0A0A !important;
-            background: var(--gold-gradient-strong);
-            padding: 10px 22px;
-            border-radius: 40px;
-            transition: var(--transition);
-            cursor: pointer;
-            font-size: 14px;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: none;
-            background-size: 200% auto;
-            box-shadow: 0 4px 24px rgba(201, 169, 110, 0.15);
-        }
-        .nav-book-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 8px 32px rgba(201, 169, 110, 0.3);
-            color: #0A0A0A !important;
-        }
+        .nav-book-btn { font-weight: 600; color: #fff !important; background: var(--gold-gradient); padding: 6px 16px; border-radius: 40px; transition: var(--transition); cursor: pointer; font-size: 13px; min-height: 36px; display: flex; align-items: center; gap: 6px; border: none; background-size: 200% auto; }
+        .nav-book-btn:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3); }
         .nav-book-btn::after { display: none !important; }
 
-        .auth-btn {
-            font-weight: 600;
-            color: var(--gold) !important;
-            padding: 8px 16px;
-            border: 1px solid var(--gold);
-            border-radius: 40px;
-            transition: var(--transition);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            min-height: 44px;
-            background: transparent;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .auth-btn:hover {
-            background: var(--gold);
-            color: #0A0A0A !important;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 24px rgba(201, 169, 110, 0.15);
-        }
+        .auth-btn { font-weight: 600; color: var(--gold) !important; padding: 6px 14px; border: 1px solid var(--gold); border-radius: 40px; transition: var(--transition); cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 13px; min-height: 36px; background: transparent; }
+        .auth-btn:hover { background: var(--gold); color: #fff !important; }
         .auth-btn::after { display: none !important; }
-        .auth-btn .avatar {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(201, 169, 110, 0.3);
-        }
+        .auth-btn .avatar { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(201, 169, 110, 0.2); }
 
-        .theme-toggle {
-            background: var(--bg-glass);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            font-size: 18px;
-            cursor: pointer;
-            color: var(--text-secondary);
-            transition: var(--transition);
-            padding: 10px;
-            min-height: var(--touch-target);
-            min-width: var(--touch-target);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            touch-action: manipulation;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .theme-toggle:hover {
-            background: var(--bg-card-hover);
-            color: var(--gold);
-            border-color: var(--gold);
-            transform: rotate(60deg) scale(1.05);
-        }
+        .theme-toggle { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50%; font-size: 18px; cursor: pointer; color: var(--text-secondary); transition: var(--transition); padding: 8px; min-height: var(--touch-target); min-width: var(--touch-target); display: flex; align-items: center; justify-content: center; touch-action: manipulation; }
+        .theme-toggle:hover { background: var(--bg-card-hover); color: var(--gold); border-color: var(--gold); transform: rotate(30deg); }
 
-        .menu-toggle {
-            display: none;
-            font-size: 22px;
-            cursor: pointer;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            color: var(--text-primary);
-            padding: 10px;
-            min-height: var(--touch-target);
-            min-width: var(--touch-target);
-            touch-action: manipulation;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: var(--transition);
-        }
-        .menu-toggle:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
+        .menu-toggle { display: none; font-size: 24px; cursor: pointer; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50%; color: var(--text-primary); padding: 8px; min-height: var(--touch-target); min-width: var(--touch-target); touch-action: manipulation; }
+        #mainNav { display: flex; gap: 16px; align-items: center; }
 
         /* ============================================================
-           HERO — С АКЦЕНТОМ
+           HERO
            ============================================================ */
-        .hero {
-            padding: 80px 0 100px;
-            background: transparent;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 2px;
-            background: var(--gold-gradient);
-            border-radius: 2px;
-            opacity: 0.3;
-        }
-        .hero h1 {
-            font-size: clamp(38px, 9vw, 72px);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 20px;
-            line-height: 1.08;
-        }
-        .hero p {
-            font-size: clamp(17px, 2.5vw, 22px);
-            color: var(--text-muted);
-            max-width: 620px;
-            margin: 0 auto 32px;
-            padding: 0 12px;
-            font-weight: 400;
-            letter-spacing: 0.2px;
-        }
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .hero-buttons .btn {
-            flex: 1;
-            min-width: 160px;
-            max-width: 300px;
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--bg-glass);
-            padding: 8px 24px;
-            border-radius: 60px;
-            border: 1px solid var(--border-color);
-            font-size: 13px;
-            color: var(--gold);
-            font-weight: 600;
-            margin-bottom: 20px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        .hero-badge i {
-            font-size: 12px;
-        }
+        .hero { padding: 60px 0 80px; background: transparent; text-align: center; position: relative; z-index: 1; min-height: 70vh; display: flex; align-items: center; border-bottom: 1px solid var(--border-color); }
+        .hero h1 { font-size: clamp(32px, 8vw, 62px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.1; }
+        .hero p { font-size: clamp(16px, 2.5vw, 20px); color: var(--text-muted); max-width: 580px; margin: 0 auto 28px; padding: 0 8px; }
+        .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .hero-buttons .btn { flex: 1; min-width: 140px; max-width: 280px; }
+        .hero-badge { display: inline-block; background: var(--bg-card); padding: 6px 20px; border-radius: 60px; border: 1px solid var(--border-color); font-size: 13px; color: var(--gold); font-weight: 500; margin-bottom: 16px; letter-spacing: 1px; text-transform: uppercase; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 
-        /* ============================================================
-           СЕКЦИИ
-           ============================================================ */
-        section {
-            padding: 80px 0;
-            position: relative;
-            z-index: 1;
-            transition: background 0.5s ease;
-        }
-        section:nth-child(even) {
-            background: var(--bg-secondary);
-        }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.05s; }
+        .reveal-delay-2 { transition-delay: 0.1s; }
+        .reveal-delay-3 { transition-delay: 0.15s; }
+        .reveal-delay-4 { transition-delay: 0.2s; }
 
-        .section-title {
-            font-size: clamp(30px, 5vw, 44px);
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-            line-height: 1.15;
-            text-align: center;
-        }
-        .section-title span {
-            background: var(--gold-gradient-strong);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 300% auto;
-            animation: shimmerLong 8s ease-in-out infinite;
-        }
-        .section-subtitle {
-            font-size: clamp(16px, 2vw, 19px);
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            text-align: center;
-            font-weight: 400;
-        }
+        .section-title { font-size: clamp(26px, 5vw, 40px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; line-height: 1.2; }
+        .section-title span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-size: 300% auto; animation: shimmerLong 6s ease-in-out infinite; }
+        .section-subtitle { font-size: clamp(15px, 2vw, 18px); color: var(--text-muted); margin-bottom: 32px; }
+        section { padding: 50px 0; position: relative; z-index: 1; transition: background 0.4s ease; }
 
-        /* ============================================================
-           УСЛУГИ
-           ============================================================ */
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-            margin-top: 16px;
-        }
-        .service-item {
-            background: var(--bg-card);
-            padding: 18px 22px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            will-change: transform;
-            touch-action: manipulation;
-            min-height: 64px;
-            gap: 12px;
-        }
-        .service-item:hover {
-            transform: translateY(-4px) scale(1.01);
-            border-color: var(--gold);
-            box-shadow: var(--shadow-hover), var(--shadow-glow);
-            background: var(--bg-card-hover);
-        }
+        .services-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .service-item { background: var(--bg-card); padding: 14px 18px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); transition: var(--transition); display: flex; justify-content: space-between; align-items: center; cursor: pointer; will-change: transform; touch-action: manipulation; min-height: 56px; }
+        .service-item:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: var(--shadow-hover), var(--shadow-glow); }
         .service-item:active { transform: scale(0.98); }
-        .service-item .info {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            min-width: 0;
-            gap: 2px;
-        }
-        .service-item .name {
-            font-weight: 600;
-            font-size: clamp(14px, 2vw, 16px);
-            color: var(--text-primary);
-            word-break: break-word;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .service-item .name i {
-            color: var(--gold);
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
-        }
-        .service-item .category {
-            font-size: 13px;
-            color: var(--text-muted);
-            padding-left: 30px;
-        }
-        .service-item .price {
-            font-weight: 700;
-            background: var(--gold-gradient-strong);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: clamp(16px, 2vw, 18px);
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
+        .service-item .info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+        .service-item .name { font-weight: 500; font-size: clamp(14px, 2vw, 15px); color: var(--text-primary); word-break: break-word; }
+        .service-item .category { font-size: 12px; color: var(--text-muted); }
+        .service-item .price { font-weight: 600; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: clamp(15px, 2vw, 16px); white-space: nowrap; margin-left: 8px; flex-shrink: 0; }
 
-        /* ============================================================
-           МАСТЕРА
-           ============================================================ */
-        .masters-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-            margin-top: 16px;
-        }
-        .master-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 28px 20px 24px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-            cursor: pointer;
-            will-change: transform;
-            touch-action: manipulation;
-            position: relative;
-            overflow: hidden;
-        }
-        .master-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(201, 169, 110, 0.03) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            pointer-events: none;
-        }
-        .master-card:hover::before {
-            opacity: 1;
-        }
-        .master-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-            box-shadow: var(--shadow-hover), var(--shadow-glow);
-            background: var(--bg-card-hover);
-        }
+        .masters-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .master-card { background: var(--bg-card); border-radius: var(--radius); padding: 24px 16px 24px; text-align: center; border: 1px solid var(--border-color); transition: var(--transition); cursor: pointer; will-change: transform; touch-action: manipulation; }
+        .master-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--shadow-hover), var(--shadow-glow); }
         .master-card:active { transform: scale(0.98); }
-
-        .master-card .image-wrapper {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 16px;
-            overflow: hidden;
-            border: 3px solid transparent;
-            background: var(--bg-secondary);
-            flex-shrink: 0;
-            position: relative;
-            transition: var(--transition);
-            box-shadow: 0 0 0 3px var(--gold), 0 0 40px rgba(201, 169, 110, 0.05);
-        }
-        .master-card:hover .image-wrapper {
-            box-shadow: 0 0 0 3px var(--gold-light), 0 0 60px rgba(201, 169, 110, 0.2);
-            transform: scale(1.05);
-        }
-        .master-card .image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.6s ease;
-            position: relative;
-            z-index: 2;
-        }
-        .master-card:hover .image-wrapper img {
-            transform: scale(1.1);
-        }
-        .master-card .image-wrapper .placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gold-gradient-strong);
-            color: #0A0A0A;
-            font-size: 36px;
-            font-weight: 800;
-            font-family: 'Inter', sans-serif;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            border-radius: 50%;
-        }
-        .master-card h3 {
-            font-size: clamp(20px, 2.5vw, 22px);
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-        .master-card .specialty {
-            color: var(--gold);
-            font-weight: 500;
-            font-size: clamp(14px, 1.8vw, 16px);
-            margin-top: 2px;
-        }
-        .master-card .rating {
-            margin: 8px 0 12px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-        .master-card .rating i {
-            color: #F5B342;
-        }
-        .master-card .services-preview {
-            margin: 14px 0 16px;
-            text-align: left;
-            font-size: 13px;
-            color: var(--text-muted);
-            max-height: 150px;
-            overflow-y: auto;
-            padding: 0 4px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--gold) transparent;
-        }
+        .master-card .image-wrapper { width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 14px; overflow: hidden; border: 2px solid var(--gold); background: var(--bg-secondary); flex-shrink: 0; position: relative; transition: var(--transition); box-shadow: 0 0 30px rgba(201, 169, 110, 0.05); }
+        .master-card:hover .image-wrapper { border-color: var(--gold-dark); box-shadow: 0 0 40px rgba(201, 169, 110, 0.15); }
+        .master-card .image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; position: relative; z-index: 2; }
+        .master-card:hover .image-wrapper img { transform: scale(1.08); }
+        .master-card .image-wrapper .placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--gold-gradient); color: #fff; font-size: 30px; font-weight: 700; font-family: 'Inter', sans-serif; position: absolute; top: 0; left: 0; z-index: 1; border-radius: 50%; }
+        .master-card h3 { font-size: clamp(18px, 2.5vw, 20px); color: var(--text-primary); }
+        .master-card .specialty { color: var(--gold); font-weight: 500; font-size: clamp(14px, 1.8vw, 16px); }
+        .master-card .rating { margin: 6px 0; font-size: 14px; color: var(--text-muted); }
+        .master-card .rating i { color: #F5B342; }
+        .master-card .services-preview { margin: 12px 0; text-align: left; font-size: 13px; color: var(--text-muted); max-height: 130px; overflow-y: auto; padding: 0 4px; scrollbar-width: thin; scrollbar-color: var(--gold) transparent; }
         .master-card .services-preview::-webkit-scrollbar { width: 4px; }
         .master-card .services-preview::-webkit-scrollbar-track { background: transparent; }
         .master-card .services-preview::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
-        .master-card .services-preview li {
-            list-style: none;
-            padding: 6px 8px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            border-radius: var(--radius-xs);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .master-card .services-preview li:hover {
-            background: var(--gold);
-            color: #0A0A0A;
-            transform: translateX(4px);
-        }
-        .master-card .services-preview li:hover .price {
-            color: #0A0A0A;
-            -webkit-text-fill-color: #0A0A0A;
-        }
-        .master-card .services-preview .price {
-            font-weight: 700;
-            background: var(--gold-gradient-strong);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            white-space: nowrap;
-        }
-        .master-card .btn {
-            margin-top: 12px;
-            width: 100%;
-            min-height: 48px;
-        }
+        .master-card .services-preview li { list-style: none; padding: 4px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; gap: 8px; }
+        .master-card .services-preview .price { color: var(--gold); font-weight: 600; white-space: nowrap; }
+        .master-card .btn { margin-top: 10px; width: 100%; min-height: 44px; }
 
-        /* ============================================================
-           КОНТАКТЫ
-           ============================================================ */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            margin-top: 16px;
-        }
-        .contact-info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            margin-bottom: 20px;
-            transition: var(--transition);
-            padding: 4px 0;
-        }
-        .contact-info-item:hover .label {
-            color: var(--gold);
-        }
-        .contact-info-item i {
-            font-size: 22px;
-            background: var(--gold-gradient-strong);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            width: 28px;
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-        .contact-info-item .label {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 15px;
-            transition: var(--transition);
-        }
-        .contact-info-item .value {
-            color: var(--text-secondary);
-            font-size: 15px;
-            word-break: break-word;
-        }
-        .contact-info-item .value a {
-            color: var(--text-secondary);
-            transition: var(--transition);
-            text-decoration: none;
-        }
-        .contact-info-item .value a:hover {
-            color: var(--gold);
-        }
-
-        .working-hours {
-            margin: 16px 0 24px;
-            padding: 18px 22px;
-            background: var(--bg-glass);
-            border-radius: var(--radius-sm);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px 32px;
-            transition: background 0.5s ease;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            align-items: center;
-        }
-        .working-hours .day {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 15px;
-        }
-        .working-hours .time {
-            color: var(--text-muted);
-            font-size: 15px;
-        }
-
-        .socials {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-        .socials a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--bg-glass);
-            color: var(--text-secondary);
-            transition: var(--transition);
-            font-size: 20px;
-            touch-action: manipulation;
-            text-decoration: none;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .socials a:hover {
-            background: var(--gold);
-            color: #0A0A0A;
-            border-color: var(--gold);
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 8px 32px rgba(201, 169, 110, 0.2);
-        }
+        .contact-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
+        .contact-info-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; transition: var(--transition); }
+        .contact-info-item:hover .label { color: var(--gold); }
+        .contact-info-item i { font-size: 20px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; width: 24px; margin-top: 3px; flex-shrink: 0; }
+        .contact-info-item .label { font-weight: 600; color: var(--text-primary); font-size: 14px; transition: var(--transition); }
+        .contact-info-item .value { color: var(--text-secondary); font-size: 14px; word-break: break-word; }
+        .contact-info-item .value a { color: var(--text-secondary); transition: var(--transition); text-decoration: none; }
+        .contact-info-item .value a:hover { color: var(--gold); }
+        .working-hours { margin: 16px 0 24px; padding: 16px 18px; background: var(--bg-card); border-radius: var(--radius-sm); display: flex; flex-wrap: wrap; gap: 12px 24px; transition: background 0.4s ease; border: 1px solid var(--border-color); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        .working-hours .day { font-weight: 500; color: var(--text-primary); font-size: 14px; }
+        .working-hours .time { color: var(--text-muted); font-size: 14px; }
+        .socials { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .socials a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-card); color: var(--text-secondary); transition: var(--transition); font-size: 18px; touch-action: manipulation; text-decoration: none; border: 1px solid var(--border-color); }
+        .socials a:hover { background: var(--gold); color: #fff; border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 4px 20px rgba(201, 169, 110, 0.2); }
         .socials a:active { transform: scale(0.92); }
 
-        .map-container {
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            height: 280px;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-        .map-container:hover {
-            border-color: var(--gold);
-            box-shadow: var(--shadow-hover);
-            transform: scale(1.01);
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            display: block;
-            border: 0;
-        }
+        .pulse-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #27AE60; animation: dotPulse 1.5s ease-in-out infinite; box-shadow: 0 0 20px rgba(39, 174, 96, 0.2); vertical-align: middle; margin-right: 6px; }
+        @keyframes dotPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.7; } }
 
-        .pulse-dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #27AE60;
-            animation: dotPulse 1.8s ease-in-out infinite;
-            box-shadow: 0 0 30px rgba(39, 174, 96, 0.2);
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-        @keyframes dotPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.4); opacity: 0.6; }
-        }
+        .map-container { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); height: 240px; border: 1px solid var(--border-color); transition: var(--transition); }
+        .map-container:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
+        .map-container iframe { width: 100%; height: 100%; display: block; border: 0; }
 
-        /* ============================================================
-           КАБИНЕТ
-           ============================================================ */
-        .cabinet-section {
-            background: var(--bg-glass);
-            border-radius: var(--radius);
-            padding: 28px 24px;
-            border: 1px solid var(--border-color);
-            margin-top: 16px;
-            transition: var(--transition);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        .cabinet-section:hover {
-            border-color: var(--gold);
-            box-shadow: var(--shadow-hover);
-        }
-        .cabinet-section .booking-item {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-        .cabinet-section .booking-item:last-child { border-bottom: none; }
-        .cabinet-section .booking-item:hover {
-            padding-left: 8px;
-        }
-        .cabinet-section .booking-item .info {
-            display: flex;
-            flex-direction: column;
-        }
-        .cabinet-section .booking-item .info .master {
-            font-weight: 700;
-            color: var(--text-primary);
-            font-size: 16px;
-        }
-        .cabinet-section .booking-item .info .details {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-        .cabinet-section .booking-item .actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .cabinet-section .booking-item .actions .btn {
-            flex: 1;
-            min-width: 90px;
-            min-height: 44px;
-            padding: 10px 18px;
-            font-size: 13px;
-        }
-        .cabinet-section .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-        }
-        .cabinet-section .empty-state i {
-            font-size: 48px;
-            color: var(--gold);
-            margin-bottom: 16px;
-            display: block;
-        }
-
-        /* ============================================================
-           БРЕДКРАМБЫ
-           ============================================================ */
-        .breadcrumbs {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-            font-size: 13px;
-            color: var(--text-muted);
-            padding: 6px 0 20px;
-            letter-spacing: 0.2px;
-        }
-        .breadcrumbs a {
-            color: var(--gold);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        .breadcrumbs a:hover {
-            color: var(--gold-dark);
-            transform: translateX(2px);
-        }
-        .breadcrumbs .separator {
-            color: var(--text-muted);
-            opacity: 0.3;
-        }
-        .breadcrumbs .current {
-            color: var(--text-secondary);
-        }
-
-        /* ============================================================
-           МОДАЛКИ
-           ============================================================ */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(20px) saturate(1.2);
-            -webkit-backdrop-filter: blur(20px) saturate(1.2);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 2000; align-items: center; justify-content: center; padding: 16px; }
         .modal-overlay.active { display: flex; }
-        .modal {
-            background: var(--bg-primary);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
-            max-width: 720px;
-            width: 100%;
-            max-height: 92vh;
-            overflow-y: auto;
-            border-radius: 28px;
-            padding: 32px 28px 28px;
-            position: relative;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
-            transition: background 0.5s ease, border-color 0.5s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-            transform: scale(0.92) translateY(30px);
-            opacity: 0;
-        }
-        .modal-overlay.active .modal {
-            animation: modalSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        @keyframes modalSlideUp {
-            from { opacity: 0; transform: scale(0.92) translateY(40px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        @media (max-width: 600px) {
-            .modal {
-                border-radius: 24px 24px 0 0;
-                max-height: 96vh;
-                padding: 24px 18px 20px;
-            }
-            .modal-overlay.active .modal {
-                animation: modalSlideUpMobile 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            }
-            @keyframes modalSlideUpMobile {
-                from { opacity: 0; transform: translateY(40px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-        }
-
-        .modal-close {
-            position: sticky;
-            top: 0;
-            float: right;
-            font-size: 24px;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: var(--transition);
-            z-index: 10;
-            padding: 10px;
-            min-height: 44px;
-            min-width: 44px;
-            touch-action: manipulation;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .modal-close:hover {
-            background: var(--gold);
-            color: #0A0A0A;
-            border-color: var(--gold);
-            transform: rotate(90deg) scale(1.05);
-        }
+        .modal { background: var(--bg-primary); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 24px; padding: 28px 20px 24px; position: relative; border: 1px solid var(--border-color); box-shadow: 0 24px 64px rgba(0,0,0,0.4); transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s ease, opacity 0.4s ease; transform: scale(0.96) translateY(20px); opacity: 0; }
+        .modal-overlay.active .modal { animation: modalSlideUp 0.35s ease forwards; }
+        @keyframes modalSlideUp { from { opacity: 0; transform: scale(0.96) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @media (max-width: 600px) { .modal { border-radius: 20px 20px 0 0; max-height: 95vh; padding: 20px 16px 24px; } .modal-overlay.active .modal { animation: modalSlideUpMobile 0.35s ease forwards; } @keyframes modalSlideUpMobile { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } } }
+        .modal-close { position: sticky; top: 0; float: right; font-size: 24px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50%; cursor: pointer; color: var(--text-muted); transition: var(--transition); z-index: 10; padding: 8px; min-height: 40px; min-width: 40px; touch-action: manipulation; line-height: 1; display: flex; align-items: center; justify-content: center; }
+        .modal-close:hover { background: var(--gold); color: #fff; border-color: var(--gold); transform: rotate(90deg); }
         .modal-close:active { transform: scale(0.9); }
+        .modal h2 { font-size: clamp(22px, 5vw, 28px); margin-bottom: 4px; color: var(--text-primary); padding-right: 48px; }
+        .modal .gold-text { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .modal .subtitle { color: var(--text-muted); margin-bottom: 20px; font-size: 14px; }
+        .modal .master-profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; margin-bottom: 20px; }
+        .modal .master-profile .image-wrapper { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); flex-shrink: 0; position: relative; background: var(--bg-secondary); }
+        .modal .master-profile .image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 2; }
+        .modal .master-profile .image-wrapper .placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--gold-gradient); color: #fff; font-size: 28px; font-weight: 700; position: absolute; top: 0; left: 0; z-index: 1; border-radius: 50%; }
+        .modal .master-profile .info .specialty { color: var(--gold); font-weight: 500; font-size: 14px; }
+        .modal .master-profile .info .education { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+        .modal .master-profile .info .rating { margin-top: 6px; font-size: 14px; color: var(--text-muted); }
+        .modal .master-profile .info .rating i { color: #F5B342; }
 
-        .modal h2 {
-            font-size: clamp(24px, 5vw, 30px);
-            margin-bottom: 6px;
-            color: var(--text-primary);
-            padding-right: 52px;
-            font-weight: 800;
-        }
-        .modal .gold-text {
-            background: var(--gold-gradient-strong);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .modal .subtitle {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            font-size: 15px;
-        }
+        .modal .services-list { margin-top: 16px; }
+        .modal .services-list .service-item { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px 0; border-bottom: 1px solid var(--border-color); animation: none; opacity: 1; min-height: auto; cursor: default; background: transparent; backdrop-filter: none; border-radius: 0; box-shadow: none; }
+        .modal .services-list .service-item:hover { transform: none; background: transparent; border-color: var(--border-color); box-shadow: none; }
+        .modal .services-list .service-item .name { font-weight: 500; color: var(--text-primary); font-size: 14px; }
+        .modal .services-list .service-item .meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        .modal .services-list .service-item .price { font-weight: 600; color: var(--gold); font-size: 14px; }
+        .modal .services-list .service-item .duration { color: var(--text-muted); font-size: 13px; }
 
-        /* ============================================================
-           ФОРМЫ В МОДАЛКАХ
-           ============================================================ */
-        .modal form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .modal form label {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text-secondary);
-            letter-spacing: 0.2px;
-        }
-        .modal form input,
-        .modal form select,
-        .modal form textarea {
-            padding: 14px 18px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            font-size: 16px;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            width: 100%;
-            transition: var(--transition);
-            min-height: var(--touch-target);
-            -webkit-appearance: none;
-            appearance: none;
-        }
-        .modal form input:focus,
-        .modal form select:focus,
-        .modal form textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.1);
-            transform: translateY(-1px);
-        }
-        .modal form input::placeholder,
-        .modal form textarea::placeholder {
-            color: var(--text-muted);
-            opacity: 0.7;
-        }
-        .modal form select option {
-            background: var(--bg-primary);
-        }
-        .modal form .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-        .modal form button {
-            margin-top: 12px;
-            padding: 18px;
-            font-size: 18px;
-            min-height: 56px;
-            width: 100%;
-            font-weight: 700;
-        }
+        .modal form { display: flex; flex-direction: column; gap: 14px; }
+        .modal form label { font-weight: 500; font-size: 14px; color: var(--text-secondary); }
+        .modal form input, .modal form select, .modal form textarea { padding: 12px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 16px; font-family: 'Inter', sans-serif; background: var(--bg-secondary); color: var(--text-primary); width: 100%; transition: var(--transition); min-height: var(--touch-target); -webkit-appearance: none; appearance: none; }
+        .modal form input:focus, .modal form select:focus, .modal form textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12); }
+        .modal form input::placeholder, .modal form textarea::placeholder { color: var(--text-muted); }
+        .modal form select option { background: var(--bg-primary); }
+        .modal form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .modal form button { margin-top: 8px; padding: 16px; font-size: 17px; min-height: 50px; width: 100%; }
 
-        /* ============================================================
-           КАЛЕНДАРЬ
-           ============================================================ */
-        .calendar-wrapper {
-            background: var(--bg-glass);
-            border-radius: var(--radius-sm);
-            padding: 16px;
-            margin: 8px 0;
-            border: 1px solid var(--border-color);
-            transition: background 0.5s ease, border-color 0.5s ease;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .calendar-header .month-label {
-            font-weight: 700;
-            font-size: 16px;
-            color: var(--text-primary);
-            letter-spacing: 0.5px;
-        }
-        .calendar-nav {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-xs);
-            padding: 6px 16px;
-            cursor: pointer;
-            font-size: 18px;
-            color: var(--text-secondary);
-            transition: var(--transition);
-            min-height: 36px;
-            min-width: 36px;
-            touch-action: manipulation;
-            font-weight: 700;
-        }
-        .calendar-nav:hover {
-            background: var(--gold);
-            color: #0A0A0A;
-            border-color: var(--gold);
-            transform: scale(1.05);
-        }
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-        }
-        .calendar-grid .day {
-            padding: 10px 0;
-            text-align: center;
-            border-radius: var(--radius-xs);
-            background: var(--bg-secondary);
-            font-size: clamp(13px, 2.5vw, 15px);
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--text-primary);
-            user-select: none;
-            touch-action: manipulation;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid transparent;
-            font-weight: 500;
-        }
-        .calendar-grid .day:hover:not(.busy):not(.day-header):not(.empty) {
-            background: var(--gold);
-            color: #0A0A0A;
-            border-color: var(--gold);
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.2);
-        }
-        .calendar-grid .day:active:not(.busy):not(.day-header):not(.empty) {
-            transform: scale(0.92);
-        }
-        .calendar-grid .day.busy {
-            background: rgba(231, 76, 60, 0.12);
-            color: #E74C3C;
-            cursor: not-allowed;
-            text-decoration: line-through;
-            opacity: 0.5;
-            border-color: rgba(231, 76, 60, 0.1);
-        }
-        .calendar-grid .day.selected {
-            background: var(--gold-gradient-strong);
-            color: #0A0A0A;
-            border-color: var(--gold);
-            box-shadow: 0 0 30px rgba(201, 169, 110, 0.15);
-            transform: scale(1.05);
-        }
-        .calendar-grid .day.day-header {
-            font-weight: 700;
-            font-size: 12px;
-            color: var(--text-muted);
-            cursor: default;
-            background: transparent;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .calendar-grid .day.empty {
-            background: transparent;
-            cursor: default;
-        }
+        .calendar-wrapper { background: var(--bg-card); border-radius: var(--radius-sm); padding: 12px; margin: 8px 0; border: 1px solid var(--border-color); transition: background 0.4s ease, border-color 0.4s ease; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .calendar-header .month-label { font-weight: 600; font-size: 15px; color: var(--text-primary); }
+        .calendar-nav { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 4px 12px; cursor: pointer; font-size: 16px; color: var(--text-secondary); transition: var(--transition); min-height: 32px; min-width: 32px; touch-action: manipulation; }
+        .calendar-nav:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+        .calendar-grid .day { padding: 8px 0; text-align: center; border-radius: 8px; background: var(--bg-secondary); font-size: clamp(12px, 2.5vw, 14px); cursor: pointer; transition: var(--transition); color: var(--text-primary); user-select: none; touch-action: manipulation; min-height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid transparent; }
+        .calendar-grid .day:hover:not(.busy):not(.day-header):not(.empty) { background: var(--gold); color: #fff; border-color: var(--gold); }
+        .calendar-grid .day:active:not(.busy):not(.day-header):not(.empty) { transform: scale(0.92); }
+        .calendar-grid .day.busy { background: rgba(231, 76, 60, 0.15); color: #E74C3C; cursor: not-allowed; text-decoration: line-through; opacity: 0.6; border-color: rgba(231, 76, 60, 0.15); }
+        .calendar-grid .day.selected { background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 0 20px rgba(201, 169, 110, 0.2); }
+        .calendar-grid .day.day-header { font-weight: 600; font-size: 11px; color: var(--text-muted); cursor: default; background: transparent; }
+        .calendar-grid .day.empty { background: transparent; cursor: default; }
+
+        .cabinet-section { background: var(--bg-card); border-radius: var(--radius); padding: 20px 16px; border: 1px solid var(--border-color); margin-top: 16px; transition: var(--transition); }
+        .cabinet-section:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
+        .cabinet-section .booking-item { display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid var(--border-color); }
+        .cabinet-section .booking-item:last-child { border-bottom: none; }
+        .cabinet-section .booking-item .info { display: flex; flex-direction: column; }
+        .cabinet-section .booking-item .info .master { font-weight: 600; color: var(--text-primary); font-size: 15px; }
+        .cabinet-section .booking-item .info .details { font-size: 13px; color: var(--text-muted); }
+        .cabinet-section .booking-item .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .cabinet-section .booking-item .actions .btn { flex: 1; min-width: 80px; min-height: 40px; padding: 8px 16px; font-size: 13px; }
+        .cabinet-section .empty-state { text-align: center; padding: 32px 16px; color: var(--text-muted); }
+        .cabinet-section .empty-state i { font-size: 40px; color: var(--gold); margin-bottom: 12px; }
+
+        .sticky-book { position: fixed; bottom: 16px; right: 16px; z-index: 999; background: var(--gold-gradient); color: #fff; border: none; border-radius: 60px; padding: 14px 20px; font-weight: 600; font-size: clamp(14px, 3vw, 16px); box-shadow: 0 8px 32px rgba(201, 169, 110, 0.25); cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 8px; background-size: 200% auto; will-change: transform; touch-action: manipulation; min-height: var(--touch-target); }
+        .sticky-book:hover { transform: scale(1.05); box-shadow: 0 12px 48px rgba(201, 169, 110, 0.35); }
+        .sticky-book:active { transform: scale(0.95); }
+        .sticky-book i { font-size: clamp(16px, 2.5vw, 18px); }
+
+        footer { background: var(--bg-secondary); color: var(--text-muted); padding: 32px 16px; text-align: center; border-top: 1px solid var(--border-color); transition: background 0.4s ease, border-color 0.4s ease; }
+        footer p { font-size: clamp(13px, 2vw, 14px); }
+        footer span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
         /* ============================================================
            АДМИНКА
@@ -1313,6 +451,7 @@
             background: var(--bg-primary);
         }
         .admin-page body::before { display: none; }
+        .admin-page body::after { display: none; }
         .admin-page header { display: none; }
         .admin-page footer { display: none; }
         .admin-page .sticky-book { display: none; }
@@ -1320,372 +459,120 @@
         .admin-page #particles-canvas { display: none; }
 
         .admin-panel { padding: 30px 0 60px; }
-        .admin-panel .glass-card { padding: 24px; margin-bottom: 24px; }
-        .admin-panel .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        .admin-panel .admin-table th {
-            text-align: left;
-            padding: 14px 16px;
-            color: var(--gold);
-            border-bottom: 2px solid var(--border-color);
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .admin-panel .admin-table td {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
-        }
-        .admin-panel .admin-table tr:hover td {
-            background: var(--bg-card-hover);
-        }
-        .admin-panel .admin-table .actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .admin-panel .admin-table .actions .btn {
-            padding: 6px 14px;
-            font-size: 12px;
-            min-height: 32px;
-            min-width: auto;
-        }
-        .admin-panel .admin-table input,
-        .admin-panel .admin-table select {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-xs);
-            padding: 8px 12px;
-            color: var(--text-primary);
-            font-size: 13px;
-            width: 100%;
-            transition: var(--transition);
-        }
-        .admin-panel .admin-table input:focus,
-        .admin-panel .admin-table select:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
-        }
-        .admin-panel .admin-table .service-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .admin-panel .admin-table .service-row input {
-            width: auto;
-            flex: 1;
-            min-width: 70px;
-        }
-        .admin-panel .admin-table .service-row .btn {
-            padding: 4px 12px;
-            font-size: 12px;
-            min-height: 32px;
-            min-width: auto;
-        }
-        .admin-actions {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
+        .admin-panel .glass-card { padding: 20px; margin-bottom: 20px; }
+        .admin-panel .admin-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .admin-panel .admin-table th { text-align: left; padding: 10px 12px; color: var(--gold); border-bottom: 2px solid var(--border-color); font-weight: 600; }
+        .admin-panel .admin-table td { padding: 10px 12px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+        .admin-panel .admin-table tr:hover td { background: var(--bg-card-hover); }
+        .admin-panel .admin-table .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+        .admin-panel .admin-table .actions .btn { padding: 4px 12px; font-size: 12px; min-height: 30px; min-width: auto; }
+        .admin-panel .admin-table input, .admin-panel .admin-table select { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 10px; color: var(--text-primary); font-size: 13px; width: 100%; transition: var(--transition); }
+        .admin-panel .admin-table input:focus, .admin-panel .admin-table select:focus { outline: none; border-color: var(--gold); }
+        .admin-panel .admin-table .service-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .admin-panel .admin-table .service-row input { width: auto; flex: 1; min-width: 80px; }
+        .admin-panel .admin-table .service-row .btn { padding: 4px 10px; font-size: 12px; min-height: 30px; min-width: auto; }
+        .admin-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
 
-        .admin-login {
-            max-width: 420px;
-            margin: 40px auto;
-            padding: 48px 36px;
-            text-align: center;
-            border-radius: var(--radius);
-        }
-        .admin-login h2 {
-            margin-bottom: 8px;
-            font-weight: 800;
-        }
-        .admin-login p {
-            color: var(--text-muted);
-            margin-bottom: 28px;
-        }
-        .admin-login input {
-            display: block;
-            width: 100%;
-            padding: 14px 18px;
-            margin-bottom: 14px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-size: 16px;
-            transition: var(--transition);
-        }
-        .admin-login input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.1);
-        }
-        .admin-login .btn {
-            width: 100%;
-            font-size: 17px;
-            padding: 16px;
-        }
-        .admin-login .error {
-            color: #E74C3C;
-            font-size: 14px;
-            margin-top: 8px;
-            display: none;
-        }
-
-        /* ============================================================
-           STICKY BOOK & SCROLL TOP
-           ============================================================ */
-        .sticky-book {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 999;
-            background: var(--gold-gradient-strong);
-            color: #0A0A0A;
-            border: none;
-            border-radius: 60px;
-            padding: 16px 28px;
-            font-weight: 700;
-            font-size: clamp(15px, 3vw, 17px);
-            box-shadow: 0 8px 40px rgba(201, 169, 110, 0.25);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-size: 200% auto;
-            will-change: transform;
-            touch-action: manipulation;
-            min-height: var(--touch-target);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .sticky-book:hover {
-            transform: scale(1.08) translateY(-4px);
-            box-shadow: 0 12px 56px rgba(201, 169, 110, 0.35);
-        }
-        .sticky-book:active { transform: scale(0.95); }
-        .sticky-book i { font-size: clamp(18px, 2.5vw, 20px); }
-
-        #scrollTop {
-            position: fixed;
-            bottom: 100px;
-            right: 24px;
-            z-index: 998;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--gold-gradient-strong);
-            color: #0A0A0A;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            box-shadow: 0 4px 32px rgba(201, 169, 110, 0.2);
-            transition: var(--transition);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px) scale(0.8);
-            touch-action: manipulation;
-        }
-        #scrollTop.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
-        #scrollTop:hover {
-            transform: scale(1.1) translateY(-4px);
-            box-shadow: 0 8px 40px rgba(201, 169, 110, 0.3);
-        }
-        #scrollTop:active { transform: scale(0.92); }
-
-        /* ============================================================
-           FOOTER
-           ============================================================ */
-        footer {
-            background: var(--bg-secondary);
-            color: var(--text-muted);
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-            transition: background 0.5s ease, border-color 0.5s ease;
-        }
-        footer p {
-            font-size: clamp(14px, 2vw, 15px);
-            letter-spacing: 0.2px;
-        }
-        footer span {
-            background: var(--gold-gradient-strong);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-        }
-        footer .footer-divider {
-            width: 40px;
-            height: 2px;
-            background: var(--gold-gradient);
-            margin: 12px auto;
-            border-radius: 2px;
-            opacity: 0.3;
-        }
-
-        /* ============================================================
-           REVEAL АНИМАЦИИ
-           ============================================================ */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-delay-1 { transition-delay: 0.05s; }
-        .reveal-delay-2 { transition-delay: 0.1s; }
-        .reveal-delay-3 { transition-delay: 0.15s; }
-        .reveal-delay-4 { transition-delay: 0.2s; }
+        .admin-login { max-width: 400px; margin: 40px auto; padding: 40px 30px; text-align: center; }
+        .admin-login h2 { margin-bottom: 8px; }
+        .admin-login p { color: var(--text-muted); margin-bottom: 24px; }
+        .admin-login input { display: block; width: 100%; padding: 12px 16px; margin-bottom: 12px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 16px; transition: var(--transition); }
+        .admin-login input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12); }
+        .admin-login .btn { width: 100%; }
+        .admin-login .error { color: #E74C3C; font-size: 14px; margin-top: 8px; display: none; }
 
         /* ============================================================
            АДАПТИВ
            ============================================================ */
-        @media (min-width: 480px) {
-            .services-grid { grid-template-columns: 1fr 1fr; }
-        }
+        @media (min-width: 480px) { .services-grid { grid-template-columns: 1fr 1fr; } }
         @media (min-width: 600px) {
             .masters-grid { grid-template-columns: 1fr 1fr; }
-            .contact-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
-            .map-container { height: 320px; }
-            .modal .master-profile { flex-direction: row; text-align: left; gap: 24px; }
+            .contact-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .map-container { height: 300px; }
+            .modal .master-profile { flex-direction: row; text-align: left; }
             .modal .services-list .service-item { flex-direction: row; align-items: center; }
-            .cabinet-section .booking-item {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
+            .cabinet-section .booking-item { flex-direction: row; justify-content: space-between; align-items: center; }
             .cabinet-section .booking-item .actions .btn { flex: 0 1 auto; }
-            .container { padding: 0 32px; }
-            section { padding: 100px 0; }
-            .hero { padding: 100px 0 120px; min-height: 80vh; }
-            .modal { padding: 40px 36px; }
-            .sticky-book { bottom: 32px; right: 32px; padding: 18px 36px; }
+            .container { padding: 0 24px; }
+            section { padding: 70px 0; }
+            .hero { padding: 60px 0 80px; min-height: 70vh; }
+            .modal { padding: 32px 28px; }
         }
         @media (min-width: 1024px) {
-            .services-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
-            .masters-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-            .container { padding: 0 40px; }
-            section { padding: 120px 0; }
-            .hero { padding: 120px 0 140px; min-height: 85vh; }
-            .modal { padding: 48px 40px; }
-            .cabinet-section { padding: 36px 32px; }
+            .services-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+            .masters-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+            .container { padding: 0 32px; }
+            section { padding: 90px 0; }
+            .hero { padding: 80px 0 100px; min-height: 80vh; }
+            .modal { padding: 40px 32px; }
+            .sticky-book { bottom: 28px; right: 28px; padding: 18px 32px; }
+            .cabinet-section { padding: 32px; }
             .admin-panel .admin-table { font-size: 15px; }
-            #scrollTop { bottom: 110px; right: 32px; }
         }
-        @media (min-width: 1400px) {
-            .container { max-width: 1400px; padding: 0 60px; }
-            .hero h1 { font-size: 80px; }
+        @media (min-width: 1400px) { .container { max-width: 1400px; padding: 0 40px; } .hero h1 { font-size: 72px; } }
+        @media (max-width: 400px) {
+            .hero h1 { font-size: 26px; }
+            .hero p { font-size: 14px; }
+            .hero-buttons .btn { font-size: 14px; padding: 12px 20px; min-width: 120px; }
+            .service-item { padding: 12px 14px; min-height: 48px; }
+            .service-item .name { font-size: 13px; }
+            .service-item .price { font-size: 14px; }
+            .master-card { padding: 16px 12px 20px; }
+            .master-card .image-wrapper { width: 80px; height: 80px; }
+            .master-card .image-wrapper .placeholder { font-size: 24px; }
+            .master-card h3 { font-size: 16px; }
+            .calendar-grid .day { font-size: 11px; padding: 6px 0; min-height: 30px; }
+            .modal { padding: 20px 14px; }
+            .modal h2 { font-size: 20px; }
+            .modal form .form-row { grid-template-columns: 1fr; }
+            .sticky-book { padding: 12px 16px; font-size: 13px; bottom: 12px; right: 12px; }
+            .sticky-book i { font-size: 14px; }
+            .cabinet-section .booking-item .actions .btn { font-size: 12px; padding: 6px 12px; }
+            .logo { font-size: 18px; }
+            .auth-btn { font-size: 12px; padding: 4px 10px; }
+            .auth-btn .avatar { width: 20px; height: 20px; }
+            .theme-toggle { font-size: 17px; }
+            .nav-book-btn { font-size: 12px; padding: 4px 12px; }
+            .admin-panel .admin-table { font-size: 12px; }
+            .admin-panel .admin-table td, .admin-panel .admin-table th { padding: 6px 8px; }
+            .admin-panel .admin-table .service-row { flex-direction: column; align-items: stretch; }
+            .admin-panel .admin-table .service-row input { width: 100%; }
+            .admin-actions .btn { font-size: 13px; padding: 10px 16px; }
         }
-
         @media (max-width: 768px) {
             .menu-toggle { display: flex; align-items: center; justify-content: center; }
             #mainNav {
                 display: none;
                 flex-direction: column;
-                gap: 8px;
+                gap: 12px;
                 background: var(--bg-primary);
-                backdrop-filter: blur(24px) saturate(1.3);
-                -webkit-backdrop-filter: blur(24px) saturate(1.3);
                 position: absolute;
                 top: var(--header-height);
                 left: 0;
                 right: 0;
-                padding: 24px 24px 32px;
+                padding: 20px 24px 28px;
                 box-shadow: var(--shadow-hover);
                 border-bottom: 1px solid var(--border-color);
-                transition: background 0.5s ease, border-color 0.5s ease;
+                transition: background 0.4s ease, border-color 0.4s ease;
                 align-items: stretch;
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
             }
             #mainNav.open { display: flex; }
-            #mainNav a {
-                padding: 14px 0;
-                font-size: 16px;
-                border-bottom: 1px solid var(--border-color);
-                text-align: center;
-            }
+            #mainNav a { padding: 12px 0; font-size: 16px; border-bottom: 1px solid var(--border-color); text-align: center; }
             #mainNav a::after { display: none; }
-            #mainNav .nav-book-btn {
-                justify-content: center;
-                margin: 4px 0;
-                padding: 14px;
-                font-size: 16px;
-                border-radius: 40px;
-            }
-            #mainNav .auth-btn {
-                justify-content: center;
-                margin-top: 4px;
-                padding: 14px;
-                font-size: 16px;
-            }
+            #mainNav .nav-book-btn { justify-content: center; margin: 4px 0; padding: 12px; font-size: 16px; border-radius: 40px; }
+            #mainNav .auth-btn { justify-content: center; margin-top: 4px; padding: 12px; font-size: 16px; }
             #mainNav .theme-toggle { align-self: center; padding: 12px; }
-            .breadcrumbs { font-size: 12px; padding: 4px 0 16px; }
+            .breadcrumbs { font-size: 12px; padding: 4px 0 12px; }
             .admin-panel .admin-table .actions { flex-direction: column; }
             .admin-panel .admin-table .actions .btn { width: 100%; }
-            .hero { min-height: 70vh; padding: 60px 0 80px; }
-            section { padding: 60px 0; }
-            .modal form .form-row { grid-template-columns: 1fr; }
-            .master-card .image-wrapper { width: 100px; height: 100px; }
-            .master-card .image-wrapper .placeholder { font-size: 30px; }
         }
-        @media (max-width: 400px) {
-            .hero h1 { font-size: 28px; }
-            .hero p { font-size: 15px; }
-            .hero-buttons .btn { font-size: 14px; padding: 14px 24px; min-width: 120px; }
-            .service-item { padding: 14px 16px; min-height: 56px; }
-            .service-item .name { font-size: 14px; }
-            .service-item .price { font-size: 15px; }
-            .master-card { padding: 20px 14px 18px; }
-            .master-card .image-wrapper { width: 80px; height: 80px; }
-            .master-card .image-wrapper .placeholder { font-size: 24px; }
-            .master-card h3 { font-size: 17px; }
-            .calendar-grid .day { font-size: 12px; padding: 8px 0; min-height: 38px; }
-            .modal { padding: 20px 14px; }
-            .modal h2 { font-size: 20px; }
-            .sticky-book { padding: 12px 18px; font-size: 13px; bottom: 16px; right: 16px; }
-            .sticky-book i { font-size: 14px; }
-            .cabinet-section .booking-item .actions .btn { font-size: 12px; padding: 8px 14px; }
-            .logo { font-size: 18px; }
-            .auth-btn { font-size: 12px; padding: 6px 12px; }
-            .auth-btn .avatar { width: 22px; height: 22px; }
-            .theme-toggle { font-size: 17px; padding: 8px; }
-            .nav-book-btn { font-size: 12px; padding: 6px 14px; }
-            .admin-panel .admin-table { font-size: 12px; }
-            .admin-panel .admin-table td,
-            .admin-panel .admin-table th { padding: 8px 10px; }
-            .admin-panel .admin-table .service-row { flex-direction: column; align-items: stretch; }
-            .admin-panel .admin-table .service-row input { width: 100%; }
-            .admin-actions .btn { font-size: 13px; padding: 10px 16px; }
-            #scrollTop { width: 40px; height: 40px; font-size: 15px; bottom: 80px; right: 16px; }
-        }
-        @media (max-width: 1024px) and (min-width: 769px) {
-            nav a { font-size: 13px; }
-            nav { gap: 12px; }
-            .auth-btn { font-size: 12px; padding: 6px 14px; }
-            .nav-book-btn { font-size: 12px; padding: 6px 16px; }
-        }
+        @media (max-width: 1024px) and (min-width: 769px) { nav a { font-size: 13px; } nav { gap: 10px; } .auth-btn { font-size: 12px; padding: 4px 12px; } .nav-book-btn { font-size: 12px; padding: 4px 12px; } }
     </style>
 </head>
 <body>
-    <!-- ===== ФОН ===== -->
-    <canvas id="particles-canvas"></canvas>
-
+    <!-- ===== ФОН (убираем canvas, теперь фон живёт в body::before/after) ===== -->
     <!-- ===== HEADER ===== -->
     <header>
         <div class="header-inner">
@@ -1717,7 +604,7 @@
         <section class="hero" id="home">
             <div class="container">
                 <div class="hero-badge">
-                    <i class="fas fa-star"></i> Премиальный салон красоты
+                    <i class="fas fa-star" style="font-size:10px;"></i> Премиальный салон красоты
                 </div>
                 <h1 class="glow-text">Ваша красота — <span class="shimmer-text">наше золото</span></h1>
                 <p class="reveal reveal-delay-1">Премиальный салон красоты в Кемерово. Мастера высшего класса, индивидуальный подход и атмосфера заботы.</p>
@@ -1729,7 +616,7 @@
         </section>
 
         <!-- ===== УСЛУГИ ===== -->
-        <section id="services">
+        <section id="services" style="background: var(--bg-secondary);">
             <div class="container">
                 <div class="breadcrumbs">
                     <a href="#home">Главная</a>
@@ -1737,10 +624,9 @@
                     <span class="current">Услуги</span>
                 </div>
                 <h2 class="section-title reveal reveal-delay-1">Все <span>услуги</span></h2>
-                <div class="section-divider"></div>
                 <p class="section-subtitle reveal reveal-delay-2">Выберите процедуру и мастера</p>
                 <div class="services-grid" id="allServicesContainer"></div>
-                <div style="text-align: center; margin-top: 32px;">
+                <div style="text-align: center; margin-top: 24px;">
                     <button class="btn btn-outline btn-ripple" id="toggleServicesBtn" onclick="toggleAllServices()" aria-label="Показать или скрыть все услуги">
                         Показать все (<span id="servicesCount">0</span>)
                     </button>
@@ -1749,7 +635,7 @@
         </section>
 
         <!-- ===== МАСТЕРА ===== -->
-        <section id="masters" style="background: var(--bg-secondary);">
+        <section id="masters">
             <div class="container">
                 <div class="breadcrumbs">
                     <a href="#home">Главная</a>
@@ -1757,14 +643,13 @@
                     <span class="current">Мастера</span>
                 </div>
                 <h2 class="section-title reveal reveal-delay-1">Наши <span>мастера</span></h2>
-                <div class="section-divider"></div>
                 <p class="section-subtitle reveal reveal-delay-2">Профессионалы с золотыми руками</p>
                 <div class="masters-grid" id="mastersContainer"></div>
             </div>
         </section>
 
         <!-- ===== ЛИЧНЫЙ КАБИНЕТ ===== -->
-        <section id="cabinet">
+        <section id="cabinet" style="background: var(--bg-secondary);">
             <div class="container">
                 <div class="breadcrumbs">
                     <a href="#home">Главная</a>
@@ -1772,7 +657,6 @@
                     <span class="current">Личный кабинет</span>
                 </div>
                 <h2 class="section-title reveal reveal-delay-1">Личный <span>кабинет</span></h2>
-                <div class="section-divider"></div>
                 <p class="section-subtitle reveal reveal-delay-2">Ваши записи и избранное</p>
                 <div class="cabinet-section" id="cabinetContainer"></div>
             </div>
@@ -1787,7 +671,6 @@
                     <span class="current">Контакты</span>
                 </div>
                 <h2 class="section-title reveal reveal-delay-1">Наши <span>контакты</span></h2>
-                <div class="section-divider"></div>
                 <p class="section-subtitle reveal reveal-delay-2">Мы всегда рады вам. Приходите!</p>
                 <div class="contact-grid">
                     <div class="contact-info">
@@ -1816,12 +699,12 @@
                             <div><span class="day">Пн – Вс</span></div>
                             <div><span class="time">10:00 – 21:00</span></div>
                             <div style="margin-left: auto;">
-                                <span style="color: #27AE60; font-weight: 600;">
+                                <span style="color: #27AE60; font-weight: 500;">
                                     <span class="pulse-dot"></span> Сейчас открыто
                                 </span>
                             </div>
                         </div>
-                        <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
                             <div class="socials">
                                 <a href="#" aria-label="Telegram" data-tooltip="Telegram"><i class="fab fa-telegram"></i></a>
                                 <a href="#" aria-label="VK" data-tooltip="VK"><i class="fab fa-vk"></i></a>
@@ -1848,7 +731,7 @@
         </section>
     </div>
 
-    <!-- ===== АДМИНКА ===== -->
+    <!-- ===== АДМИНКА (отдельная страница) ===== -->
     <div id="adminApp" style="display:none;">
         <div class="admin-page">
             <div class="container admin-panel" id="adminPanel"></div>
@@ -1859,8 +742,7 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 <span>Студия №1</span> — Премиальный салон красоты в Кемерово</p>
-            <div class="footer-divider"></div>
-            <p style="font-size:13px; color:var(--text-muted);">Золотой стандарт красоты ✦</p>
+            <p style="margin-top:6px; font-size:13px; color:var(--text-muted);">Золотой стандарт красоты</p>
         </div>
     </footer>
 
@@ -1917,7 +799,7 @@
                         </div>
                         <div class="calendar-grid" id="calendarDemo"></div>
                     </div>
-                    <p style="font-size:12px; color:var(--text-muted); margin-top:6px;">* Данные из Google Calendar</p>
+                    <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">* Данные из Google Calendar</p>
                 </div>
 
                 <label for="bookingName">Ваше имя</label>
@@ -1947,11 +829,11 @@
     <div id="googleButtonContainer" style="display: none;"></div>
 
     <!-- ============================================================
-    ВЕСЬ JS
+    ВЕСЬ JS (без изменений, работает как прежде)
     ============================================================ -->
     <script>
         // ============================================================
-        // ДАННЫЕ ПО УМОЛЧАНИЮ
+        // ДАННЫЕ ПО УМОЛЧАНИЮ (если нет сохранённых)
         // ============================================================
         const DEFAULT_MASTERS = [{
             id: 'natalia',
@@ -1959,7 +841,7 @@
             specialty: 'Парикмахер-колорист',
             description: 'Колорист, мастер по стрижкам с наставничеством',
             education: 'г. Москва, академия парикмахерского искусства Sointera Academy, стажировка в творческом кампусе.',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Inter"%3EНМ%3C/text%3E%3C/svg%3E',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EНМ%3C/text%3E%3C/svg%3E',
             rating: 4.9,
             reviews: 55,
             services: [
@@ -2002,7 +884,7 @@
             specialty: 'Мастер перманентного макияжа',
             description: 'Специалист по перманентному макияжу',
             education: 'Сертифицированный мастер перманентного макияжа',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Inter"%3EВС%3C/text%3E%3C/svg%3E',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EВС%3C/text%3E%3C/svg%3E',
             rating: 0,
             reviews: 0,
             services: [
@@ -2034,7 +916,7 @@
             specialty: 'Специалист по солярию',
             description: 'Администратор и специалист по солярию',
             education: 'Сертифицированный специалист премиальных ламп Rubino+Collatan',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Inter"%3EТТ%3C/text%3E%3C/svg%3E',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EТТ%3C/text%3E%3C/svg%3E',
             rating: 4.7,
             reviews: 24,
             services: [
@@ -2050,7 +932,7 @@
             specialty: 'Мастер педикюра и маникюра',
             description: 'Специалист по педикюру и маникюру',
             education: 'Сертифицированный мастер ногтевого сервиса',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Inter"%3EЮС%3C/text%3E%3C/svg%3E',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EЮС%3C/text%3E%3C/svg%3E',
             rating: 5.0,
             reviews: 3,
             services: [
@@ -2093,13 +975,13 @@
         let isAdminLoggedIn = false;
 
         // ============================================================
-        // YANDEX OAUTH
+        // YANDEX OAUTH — НАСТРОЙКИ
         // ============================================================
         const YANDEX_CLIENT_ID = 'b6ca89ed68034695991003fc3c35a675';
         const YANDEX_REDIRECT_URI = window.location.origin + window.location.pathname;
 
         // ============================================================
-        // ЗАГРУЗКА/СОХРАНЕНИЕ
+        // ЗАГРУЗКА/СОХРАНЕНИЕ ДАННЫХ
         // ============================================================
         function loadData() {
             const saved = localStorage.getItem('studio_masters_data');
@@ -2122,7 +1004,7 @@
         }
 
         // ============================================================
-        // АДМИНКА
+        // АДМИНКА — РОУТИНГ
         // ============================================================
         function isAdminRoute() {
             return window.location.hash === '#/admin';
@@ -2136,6 +1018,9 @@
             window.location.hash = '';
         }
 
+        // ============================================================
+        // АДМИНКА — ЛОГИН
+        // ============================================================
         const ADMIN_CREDENTIALS = {
             login: 'admin',
             password: 'studio2026'
@@ -2159,6 +1044,7 @@
                     </button>
                 </div>
             `;
+
             document.getElementById('adminPasswordInput').addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') adminLogin();
             });
@@ -2189,6 +1075,9 @@
             }
         }
 
+        // ============================================================
+        // АДМИНКА — ПАНЕЛЬ УПРАВЛЕНИЯ
+        // ============================================================
         function renderAdminPanel() {
             const panel = document.getElementById('adminPanel');
             const masters = getMastersData();
@@ -2196,7 +1085,7 @@
             let html = `
                 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
                     <div>
-                        <h2 style="font-size:28px;font-weight:800;">⚙️ Админ-панель</h2>
+                        <h2 style="font-size:28px;">⚙️ Админ-панель</h2>
                         <p style="color:var(--text-muted);">Управление мастерами и услугами</p>
                     </div>
                     <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -2209,17 +1098,22 @@
                 </div>
             `;
 
+            // Добавление мастера
             html += `
                 <div class="glass-card" style="margin-bottom:20px;padding:16px 20px;">
                     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-                        <input type="text" id="newMasterName" placeholder="Имя мастера" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-xs);color:var(--text-primary);" />
-                        <input type="text" id="newMasterSpecialty" placeholder="Специальность" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-xs);color:var(--text-primary);" />
-                        <input type="text" id="newMasterPhoto" placeholder="URL фото" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-xs);color:var(--text-primary);" />
+                        <input type="text" id="newMasterName" placeholder="Имя мастера" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
+                        <input type="text" id="newMasterSpecialty" placeholder="Специальность" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
+                        <input type="text" id="newMasterPhoto" placeholder="URL фото" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
                         <button class="btn btn-sm" onclick="addMaster()"><i class="fas fa-plus"></i> Добавить</button>
+                    </div>
+                    <div style="margin-top:8px;font-size:12px;color:var(--text-muted);">
+                        <i class="fas fa-info-circle"></i> Фото: вставьте ссылку на изображение (можно использовать placeholder)
                     </div>
                 </div>
             `;
 
+            // Таблица мастеров
             html += `<div class="glass-card"><table class="admin-table"><thead><tr>
                 <th>Мастер</th><th>Специальность</th><th>Услуги</th><th>Действия</th>
             </tr></thead><tbody>`;
@@ -2281,9 +1175,10 @@
 
             html += `</tbody></table></div>`;
 
+            // Инфо
             const totalServices = masters.reduce((acc, m) => acc + m.services.length, 0);
             html += `
-                <div style="margin-top:20px;padding:16px 20px;background:var(--bg-glass);border-radius:var(--radius);border:1px solid var(--border-color);display:flex;gap:24px;flex-wrap:wrap;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+                <div style="margin-top:20px;padding:16px 20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);display:flex;gap:24px;flex-wrap:wrap;">
                     <span><strong>👩‍🎨 Мастеров:</strong> ${masters.length}</span>
                     <span><strong>💇 Услуг:</strong> ${totalServices}</span>
                     <span style="color:var(--text-muted);font-size:13px;">
@@ -2296,7 +1191,7 @@
         }
 
         // ============================================================
-        // АДМИНКА — ФУНКЦИИ
+        // АДМИНКА — ФУНКЦИИ УПРАВЛЕНИЯ
         // ============================================================
         function updateMasterField(index, field, value) {
             if (MASTERS_DATA[index]) {
@@ -2318,7 +1213,7 @@
             const name = document.getElementById('newMasterName').value.trim();
             const specialty = document.getElementById('newMasterSpecialty').value.trim();
             const photo = document.getElementById('newMasterPhoto').value.trim() ||
-                'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Inter"%3E' +
+                'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E' +
                 name.split(' ').map(w => w[0]).join('') +
                 '%3C/text%3E%3C/svg%3E';
 
@@ -2381,6 +1276,9 @@
             renderAll();
         }
 
+        // ============================================================
+        // АДМИНКА — ЭКСПОРТ/ИМПОРТ
+        // ============================================================
         function exportData() {
             const data = {
                 masters: MASTERS_DATA,
@@ -2431,7 +1329,6 @@
             const footer = document.querySelector('footer');
             const stickyBook = document.querySelector('.sticky-book');
             const scrollTop = document.getElementById('scrollTop');
-            const particles = document.getElementById('particles-canvas');
 
             if (isAdmin) {
                 app.style.display = 'none';
@@ -2440,7 +1337,6 @@
                 footer.style.display = 'none';
                 if (stickyBook) stickyBook.style.display = 'none';
                 if (scrollTop) scrollTop.style.display = 'none';
-                if (particles) particles.style.display = 'none';
 
                 if (!isAdminLoggedIn) {
                     renderAdminLogin();
@@ -2454,7 +1350,6 @@
                 footer.style.display = 'block';
                 if (stickyBook) stickyBook.style.display = 'flex';
                 if (scrollTop) scrollTop.style.display = 'block';
-                if (particles) particles.style.display = 'block';
             }
         }
 
@@ -2476,7 +1371,7 @@
         };
 
         // ============================================================
-        // YANDEX AUTH
+        // YANDEX AUTH — ФУНКЦИИ
         // ============================================================
         function handleYandexAuth() {
             const authUrl = 'https://oauth.yandex.ru/authorize?' +
@@ -2508,11 +1403,9 @@
                                     name: data.display_name || data.real_name || data.login,
                                     email: data.default_email || data.emails?.[0] || '',
                                     picture: data.default_avatar_id ?
-                                        'https://avatars.yandex.net/get-yapic/' + data.default_avatar_id +
-                                        '/islands-200' :
-                                        'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Inter"%3E' +
-                                        (data.display_name || data.login).charAt(0).toUpperCase() +
-                                        '%3C/text%3E%3C/svg%3E',
+                                        'https://avatars.yandex.net/get-yapic/' + data.default_avatar_id + '/islands-200' :
+                                        'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E' +
+                                        (data.display_name || data.login).charAt(0).toUpperCase() + '%3C/text%3E%3C/svg%3E',
                                     token: accessToken,
                                     bookings: Storage.get(`bookings_${data.id}`, []),
                                     favorites: Storage.get(`favorites_${data.id}`, [])
@@ -2601,7 +1494,7 @@
         }
 
         // ============================================================
-        // UI ПОСЛЕ АВТОРИЗАЦИИ
+        // ОБНОВЛЕНИЕ UI ПОСЛЕ АВТОРИЗАЦИИ
         // ============================================================
         function updateUIForUser() {
             const btn = document.getElementById('authButton');
@@ -2623,7 +1516,7 @@
         }
 
         // ============================================================
-        // МОДАЛКА ВХОДА
+        // МОДАЛКА ВХОДА (Google + Яндекс)
         // ============================================================
         function openLoginModal() {
             const modal = document.getElementById('profileModal');
@@ -2643,7 +1536,7 @@
                     <p style="color:var(--text-muted);margin-bottom:24px;">Войдите, чтобы управлять записями</p>
                     
                     <div style="display:flex;flex-direction:column;gap:12px;max-width:300px;margin:0 auto;">
-                        <button class="btn" onclick="handleYandexAuth()" style="background:#FC3F1D;box-shadow:0 4px 24px rgba(252,63,29,0.3);color:#fff;">
+                        <button class="btn" onclick="handleYandexAuth()" style="background:#FC3F1D;box-shadow:0 4px 24px rgba(252,63,29,0.3);">
                             <i class="fab fa-yandex"></i> Войти через Яндекс
                         </button>
                         <div style="position:relative;text-align:center;color:var(--text-muted);font-size:13px;">
@@ -2672,7 +1565,7 @@
         }
 
         // ============================================================
-        // ПРОФИЛЬ
+        // ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ
         // ============================================================
         function openProfileModal() {
             if (!currentUser) { openLoginModal(); return; }
@@ -2682,10 +1575,10 @@
             const favorites = (currentUser.favorites || []).length;
             content.innerHTML = `
                 <div style="text-align:center;padding:10px 0;">
-                    <img src="${escapeHTML(currentUser.picture)}" style="width:80px;height:80px;border-radius:50%;border:3px solid var(--gold);margin-bottom:12px;" alt="${escapeHTML(currentUser.name)}" />
+                    <img src="${escapeHTML(currentUser.picture)}" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--gold);margin-bottom:12px;" alt="${escapeHTML(currentUser.name)}" />
                     <h2>${escapeHTML(currentUser.name)}</h2>
                     <p style="color:var(--text-muted);font-size:14px;">${escapeHTML(currentUser.email)}</p>
-                    <div style="margin:20px 0;padding:16px;background:var(--bg-glass);border-radius:var(--radius-sm);border:1px solid var(--border-color);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+                    <div style="margin:20px 0;padding:12px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border-color);">
                         <p style="font-size:14px;color:var(--text-muted);"><i class="fas fa-calendar-check" style="color:var(--gold);"></i> ${bookings} активных записей</p>
                         <p style="font-size:14px;color:var(--text-muted);margin-top:4px;"><i class="fas fa-heart" style="color:var(--gold);"></i> ${favorites} избранных услуг</p>
                     </div>
@@ -2719,23 +1612,11 @@
         // ============================================================
         // ОСТАЛЬНЫЕ ФУНКЦИИ САЙТА
         // ============================================================
+
         function renderAllServices() {
             const container = document.getElementById('allServicesContainer');
             const toggleBtn = document.getElementById('toggleServicesBtn');
             const masters = getMastersData();
-
-            const serviceIcons = {
-                'Маникюр': 'fa-hand-sparkles',
-                'Ресницы': 'fa-eye',
-                'Перманент': 'fa-pen-fancy',
-                'Спа-сервисы': 'fa-spa',
-                'Окрашивание': 'fa-palette',
-                'Стрижки': 'fa-scissors',
-                'Биозавивка': 'fa-wind',
-                'Солярий': 'fa-sun',
-                'Педикюр': 'fa-shoe-prints',
-                'По умолчанию': 'fa-star'
-            };
 
             allServicesList = [];
             masters.forEach(master => {
@@ -2769,24 +1650,21 @@
             const saved = Storage.get('servicesExpanded');
             if (saved !== null) servicesExpanded = saved;
 
-            const showCount = servicesExpanded ? allServicesList.length : 6;
+            const showCount = servicesExpanded ? allServicesList.length : 5;
             const shown = allServicesList.slice(0, showCount);
 
             if (shown.length === 0) {
                 container.innerHTML = `<p style="color:var(--text-muted);text-align:center;">Услуги загружаются...</p>`;
             } else {
-                container.innerHTML = shown.map(s => {
-                    const icon = serviceIcons[s.category] || serviceIcons['По умолчанию'];
-                    return `
-                        <div class="service-item glass-card" onclick="openBookingByService('${escapeHTML(s.name)}', '${escapeHTML(s.masterId)}')">
-                            <div class="info">
-                                <span class="name"><i class="fas ${icon}"></i>${escapeHTML(s.name)}</span>
-                                <span class="category">${escapeHTML(s.category)} • ${escapeHTML(s.duration)} • Мастер: ${escapeHTML(s.master)}</span>
-                            </div>
-                            <div class="price">${escapeHTML(s.price)} ₽</div>
+                container.innerHTML = shown.map(s => `
+                    <div class="service-item glass-card" onclick="openBookingByService('${escapeHTML(s.name)}', '${escapeHTML(s.masterId)}')">
+                        <div class="info">
+                            <span class="name">${escapeHTML(s.name)}</span>
+                            <span class="category">${escapeHTML(s.category)} • ${escapeHTML(s.duration)} • Мастер: ${escapeHTML(s.master)}</span>
                         </div>
-                    `;
-                }).join('');
+                        <div class="price">${escapeHTML(s.price)} ₽</div>
+                    </div>
+                `).join('');
             }
 
             if (toggleBtn) {
@@ -2824,7 +1702,8 @@
                         if (serviceSelect.options[i].text.includes(serviceName)) {
                             serviceSelect.selectedIndex = i;
                             serviceSelect.style.borderColor = 'var(--gold)';
-                            serviceSelect.style.boxShadow = '0 0 0 4px rgba(201, 169, 110, 0.15)';
+                            serviceSelect.style.boxShadow = '0 0 0 3px rgba(201, 169, 110, 0.2)';
+                            serviceSelect.style.transition = 'all 0.3s ease';
                             setTimeout(() => {
                                 serviceSelect.style.borderColor = '';
                                 serviceSelect.style.boxShadow = '';
@@ -2873,12 +1752,15 @@
                         <div class="services-preview">
                             <ul>
                                 ${master.services.slice(0, 4).map(s => `
-                                    <li onclick="event.stopPropagation(); openBookingByService('${escapeHTML(s.name)}', '${safeId}')">
+                                    <li onclick="event.stopPropagation(); openBookingByService('${escapeHTML(s.name)}', '${safeId}')" 
+                                        style="cursor:pointer;transition:var(--transition);padding:6px 8px;border-radius:6px;margin:2px 0;"
+                                        onmouseover="this.style.background='var(--gold)';this.style.color='#fff';"
+                                        onmouseout="this.style.background='transparent';this.style.color=''">
                                         <span>${escapeHTML(s.name)}</span>
                                         <span class="price">${escapeHTML(s.price)} ₽</span>
                                     </li>
                                 `).join('')}
-                                ${master.services.length > 4 ? `<li style="color:var(--gold);text-align:center;cursor:default;padding:6px 0;border-bottom:none;">...ещё ${master.services.length - 4} услуг</li>` : ''}
+                                ${master.services.length > 4 ? `<li style="color:var(--gold);text-align:center;cursor:default;padding:6px 0;">...ещё ${master.services.length - 4} услуг</li>` : ''}
                             </ul>
                         </div>
                         <button class="btn btn-sm" onclick="event.stopPropagation(); openBooking('${safeId}')" aria-label="Записаться к ${safeName}">
@@ -2928,7 +1810,7 @@
             let html = '';
 
             if (bookings.length) {
-                html += `<h3 style="margin-bottom:16px;color:var(--text-primary);font-weight:700;">📅 Мои записи</h3>`;
+                html += `<h3 style="margin-bottom:16px;color:var(--text-primary);">📅 Мои записи</h3>`;
                 bookings.forEach((b, i) => {
                     const master = MASTERS_DATA.find(m => m.id === b.masterId);
                     html += `
@@ -2946,7 +1828,7 @@
             }
 
             if (favorites.length) {
-                html += `<h3 style="margin:24px 0 16px;color:var(--text-primary);font-weight:700;">❤️ Избранные мастера</h3>`;
+                html += `<h3 style="margin:24px 0 16px;color:var(--text-primary);">❤️ Избранные мастера</h3>`;
                 favorites.forEach(masterId => {
                     const master = MASTERS_DATA.find(m => m.id === masterId);
                     if (master) {
@@ -3009,30 +1891,30 @@
             const content = document.getElementById('masterModalContent');
 
             content.innerHTML = `
-                <div class="master-profile" style="display:flex;flex-direction:column;align-items:center;gap:16px;margin-bottom:20px;">
-                    <div class="image-wrapper" style="width:100px;height:100px;border-radius:50%;overflow:hidden;border:3px solid var(--gold);flex-shrink:0;position:relative;background:var(--bg-secondary);">
-                        <div class="placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--gold-gradient-strong);color:#0A0A0A;font-size:32px;font-weight:800;position:absolute;top:0;left:0;z-index:1;border-radius:50%;">${escapeHTML(initials)}</div>
-                        <img src="${safePhoto}" alt="${safeName}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:2;" />
+                <div class="master-profile">
+                    <div class="image-wrapper">
+                        <div class="placeholder">${escapeHTML(initials)}</div>
+                        <img src="${safePhoto}" alt="${safeName}" loading="lazy" />
                     </div>
-                    <div style="text-align:center;">
+                    <div class="info">
                         <h2>${safeName}</h2>
-                        <div style="color:var(--gold);font-weight:500;font-size:14px;">${safeSpecialty}</div>
-                        <div style="color:var(--text-muted);font-size:13px;margin-top:4px;">${safeEducation}</div>
-                        <div style="margin-top:6px;font-size:14px;color:var(--text-muted);"><i class="fas fa-star" style="color:#F5B342;"></i> ${escapeHTML(String(rating))} <span style="color:var(--text-muted);">(${reviews} оценок)</span></div>
+                        <div class="specialty">${safeSpecialty}</div>
+                        <div class="education">${safeEducation}</div>
+                        <div class="rating"><i class="fas fa-star"></i> ${escapeHTML(String(rating))} <span style="color:var(--text-muted);">(${reviews} оценок)</span></div>
                         <button class="btn btn-sm" style="margin-top:12px;" onclick="closeMasterModal(); openBooking('${safeId}')"><i class="fas fa-calendar-check"></i> Записаться к ${escapeHTML(master.name.split(' ')[0])}</button>
                     </div>
                 </div>
                 <div class="services-list">
-                    <h3 style="margin-bottom:12px;color:var(--text-primary);font-weight:700;">Все услуги мастера (${master.services.length})</h3>
+                    <h3 style="margin-bottom:12px;color:var(--text-primary);">Все услуги мастера (${master.services.length})</h3>
                     ${master.services.map(s => `
                         <div class="service-item" onclick="closeMasterModal(); openBookingByService('${escapeHTML(s.name)}', '${safeId}')" 
-                             style="cursor:pointer;transition:var(--transition);padding:12px 16px;border-radius:var(--radius-xs);margin:4px 0;background:var(--bg-card);border:1px solid var(--border-color);"
-                             onmouseover="this.style.background='var(--gold)';this.style.color='#0A0A0A';this.querySelector('.price').style.color='#0A0A0A';"
+                             style="cursor:pointer;transition:var(--transition);padding:10px 14px;border-radius:8px;margin:2px 0;"
+                             onmouseover="this.style.background='var(--gold)';this.style.color='#fff';this.querySelector('.price').style.color='#fff';"
                              onmouseout="this.style.background='';this.style.color='';this.querySelector('.price').style.color=''">
-                            <span style="font-weight:500;">${escapeHTML(s.name)}</span>
-                            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:4px;">
-                                <span style="color:var(--text-muted);font-size:13px;">${escapeHTML(s.duration)}</span>
-                                <span class="price" style="font-weight:700;background:var(--gold-gradient-strong);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">${escapeHTML(s.price)} ₽</span>
+                            <span class="name">${escapeHTML(s.name)}</span>
+                            <div class="meta">
+                                <span class="duration">${escapeHTML(s.duration)}</span>
+                                <span class="price" style="color:var(--gold);font-weight:600;">${escapeHTML(s.price)} ₽</span>
                             </div>
                         </div>
                     `).join('')}
@@ -3256,75 +2138,8 @@
         }
 
         // ============================================================
-        // ЧАСТИЦЫ, ТЕМА, SCROLL TOP, REVEAL, RIPPLE
+        // ТЕМА, SCROLL TOP, REVEAL, RIPPLE
         // ============================================================
-        function initParticles() {
-            const canvas = document.getElementById('particles-canvas');
-            const ctx = canvas.getContext('2d');
-            let w, h, animId, visible = true;
-            const particles = [];
-            const count = window.innerWidth < 768 ? 25 : 45;
-
-            function resize() { w = canvas.width = window.innerWidth;
-                h = canvas.height = window.innerHeight; }
-            window.addEventListener('resize', resize);
-            resize();
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * w;
-                    this.y = Math.random() * h;
-                    this.size = Math.random() * 3 + 1.5;
-                    this.sx = (Math.random() - 0.5) * 0.3;
-                    this.sy = (Math.random() - 0.5) * 0.3;
-                    this.o = Math.random() * 0.3 + 0.1;
-                }
-                update() {
-                    this.x += this.sx;
-                    this.y += this.sy;
-                    if (this.x < 0 || this.x > w) this.sx *= -1;
-                    if (this.y < 0 || this.y > h) this.sy *= -1;
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(201, 169, 110, ${this.o})`;
-                    ctx.fill();
-                }
-            }
-
-            for (let i = 0; i < count; i++) particles.push(new Particle());
-
-            function animate() {
-                if (!visible) { animId = requestAnimationFrame(animate); return; }
-                ctx.clearRect(0, 0, w, h);
-                particles.forEach(p => { p.update();
-                    p.draw(); });
-                const maxDist = window.innerWidth < 768 ? 100 : 150;
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < maxDist) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(201, 169, 110, ${0.05 * (1 - dist / maxDist)})`;
-                            ctx.lineWidth = 0.5;
-                            ctx.stroke();
-                        }
-                    }
-                }
-                animId = requestAnimationFrame(animate);
-            }
-            animate();
-
-            document.addEventListener('visibilitychange', () => {
-                visible = !document.hidden;
-                if (!visible && animId) cancelAnimationFrame(animId);
-            });
-        }
 
         function initTheme() {
             const saved = Storage.get('theme');
@@ -3374,7 +2189,7 @@
                         e.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
             els.forEach(el => observer.observe(el));
         }
 
@@ -3388,19 +2203,10 @@
                     ripple.style.width = ripple.style.height = size + 'px';
                     ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
                     ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-                    ripple.style.position = 'absolute';
-                    ripple.style.borderRadius = '50%';
-                    ripple.style.background = 'rgba(255,255,255,0.2)';
-                    ripple.style.transform = 'scale(0)';
-                    ripple.style.animation = 'rippleAnim 0.6s linear';
-                    ripple.style.pointerEvents = 'none';
                     this.appendChild(ripple);
                     setTimeout(() => ripple.remove(), 600);
                 });
             });
-            const style = document.createElement('style');
-            style.textContent = `@keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }`;
-            document.head.appendChild(style);
         }
 
         // ============================================================
@@ -3435,7 +2241,7 @@
         // ЗАПУСК
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('✨ Студия №1 — Премиум версия!');
+            console.log('🚀 Студия №1 запущена! (премиум-фон)');
 
             loadData();
             console.log(`👩‍🎨 Мастеров: ${MASTERS_DATA.length}`);
@@ -3445,7 +2251,6 @@
 
             handleYandexRedirect();
 
-            initParticles();
             initTheme();
             initScrollTop();
             initReveal();
