@@ -22,9 +22,6 @@
     </script>
 
     <style>
-        /* ============================================================
-           ВСЕ СТИЛИ (ТЕ ЖЕ, ЧТО И БЫЛИ)
-           ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -83,7 +80,6 @@
             background: var(--bg-primary);
             position: relative;
         }
-
         body::before {
             content: '';
             position: fixed;
@@ -93,24 +89,21 @@
             bottom: 0;
             z-index: 0;
             pointer-events: none;
-            background:
-                var(--bg-primary),
-                radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.12) 0%, transparent 55%),
-                radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.08) 0%, transparent 50%);
+            background: var(--bg-primary), radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.12) 0%, transparent 55%), radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.08) 0%, transparent 50%);
             animation: floatingGradients 18s ease-in-out infinite alternate;
         }
         @keyframes floatingGradients {
             0% {
                 transform: scale(1) rotate(0deg);
-                opacity: 0.7;
+                opacity: .7
             }
             50% {
                 transform: scale(1.05) rotate(1deg);
-                opacity: 0.9;
+                opacity: .9
             }
             100% {
                 transform: scale(1.03) rotate(-1deg);
-                opacity: 0.75;
+                opacity: .75
             }
         }
 
@@ -121,7 +114,6 @@
             position: relative;
             z-index: 1;
         }
-
         .glass-card {
             background: var(--bg-card);
             backdrop-filter: blur(12px);
@@ -135,7 +127,6 @@
             border-color: var(--border-hover);
             box-shadow: var(--shadow-hover);
         }
-
         .shimmer-text {
             background: var(--gold-gradient);
             -webkit-background-clip: text;
@@ -147,10 +138,10 @@
         @keyframes shimmerLong {
             0%,
             100% {
-                background-position: 0% center;
+                background-position: 0% center
             }
             50% {
-                background-position: 200% center;
+                background-position: 200% center
             }
         }
 
@@ -220,20 +211,19 @@
         @keyframes pulseBtn {
             0%,
             100% {
-                box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
+                box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3)
             }
             50% {
-                box-shadow: 0 4px 40px rgba(201, 169, 110, 0.4);
+                box-shadow: 0 4px 40px rgba(201, 169, 110, 0.4)
             }
         }
 
-        /* Секретная кнопка админки */
         .secret-admin-btn {
             display: inline-block;
             margin-top: 12px;
             font-size: 14px;
             color: var(--text-muted);
-            opacity: 0.3;
+            opacity: 0.25;
             cursor: pointer;
             transition: var(--transition);
             background: none;
@@ -427,11 +417,11 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(20px)
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0)
             }
         }
 
@@ -802,10 +792,10 @@
         @keyframes cardShimmer {
             0%,
             100% {
-                background-position: 0% 50%;
+                background-position: 0% 50%
             }
             50% {
-                background-position: 100% 50%;
+                background-position: 100% 50%
             }
         }
         .bank-card::before {
@@ -834,7 +824,7 @@
         .bank-card .card-brand small {
             font-weight: 400;
             font-size: 12px;
-            opacity: 0.7;
+            opacity: .7;
         }
         .bank-card .card-balance {
             font-size: clamp(40px, 10vw, 64px);
@@ -848,7 +838,7 @@
         .bank-card .card-balance .label {
             font-size: 14px;
             font-weight: 400;
-            opacity: 0.6;
+            opacity: .6;
             display: block;
             margin-top: 4px;
         }
@@ -865,7 +855,7 @@
         }
         .bank-card .card-user .status {
             font-size: 12px;
-            opacity: 0.6;
+            opacity: .6;
         }
 
         .history-list {
@@ -1029,11 +1019,11 @@
         @keyframes modalSlideUp {
             from {
                 opacity: 0;
-                transform: scale(0.96) translateY(30px);
+                transform: scale(0.96) translateY(30px)
             }
             to {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: scale(1) translateY(0)
             }
         }
         .modal-close {
@@ -1162,7 +1152,6 @@
             display: none;
         }
 
-        /* Админка внутри модалки */
         .admin-login-modal .modal {
             max-width: 420px;
         }
@@ -1360,75 +1349,69 @@
             box-shadow: 0 8px 32px rgba(201, 169, 110, 0.35);
         }
 
-        @media (min-width: 480px) {
-            .services-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .masters-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        @media (min-width:480px) {
+            .services-grid,
+            .masters-grid,
             .blog-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr
             }
         }
-        @media (min-width: 600px) {
+        @media (min-width:600px) {
             .contact-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 40px;
+                gap: 40px
             }
             .map-container {
-                height: 300px;
+                height: 300px
             }
             .container {
-                padding: 0 24px;
+                padding: 0 24px
             }
             .page {
-                padding: 40px 0 80px;
+                padding: 40px 0 80px
             }
             .hero {
                 min-height: 60vh;
-                padding: 60px 0 80px;
+                padding: 60px 0 80px
             }
             .modal {
-                padding: 32px 28px;
+                padding: 32px 28px
             }
         }
-        @media (min-width: 768px) {
+        @media (min-width:768px) {
             .services-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
             }
-            .masters-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
+            .masters-grid,
             .blog-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
             }
         }
-        @media (min-width: 1024px) {
+        @media (min-width:1024px) {
             .container {
-                padding: 0 32px;
+                padding: 0 32px
             }
             .page {
-                padding: 60px 0 100px;
+                padding: 60px 0 100px
             }
             .hero {
                 padding: 80px 0 100px;
-                min-height: 70vh;
+                min-height: 70vh
             }
             .modal {
-                padding: 40px 32px;
+                padding: 40px 32px
             }
             .sticky-book {
                 bottom: 28px;
                 right: 28px;
-                padding: 18px 32px;
+                padding: 18px 32px
             }
         }
-        @media (max-width: 768px) {
+        @media (max-width:768px) {
             .menu-toggle {
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                justify-content: center
             }
             #mainNav {
                 display: none;
@@ -1444,94 +1427,94 @@
                 border-bottom: 1px solid var(--border-color);
                 align-items: stretch;
                 backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px)
             }
             #mainNav.open {
-                display: flex;
+                display: flex
             }
             #mainNav a {
                 padding: 12px 0;
                 font-size: 16px;
                 border-bottom: 1px solid var(--border-color);
-                text-align: center;
+                text-align: center
             }
             #mainNav a::after {
-                display: none;
+                display: none
             }
             #mainNav .nav-book-btn {
                 justify-content: center;
                 margin: 4px 0;
                 padding: 12px;
-                font-size: 16px;
+                font-size: 16px
             }
             #mainNav .auth-btn {
                 justify-content: center;
                 margin-top: 4px;
                 padding: 12px;
-                font-size: 16px;
+                font-size: 16px
             }
             #mainNav .theme-toggle {
                 align-self: center;
-                padding: 12px;
+                padding: 12px
             }
             .modal form .form-row {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr
             }
             .admin-panel .admin-table {
-                font-size: 12px;
+                font-size: 12px
             }
             .admin-panel .admin-table td,
             .admin-panel .admin-table th {
-                padding: 6px 8px;
+                padding: 6px 8px
             }
             .bank-card {
                 padding: 20px 16px 18px;
-                min-height: 160px;
+                min-height: 160px
             }
             .bank-card .card-balance {
-                font-size: 32px;
+                font-size: 32px
             }
         }
-        @media (max-width: 400px) {
+        @media (max-width:400px) {
             .hero h1 {
-                font-size: 26px;
+                font-size: 26px
             }
             .service-item {
                 padding: 12px 14px;
-                min-height: 48px;
+                min-height: 48px
             }
             .service-item .name {
-                font-size: 13px;
+                font-size: 13px
             }
             .master-card .image-wrapper {
                 width: 80px;
-                height: 80px;
+                height: 80px
             }
             .modal {
-                padding: 20px 14px;
+                padding: 20px 14px
             }
             .modal h2 {
-                font-size: 20px;
+                font-size: 20px
             }
             .sticky-book {
                 padding: 12px 16px;
                 font-size: 13px;
                 bottom: 12px;
-                right: 12px;
+                right: 12px
             }
             .logo {
-                font-size: 18px;
+                font-size: 18px
             }
             .auth-btn {
                 font-size: 12px;
-                padding: 4px 10px;
+                padding: 4px 10px
             }
             .theme-toggle {
-                font-size: 17px;
+                font-size: 17px
             }
             .nav-book-btn {
                 font-size: 12px;
-                padding: 4px 12px;
+                padding: 4px 12px
             }
         }
     </style>
@@ -1569,7 +1552,7 @@
                 </div>
                 <!-- СЕКРЕТНАЯ КНОПКА АДМИНКИ -->
                 <button class="secret-admin-btn" onclick="openAdminLogin()">
-                    <i class="fas fa-cog"></i>
+                    <i class="fas fa-cog"></i> админка
                 </button>
             </div>
         </section>
@@ -2143,10 +2126,8 @@
             if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
                 errorEl.style.display = 'none';
                 closeAdminLogin();
-                // Сохраняем сессию
                 sessionStorage.setItem('admin_session', 'true');
                 isAdmin = true;
-                // Переходим в админку
                 navigateTo('admin');
             } else {
                 errorEl.style.display = 'block';
@@ -2154,22 +2135,6 @@
                 document.getElementById('adminPasswordInput').focus();
             }
         };
-
-        // Обработка входа по Enter в полях
-        document.addEventListener('DOMContentLoaded', function() {
-            const adminLoginInput = document.getElementById('adminLoginInput');
-            const adminPasswordInput = document.getElementById('adminPasswordInput');
-            if (adminLoginInput) {
-                adminLoginInput.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') adminLoginSubmit(e);
-                });
-            }
-            if (adminPasswordInput) {
-                adminPasswordInput.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') adminLoginSubmit(e);
-                });
-            }
-        });
 
         // ============================================================
         // АВТОРИЗАЦИЯ (для пользователей)
@@ -2700,7 +2665,6 @@
             });
             msg += `Текущий баланс: ${user.minutes || 0} мин`;
 
-            // Открываем в модалке
             const modal = document.createElement('div');
             modal.style.cssText = `
                 position: fixed; top:0; left:0; width:100%; height:100%;
@@ -2819,10 +2783,8 @@
         initTheme();
         await initData();
 
-        // Проверка сессии админа
         if (sessionStorage.getItem('admin_session') === 'true') {
             isAdmin = true;
-            // Если пользователь уже был на странице админки — показываем
         }
 
         console.log('🚀 Студия №1 запущена!');
