@@ -4,24 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Студия №1 — Премиальный салон красоты в Кемерово</title>
-    <meta name="description" content="Салон красоты Студия №1 в Кемерово. Парикмахерские услуги, маникюр, визаж, косметология." />
-    <meta name="theme-color" content="#C9A96E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <script type="importmap">
-        {
-            "imports": {
-                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
-                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
-                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js"
-            }
-        }
-    </script>
-
     <style>
+        /* ===== ВСЕ СТИЛИ (ТЕ ЖЕ, ЧТО И БЫЛИ) ===== */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -195,15 +184,9 @@
             background: #E74C3C;
             box-shadow: 0 4px 24px rgba(231, 76, 60, 0.3);
         }
-        .btn-danger:hover {
-            background: #C0392B;
-        }
         .btn-success {
             background: #27AE60;
             box-shadow: 0 4px 24px rgba(39, 174, 96, 0.3);
-        }
-        .btn-success:hover {
-            background: #219A52;
         }
         .btn-pulse {
             animation: pulseBtn 2s ease-in-out infinite;
@@ -218,24 +201,22 @@
             }
         }
 
-        .secret-admin-btn {
-            display: inline-block;
-            margin-top: 12px;
-            font-size: 14px;
+        /* Секретная ссылка на админку */
+        .secret-admin-link {
+            display: block;
+            margin-top: 16px;
+            font-size: 12px;
             color: var(--text-muted);
-            opacity: 0.25;
+            opacity: 0.2;
             cursor: pointer;
             transition: var(--transition);
-            background: none;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 20px;
+            text-decoration: none;
+            text-align: center;
             font-family: 'Inter', sans-serif;
         }
-        .secret-admin-btn:hover {
+        .secret-admin-link:hover {
             opacity: 0.8;
             color: var(--gold);
-            background: var(--bg-card);
         }
 
         header {
@@ -1152,130 +1133,6 @@
             display: none;
         }
 
-        .admin-login-modal .modal {
-            max-width: 420px;
-        }
-        .admin-login-modal .admin-login-icon {
-            font-size: 48px;
-            color: var(--gold);
-            display: block;
-            margin: 0 auto 12px;
-        }
-        .admin-login-modal .admin-login-title {
-            text-align: center;
-        }
-        .admin-login-modal .admin-login-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        .admin-panel {
-            padding: 30px 0 60px;
-        }
-        .admin-panel .glass-card {
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .admin-panel .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        .admin-panel .admin-header h2 {
-            font-size: 28px;
-        }
-        .admin-panel .admin-header .admin-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .admin-panel .admin-tabs {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding: 8px 0 16px;
-            margin-bottom: 20px;
-            scrollbar-width: none;
-        }
-        .admin-panel .admin-tabs::-webkit-scrollbar {
-            display: none;
-        }
-        .admin-tab {
-            flex-shrink: 0;
-            padding: 8px 18px;
-            border-radius: 30px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-card);
-            color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            white-space: nowrap;
-        }
-        .admin-tab:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        .admin-tab.active {
-            background: var(--gold-gradient);
-            color: #fff;
-            border-color: transparent;
-        }
-
-        .admin-panel .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        .admin-panel .admin-table th {
-            text-align: left;
-            padding: 10px 12px;
-            color: var(--gold);
-            border-bottom: 2px solid var(--border-color);
-            font-weight: 600;
-        }
-        .admin-panel .admin-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
-        }
-        .admin-panel .admin-table tr:hover td {
-            background: var(--bg-card-hover);
-        }
-        .admin-panel .admin-table .actions {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .admin-panel .admin-table .actions .btn {
-            padding: 4px 12px;
-            font-size: 12px;
-            min-height: 30px;
-            min-width: auto;
-        }
-        .admin-panel .admin-table input,
-        .admin-panel .admin-table select {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 6px 10px;
-            color: var(--text-primary);
-            font-size: 13px;
-            width: 100%;
-            transition: var(--transition);
-        }
-        .admin-panel .admin-table input:focus,
-        .admin-panel .admin-table select:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
         .sticky-book {
             position: fixed;
             bottom: 16px;
@@ -1460,13 +1317,6 @@
             .modal form .form-row {
                 grid-template-columns: 1fr
             }
-            .admin-panel .admin-table {
-                font-size: 12px
-            }
-            .admin-panel .admin-table td,
-            .admin-panel .admin-table th {
-                padding: 6px 8px
-            }
             .bank-card {
                 padding: 20px 16px 18px;
                 min-height: 160px
@@ -1550,10 +1400,10 @@
                     <button class="btn btn-pulse" onclick="openBooking()"><i class="fas fa-calendar-check"></i> Записаться</button>
                     <button class="btn btn-outline" onclick="navigateTo('masters')">Мастера</button>
                 </div>
-                <!-- СЕКРЕТНАЯ КНОПКА АДМИНКИ -->
-                <button class="secret-admin-btn" onclick="openAdminLogin()">
+                <!-- СЕКРЕТНАЯ ССЫЛКА НА АДМИНКУ -->
+                <a href="/studio1/admin.html" class="secret-admin-link">
                     <i class="fas fa-cog"></i> админка
-                </button>
+                </a>
             </div>
         </section>
     </div>
@@ -1641,13 +1491,6 @@
         </div>
     </div>
 
-    <!-- АДМИНКА (будет показана в модалке) -->
-    <div id="adminApp" style="display:none;">
-        <div class="admin-page">
-            <div class="container admin-panel" id="adminPanel"></div>
-        </div>
-    </div>
-
     <footer>
         <div class="container">
             <p>&copy; 2026 <span>Студия №1</span> — Премиальный салон красоты в Кемерово</p>
@@ -1706,34 +1549,13 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА АДМИНКИ -->
-    <div class="modal-overlay admin-login-modal" id="adminLoginModal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeAdminLogin()">&times;</button>
-            <div style="text-align:center;padding:10px 0 0;">
-                <i class="fas fa-crown admin-login-icon"></i>
-                <h2 class="admin-login-title">Вход в <span class="gold-text">админку</span></h2>
-                <p class="admin-login-subtitle">Введите логин и пароль для управления сайтом</p>
-                <form id="adminLoginForm" onsubmit="adminLoginSubmit(event)">
-                    <input type="text" id="adminLoginInput" placeholder="Логин" value="admin" required />
-                    <input type="password" id="adminPasswordInput" placeholder="Пароль" required />
-                    <div class="auth-error" id="adminLoginError">Неверный логин или пароль</div>
-                    <button type="submit" class="btn"><i class="fas fa-lock"></i> Войти</button>
-                </form>
-                <p style="margin-top:16px;font-size:12px;color:var(--text-muted);">
-                    <i class="fas fa-info-circle"></i> Логин: <strong>admin</strong> • Пароль: <strong>Studio2026Kemerovo#1</strong>
-                </p>
-            </div>
-        </div>
-    </div>
-
     <script type="module">
         // ============================================================
         // FIREBASE
         // ============================================================
         import { initializeApp } from 'firebase/app';
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc } from 'firebase/firestore';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs } from 'firebase/firestore';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -1749,21 +1571,12 @@
         const db = getFirestore(app);
         const googleProvider = new GoogleAuthProvider();
 
-        // ============================================================
-        // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
-        // ============================================================
         let currentUser = null;
         let currentUserData = null;
         let allMasters = [];
         let allServices = [];
         let allBlogPosts = [];
         let currentCategory = 'Все';
-        let isAdmin = false;
-
-        const ADMIN_CREDENTIALS = {
-            login: 'admin',
-            password: 'Studio2026Kemerovo#1'
-        };
 
         const CATEGORIES = [
             { id: 'Все', icon: '📋' },
@@ -1858,9 +1671,6 @@
             ]
         }];
 
-        // ============================================================
-        // ИНИЦИАЛИЗАЦИЯ
-        // ============================================================
         async function initData() {
             try {
                 const mastersSnap = await getDocs(collection(db, 'masters'));
@@ -1874,7 +1684,6 @@
                     mastersSnap.forEach(d => allMasters.push({ id: d.id, ...d.data() }));
                 }
             } catch (e) {
-                console.error('Ошибка загрузки мастеров:', e);
                 allMasters = DEFAULT_MASTERS;
             }
 
@@ -1899,9 +1708,6 @@
             renderAll();
         }
 
-        // ============================================================
-        // РЕНДЕРИНГ
-        // ============================================================
         function renderAll() {
             renderCategories();
             renderServices();
@@ -2049,9 +1855,6 @@
             `;
         }
 
-        // ============================================================
-        // НАВИГАЦИЯ
-        // ============================================================
         window.navigateTo = function(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById(`page-${page}`);
@@ -2060,23 +1863,6 @@
                 a.classList.toggle('active', a.dataset.page === page);
             });
             document.getElementById('mainNav').classList.remove('open');
-
-            if (page === 'admin') {
-                document.getElementById('app').style.display = 'none';
-                document.getElementById('adminApp').style.display = 'block';
-                document.querySelector('footer').style.display = 'none';
-                document.querySelector('.sticky-book').style.display = 'none';
-                document.getElementById('scrollTop').style.display = 'none';
-                document.querySelector('header').style.display = 'none';
-                renderAdminPanel();
-            } else {
-                document.getElementById('app').style.display = 'block';
-                document.getElementById('adminApp').style.display = 'none';
-                document.querySelector('footer').style.display = 'block';
-                document.querySelector('.sticky-book').style.display = 'flex';
-                document.getElementById('scrollTop').style.display = 'block';
-                document.querySelector('header').style.display = 'flex';
-            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
@@ -2100,45 +1886,6 @@
             document.body.style.overflow = '';
         };
 
-        // ============================================================
-        // АДМИНКА — вход через модалку
-        // ============================================================
-        window.openAdminLogin = function() {
-            document.getElementById('adminLoginModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            document.getElementById('adminLoginError').style.display = 'none';
-            document.getElementById('adminLoginInput').value = 'admin';
-            document.getElementById('adminPasswordInput').value = '';
-            document.getElementById('adminPasswordInput').focus();
-        };
-
-        window.closeAdminLogin = function() {
-            document.getElementById('adminLoginModal').classList.remove('active');
-            document.body.style.overflow = '';
-        };
-
-        window.adminLoginSubmit = function(e) {
-            e.preventDefault();
-            const login = document.getElementById('adminLoginInput').value.trim();
-            const password = document.getElementById('adminPasswordInput').value.trim();
-            const errorEl = document.getElementById('adminLoginError');
-
-            if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
-                errorEl.style.display = 'none';
-                closeAdminLogin();
-                sessionStorage.setItem('admin_session', 'true');
-                isAdmin = true;
-                navigateTo('admin');
-            } else {
-                errorEl.style.display = 'block';
-                document.getElementById('adminPasswordInput').value = '';
-                document.getElementById('adminPasswordInput').focus();
-            }
-        };
-
-        // ============================================================
-        // АВТОРИЗАЦИЯ (для пользователей)
-        // ============================================================
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
@@ -2166,7 +1913,6 @@
                 currentUserData = null;
                 updateUIForUser();
                 renderCabinet();
-                isAdmin = false;
             }
         });
 
@@ -2262,452 +2008,6 @@
             }
         };
 
-        // ============================================================
-        // АДМИН-ПАНЕЛЬ
-        // ============================================================
-        function renderAdminPanel() {
-            const panel = document.getElementById('adminPanel');
-            panel.innerHTML = `
-                <div class="glass-card">
-                    <div class="admin-header">
-                        <div>
-                            <h2>⚙️ Админ-панель</h2>
-                            <p style="color:var(--text-muted);">Управление сайтом Студия №1</p>
-                        </div>
-                        <div class="admin-actions">
-                            <button class="btn btn-sm btn-outline" onclick="navigateTo('home')">
-                                <i class="fas fa-eye"></i> На сайт
-                            </button>
-                            <button class="btn btn-sm btn-danger" onclick="adminLogout()">
-                                <i class="fas fa-sign-out-alt"></i> Выйти
-                            </button>
-                        </div>
-                    </div>
-                    <div class="admin-tabs" id="adminTabs">
-                        <div class="admin-tab active" data-tab="dashboard" onclick="switchAdminTab('dashboard')">📊 Дашборд</div>
-                        <div class="admin-tab" data-tab="masters" onclick="switchAdminTab('masters')">👩‍🎨 Мастера</div>
-                        <div class="admin-tab" data-tab="blog" onclick="switchAdminTab('blog')">📝 Блог</div>
-                        <div class="admin-tab" data-tab="clients" onclick="switchAdminTab('clients')">👤 Клиенты</div>
-                    </div>
-                    <div id="adminContent"></div>
-                </div>
-            `;
-            switchAdminTab('dashboard');
-        }
-
-        window.switchAdminTab = function(tab) {
-            document.querySelectorAll('.admin-tab').forEach(t => {
-                t.classList.toggle('active', t.dataset.tab === tab);
-            });
-            renderAdminContent(tab);
-        };
-
-        async function renderAdminContent(tab) {
-            const container = document.getElementById('adminContent');
-            switch (tab) {
-                case 'dashboard':
-                    container.innerHTML = await renderAdminDashboard();
-                    break;
-                case 'masters':
-                    container.innerHTML = await renderAdminMasters();
-                    break;
-                case 'blog':
-                    container.innerHTML = await renderAdminBlog();
-                    break;
-                case 'clients':
-                    container.innerHTML = await renderAdminClients();
-                    break;
-                default:
-                    container.innerHTML = '<p>Раздел в разработке</p>';
-            }
-        }
-
-        async function renderAdminDashboard() {
-            const usersSnap = await getDocs(collection(db, 'users'));
-            const usersCount = usersSnap.size;
-            let totalMinutes = 0;
-            usersSnap.forEach(d => { const data = d.data();
-                totalMinutes += data.minutes || 0; });
-
-            return `
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:24px;">
-                    <div style="background:var(--bg-card);padding:16px;border-radius:var(--radius);border:1px solid var(--border-color);text-align:center;">
-                        <div style="font-size:28px;color:var(--gold);">👤</div>
-                        <div style="font-weight:700;font-size:20px;">${usersCount}</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Клиентов</div>
-                    </div>
-                    <div style="background:var(--bg-card);padding:16px;border-radius:var(--radius);border:1px solid var(--border-color);text-align:center;">
-                        <div style="font-size:28px;color:var(--gold);">💇</div>
-                        <div style="font-weight:700;font-size:20px;">${allMasters.length}</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Мастеров</div>
-                    </div>
-                    <div style="background:var(--bg-card);padding:16px;border-radius:var(--radius);border:1px solid var(--border-color);text-align:center;">
-                        <div style="font-size:28px;color:var(--gold);">✨</div>
-                        <div style="font-weight:700;font-size:20px;">${allServices.length}</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Услуг</div>
-                    </div>
-                    <div style="background:var(--bg-card);padding:16px;border-radius:var(--radius);border:1px solid var(--border-color);text-align:center;">
-                        <div style="font-size:28px;color:var(--gold);">☀️</div>
-                        <div style="font-weight:700;font-size:20px;">${totalMinutes}</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Всего минут</div>
-                    </div>
-                    <div style="background:var(--bg-card);padding:16px;border-radius:var(--radius);border:1px solid var(--border-color);text-align:center;">
-                        <div style="font-size:28px;color:var(--gold);">📝</div>
-                        <div style="font-weight:700;font-size:20px;">${allBlogPosts.length}</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Постов</div>
-                    </div>
-                </div>
-                <div style="color:var(--text-muted);font-size:14px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
-                    <i class="fas fa-info-circle"></i> Все данные хранятся в Firestore. Изменения применяются мгновенно.
-                </div>
-            `;
-        }
-
-        async function renderAdminMasters() {
-            let html = `
-                <div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;">
-                    <input type="text" id="newMasterName" placeholder="Имя мастера" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
-                    <input type="text" id="newMasterSpecialty" placeholder="Специальность" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
-                    <button class="btn btn-sm" onclick="adminAddMaster()"><i class="fas fa-plus"></i> Добавить</button>
-                </div>
-                <div style="overflow-x:auto;">
-                    <table class="admin-table">
-                        <thead><tr><th>Мастер</th><th>Специальность</th><th>Услуги</th><th>Действия</th></tr></thead>
-                        <tbody>
-            `;
-
-            for (const m of allMasters) {
-                html += `
-                    <tr>
-                        <td><input type="text" value="${escapeHTML(m.name)}" onchange="adminUpdateMaster('${m.id}','name',this.value)" /></td>
-                        <td><input type="text" value="${escapeHTML(m.specialty)}" onchange="adminUpdateMaster('${m.id}','specialty',this.value)" /></td>
-                        <td>
-                            <div style="display:flex;flex-direction:column;gap:4px;">
-                                ${m.services?.map((s, i) => `
-                                    <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;font-size:12px;">
-                                        <span>${escapeHTML(s.name)}</span>
-                                        <span style="color:var(--text-muted);">${s.price}₽</span>
-                                        <button class="btn btn-sm btn-danger" onclick="adminRemoveService('${m.id}',${i})" style="padding:2px 6px;font-size:10px;min-height:24px;">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                `).join('')}
-                                <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;">
-                                    <input type="text" id="newServiceName_${m.id}" placeholder="Название" style="flex:1;min-width:80px;padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:4px;color:var(--text-primary);font-size:12px;" />
-                                    <input type="text" id="newServiceCategory_${m.id}" placeholder="Кат." style="flex:0.5;min-width:60px;padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:4px;color:var(--text-primary);font-size:12px;" />
-                                    <input type="number" id="newServicePrice_${m.id}" placeholder="Цена" style="width:60px;padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:4px;color:var(--text-primary);font-size:12px;" />
-                                    <button class="btn btn-sm" onclick="adminAddService('${m.id}')" style="padding:2px 8px;font-size:12px;min-height:28px;">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" onclick="adminDeleteMaster('${m.id}')" style="padding:2px 10px;font-size:12px;min-height:30px;">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }
-
-            html += `</tbody></table></div>`;
-            return html;
-        }
-
-        async function renderAdminBlog() {
-            let html = `
-                <div style="margin-bottom:16px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
-                    <h4 style="margin-bottom:12px;">➕ Добавить новость</h4>
-                    <div style="display:flex;flex-direction:column;gap:8px;">
-                        <input type="text" id="newBlogTitle" placeholder="Заголовок" style="padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
-                        <textarea id="newBlogContent" placeholder="Текст" rows="3" style="padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);"></textarea>
-                        <button class="btn btn-sm" onclick="adminAddBlog()"><i class="fas fa-plus"></i> Опубликовать</button>
-                    </div>
-                </div>
-                <div style="overflow-x:auto;">
-                    <table class="admin-table">
-                        <thead><tr><th>Дата</th><th>Заголовок</th><th>Действия</th></tr></thead>
-                        <tbody>
-            `;
-
-            for (const p of allBlogPosts) {
-                html += `
-                    <tr>
-                        <td>${formatDate(p.date)}</td>
-                        <td>${escapeHTML(p.title)}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" onclick="adminDeleteBlog('${p.id}')" style="padding:2px 10px;font-size:12px;min-height:30px;">
-                                <i class="fas fa-trash"></i> Удалить
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }
-
-            html += `</tbody></table></div>`;
-            return html;
-        }
-
-        async function renderAdminClients() {
-            const usersSnap = await getDocs(collection(db, 'users'));
-            let html = `
-                <div style="margin-bottom:16px;">
-                    <button class="btn btn-sm" onclick="adminAddClient()"><i class="fas fa-user-plus"></i> Добавить клиента</button>
-                </div>
-                <div style="overflow-x:auto;">
-                    <table class="admin-table">
-                        <thead><tr><th>Клиент</th><th>Телефон</th><th>Email</th><th>Минуты</th><th>Действия</th></tr></thead>
-                        <tbody>
-            `;
-
-            for (const docSnap of usersSnap.docs) {
-                const user = { id: docSnap.id, ...docSnap.data() };
-                html += `
-                    <tr>
-                        <td>${escapeHTML(user.name || 'Без имени')}</td>
-                        <td>${escapeHTML(user.phone || '—')}</td>
-                        <td>${escapeHTML(user.email || '—')}</td>
-                        <td><strong style="color:var(--gold);font-size:18px;">${user.minutes || 0}</strong></td>
-                        <td>
-                            <div style="display:flex;gap:4px;flex-wrap:wrap;">
-                                <button class="btn btn-sm btn-success" onclick="adminAddMinutes('${user.id}')" style="padding:2px 8px;font-size:11px;min-height:28px;" title="Пополнить">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger" onclick="adminSpendMinutes('${user.id}')" style="padding:2px 8px;font-size:11px;min-height:28px;" title="Списать">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline" onclick="adminShowHistory('${user.id}')" style="padding:2px 8px;font-size:11px;min-height:28px;" title="История">
-                                    <i class="fas fa-history"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }
-
-            html += `</tbody></table></div>`;
-            return html;
-        }
-
-        // ============================================================
-        // АДМИН-ФУНКЦИИ
-        // ============================================================
-        window.adminAddMaster = async function() {
-            const name = document.getElementById('newMasterName').value.trim();
-            const specialty = document.getElementById('newMasterSpecialty').value.trim();
-            if (!name) { alert('Введите имя мастера'); return; }
-            const newMaster = {
-                id: 'master_' + Date.now(),
-                name,
-                specialty: specialty || 'Специалист',
-                description: '',
-                education: '',
-                photo: `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${name.split(' ').map(w=>w[0]).join('')}%3C/text%3E%3C/svg%3E`,
-                rating: 0,
-                reviews: 0,
-                services: []
-            };
-            await setDoc(doc(db, 'masters', newMaster.id), newMaster);
-            await initData();
-            renderAdminContent('masters');
-        };
-
-        window.adminUpdateMaster = async function(id, field, value) {
-            await updateDoc(doc(db, 'masters', id), { [field]: value });
-            await initData();
-        };
-
-        window.adminDeleteMaster = async function(id) {
-            if (!confirm('Удалить мастера?')) return;
-            await deleteDoc(doc(db, 'masters', id));
-            await initData();
-            renderAdminContent('masters');
-        };
-
-        window.adminAddService = async function(masterId) {
-            const name = document.getElementById(`newServiceName_${masterId}`).value.trim();
-            const category = document.getElementById(`newServiceCategory_${masterId}`).value.trim() || 'Услуга';
-            const price = parseInt(document.getElementById(`newServicePrice_${masterId}`).value) || 0;
-            if (!name) { alert('Введите название'); return; }
-            const master = allMasters.find(m => m.id === masterId);
-            if (!master) return;
-            const services = master.services || [];
-            services.push({ name, category, price, duration: '1 ч' });
-            await updateDoc(doc(db, 'masters', masterId), { services });
-            await initData();
-            renderAdminContent('masters');
-        };
-
-        window.adminRemoveService = async function(masterId, index) {
-            const master = allMasters.find(m => m.id === masterId);
-            if (!master) return;
-            if (!confirm(`Удалить "${master.services[index].name}"?`)) return;
-            const services = master.services.filter((_, i) => i !== index);
-            await updateDoc(doc(db, 'masters', masterId), { services });
-            await initData();
-            renderAdminContent('masters');
-        };
-
-        window.adminAddBlog = async function() {
-            const title = document.getElementById('newBlogTitle').value.trim();
-            const content = document.getElementById('newBlogContent').value.trim();
-            if (!title || !content) { alert('Заполните поля'); return; }
-            await addDoc(collection(db, 'blog'), { title, content, date: new Date().toISOString() });
-            await initData();
-            renderAdminContent('blog');
-            document.getElementById('newBlogTitle').value = '';
-            document.getElementById('newBlogContent').value = '';
-        };
-
-        window.adminDeleteBlog = async function(id) {
-            if (!confirm('Удалить пост?')) return;
-            await deleteDoc(doc(db, 'blog', id));
-            await initData();
-            renderAdminContent('blog');
-        };
-
-        window.adminAddClient = async function() {
-            const name = prompt('Введите имя клиента:');
-            if (!name) return;
-            const phone = prompt('Введите телефон:') || '';
-            const email = prompt('Введите Email (опционально):') || '';
-            const uid = 'manual_' + Date.now();
-            await setDoc(doc(db, 'users', uid), {
-                name: name,
-                phone: phone,
-                email: email,
-                minutes: 0,
-                history: [],
-                createdAt: new Date().toISOString()
-            });
-            await renderAdminContent('clients');
-            alert(`✅ Клиент "${name}" добавлен!`);
-        };
-
-        window.adminAddMinutes = async function(userId) {
-            const amount = prompt('Сколько минут добавить?', '30');
-            if (!amount) return;
-            const num = parseInt(amount);
-            if (isNaN(num) || num <= 0) { alert('Введите число > 0'); return; }
-
-            const userRef = doc(db, 'users', userId);
-            const userSnap = await getDoc(userRef);
-            const userData = userSnap.data();
-            const newMinutes = (userData.minutes || 0) + num;
-            const history = userData.history || [];
-            history.push({
-                date: new Date().toISOString(),
-                action: `Пополнение на ${num} мин`,
-                added: num,
-                remaining: newMinutes
-            });
-
-            await updateDoc(userRef, { minutes: newMinutes, history });
-            if (currentUser && currentUser.uid === userId) {
-                currentUserData.minutes = newMinutes;
-                currentUserData.history = history;
-            }
-            renderAdminContent('clients');
-            renderCabinet();
-        };
-
-        window.adminSpendMinutes = async function(userId) {
-            const userRef = doc(db, 'users', userId);
-            const userSnap = await getDoc(userRef);
-            const userData = userSnap.data();
-            const current = userData.minutes || 0;
-
-            if (current <= 0) { alert('У клиента 0 минут. Сначала пополните баланс.'); return; }
-
-            const amount = prompt(`Списать минут (доступно: ${current})`, '10');
-            if (!amount) return;
-            const num = parseInt(amount);
-            if (isNaN(num) || num <= 0) { alert('Введите число > 0'); return; }
-            if (num > current) { alert(`Недостаточно минут. Доступно: ${current}`); return; }
-
-            const newMinutes = current - num;
-            const history = userData.history || [];
-            history.push({
-                date: new Date().toISOString(),
-                action: `Списание ${num} мин (солярий)`,
-                spent: num,
-                remaining: newMinutes
-            });
-
-            await updateDoc(userRef, { minutes: newMinutes, history });
-            if (currentUser && currentUser.uid === userId) {
-                currentUserData.minutes = newMinutes;
-                currentUserData.history = history;
-            }
-            renderAdminContent('clients');
-            renderCabinet();
-        };
-
-        window.adminShowHistory = async function(userId) {
-            const userSnap = await getDoc(doc(db, 'users', userId));
-            const user = userSnap.data();
-            if (!user) { alert('Клиент не найден'); return; }
-
-            const history = user.history || [];
-            if (!history.length) {
-                alert(`📜 История для ${user.name}:\n\nИстория пуста`);
-                return;
-            }
-
-            let msg = `📜 ИСТОРИЯ: ${user.name}\n`;
-            msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-            history.slice().reverse().forEach(h => {
-                const date = new Date(h.date).toLocaleString('ru-RU');
-                const action = h.action || 'Операция';
-                const amount = h.spent ? `-${h.spent}` : (h.added ? `+${h.added}` : '0');
-                msg += `${date}\n  ${action}\n  Остаток: ${h.remaining} мин\n━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-            });
-            msg += `Текущий баланс: ${user.minutes || 0} мин`;
-
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed; top:0; left:0; width:100%; height:100%;
-                background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
-                display: flex; align-items: center; justify-content: center;
-                z-index: 9999; padding: 20px;
-            `;
-            modal.innerHTML = `
-                <div style="background: var(--bg-primary); max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto;
-                    border-radius: 20px; padding: 24px; border: 1px solid var(--border-color);
-                    box-shadow: 0 24px 64px rgba(0,0,0,0.4);">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                        <h3 style="color:var(--text-primary);">📜 История: ${escapeHTML(user.name)}</h3>
-                        <button onclick="this.closest('div[style]').remove()" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:50%;width:36px;height:36px;cursor:pointer;color:var(--text-primary);font-size:20px;">×</button>
-                    </div>
-                    <div style="font-family:monospace;font-size:13px;color:var(--text-secondary);white-space:pre-wrap;line-height:1.8;">
-                        ${history.slice().reverse().map(h => {
-                            const date = new Date(h.date).toLocaleString('ru-RU');
-                            const action = h.action || 'Операция';
-                            const amount = h.spent ? `-${h.spent}` : (h.added ? `+${h.added}` : '0');
-                            return `${date}\n  ${action}\n  ➜ Остаток: ${h.remaining} мин`;
-                        }).join('\n━━━━━━━━━━━━━━━━━━━━━━━━\n')}
-                        \n━━━━━━━━━━━━━━━━━━━━━━━━\n💰 Текущий баланс: ${user.minutes || 0} мин
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) this.remove();
-            });
-        };
-
-        window.adminLogout = function() {
-            if (confirm('Выйти из админки?')) {
-                sessionStorage.removeItem('admin_session');
-                isAdmin = false;
-                navigateTo('home');
-            }
-        };
-
-        // ============================================================
-        // УТИЛИТЫ
-        // ============================================================
         function escapeHTML(str) {
             if (!str) return '';
             const div = document.createElement('div');
@@ -2721,9 +2021,6 @@
                     year: 'numeric' }); } catch { return dateStr; }
         }
 
-        // ============================================================
-        // ТЕМА
-        // ============================================================
         function initTheme() {
             const saved = localStorage.getItem('theme');
             if (saved === 'light') {
@@ -2746,17 +2043,11 @@
             }
         };
 
-        // ============================================================
-        // SCROLL TOP
-        // ============================================================
         window.addEventListener('scroll', () => {
             const btn = document.getElementById('scrollTop');
             btn.classList.toggle('visible', window.pageYOffset > 400);
         });
 
-        // ============================================================
-        // МЕНЮ
-        // ============================================================
         document.getElementById('menuToggle').addEventListener('click', function() {
             document.getElementById('mainNav').classList.toggle('open');
         });
@@ -2765,9 +2056,6 @@
             link.addEventListener('click', () => document.getElementById('mainNav').classList.remove('open'));
         });
 
-        // ============================================================
-        // ЗАКРЫТИЕ МОДАЛОК
-        // ============================================================
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.addEventListener('click', function(e) {
                 if (e.target === this) {
@@ -2777,21 +2065,13 @@
             });
         });
 
-        // ============================================================
-        // ЗАПУСК
-        // ============================================================
         initTheme();
         await initData();
-
-        if (sessionStorage.getItem('admin_session') === 'true') {
-            isAdmin = true;
-        }
 
         console.log('🚀 Студия №1 запущена!');
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
         console.log(`💇 Услуг: ${allServices.length}`);
-        console.log('🔥 Firebase подключен!');
-        console.log('🔐 Админка: нажмите ⚙️ на главной странице');
+        console.log('🔐 Админка: нажмите "админка" внизу главной страницы');
     </script>
 </body>
 </html>
