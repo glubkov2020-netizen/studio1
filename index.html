@@ -22,9 +22,6 @@
     </script>
 
     <style>
-        /* ============================================================
-           ПЕРЕМЕННЫЕ — ТЁМНАЯ ТЕМА
-           ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -37,7 +34,6 @@
             --border-hover: rgba(201, 169, 110, 0.3);
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.1);
-            --shadow-glow: 0 0 60px rgba(201, 169, 110, 0.04);
             --gold: #C9A96E;
             --gold-dark: #B8974D;
             --gold-light: #E8D5A8;
@@ -48,7 +44,6 @@
             --radius: 16px;
             --radius-sm: 12px;
         }
-
         [data-theme="light"] {
             --bg-primary: #FCF9F5;
             --bg-secondary: #F8F5F0;
@@ -61,7 +56,6 @@
             --border-hover: rgba(201, 169, 110, 0.25);
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.12);
-            --shadow-glow: 0 0 60px rgba(201, 169, 110, 0.04);
         }
 
         * {
@@ -136,7 +130,7 @@
         .glass-card:hover {
             background: var(--bg-card-hover);
             border-color: var(--border-hover);
-            box-shadow: var(--shadow-hover), var(--shadow-glow);
+            box-shadow: var(--shadow-hover);
         }
 
         .shimmer-text {
@@ -173,30 +167,15 @@
             border-radius: 60px;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
             background-size: 200% auto;
             position: relative;
             overflow: hidden;
-            touch-action: manipulation;
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-            transform: skewX(-25deg);
-            transition: 0.6s;
-        }
-        .btn:hover::before {
-            left: 100%;
         }
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(201, 169, 110, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 25px rgba(201, 169, 110, 0.4);
             background-position: right center;
         }
         .btn:active {
@@ -238,10 +217,10 @@
         @keyframes pulseBtn {
             0%,
             100% {
-                box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+                box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
             }
             50% {
-                box-shadow: 0 4px 40px rgba(201, 169, 110, 0.4), 0 0 60px rgba(201, 169, 110, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+                box-shadow: 0 4px 40px rgba(201, 169, 110, 0.4);
             }
         }
 
@@ -257,7 +236,6 @@
             z-index: 1000;
             border-bottom: 1px solid var(--border-color);
             padding: 0 16px;
-            transition: background 0.4s ease, border-color 0.4s ease;
             display: flex;
             align-items: center;
         }
@@ -276,14 +254,12 @@
         .logo {
             font-size: clamp(20px, 4vw, 26px);
             font-weight: 700;
-            color: var(--gold);
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             white-space: nowrap;
             flex-shrink: 0;
-            letter-spacing: -0.5px;
             cursor: pointer;
         }
         .logo span {
@@ -300,11 +276,11 @@
             font-weight: 500;
             color: var(--text-secondary);
             transition: var(--transition);
-            position: relative;
             padding: 4px 0;
             white-space: nowrap;
             text-decoration: none;
             cursor: pointer;
+            position: relative;
         }
         nav a::after {
             content: '';
@@ -332,7 +308,6 @@
             background: var(--gold-gradient);
             padding: 6px 16px;
             border-radius: 40px;
-            transition: var(--transition);
             cursor: pointer;
             font-size: 13px;
             min-height: 36px;
@@ -341,11 +316,11 @@
             gap: 6px;
             border: none;
             background-size: 200% auto;
-            box-shadow: 0 2px 10px rgba(201, 169, 110, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 10px rgba(201, 169, 110, 0.2);
         }
         .nav-book-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3);
         }
         .nav-book-btn::after {
             display: none !important;
@@ -357,7 +332,6 @@
             padding: 6px 14px;
             border: 1px solid var(--gold);
             border-radius: 40px;
-            transition: var(--transition);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -495,7 +469,6 @@
             color: var(--text-muted);
             max-width: 580px;
             margin: 0 auto 28px;
-            padding: 0 8px;
         }
         .hero-buttons {
             display: flex;
@@ -548,8 +521,6 @@
             cursor: pointer;
             transition: var(--transition);
             white-space: nowrap;
-            touch-action: manipulation;
-            user-select: none;
         }
         .category-tab:hover {
             border-color: var(--gold);
@@ -585,7 +556,7 @@
         .service-item:hover {
             transform: translateY(-3px);
             border-color: var(--gold);
-            box-shadow: var(--shadow-hover), var(--shadow-glow);
+            box-shadow: var(--shadow-hover);
         }
         .service-item .info {
             display: flex;
@@ -630,7 +601,7 @@
         .master-card:hover {
             transform: translateY(-8px);
             border-color: var(--gold);
-            box-shadow: var(--shadow-hover), var(--shadow-glow);
+            box-shadow: var(--shadow-hover);
         }
         .master-card .image-wrapper {
             width: 100px;
@@ -642,11 +613,6 @@
             background: var(--bg-secondary);
             position: relative;
             transition: var(--transition);
-            box-shadow: 0 0 30px rgba(201, 169, 110, 0.05);
-        }
-        .master-card:hover .image-wrapper {
-            border-color: var(--gold-dark);
-            box-shadow: 0 0 40px rgba(201, 169, 110, 0.15);
         }
         .master-card .image-wrapper img {
             width: 100%;
@@ -667,7 +633,6 @@
             color: #fff;
             font-size: 30px;
             font-weight: 700;
-            font-family: 'Inter', sans-serif;
             position: absolute;
             top: 0;
             left: 0;
@@ -830,15 +795,6 @@
             border-radius: 50%;
             pointer-events: none;
         }
-        .bank-card::after {
-            content: '✦';
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            font-size: 40px;
-            opacity: 0.2;
-            pointer-events: none;
-        }
         .bank-card .card-top {
             display: flex;
             justify-content: space-between;
@@ -856,10 +812,6 @@
             font-size: 12px;
             opacity: 0.7;
         }
-        .bank-card .card-chip {
-            font-size: 28px;
-            opacity: 0.4;
-        }
         .bank-card .card-balance {
             font-size: clamp(40px, 10vw, 64px);
             font-weight: 800;
@@ -868,7 +820,6 @@
             position: relative;
             z-index: 1;
             letter-spacing: -1px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         .bank-card .card-balance .label {
             font-size: 14px;
@@ -927,7 +878,6 @@
             align-items: flex-start;
             gap: 14px;
             margin-bottom: 16px;
-            transition: var(--transition);
         }
         .contact-info-item i {
             font-size: 20px;
@@ -938,13 +888,11 @@
             width: 24px;
             margin-top: 3px;
             flex-shrink: 0;
-            transition: var(--transition);
         }
         .contact-info-item .label {
             font-weight: 600;
             color: var(--text-primary);
             font-size: 14px;
-            transition: var(--transition);
         }
         .contact-info-item .value {
             color: var(--text-secondary);
@@ -952,7 +900,6 @@
         }
         .contact-info-item .value a {
             color: var(--text-secondary);
-            transition: var(--transition);
             text-decoration: none;
         }
         .contact-info-item .value a:hover {
@@ -1003,7 +950,6 @@
             color: #fff;
             border-color: var(--gold);
             transform: translateY(-3px);
-            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.2);
         }
         .map-container {
             border-radius: var(--radius);
@@ -1011,7 +957,6 @@
             box-shadow: var(--shadow);
             height: 240px;
             border: 1px solid var(--border-color);
-            transition: var(--transition);
         }
         .map-container:hover {
             border-color: var(--gold);
@@ -1082,8 +1027,6 @@
             padding: 8px;
             min-height: 40px;
             min-width: 40px;
-            touch-action: manipulation;
-            line-height: 1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1135,8 +1078,6 @@
             width: 100%;
             transition: var(--transition);
             min-height: var(--touch-target);
-            -webkit-appearance: none;
-            appearance: none;
         }
         .modal form input:focus,
         .modal form select:focus,
@@ -1184,7 +1125,6 @@
             color: var(--gold);
             cursor: pointer;
             font-weight: 600;
-            text-decoration: none;
         }
         .auth-switch a:hover {
             text-decoration: underline;
@@ -1370,20 +1310,19 @@
             padding: 14px 20px;
             font-weight: 600;
             font-size: clamp(14px, 3vw, 16px);
-            box-shadow: 0 8px 32px rgba(201, 169, 110, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(201, 169, 110, 0.25);
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
             background-size: 200% auto;
-            touch-action: manipulation;
             min-height: var(--touch-target);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .sticky-book:hover {
             transform: scale(1.05);
-            box-shadow: 0 12px 48px rgba(201, 169, 110, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 48px rgba(201, 169, 110, 0.35);
         }
 
         footer {
@@ -1628,7 +1567,7 @@
         </div>
     </header>
 
-    <!-- ===== СТРАНИЦЫ ===== -->
+    <!-- СТРАНИЦЫ -->
     <div id="page-home" class="page active">
         <section class="hero">
             <div class="container">
@@ -1726,7 +1665,7 @@
         </div>
     </div>
 
-    <!-- ===== АДМИНКА ===== -->
+    <!-- АДМИНКА -->
     <div id="adminApp" style="display:none;">
         <div class="admin-page">
             <div class="container admin-panel" id="adminPanel"></div>
@@ -1743,7 +1682,7 @@
     <button class="sticky-book btn-pulse" onclick="openBooking()"><i class="fas fa-calendar-plus"></i> Записаться</button>
     <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-up"></i></button>
 
-    <!-- ===== МОДАЛКИ ===== -->
+    <!-- МОДАЛКИ -->
     <div class="modal-overlay" id="authModal">
         <div class="modal">
             <button class="modal-close" onclick="closeAuthModal()">&times;</button>
@@ -1791,13 +1730,10 @@
         </div>
     </div>
 
-    <!-- ============================================================
-    СКРИПТЫ
-    ============================================================ -->
     <script type="module">
         import { initializeApp } from 'firebase/app';
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, where } from 'firebase/firestore';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc } from 'firebase/firestore';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -1813,6 +1749,9 @@
         const db = getFirestore(app);
         const googleProvider = new GoogleAuthProvider();
 
+        // ============================================================
+        // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
+        // ============================================================
         let currentUser = null;
         let currentUserData = null;
         let allMasters = [];
@@ -1821,9 +1760,6 @@
         let currentCategory = 'Все';
         let isAdmin = false;
 
-        // ============================================================
-        // ДАННЫЕ
-        // ============================================================
         const CATEGORIES = [
             { id: 'Все', icon: '📋' },
             { id: 'Стрижки', icon: '💇‍♀️' },
@@ -2292,11 +2228,7 @@
 
         function checkAdminAccess() {
             const panel = document.getElementById('adminPanel');
-            const isAdminRoute = window.location.hash === '#/admin';
 
-            if (!isAdminRoute) return;
-
-            // Проверяем, есть ли уже сессия админа
             if (sessionStorage.getItem('admin_session') === 'true') {
                 isAdmin = true;
                 renderAdminPanel();
@@ -2309,15 +2241,15 @@
                     <p>Введите пароль для доступа к управлению</p>
                     <input type="password" id="adminPasswordInput" placeholder="Введите пароль" />
                     <div class="error" id="adminLoginError">Неверный пароль</div>
-                    <button class="btn" onclick="window.adminLogin()"><i class="fas fa-lock"></i> Войти</button>
-                    <button class="btn btn-outline btn-sm" style="margin-top:12px;" onclick="window.navigateTo('home')">
+                    <button class="btn" onclick="adminLogin()"><i class="fas fa-lock"></i> Войти</button>
+                    <button class="btn btn-outline btn-sm" style="margin-top:12px;" onclick="navigateTo('home')">
                         <i class="fas fa-arrow-left"></i> На главную
                     </button>
                 </div>
             `;
 
             document.getElementById('adminPasswordInput').addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') window.adminLogin();
+                if (e.key === 'Enter') adminLogin();
             });
         }
 
@@ -2347,10 +2279,10 @@
                             <p style="color:var(--text-muted);">Управление сайтом Студия №1</p>
                         </div>
                         <div class="admin-actions">
-                            <button class="btn btn-sm btn-outline" onclick="window.navigateTo('home')">
+                            <button class="btn btn-sm btn-outline" onclick="navigateTo('home')">
                                 <i class="fas fa-eye"></i> На сайт
                             </button>
-                            <button class="btn btn-sm btn-danger" onclick="window.adminLogout()">
+                            <button class="btn btn-sm btn-danger" onclick="adminLogout()">
                                 <i class="fas fa-sign-out-alt"></i> Выйти
                             </button>
                         </div>
@@ -2368,7 +2300,6 @@
         }
 
         window.switchAdminTab = function(tab) {
-            adminTab = tab;
             document.querySelectorAll('.admin-tab').forEach(t => {
                 t.classList.toggle('active', t.dataset.tab === tab);
             });
@@ -2738,7 +2669,7 @@
             });
             msg += `Текущий баланс: ${user.minutes || 0} мин`;
 
-            // Открываем в модалке с прокруткой
+            // Открываем в модалке
             const modal = document.createElement('div');
             modal.style.cssText = `
                 position: fixed; top:0; left:0; width:100%; height:100%;
@@ -2859,13 +2790,12 @@
 
         // Проверка хэша для админки
         if (window.location.hash === '#/admin') {
-            setTimeout(() => navigateTo('admin'), 300);
+            setTimeout(() => navigateTo('admin'), 500);
         }
 
         console.log('🚀 Студия №1 запущена!');
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
         console.log(`💇 Услуг: ${allServices.length}`);
-        console.log(`📝 Постов: ${allBlogPosts.length}`);
         console.log('🔥 Firebase подключен!');
     </script>
 </body>
