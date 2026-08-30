@@ -22,6 +22,9 @@
     </script>
 
     <style>
+        /* ============================================================
+           ВСЕ СТИЛИ (ТЕ ЖЕ, ЧТО И БЫЛИ)
+           ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -222,6 +225,27 @@
             50% {
                 box-shadow: 0 4px 40px rgba(201, 169, 110, 0.4);
             }
+        }
+
+        /* Секретная кнопка админки */
+        .secret-admin-btn {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--text-muted);
+            opacity: 0.3;
+            cursor: pointer;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+        .secret-admin-btn:hover {
+            opacity: 0.8;
+            color: var(--gold);
+            background: var(--bg-card);
         }
 
         header {
@@ -1138,18 +1162,23 @@
             display: none;
         }
 
-        .admin-page {
-            padding-top: 0;
-            min-height: 100vh;
+        /* Админка внутри модалки */
+        .admin-login-modal .modal {
+            max-width: 420px;
         }
-        .admin-page header {
-            display: none;
+        .admin-login-modal .admin-login-icon {
+            font-size: 48px;
+            color: var(--gold);
+            display: block;
+            margin: 0 auto 12px;
         }
-        .admin-page footer {
-            display: none;
+        .admin-login-modal .admin-login-title {
+            text-align: center;
         }
-        .admin-page .sticky-book {
-            display: none;
+        .admin-login-modal .admin-login-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 24px;
         }
 
         .admin-panel {
@@ -1256,46 +1285,6 @@
         .admin-panel .admin-table select:focus {
             outline: none;
             border-color: var(--gold);
-        }
-
-        .admin-login {
-            max-width: 420px;
-            margin: 60px auto;
-            padding: 40px 30px;
-            text-align: center;
-        }
-        .admin-login h2 {
-            margin-bottom: 8px;
-        }
-        .admin-login p {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-        .admin-login input {
-            display: block;
-            width: 100%;
-            padding: 12px 16px;
-            margin-bottom: 12px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-size: 16px;
-            transition: var(--transition);
-        }
-        .admin-login input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
-        }
-        .admin-login .btn {
-            width: 100%;
-        }
-        .admin-login .error {
-            color: #E74C3C;
-            font-size: 14px;
-            margin-top: 8px;
-            display: none;
         }
 
         .sticky-book {
@@ -1578,6 +1567,10 @@
                     <button class="btn btn-pulse" onclick="openBooking()"><i class="fas fa-calendar-check"></i> Записаться</button>
                     <button class="btn btn-outline" onclick="navigateTo('masters')">Мастера</button>
                 </div>
+                <!-- СЕКРЕТНАЯ КНОПКА АДМИНКИ -->
+                <button class="secret-admin-btn" onclick="openAdminLogin()">
+                    <i class="fas fa-cog"></i>
+                </button>
             </div>
         </section>
     </div>
@@ -1665,7 +1658,7 @@
         </div>
     </div>
 
-    <!-- АДМИНКА -->
+    <!-- АДМИНКА (будет показана в модалке) -->
     <div id="adminApp" style="display:none;">
         <div class="admin-page">
             <div class="container admin-panel" id="adminPanel"></div>
@@ -1730,7 +1723,31 @@
         </div>
     </div>
 
+    <!-- МОДАЛКА АДМИНКИ -->
+    <div class="modal-overlay admin-login-modal" id="adminLoginModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeAdminLogin()">&times;</button>
+            <div style="text-align:center;padding:10px 0 0;">
+                <i class="fas fa-crown admin-login-icon"></i>
+                <h2 class="admin-login-title">Вход в <span class="gold-text">админку</span></h2>
+                <p class="admin-login-subtitle">Введите логин и пароль для управления сайтом</p>
+                <form id="adminLoginForm" onsubmit="adminLoginSubmit(event)">
+                    <input type="text" id="adminLoginInput" placeholder="Логин" value="admin" required />
+                    <input type="password" id="adminPasswordInput" placeholder="Пароль" required />
+                    <div class="auth-error" id="adminLoginError">Неверный логин или пароль</div>
+                    <button type="submit" class="btn"><i class="fas fa-lock"></i> Войти</button>
+                </form>
+                <p style="margin-top:16px;font-size:12px;color:var(--text-muted);">
+                    <i class="fas fa-info-circle"></i> Логин: <strong>admin</strong> • Пароль: <strong>Studio2026Kemerovo#1</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
+        // ============================================================
+        // FIREBASE
+        // ============================================================
         import { initializeApp } from 'firebase/app';
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
         import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc } from 'firebase/firestore';
@@ -1759,6 +1776,11 @@
         let allBlogPosts = [];
         let currentCategory = 'Все';
         let isAdmin = false;
+
+        const ADMIN_CREDENTIALS = {
+            login: 'admin',
+            password: 'Studio2026Kemerovo#1'
+        };
 
         const CATEGORIES = [
             { id: 'Все', icon: '📋' },
@@ -2063,7 +2085,7 @@
                 document.querySelector('.sticky-book').style.display = 'none';
                 document.getElementById('scrollTop').style.display = 'none';
                 document.querySelector('header').style.display = 'none';
-                checkAdminAccess();
+                renderAdminPanel();
             } else {
                 document.getElementById('app').style.display = 'block';
                 document.getElementById('adminApp').style.display = 'none';
@@ -2096,7 +2118,61 @@
         };
 
         // ============================================================
-        // АВТОРИЗАЦИЯ
+        // АДМИНКА — вход через модалку
+        // ============================================================
+        window.openAdminLogin = function() {
+            document.getElementById('adminLoginModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('adminLoginError').style.display = 'none';
+            document.getElementById('adminLoginInput').value = 'admin';
+            document.getElementById('adminPasswordInput').value = '';
+            document.getElementById('adminPasswordInput').focus();
+        };
+
+        window.closeAdminLogin = function() {
+            document.getElementById('adminLoginModal').classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        window.adminLoginSubmit = function(e) {
+            e.preventDefault();
+            const login = document.getElementById('adminLoginInput').value.trim();
+            const password = document.getElementById('adminPasswordInput').value.trim();
+            const errorEl = document.getElementById('adminLoginError');
+
+            if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
+                errorEl.style.display = 'none';
+                closeAdminLogin();
+                // Сохраняем сессию
+                sessionStorage.setItem('admin_session', 'true');
+                isAdmin = true;
+                // Переходим в админку
+                navigateTo('admin');
+            } else {
+                errorEl.style.display = 'block';
+                document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('adminPasswordInput').focus();
+            }
+        };
+
+        // Обработка входа по Enter в полях
+        document.addEventListener('DOMContentLoaded', function() {
+            const adminLoginInput = document.getElementById('adminLoginInput');
+            const adminPasswordInput = document.getElementById('adminPasswordInput');
+            if (adminLoginInput) {
+                adminLoginInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') adminLoginSubmit(e);
+                });
+            }
+            if (adminPasswordInput) {
+                adminPasswordInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') adminLoginSubmit(e);
+                });
+            }
+        });
+
+        // ============================================================
+        // АВТОРИЗАЦИЯ (для пользователей)
         // ============================================================
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -2222,53 +2298,8 @@
         };
 
         // ============================================================
-        // АДМИНКА С ПАРОЛЕМ
+        // АДМИН-ПАНЕЛЬ
         // ============================================================
-        const ADMIN_PASSWORD = 'Studio2026Kemerovo#1';
-
-        function checkAdminAccess() {
-            const panel = document.getElementById('adminPanel');
-
-            if (sessionStorage.getItem('admin_session') === 'true') {
-                isAdmin = true;
-                renderAdminPanel();
-                return;
-            }
-
-            panel.innerHTML = `
-                <div class="admin-login glass-card">
-                    <h2>🔐 Вход в админку</h2>
-                    <p>Введите пароль для доступа к управлению</p>
-                    <input type="password" id="adminPasswordInput" placeholder="Введите пароль" />
-                    <div class="error" id="adminLoginError">Неверный пароль</div>
-                    <button class="btn" onclick="adminLogin()"><i class="fas fa-lock"></i> Войти</button>
-                    <button class="btn btn-outline btn-sm" style="margin-top:12px;" onclick="navigateTo('home')">
-                        <i class="fas fa-arrow-left"></i> На главную
-                    </button>
-                </div>
-            `;
-
-            document.getElementById('adminPasswordInput').addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') adminLogin();
-            });
-        }
-
-        window.adminLogin = function() {
-            const password = document.getElementById('adminPasswordInput').value;
-            const errorEl = document.getElementById('adminLoginError');
-
-            if (password === ADMIN_PASSWORD) {
-                sessionStorage.setItem('admin_session', 'true');
-                isAdmin = true;
-                errorEl.style.display = 'none';
-                renderAdminPanel();
-            } else {
-                errorEl.style.display = 'block';
-                document.getElementById('adminPasswordInput').value = '';
-                document.getElementById('adminPasswordInput').focus();
-            }
-        };
-
         function renderAdminPanel() {
             const panel = document.getElementById('adminPanel');
             panel.innerHTML = `
@@ -2788,15 +2819,17 @@
         initTheme();
         await initData();
 
-        // Проверка хэша для админки
-        if (window.location.hash === '#/admin') {
-            setTimeout(() => navigateTo('admin'), 500);
+        // Проверка сессии админа
+        if (sessionStorage.getItem('admin_session') === 'true') {
+            isAdmin = true;
+            // Если пользователь уже был на странице админки — показываем
         }
 
         console.log('🚀 Студия №1 запущена!');
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
         console.log(`💇 Услуг: ${allServices.length}`);
         console.log('🔥 Firebase подключен!');
+        console.log('🔐 Админка: нажмите ⚙️ на главной странице');
     </script>
 </body>
 </html>
