@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Админка — Студия №1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js"
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-primary: #0D0D0D;
+            --bg-secondary: #161616;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.08);
+            --text-primary: #F0EBE6;
+            --text-secondary: #D0CBC6;
+            --text-muted: #8A8580;
+            --border-color: rgba(201, 169, 110, 0.15);
+            --gold: #C9A96E;
+            --gold-dark: #B8974D;
+            --gold-light: #E8D5A8;
+            --gold-gradient: linear-gradient(135deg, #C9A96E, #E8D5A8, #C9A96E);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --radius: 16px;
+            --radius-sm: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.1);
+        }
+        [data-theme="light"] {
+            --bg-primary: #FCF9F5;
+            --bg-secondary: #F8F5F0;
+            --bg-card: rgba(0, 0, 0, 0.02);
+            --bg-card-hover: rgba(0, 0, 0, 0.04);
+            --text-primary: #1E1E1E;
+            --text-secondary: #3D3D3D;
+            --text-muted: #7A7A7A;
+            --border-color: rgba(201, 169, 110, 0.12);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background 0.4s ease, color 0.4s ease;
+            min-height: 100vh;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: var(--bg-primary), radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.12) 0%, transparent 55%), radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.08) 0%, transparent 50%);
+            animation: floatingGradients 18s ease-in-out infinite alternate;
+        }
+        @keyframes floatingGradients {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: .7
+            }
+            50% {
+                transform: scale(1.05) rotate(1deg);
+                opacity: .9
+            }
+            100% {
+                transform: scale(1.03) rotate(-1deg);
+                opacity: .75
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            padding: 40px 30px;
+            border-radius: var(--radius);
+        }
+        .glass-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(201, 169, 110, 0.3);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            min-height: 44px;
+            background: var(--gold-gradient);
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
+            background-size: 200% auto;
+            width: 100%;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 169, 110, 0.4);
+            background-position: right center;
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: var(--gold);
+            color: #fff;
+        }
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 13px;
+            min-height: 36px;
+            width: auto;
+        }
+        .btn-danger {
+            background: #E74C3C;
+            box-shadow: 0 4px 24px rgba(231, 76, 60, 0.3);
+        }
+        .btn-danger:hover {
+            background: #C0392B;
+        }
+        .btn-success {
+            background: #27AE60;
+            box-shadow: 0 4px 24px rgba(39, 174, 96, 0.3);
+        }
+        .btn-success:hover {
+            background: #219A52;
+        }
+
+        .admin-login {
+            max-width: 420px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .admin-login .icon {
+            font-size: 48px;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 12px;
+        }
+        .admin-login h2 {
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+        .admin-login .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .admin-login .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+        .admin-login input {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        .admin-login input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
+        }
+        .admin-login .error {
+            color: #E74C3C;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+        .admin-login .back-link {
+            display: block;
+            margin-top: 16px;
+            color: var(--text-muted);
+            font-size: 13px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .admin-login .back-link:hover {
+            color: var(--gold);
+        }
+
+        .admin-panel .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .admin-panel .admin-header h2 {
+            font-size: 28px;
+        }
+        .admin-panel .admin-header .admin-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .admin-panel .admin-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 8px 0 16px;
+            margin-bottom: 20px;
+            scrollbar-width: none;
+        }
+        .admin-panel .admin-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        .admin-tab {
+            flex-shrink: 0;
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .admin-tab:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .admin-tab.active {
+            background: var(--gold-gradient);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .admin-table th {
+            text-align: left;
+            padding: 10px 12px;
+            color: var(--gold);
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 600;
+        }
+        .admin-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        .admin-table tr:hover td {
+            background: var(--bg-card-hover);
+        }
+        .admin-table .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .admin-table .actions .btn {
+            padding: 4px 12px;
+            font-size: 12px;
+            min-height: 30px;
+            min-width: auto;
+        }
+        .admin-table input,
+        .admin-table select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 10px;
+            color: var(--text-primary);
+            font-size: 13px;
+            width: 100%;
+            transition: var(--transition);
+        }
+        .admin-table input:focus,
+        .admin-table select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 16px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .stat-card .stat-icon {
+            font-size: 28px;
+            color: var(--gold);
+        }
+        .stat-card .stat-number {
+            font-weight: 700;
+            font-size: 20px;
+            margin-top: 4px;
+        }
+        .stat-card .stat-label {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .service-row {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 12px;
+        }
+        .service-row input {
+            flex: 1;
+            min-width: 60px;
+            padding: 4px 8px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 12px;
+        }
+        .service-row .btn {
+            padding: 2px 8px;
+            font-size: 10px;
+            min-height: 24px;
+            min-width: auto;
+            width: auto;
+        }
+
+        @media (max-width:768px) {
+            .glass-card {
+                padding: 20px 16px;
+            }
+            .admin-table {
+                font-size: 12px;
+            }
+            .admin-table td,
+            .admin-table th {
+                padding: 6px 8px;
+            }
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .admin-header .admin-actions {
+                width: 100%;
+            }
+            .admin-header .admin-actions .btn {
+                flex: 1;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width:400px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .admin-login {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="app">
+        <!-- СТРАНИЦА ВХОДА -->
+        <div id="loginPage">
+            <div class="glass-card admin-login">
+                <i class="fas fa-crown icon"></i>
+                <h2>Вход в <span class="gold-text">админку</span></h2>
+                <p class="subtitle">Введите логин и пароль для управления сайтом</p>
+                <form id="adminLoginForm" onsubmit="adminLogin(event)">
+                    <input type="text" id="adminLoginInput" placeholder="Логин" value="admin" required />
+                    <input type="password" id="adminPasswordInput" placeholder="Пароль" required />
+                    <div class="error" id="adminLoginError">Неверный логин или пароль</div>
+                    <button type="submit" class="btn"><i class="fas fa-lock"></i> Войти</button>
+                </form>
+                <p style="margin-top:16px;font-size:12px;color:var(--text-muted);">
+                    <i class="fas fa-info-circle"></i> Логин: <strong>admin</strong> • Пароль: <strong>Studio2026Kemerovo#1</strong>
+                </p>
+                <a href="/studio1/" class="back-link"><i class="fas fa-arrow-left"></i> На главную</a>
+            </div>
+        </div>
+
+        <!-- АДМИН-ПАНЕЛЬ -->
+        <div id="adminPanel" style="display:none;">
+            <div class="glass-card">
+                <div class="admin-header">
+                    <div>
+                        <h2>⚙️ Админ-панель</h2>
+                        <p style="color:var(--text-muted);">Управление сайтом Студия №1</p>
+                    </div>
+                    <div class="admin-actions">
+                        <a href="/studio1/" class="btn btn-sm btn-outline"><i class="fas fa-eye"></i> На сайт</a>
+                        <button class="btn btn-sm btn-danger" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Выйти</button>
+                    </div>
+                </div>
+                <div class="admin-tabs" id="adminTabs">
+                    <div class="admin-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">📊 Дашборд</div>
+                    <div class="admin-tab" data-tab="masters" onclick="switchTab('masters')">👩‍🎨 Мастера</div>
+                    <div class="admin-tab" data-tab="blog" onclick="switchTab('blog')">📝 Блог</div>
+                    <div class="admin-tab" data-tab="clients" onclick="switchTab('clients')">👤 Клиенты</div>
+                </div>
+                <div id="adminContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // ============================================================
+        // FIREBASE
+        // ============================================================
+        import { initializeApp } from 'firebase/app';
+        import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc } from 'firebase/firestore';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
+            authDomain: "studio1-kemerovo.firebaseapp.com",
+            projectId: "studio1-kemerovo",
+            storageBucket: "studio1-kemerovo.firebasestorage.app",
+            messagingSenderId: "77088698787",
+            appId: "1:77088698787:web:fbfc913ad078a1bbe5ea16"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // ============================================================
+        // ДАННЫЕ
+        // ============================================================
+        const ADMIN_CREDENTIALS = {
+            login: 'admin',
+            password: 'Studio2026Kemerovo#1'
+        };
+
+        let allMasters = [];
+        let allServices = [];
+        let allBlogPosts = [];
+        let isLoggedIn = false;
+
+        const DEFAULT_MASTERS = [{
+            id: 'natalia',
+            name: 'Наталья Мельникова',
+            specialty: 'Парикмахер-колорист',
+            description: 'Колорист, мастер по стрижкам',
+            education: 'Академия Sointera Academy',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EНМ%3C/text%3E%3C/svg%3E',
+            rating: 4.9,
+            reviews: 55,
+            services: [
+                { name: 'Стрижка женская', category: 'Стрижки', price: 2500, duration: '1 ч 30 м' },
+                { name: 'Стойкое окрашивание', category: 'Окрашивание', price: 3500, duration: '2 ч 30 м' },
+                { name: 'Тотал блонд (первично)', category: 'Окрашивание', price: 6000, duration: '3 ч' },
+                { name: 'Коррекция тотал блонд', category: 'Окрашивание', price: 5000, duration: '2 ч' },
+                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
+                { name: 'Ламинирование ресниц', category: 'Ресницы', price: 2300, duration: '1 ч 15 м' },
+                { name: 'Наращивание ресниц (Классика)', category: 'Ресницы', price: 2000, duration: '1 ч 30 м' },
+                { name: 'Пенный Пилинг-хамам', category: 'Спа-сервисы', price: 1000, duration: '40 м' },
+                { name: 'Прикорневой объём', category: 'Спа-сервисы', price: 3500, duration: '2 ч' },
+                { name: 'Долговременная биозавивка', category: 'Биозавивка', price: 5000, duration: '3 ч' },
+                { name: 'Онлайн подбор стрижки', category: 'Онлайн-услуги', price: 2000, duration: '1 ч' },
+                { name: 'Весенний спешл', category: 'Стрижки', price: 3900, duration: '2 ч' }
+            ]
+        }, {
+            id: 'victoria',
+            name: 'Виктория Селитренникова',
+            specialty: 'Мастер перманентного макияжа',
+            description: 'Специалист по перманентному макияжу',
+            education: 'Сертифицированный мастер',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EВС%3C/text%3E%3C/svg%3E',
+            rating: 0,
+            reviews: 0,
+            services: [
+                { name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000, duration: '2 ч 30 м' },
+                { name: 'Перманентный макияж век (межресничка)', category: 'Перманент', price: 7500,
+                duration: '45 м' },
+                { name: 'Перманентный макияж губ', category: 'Перманент', price: 9000, duration: '3 ч' },
+                { name: 'Комбо: брови + межресничка', category: 'Перманент', price: 12000, duration: '3 ч 30 м' },
+                { name: 'Коррекция перманентного макияжа', category: 'Перманент', price: 5000, duration: '2 ч' },
+                { name: 'Камуфляж темных кругов', category: 'Перманент', price: 6000, duration: '1 ч 30 м' },
+                { name: 'Удаление татуажа ремувером', category: 'Перманент', price: 2500, duration: '1 ч' }
+            ]
+        }, {
+            id: 'tatiana',
+            name: 'Татьяна Тысячина',
+            specialty: 'Специалист по солярию',
+            description: 'Администратор и специалист',
+            education: 'Премиальные лампы Rubino+Collatan',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EТТ%3C/text%3E%3C/svg%3E',
+            rating: 4.7,
+            reviews: 24,
+            services: [
+                { name: 'Загар премиум (1 минута)', category: 'Солярий', price: 33, duration: '20 м' },
+                { name: 'Первый визит "Сияние"', category: 'Солярий', price: 299, duration: '20 м' },
+                { name: 'Абонемент "VIP Сияние" (200 мин)', category: 'Солярий', price: 4900, duration: '20 м' },
+                { name: 'Абонемент "Идеальный загар" (100 мин)', category: 'Солярий', price: 3000,
+                duration: '1 ч 40 м' },
+                { name: 'Абонемент "START Сияние" (50 мин)', category: 'Солярий', price: 1600, duration: '50 м' }
+            ]
+        }, {
+            id: 'yulia',
+            name: 'Юлия Скуртол',
+            specialty: 'Мастер педикюра и маникюра',
+            description: 'Специалист по педикюру',
+            education: 'Сертифицированный мастер',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EЮС%3C/text%3E%3C/svg%3E',
+            rating: 5.0,
+            reviews: 3,
+            services: [
+                { name: 'Педикюр Smart', category: 'Педикюр', price: 1900, duration: '45 м' },
+                { name: 'Smart Педикюр с покрытием', category: 'Педикюр', price: 2500, duration: '1 ч 30 м' },
+                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
+                { name: 'Спа-ритуал для ног', category: 'Педикюр', price: 1000, duration: '30 м' },
+                { name: 'Наращивание ногтей', category: 'Маникюр', price: 3000, duration: '2 ч' },
+                { name: 'Японский эко маникюр', category: 'Маникюр', price: 2000, duration: '1 ч' },
+                { name: 'Дизайн на все ногти', category: 'Маникюр', price: 500, duration: '30 м' }
+            ]
+        }];
+
+        // ============================================================
+        // ИНИЦИАЛИЗАЦИЯ
+        // ============================================================
+        async function initData() {
+            try {
+                const mastersSnap = await getDocs(collection(db, 'masters'));
+                if (mastersSnap.empty) {
+                    for (const m of DEFAULT_MASTERS) {
+                        await setDoc(doc(db, 'masters', m.id), m);
+                    }
+                    allMasters = DEFAULT_MASTERS;
+                } else {
+                    allMasters = [];
+                    mastersSnap.forEach(d => allMasters.push({ id: d.id, ...d.data() }));
+                }
+            } catch (e) {
+                allMasters = DEFAULT_MASTERS;
+            }
+
+            allServices = [];
+            allMasters.forEach(m => {
+                if (m.services) {
+                    m.services.forEach(s => {
+                        allServices.push({ ...s, masterName: m.name, masterId: m.id });
+                    });
+                }
+            });
+
+            try {
+                const blogSnap = await getDocs(collection(db, 'blog'));
+                allBlogPosts = [];
+                blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
+                allBlogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } catch (e) {
+                allBlogPosts = [];
+            }
+        }
+
+        // ============================================================
+        // ВХОД В АДМИНКУ
+        // ============================================================
+        window.adminLogin = function(e) {
+            e.preventDefault();
+            const login = document.getElementById('adminLoginInput').value.trim();
+            const password = document.getElementById('adminPasswordInput').value.trim();
+            const errorEl = document.getElementById('adminLoginError');
+
+            if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
+                errorEl.style.display = 'none';
+                isLoggedIn = true;
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                renderAdminPanel();
+            } else {
+                errorEl.style.display = 'block';
+                document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('adminPasswordInput').focus();
+            }
+        };
+
+        window.adminLogout = function() {
+            if (confirm('Выйти из админки?')) {
+                isLoggedIn = false;
+                document.getElementById('loginPage').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('adminLoginError').style.display = 'none';
+            }
+        };
+
+        // ============================================================
+        // АДМИН-ПАНЕЛЬ
+        // ============================================================
+        function renderAdminPanel() {
+            switchTab('dashboard');
+        }
+
+        window.switchTab = function(tab) {
+            document.querySelectorAll('.admin-tab').forEach(t => {
+                t.classList.toggle('active', t.dataset.tab === tab);
+            });
+            renderContent(tab);
+        };
+
+        async function renderContent(tab) {
+            const container = document.getElementById('adminContent');
+            switch (tab) {
+                case 'dashboard':
+                    container.innerHTML = await renderDashboard();
+                    break;
+                case 'masters':
+                    container.innerHTML = await renderMasters();
+                    break;
+                case 'blog':
+                    container.innerHTML = await renderBlog();
+                    break;
+                case 'clients':
+                    container.innerHTML = await renderClients();
+                    break;
+                default:
+                    container.innerHTML = '<p>Раздел в разработке</p>';
+            }
+        }
+
+        async function renderDashboard() {
+            const usersSnap = await getDocs(collection(db, 'users'));
+            const usersCount = usersSnap.size;
+            let totalMinutes = 0;
+            usersSnap.forEach(d => { const data = d.data();
+                totalMinutes += data.minutes || 0; });
+
+            return `
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👤</div>
+                        <div class="stat-number">${usersCount}</div>
+                        <div class="stat-label">Клиентов</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💇</div>
+                        <div class="stat-number">${allMasters.length}</div>
+                        <div class="stat-label">Мастеров</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✨</div>
+                        <div class="stat-number">${allServices.length}</div>
+                        <div class="stat-label">Услуг</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">☀️</div>
+                        <div class="stat-number">${totalMinutes}</div>
+                        <div class="stat-label">Всего минут</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-number">${allBlogPosts.length}</div>
+                        <div class="stat-label">Постов</div>
+                    </div>
+                </div>
+                <div style="color:var(--text-muted);font-size:14px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
+                    <i class="fas fa-info-circle"></i> Все данные хранятся в Firestore. Изменения применяются мгновенно.
+                </div>
+            `;
+        }
+
+        async function renderMasters() {
+            let html = `
+                <div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;">
+                    <input type="text" id="newMasterName" placeholder="Имя мастера" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
+                    <input type="text" id="newMasterSpecialty" placeholder="Специальность" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
+                    <button class="btn btn-sm" onclick="addMaster()"><i class="fas fa-plus"></i> Добавить</button>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table class="admin-table">
+                        <thead><tr><th>Мастер</th><th>Специальность</th><th>Услуги</th><th>Действия</th></tr></thead>
+                        <tbody>
+            `;
+
+            for (const m of allMasters) {
+                html += `
+                    <tr>
+                        <td><input type="text" value="${escapeHTML(m.name)}" onchange="updateMaster('${m.id}','name',this.value)" /></td>
+                        <td><input type="text" value="${escapeHTML(m.specialty)}" onchange="updateMaster('${m.id}','specialty',this.value)" /></td>
+                        <td>
+                            <div style="display:flex;flex-direction:column;gap:4px;">
+                                ${m.services?.map((s, i) => `
+                                    <div class="service-row">
+                                        <span>${escapeHTML(s.name)}</span>
+                                        <span style="color:var(--text-muted);">${s.price}₽</span>
+                                        <button class="btn btn-sm btn-danger" onclick="removeService('${m.id}',${i})" style="padding:2px 6px;font-size:10px;min-height:24px;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                `).join('')}
+                                <div class="service-row" style="margin-top:4px;">
+                                    <input type="text" id="newServiceName_${m.id}" placeholder="Название" />
+                                    <input type="text" id="newServiceCategory_${m.id}" placeholder="Кат." style="flex:0.5;min-width:60px;" />
+                                    <input type="number" id="newServicePrice_${m.id}" placeholder="Цена" style="width:60px;" />
+                                    <button class="btn btn-sm" onclick="addService('${m.id}')" style="padding:2px 8px;font-size:12px;min-height:28px;">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" onclick="deleteMaster('${m.id}')" style="padding:2px 10px;font-size:12px;min-height:30px;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            html += `</tbody></table></div>`;
+            return html;
+        }
+
+        async function renderBlog() {
+            let html = `
+                <div style="margin-bottom:16px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
+                    <h4 style="margin-bottom:12px;">➕ Добавить новость</h4>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <input type="text" id="newBlogTitle" placeholder="Заголовок" style="padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
+                        <textarea id="newBlogContent" placeholder="Текст" rows="3" style="padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);"></textarea>
+                        <button class="btn btn-sm" onclick="addBlog()"><i class="fas fa-plus"></i> Опубликовать</button>
+                    </div>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table class="admin-table">
+                        <thead><tr><th>Дата</th><th>Заголовок</th><th>Действия</th></tr></thead>
+                        <tbody>
+            `;
+
+            for (const p of allBlogPosts) {
+                html += `
+                    <tr>
+                        <td>${formatDate(p.date)}</td>
+                        <td>${escapeHTML(p.title)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" onclick="deleteBlog('${p.id}')" style="padding:2px 10px;font-size:12px;min-height:30px;">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            html += `</tbody></table></div>`;
+            return html;
+        }
+
+        async function renderClients() {
+            const usersSnap = await getDocs(collection(db, 'users'));
+            let html = `
+                <div style="margin-bottom:16px;">
+                    <button class="btn btn-sm" onclick="addClient()"><i class="fas fa-user-plus"></i> Добавить клиента</button>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table class="admin-table">
+                        <thead><tr><th>Клиент</th><th>Телефон</th><th>Email</th><th>Минуты</th><th>Действия</th></tr></thead>
+                        <tbody>
+            `;
+
+            for (const docSnap of usersSnap.docs) {
+                const user = { id: docSnap.id, ...docSnap.data() };
+                html += `
+                    <tr>
+                        <td>${escapeHTML(user.name || 'Без имени')}</td>
+                        <td>${escapeHTML(user.phone || '—')}</td>
+                        <td>${escapeHTML(user.email || '—')}</td>
+                        <td><strong style="color:var(--gold);font-size:18px;">${user.minutes || 0}</strong></td>
+                        <td>
+                            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                                <button class="btn btn-sm btn-success" onclick="addMinutes('${user.id}')" style="padding:2px 8px;font-size:11px;min-height:28px;" title="Пополнить">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="spendMinutes('${user.id}')" style="padding:2px 8px;font-size:11px;min-height:28px;" title="Списать">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline" onclick="showHistory('${user.id}')" style="padding:2px 8px;font-size:11px;min-height:28px;" title="История">
+                                    <i class="fas fa-history"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            html += `</tbody></table></div>`;
+            return html;
+        }
+
+        // ============================================================
+        // АДМИН-ФУНКЦИИ
+        // ============================================================
+        window.addMaster = async function() {
+            const name = document.getElementById('newMasterName').value.trim();
+            const specialty = document.getElementById('newMasterSpecialty').value.trim();
+            if (!name) { alert('Введите имя мастера'); return; }
+            const newMaster = {
+                id: 'master_' + Date.now(),
+                name,
+                specialty: specialty || 'Специалист',
+                description: '',
+                education: '',
+                photo: `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${name.split(' ').map(w=>w[0]).join('')}%3C/text%3E%3C/svg%3E`,
+                rating: 0,
+                reviews: 0,
+                services: []
+            };
+            await setDoc(doc(db, 'masters', newMaster.id), newMaster);
+            await initData();
+            renderContent('masters');
+        };
+
+        window.updateMaster = async function(id, field, value) {
+            await updateDoc(doc(db, 'masters', id), { [field]: value });
+            await initData();
+        };
+
+        window.deleteMaster = async function(id) {
+            if (!confirm('Удалить мастера?')) return;
+            await deleteDoc(doc(db, 'masters', id));
+            await initData();
+            renderContent('masters');
+        };
+
+        window.addService = async function(masterId) {
+            const name = document.getElementById(`newServiceName_${masterId}`).value.trim();
+            const category = document.getElementById(`newServiceCategory_${masterId}`).value.trim() || 'Услуга';
+            const price = parseInt(document.getElementById(`newServicePrice_${masterId}`).value) || 0;
+            if (!name) { alert('Введите название'); return; }
+            const master = allMasters.find(m => m.id === masterId);
+            if (!master) return;
+            const services = master.services || [];
+            services.push({ name, category, price, duration: '1 ч' });
+            await updateDoc(doc(db, 'masters', masterId), { services });
+            await initData();
+            renderContent('masters');
+        };
+
+        window.removeService = async function(masterId, index) {
+            const master = allMasters.find(m => m.id === masterId);
+            if (!master) return;
+            if (!confirm(`Удалить "${master.services[index].name}"?`)) return;
+            const services = master.services.filter((_, i) => i !== index);
+            await updateDoc(doc(db, 'masters', masterId), { services });
+            await initData();
+            renderContent('masters');
+        };
+
+        window.addBlog = async function() {
+            const title = document.getElementById('newBlogTitle').value.trim();
+            const content = document.getElementById('newBlogContent').value.trim();
+            if (!title || !content) { alert('Заполните поля'); return; }
+            await addDoc(collection(db, 'blog'), { title, content, date: new Date().toISOString() });
+            await initData();
+            renderContent('blog');
+            document.getElementById('newBlogTitle').value = '';
+            document.getElementById('newBlogContent').value = '';
+        };
+
+        window.deleteBlog = async function(id) {
+            if (!confirm('Удалить пост?')) return;
+            await deleteDoc(doc(db, 'blog', id));
+            await initData();
+            renderContent('blog');
+        };
+
+        window.addClient = async function() {
+            const name = prompt('Введите имя клиента:');
+            if (!name) return;
+            const phone = prompt('Введите телефон:') || '';
+            const email = prompt('Введите Email (опционально):') || '';
+            const uid = 'manual_' + Date.now();
+            await setDoc(doc(db, 'users', uid), {
+                name: name,
+                phone: phone,
+                email: email,
+                minutes: 0,
+                history: [],
+                createdAt: new Date().toISOString()
+            });
+            await initData();
+            renderContent('clients');
+            alert(`✅ Клиент "${name}" добавлен!`);
+        };
+
+        window.addMinutes = async function(userId) {
+            const amount = prompt('Сколько минут добавить?', '30');
+            if (!amount) return;
+            const num = parseInt(amount);
+            if (isNaN(num) || num <= 0) { alert('Введите число > 0'); return; }
+
+            const userRef = doc(db, 'users', userId);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.data();
+            const newMinutes = (userData.minutes || 0) + num;
+            const history = userData.history || [];
+            history.push({
+                date: new Date().toISOString(),
+                action: `Пополнение на ${num} мин`,
+                added: num,
+                remaining: newMinutes
+            });
+
+            await updateDoc(userRef, { minutes: newMinutes, history });
+            renderContent('clients');
+        };
+
+        window.spendMinutes = async function(userId) {
+            const userRef = doc(db, 'users', userId);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.data();
+            const current = userData.minutes || 0;
+
+            if (current <= 0) { alert('У клиента 0 минут. Сначала пополните баланс.'); return; }
+
+            const amount = prompt(`Списать минут (доступно: ${current})`, '10');
+            if (!amount) return;
+            const num = parseInt(amount);
+            if (isNaN(num) || num <= 0) { alert('Введите число > 0'); return; }
+            if (num > current) { alert(`Недостаточно минут. Доступно: ${current}`); return; }
+
+            const newMinutes = current - num;
+            const history = userData.history || [];
+            history.push({
+                date: new Date().toISOString(),
+                action: `Списание ${num} мин (солярий)`,
+                spent: num,
+                remaining: newMinutes
+            });
+
+            await updateDoc(userRef, { minutes: newMinutes, history });
+            renderContent('clients');
+        };
+
+        window.showHistory = async function(userId) {
+            const userSnap = await getDoc(doc(db, 'users', userId));
+            const user = userSnap.data();
+            if (!user) { alert('Клиент не найден'); return; }
+
+            const history = user.history || [];
+            if (!history.length) {
+                alert(`📜 История для ${user.name}:\n\nИстория пуста`);
+                return;
+            }
+
+            let msg = `📜 ИСТОРИЯ: ${user.name}\n`;
+            msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            history.slice().reverse().forEach(h => {
+                const date = new Date(h.date).toLocaleString('ru-RU');
+                const action = h.action || 'Операция';
+                const amount = h.spent ? `-${h.spent}` : (h.added ? `+${h.added}` : '0');
+                msg += `${date}\n  ${action}\n  Остаток: ${h.remaining} мин\n━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            });
+            msg += `Текущий баланс: ${user.minutes || 0} мин`;
+
+            alert(msg);
+        };
+
+        // ============================================================
+        // УТИЛИТЫ
+        // ============================================================
+        function escapeHTML(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            try { return new Date(dateStr).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit',
+                    year: 'numeric' }); } catch { return dateStr; }
+        }
+
+        // ============================================================
+        // ЗАПУСК
+        // ============================================================
+        await initData();
+
+        // Проверяем, есть ли сессия
+        if (sessionStorage.getItem('admin_session') === 'true') {
+            // Автоматический вход
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            renderAdminPanel();
+        }
+
+        console.log('🔐 Админка Студия №1 загружена!');
+        console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
+        console.log(`💇 Услуг: ${allServices.length}`);
+        console.log(`📝 Постов: ${allBlogPosts.length}`);
+    </script>
+</body>
+</html>
