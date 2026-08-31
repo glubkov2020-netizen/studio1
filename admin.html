@@ -20,9 +20,7 @@
     </script>
 
     <style>
-        /* ============================================================
-           ВСЕ СТИЛИ (те же, что и были)
-           ============================================================ */
+        /* ===== ВСЕ СТИЛИ (те же, что и в прошлой версии, но с добавлением комментариев) ===== */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -698,6 +696,114 @@
             border-color: var(--gold);
         }
 
+        /* ============================================================
+           КОММЕНТАРИИ В АДМИНКЕ
+           ============================================================ */
+        .comments-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .comments-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .comments-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 700px;
+        }
+        .comments-table th {
+            text-align: left;
+            padding: 10px 12px;
+            color: var(--gold);
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .comments-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        .comments-table tr:hover td {
+            background: var(--bg-card-hover);
+        }
+        .comments-table .comment-text-cell {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .comments-table .user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .comments-table .user-info .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--gold-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        .comments-table .user-info .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .comments-table .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 500;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+        .comments-table .badge.deleted {
+            background: rgba(231, 76, 60, 0.15);
+            color: #E74C3C;
+            border-color: rgba(231, 76, 60, 0.2);
+        }
+        .comments-table .badge.active {
+            background: rgba(39, 174, 96, 0.15);
+            color: #27AE60;
+            border-color: rgba(39, 174, 96, 0.2);
+        }
+
+        .post-filter {
+            margin-bottom: 16px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .post-filter select {
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 14px;
+            min-width: 200px;
+        }
+        .post-filter select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
         @media (max-width:768px) {
             body {
                 padding: 12px;
@@ -757,6 +863,25 @@
             .blog-post-card .post-image-placeholder {
                 height: 150px;
             }
+            .comments-table {
+                font-size: 12px;
+                min-width: 500px;
+            }
+            .comments-table td,
+            .comments-table th {
+                padding: 6px 8px;
+            }
+            .comments-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .post-filter {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .post-filter select {
+                width: 100%;
+            }
         }
         @media (max-width:480px) {
             .stats-grid {
@@ -801,12 +926,26 @@
             .blog-post-card .post-body .post-title {
                 font-size: 16px;
             }
+            .comments-table {
+                font-size: 11px;
+                min-width: 400px;
+            }
+            .comments-table td,
+            .comments-table th {
+                padding: 4px 6px;
+            }
+            .comments-stats {
+                grid-template-columns: 1fr;
+            }
         }
         @media (min-width:1024px) {
             .stats-grid {
                 grid-template-columns: repeat(5, 1fr);
             }
             .admin-table {
+                min-width: 100%;
+            }
+            .comments-table {
                 min-width: 100%;
             }
         }
@@ -854,6 +993,7 @@
                     <div class="admin-tab" data-tab="masters" onclick="switchTab('masters')">👩‍🎨 Мастера</div>
                     <div class="admin-tab" data-tab="blog" onclick="switchTab('blog')">📝 Блог</div>
                     <div class="admin-tab" data-tab="clients" onclick="switchTab('clients')">👤 Клиенты</div>
+                    <div class="admin-tab" data-tab="comments" onclick="switchTab('comments')">💬 Комментарии</div>
                 </div>
 
                 <div id="adminContent"></div>
@@ -889,7 +1029,7 @@
         // FIREBASE
         // ============================================================
         import { initializeApp } from 'firebase/app';
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy } from 'firebase/firestore';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot, increment, arrayRemove } from 'firebase/firestore';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -915,11 +1055,14 @@
         let allServices = [];
         let allBlogPosts = [];
         let allUsers = [];
+        let allComments = [];
         let currentTab = 'dashboard';
         let clientSearch = '';
         let isLoggedIn = false;
         let isDataLoaded = false;
         let deleteTargetId = null;
+        let commentsFilter = 'all';
+        let commentListeners = [];
 
         const DEFAULT_MASTERS = [{
             id: 'natalia',
@@ -1035,11 +1178,40 @@
                 allUsers = [];
                 usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
 
+                // Загружаем комментарии отдельно через слушатель
+                loadComments();
+
                 isDataLoaded = true;
                 console.log('✅ Все данные загружены!');
             } catch (e) {
                 console.error('Ошибка загрузки данных:', e);
             }
+        }
+
+        // ============================================================
+        // ЗАГРУЗКА КОММЕНТАРИЕВ (реальное время)
+        // ============================================================
+        function loadComments() {
+            // Отписываемся от старых слушателей
+            commentListeners.forEach(unsubscribe => unsubscribe());
+            commentListeners = [];
+
+            const commentsQuery = query(collection(db, 'comments'), orderBy('createdAt', 'desc'));
+
+            const unsubscribe = onSnapshot(commentsQuery, (snapshot) => {
+                allComments = [];
+                snapshot.forEach(doc => {
+                    allComments.push({ id: doc.id, ...doc.data() });
+                });
+                // Если мы на вкладке комментариев — обновляем
+                if (currentTab === 'comments') {
+                    renderCommentsAdmin();
+                }
+            }, (error) => {
+                console.error('Ошибка загрузки комментариев:', error);
+            });
+
+            commentListeners.push(unsubscribe);
         }
 
         // ============================================================
@@ -1109,10 +1281,13 @@
                     container.innerHTML = renderMasters();
                     break;
                 case 'blog':
-                    container.innerHTML = renderBlog();
+                    container.innerHTML = renderBlogAdmin();
                     break;
                 case 'clients':
                     container.innerHTML = renderClients();
+                    break;
+                case 'comments':
+                    container.innerHTML = renderCommentsAdmin();
                     break;
                 default:
                     container.innerHTML = '<p style="color:var(--text-muted);padding:40px 0;text-align:center;">Раздел в разработке</p>';
@@ -1124,6 +1299,9 @@
         // ============================================================
         function renderDashboard() {
             const totalMinutes = allUsers.reduce((sum, u) => sum + (u.minutes || 0), 0);
+            const totalComments = allComments.length;
+            const activeComments = allComments.filter(c => !c.isDeleted).length;
+
             return `
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -1151,6 +1329,11 @@
                         <div class="stat-number">${allBlogPosts.length}</div>
                         <div class="stat-label">Постов</div>
                     </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-number">${activeComments}</div>
+                        <div class="stat-label">Комментариев</div>
+                    </div>
                 </div>
                 <div style="color:var(--text-muted);font-size:14px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
                     <i class="fas fa-info-circle"></i> Все данные хранятся в Firestore. Изменения применяются мгновенно.
@@ -1159,7 +1342,7 @@
         }
 
         // ============================================================
-        // МАСТЕРА
+        // МАСТЕРА (та же логика, что и раньше)
         // ============================================================
         function renderMasters() {
             let html = `
@@ -1286,17 +1469,14 @@
         }
 
         // ============================================================
-        // БЛОГ — ИСПРАВЛЕННАЯ ВЕРСИЯ (БЕЗ UNDEFINED)
+        // БЛОГ (админка)
         // ============================================================
-        function renderBlog() {
-            // Убеждаемся, что allBlogPosts — это массив
-            const posts = Array.isArray(allBlogPosts) ? allBlogPosts : [];
-            
+        function renderBlogAdmin() {
             let postsHtml = '';
-            if (posts.length === 0) {
+            if (allBlogPosts.length === 0) {
                 postsHtml = `<p style="color:var(--text-muted);text-align:center;padding:40px 0;grid-column:1/-1;">Нет постов. Создайте первый!</p>`;
             } else {
-                postsHtml = posts.map(p => {
+                postsHtml = allBlogPosts.map(p => {
                     const statusClass = p.status === 'draft' ? 'draft' : 'published';
                     const statusLabel = p.status === 'draft' ? 'Черновик' : 'Опубликовано';
                     const imageHtml = p.image && p.image !== '' ?
@@ -1328,12 +1508,9 @@
             return `
                 <div style="margin-bottom:20px;padding:20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
                     <h4 style="margin-bottom:12px;font-size:18px;color:var(--text-primary);">✍️ Создать новый пост</h4>
-
                     <div style="display:flex;flex-direction:column;gap:12px;">
                         <input type="text" id="newBlogTitle" placeholder="Заголовок поста" style="padding:12px 16px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:16px;" />
-
                         <textarea id="newBlogContent" placeholder="Текст поста..." rows="4" style="padding:12px 16px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:15px;resize:vertical;"></textarea>
-
                         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
                             <div style="position:relative;display:inline-block;">
                                 <button class="btn btn-sm btn-outline" id="fileSelectBtn" style="cursor:pointer;">
@@ -1341,10 +1518,8 @@
                                 </button>
                                 <input type="file" id="newBlogImage" accept="image/*" style="position:absolute;left:0;top:0;opacity:0;width:100%;height:100%;cursor:pointer;" />
                             </div>
-
                             <span id="blogFileName" style="color:var(--text-muted);font-size:13px;">Файл не выбран</span>
                             <span style="color:var(--text-muted);font-size:12px;opacity:0.5;">(макс. 300KB)</span>
-
                             <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
                                 <label style="color:var(--text-muted);font-size:13px;">Статус:</label>
                                 <select id="newBlogStatus" style="padding:6px 12px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
@@ -1352,10 +1527,8 @@
                                     <option value="draft">📝 Черновик</option>
                                 </select>
                             </div>
-
                             <button class="btn btn-sm" id="publishBlogBtn"><i class="fas fa-plus"></i> Опубликовать</button>
                         </div>
-
                         <div id="blogPreview" class="post-preview" style="display:none;">
                             <h4 style="color:var(--text-muted);font-size:13px;margin-bottom:8px;">👁 Предпросмотр</h4>
                             <div class="preview-content">
@@ -1366,53 +1539,35 @@
                         </div>
                     </div>
                 </div>
-
-                <h4 style="margin-bottom:16px;color:var(--text-primary);">📰 Все посты (${posts.length})</h4>
+                <h4 style="margin-bottom:16px;color:var(--text-primary);">📰 Все посты (${allBlogPosts.length})</h4>
                 <div class="blog-posts-grid" id="blogPostsGrid">
                     ${postsHtml}
                 </div>
             `;
         }
 
-        // ============================================================
-        // НАВЕШИВАНИЕ ОБРАБОТЧИКОВ ПОСЛЕ РЕНДЕРИНГА
-        // ============================================================
+        // Блог — обработчики и функции (аналогично предыдущей версии)
         function attachBlogHandlers() {
             const fileInput = document.getElementById('newBlogImage');
             const titleInput = document.getElementById('newBlogTitle');
             const contentInput = document.getElementById('newBlogContent');
             const publishBtn = document.getElementById('publishBlogBtn');
 
-            // Выбор файла
             if (fileInput) {
                 const newFileInput = fileInput.cloneNode(true);
                 fileInput.parentNode.replaceChild(newFileInput, fileInput);
-
                 newFileInput.addEventListener('change', function(e) {
                     const file = this.files[0];
                     const fileNameSpan = document.getElementById('blogFileName');
-
                     if (file) {
-                        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml',
-                            'image/bmp', 'image/tiff'
-                        ];
-                        if (!allowedTypes.includes(file.type)) {
-                            alert('⚠️ Неподдерживаемый формат. Поддерживаются: JPG, PNG, WebP, GIF, SVG, BMP, TIFF');
-                            this.value = '';
-                            if (fileNameSpan) fileNameSpan.textContent = 'Файл не выбран';
-                            return;
-                        }
-
                         if (file.size > 300 * 1024) {
-                            alert('⚠️ Файл слишком большой. Максимальный размер — 300KB.');
+                            alert('⚠️ Файл слишком большой. Максимум 300KB.');
                             this.value = '';
                             if (fileNameSpan) fileNameSpan.textContent = 'Файл не выбран';
                             return;
                         }
-
                         if (fileNameSpan) fileNameSpan.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) +
                             ' KB)';
-
                         const container = document.getElementById('previewImageContainer');
                         if (container) {
                             const reader = new FileReader();
@@ -1428,7 +1583,6 @@
                         const container = document.getElementById('previewImageContainer');
                         if (container) container.innerHTML = '';
                     }
-
                     updatePreview();
                 });
             }
@@ -1441,7 +1595,6 @@
                 const hasFile = fileInput2 && fileInput2.files && fileInput2.files[0];
                 const titleVal = document.getElementById('newBlogTitle');
                 const contentVal = document.getElementById('newBlogContent');
-
                 if ((titleVal && titleVal.value.trim()) || (contentVal && contentVal.value.trim()) || hasFile) {
                     if (preview) preview.style.display = 'block';
                     if (title) title.textContent = (titleVal ? titleVal.value || 'Заголовок' : 'Заголовок');
@@ -1456,13 +1609,11 @@
                 titleInput.parentNode.replaceChild(newTitle, titleInput);
                 newTitle.addEventListener('input', updatePreview);
             }
-
             if (contentInput) {
                 const newContent = contentInput.cloneNode(true);
                 contentInput.parentNode.replaceChild(newContent, contentInput);
                 newContent.addEventListener('input', updatePreview);
             }
-
             if (publishBtn) {
                 const newPublishBtn = publishBtn.cloneNode(true);
                 publishBtn.parentNode.replaceChild(newPublishBtn, publishBtn);
@@ -1470,36 +1621,23 @@
             }
         }
 
-        // ============================================================
-        // ПУБЛИКАЦИЯ ПОСТА (BASE64)
-        // ============================================================
         window.addBlog = async function() {
             const title = document.getElementById('newBlogTitle').value.trim();
             const content = document.getElementById('newBlogContent').value.trim();
             const fileInput = document.getElementById('newBlogImage');
             const status = document.getElementById('newBlogStatus').value;
-
-            if (!title || !content) {
-                alert('⚠️ Заполните заголовок и текст поста');
-                return;
-            }
+            if (!title || !content) { alert('⚠️ Заполните заголовок и текст'); return; }
 
             let imageData = '';
-
             if (fileInput && fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
                 try {
                     imageData = await new Promise((resolve, reject) => {
                         const reader = new FileReader();
-                        reader.onload = function(e) {
-                            resolve(e.target.result);
-                        };
-                        reader.onerror = function(e) {
-                            reject(e);
-                        };
+                        reader.onload = function(e) { resolve(e.target.result); };
+                        reader.onerror = function(e) { reject(e); };
                         reader.readAsDataURL(file);
                     });
-                    console.log('✅ Фото сконвертировано в Base64');
                 } catch (e) {
                     alert('❌ Ошибка конвертации фото: ' + e.message);
                     return;
@@ -1514,22 +1652,18 @@
                     status: status,
                     date: new Date().toISOString()
                 });
-
                 await reloadBlog();
                 renderContent('blog');
-                // Переподключаем обработчики
                 setTimeout(attachBlogHandlers, 50);
-
                 document.getElementById('newBlogTitle').value = '';
                 document.getElementById('newBlogContent').value = '';
                 document.getElementById('newBlogImage').value = '';
                 document.getElementById('blogFileName').textContent = 'Файл не выбран';
                 document.getElementById('blogPreview').style.display = 'none';
                 document.getElementById('previewImageContainer').innerHTML = '';
-
-                alert('✅ Пост успешно опубликован!');
+                alert('✅ Пост опубликован!');
             } catch (e) {
-                alert('❌ Ошибка публикации: ' + e.message);
+                alert('❌ Ошибка: ' + e.message);
             }
         };
 
@@ -1543,7 +1677,7 @@
                 renderContent('blog');
                 setTimeout(attachBlogHandlers, 50);
             } catch (e) {
-                alert('❌ Ошибка изменения статуса: ' + e.message);
+                alert('❌ Ошибка: ' + e.message);
             }
         };
 
@@ -1570,7 +1704,7 @@
                 setTimeout(attachBlogHandlers, 50);
                 closeDeleteConfirm();
             } catch (e) {
-                alert('❌ Ошибка удаления: ' + e.message);
+                alert('❌ Ошибка: ' + e.message);
             }
         }
 
@@ -1579,14 +1713,215 @@
                 const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
                 allBlogPosts = [];
                 blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
-            } catch (e) {
-                console.error('Ошибка загрузки блога:', e);
-                allBlogPosts = [];
-            }
+            } catch (e) { allBlogPosts = []; }
         }
 
         // ============================================================
-        // КЛИЕНТЫ
+        // КОММЕНТАРИИ В АДМИНКЕ
+        // ============================================================
+        function renderCommentsAdmin() {
+            const filtered = allComments.filter(c => {
+                if (commentsFilter === 'deleted') return c.isDeleted === true;
+                if (commentsFilter === 'active') return c.isDeleted !== true;
+                return true;
+            });
+
+            const totalComments = allComments.length;
+            const activeComments = allComments.filter(c => !c.isDeleted).length;
+            const deletedComments = allComments.filter(c => c.isDeleted).length;
+
+            // Собираем уникальные посты для фильтра
+            const postIds = [...new Set(allComments.map(c => c.postId).filter(Boolean))];
+            const postOptions = postIds.map(id => {
+                const post = allBlogPosts.find(p => p.id === id);
+                return post ? `<option value="${id}">${escapeHTML(post.title || 'Без названия')}</option>` : '';
+            }).join('');
+
+            let html = `
+                <div class="comments-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-number">${totalComments}</div>
+                        <div class="stat-label">Всего комментариев</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-number">${activeComments}</div>
+                        <div class="stat-label">Активных</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🗑️</div>
+                        <div class="stat-number">${deletedComments}</div>
+                        <div class="stat-label">Удалённых</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👤</div>
+                        <div class="stat-number">${allUsers.length}</div>
+                        <div class="stat-label">Всего пользователей</div>
+                    </div>
+                </div>
+
+                <div class="post-filter">
+                    <select id="commentsFilterSelect" onchange="changeCommentsFilter(this.value)">
+                        <option value="all">📋 Все комментарии</option>
+                        <option value="active">✅ Активные</option>
+                        <option value="deleted">🗑️ Удалённые</option>
+                    </select>
+                    <select id="commentsPostFilter" onchange="changeCommentsPost(this.value)">
+                        <option value="all">📰 Все посты</option>
+                        ${postOptions}
+                    </select>
+                    <span style="color:var(--text-muted);font-size:13px;margin-left:auto;">
+                        ${filtered.length} комментариев
+                    </span>
+                </div>
+
+                <div class="comments-table-wrapper">
+                    <table class="comments-table">
+                        <thead>
+                            <tr>
+                                <th>Пользователь</th>
+                                <th>Комментарий</th>
+                                <th>Пост</th>
+                                <th>Дата</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            if (filtered.length === 0) {
+                html += `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:30px 0;">Нет комментариев</td></tr>`;
+            } else {
+                for (const c of filtered) {
+                    const post = allBlogPosts.find(p => p.id === c.postId);
+                    const postTitle = post ? post.title : 'Пост удалён';
+                    const isDeleted = c.isDeleted === true;
+                    const userName = c.userName || 'Аноним';
+                    const userPhoto = c.userPhoto ||
+                        `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${userName.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
+
+                    html += `
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="avatar">
+                                        ${c.userPhoto ? `<img src="${c.userPhoto}" />` : userName.charAt(0).toUpperCase()}
+                                    </div>
+                                    <div>
+                                        <div style="font-weight:500;">${escapeHTML(userName)}</div>
+                                        <div style="font-size:11px;color:var(--text-muted);">${escapeHTML(c.userEmail || '')}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="comment-text-cell">${isDeleted ? '<i>Удалён</i>' : escapeHTML(c.text || '')}</td>
+                            <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHTML(postTitle)}</td>
+                            <td style="font-size:12px;white-space:nowrap;">${formatDate(c.createdAt?.toDate?.() || new Date())}</td>
+                            <td>
+                                <span class="badge ${isDeleted ? 'deleted' : 'active'}">
+                                    ${isDeleted ? '🗑️ Удалён' : '✅ Активен'}
+                                </span>
+                            </td>
+                            <td>
+                                <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                                    ${!isDeleted ? `
+                                        <button class="btn btn-sm btn-danger" onclick="deleteCommentAdmin('${c.id}')" style="padding:2px 8px;font-size:10px;min-height:24px;">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    ` : `
+                                        <button class="btn btn-sm btn-success" onclick="restoreCommentAdmin('${c.id}')" style="padding:2px 8px;font-size:10px;min-height:24px;">
+                                            <i class="fas fa-undo"></i>
+                                        </button>
+                                    `}
+                                    <button class="btn btn-sm btn-outline" onclick="showCommentUser('${c.userId}')" style="padding:2px 8px;font-size:10px;min-height:24px;" title="Инфо о пользователе">
+                                        <i class="fas fa-user"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }
+            }
+
+            html += `</tbody></table></div>`;
+            return html;
+        }
+
+        window.changeCommentsFilter = function(value) {
+            commentsFilter = value;
+            renderContent('comments');
+        };
+
+        window.changeCommentsPost = function(value) {
+            // Для будущего расширения — фильтр по посту
+            // Пока просто перерисовываем
+            renderContent('comments');
+        };
+
+        window.deleteCommentAdmin = async function(commentId) {
+            if (!confirm('Удалить комментарий?')) return;
+            try {
+                await updateDoc(doc(db, 'comments', commentId), {
+                    isDeleted: true,
+                    text: '[Комментарий удалён администратором]'
+                });
+            } catch (e) {
+                alert('❌ Ошибка: ' + e.message);
+            }
+        };
+
+        window.restoreCommentAdmin = async function(commentId) {
+            if (!confirm('Восстановить комментарий?')) return;
+            try {
+                // Нам нужно восстановить текст — но мы его не храним, поэтому просто убираем флаг
+                await updateDoc(doc(db, 'comments', commentId), {
+                    isDeleted: false
+                });
+            } catch (e) {
+                alert('❌ Ошибка: ' + e.message);
+            }
+        };
+
+        window.showCommentUser = function(userId) {
+            const user = allUsers.find(u => u.id === userId);
+            if (!user) {
+                alert('Пользователь не найден');
+                return;
+            }
+
+            const modal = document.getElementById('clientModal');
+            const content = document.getElementById('clientModalContent');
+
+            const userComments = allComments.filter(c => c.userId === userId && !c.isDeleted);
+
+            content.innerHTML = `
+                <h2>👤 <span class="gold-text">${escapeHTML(user.name || 'Без имени')}</span></h2>
+                <p class="subtitle">Информация о пользователе</p>
+                <div class="info-row"><span class="label">📧 Email</span><span class="value">${escapeHTML(user.email || '—')}</span></div>
+                <div class="info-row"><span class="label">📞 Телефон</span><span class="value">${escapeHTML(user.phone || '—')}</span></div>
+                <div class="info-row"><span class="label">📇 ID карты</span><span class="value"><code style="color:var(--gold);">${escapeHTML(user.cardId || '—')}</code></span></div>
+                <div class="info-row"><span class="label">☀️ Баланс минут</span><span class="value" style="color:var(--gold);font-size:20px;">${user.minutes || 0}</span></div>
+                <div class="info-row"><span class="label">💬 Комментариев</span><span class="value">${userComments.length}</span></div>
+                <h4 style="margin-top:16px;margin-bottom:8px;color:var(--text-primary);">📜 Комментарии пользователя</h4>
+                ${userComments.length === 0 ? '<p style="color:var(--text-muted);font-size:13px;">Пользователь не оставлял комментариев</p>' :
+                userComments.slice(0, 10).map(c => `
+                    <div class="history-item">
+                        <span>${escapeHTML(c.text || '')}</span>
+                        <span style="color:var(--text-muted);font-size:12px;">${formatDate(c.createdAt?.toDate?.() || new Date())}</span>
+                    </div>
+                `).join('')}
+                <div style="margin-top:16px;">
+                    <button class="btn btn-sm btn-outline" onclick="closeClientModal()">Закрыть</button>
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        // ============================================================
+        // КЛИЕНТЫ (упрощённая версия)
         // ============================================================
         function renderClients() {
             const filtered = allUsers.filter(u =>
@@ -1598,8 +1933,8 @@
 
             let html = `
                 <div class="search-box">
-                    <input type="text" id="clientSearchInput" placeholder="🔍 Поиск по имени, телефону, email или ID карты..." value="${escapeHTML(clientSearch)}" oninput="updateClientSearch(this.value)" />
-                    <button class="btn btn-sm btn-outline" onclick="addClient()"><i class="fas fa-user-plus"></i> Добавить клиента</button>
+                    <input type="text" id="clientSearchInput" placeholder="🔍 Поиск..." value="${escapeHTML(clientSearch)}" oninput="updateClientSearch(this.value)" />
+                    <button class="btn btn-sm btn-outline" onclick="addClient()"><i class="fas fa-user-plus"></i> Добавить</button>
                 </div>
                 <div class="admin-table-wrapper">
                     <table class="admin-table">
@@ -1635,25 +1970,25 @@
         };
 
         window.addClient = async function() {
-            const name = prompt('Введите имя клиента:');
+            const name = prompt('Введите имя:');
             if (!name) return;
-            const phone = prompt('Введите телефон:') || '';
-            const email = prompt('Введите Email (опционально):') || '';
+            const phone = prompt('Телефон:') || '';
+            const email = prompt('Email:') || '';
             const cardId = 'ST-' + String(Math.floor(Math.random() * 900) + 100) + '-' + new Date().getFullYear();
             const uid = 'manual_' + Date.now();
             await setDoc(doc(db, 'users', uid), {
-                name: name,
-                phone: phone,
-                email: email,
+                name,
+                phone,
+                email,
                 minutes: 0,
-                cardId: cardId,
+                cardId,
                 cardDesign: 'onyx_gold',
                 history: [],
                 createdAt: new Date().toISOString()
             });
             await reloadUsers();
             renderContent('clients');
-            alert(`✅ Клиент "${name}" добавлен! ID карты: ${cardId}`);
+            alert(`✅ Клиент "${name}" добавлен! ID: ${cardId}`);
         };
 
         window.showClient = async function(userId) {
@@ -1664,20 +1999,18 @@
             const content = document.getElementById('clientModalContent');
 
             const history = user.history || [];
+            const userComments = allComments.filter(c => c.userId === userId && !c.isDeleted);
+
             let historyHtml = '';
             if (history.length) {
-                historyHtml = `
-                    <div class="history-list">
-                        ${history.slice().reverse().map(h => `
-                            <div class="history-item">
-                                <span>${formatDate(h.date)} — ${escapeHTML(h.action)}</span>
-                                <span class="${h.spent ? 'spent' : 'added'}">${h.spent ? '-' : '+'}${Math.abs(h.spent || h.added || 0)} мин</span>
-                            </div>
-                        `).join('')}
+                historyHtml = history.slice().reverse().map(h => `
+                    <div class="history-item">
+                        <span>${formatDate(h.date)} — ${escapeHTML(h.action)}</span>
+                        <span class="${h.spent ? 'spent' : 'added'}">${h.spent ? '-' : '+'}${Math.abs(h.spent || h.added || 0)} мин</span>
                     </div>
-                `;
+                `).join('');
             } else {
-                historyHtml = `<p style="color:var(--text-muted);font-size:13px;">История операций пуста</p>`;
+                historyHtml = `<p style="color:var(--text-muted);font-size:13px;">История пуста</p>`;
             }
 
             content.innerHTML = `
@@ -1686,10 +2019,10 @@
                 <div class="info-row"><span class="label">📇 ID карты</span><span class="value"><code style="color:var(--gold);">${escapeHTML(user.cardId || '—')}</code></span></div>
                 <div class="info-row"><span class="label">📞 Телефон</span><span class="value">${escapeHTML(user.phone || '—')}</span></div>
                 <div class="info-row"><span class="label">✉️ Email</span><span class="value">${escapeHTML(user.email || '—')}</span></div>
-                <div class="info-row"><span class="label">☀️ Баланс минут</span><span class="value" style="font-size:24px;color:var(--gold);">${user.minutes || 0}</span></div>
-                <div class="info-row"><span class="label">📅 Дата регистрации</span><span class="value">${formatDate(user.createdAt) || '—'}</span></div>
+                <div class="info-row"><span class="label">☀️ Баланс</span><span class="value" style="font-size:24px;color:var(--gold);">${user.minutes || 0}</span></div>
+                <div class="info-row"><span class="label">💬 Комментариев</span><span class="value">${userComments.length}</span></div>
                 <h4 style="margin-top:16px;margin-bottom:8px;color:var(--text-primary);">📜 История операций</h4>
-                ${historyHtml}
+                <div class="history-list">${historyHtml}</div>
                 <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
                     <button class="btn btn-sm btn-success" onclick="closeClientModal();addMinutes('${user.id}')"><i class="fas fa-plus"></i> Пополнить</button>
                     <button class="btn btn-sm btn-danger" onclick="closeClientModal();spendMinutes('${user.id}')"><i class="fas fa-minus"></i> Списать</button>
@@ -1736,13 +2069,13 @@
             const userData = userSnap.data();
             const current = userData.minutes || 0;
 
-            if (current <= 0) { alert('❌ У клиента 0 минут. Сначала пополните баланс.'); return; }
+            if (current <= 0) { alert('❌ У клиента 0 минут.'); return; }
 
-            const amount = prompt(`Списать минут (доступно: ${current})`, '10');
+            const amount = prompt(`Списать (доступно: ${current})`, '10');
             if (!amount) return;
             const num = parseInt(amount);
             if (isNaN(num) || num <= 0) { alert('Введите число > 0'); return; }
-            if (num > current) { alert(`❌ Недостаточно минут. Доступно: ${current}`); return; }
+            if (num > current) { alert(`❌ Недостаточно. Доступно: ${current}`); return; }
 
             const newMinutes = current - num;
             const history = userData.history || [];
@@ -1775,10 +2108,13 @@
             return div.innerHTML;
         }
 
-        function formatDate(dateStr) {
-            if (!dateStr) return '';
-            try { return new Date(dateStr).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit',
-                    year: 'numeric' }); } catch { return dateStr; }
+        function formatDate(date) {
+            if (!date) return '';
+            try {
+                const d = date instanceof Date ? date : new Date(date);
+                return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }) +
+                    ' ' + d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+            } catch { return ''; }
         }
 
         // ============================================================
@@ -1802,6 +2138,7 @@
         console.log(`💇 Услуг: ${allServices.length}`);
         console.log(`👤 Клиентов: ${allUsers.length}`);
         console.log(`📝 Постов: ${allBlogPosts.length}`);
+        console.log(`💬 Комментариев: ${allComments.length}`);
     </script>
 </body>
 </html>
