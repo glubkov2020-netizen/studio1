@@ -21,9 +21,6 @@
     </script>
 
     <style>
-        /* ============================================================
-           ВСЕ СТИЛИ (те же, что и в предыдущей версии)
-           ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -433,9 +430,6 @@
             flex-shrink: 0;
         }
 
-        /* ============================================================
-           БЛОГ — КАРТОЧКИ ПОСТОВ
-           ============================================================ */
         .blog-posts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -520,6 +514,41 @@
         .blog-post-card .post-actions .btn {
             flex: 1;
             min-width: 60px;
+        }
+
+        .post-preview {
+            margin-top: 12px;
+            padding: 16px;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        .post-preview h4 {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .post-preview .preview-content {
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+        }
+        .post-preview .preview-content img {
+            max-width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+        }
+        .post-preview .preview-content .preview-title {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+        .post-preview .preview-content .preview-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
         }
 
         .modal-overlay {
@@ -667,43 +696,6 @@
             border-color: var(--gold);
         }
 
-        /* Превью поста */
-        .post-preview {
-            margin-top: 12px;
-            padding: 16px;
-            background: var(--bg-card);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-        }
-        .post-preview h4 {
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-        .post-preview .preview-content {
-            padding: 12px;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
-        }
-        .post-preview .preview-content img {
-            max-width: 100%;
-            max-height: 150px;
-            object-fit: cover;
-            border-radius: var(--radius-sm);
-            margin-bottom: 8px;
-        }
-        .post-preview .preview-content .preview-title {
-            font-weight: 600;
-            font-size: 18px;
-            color: var(--text-primary);
-        }
-        .post-preview .preview-content .preview-text {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
-        /* Стили для выбора файла */
         .file-upload-wrapper {
             display: flex;
             align-items: center;
@@ -1329,20 +1321,59 @@
         // БЛОГ — НОВАЯ ВЕРСИЯ (РАБОТАЕТ)
         // ============================================================
         function renderBlog() {
-            let html = `
+            let postsHtml = '';
+            if (allBlogPosts.length === 0) {
+                postsHtml = `<p style="color:var(--text-muted);text-align:center;padding:40px 0;grid-column:1/-1;">Нет постов. Создайте первый!</p>`;
+            } else {
+                postsHtml = allBlogPosts.map(p => {
+                    const statusClass = p.status === 'draft' ? 'draft' : 'published';
+                    const statusLabel = p.status === 'draft' ? 'Черновик' : 'Опубликовано';
+                    const imageHtml = p.image && p.image !== '' ?
+                        `<img src="${escapeHTML(p.image)}" class="post-image" alt="${escapeHTML(p.title)}" loading="lazy" />` :
+                        `<div class="post-image-placeholder"><i class="fas fa-image" style="font-size:32px;opacity:0.2;"></i></div>`;
+
+                    return `
+                        <div class="blog-post-card">
+                            ${imageHtml}
+                            <div class="post-body">
+                                <div class="post-title">${escapeHTML(p.title)}</div>
+                                <div class="post-date">📅 ${formatDate(p.date)}</div>
+                                <div class="post-excerpt">${escapeHTML(p.content)}</div>
+                                <span class="post-status ${statusClass}">${statusLabel}</span>
+                            </div>
+                            <div class="post-actions">
+                                <button class="btn btn-sm btn-outline" onclick="togglePostStatus('${p.id}')" style="flex:0.5;">
+                                    <i class="fas fa-${p.status === 'draft' ? 'check' : 'edit'}"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="confirmDeletePost('${p.id}')" style="flex:0.5;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            const container = document.getElementById('adminContent');
+            container.innerHTML = `
                 <div style="margin-bottom:20px;padding:20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
                     <h4 style="margin-bottom:12px;font-size:18px;color:var(--text-primary);">✍️ Создать новый пост</h4>
-                    <div class="add-form" style="flex-direction:column;">
-                        <input type="text" id="newBlogTitle" placeholder="Заголовок поста" style="font-size:16px;" />
-                        <textarea id="newBlogContent" placeholder="Текст поста..." rows="4" style="font-size:15px;"></textarea>
+
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <input type="text" id="newBlogTitle" placeholder="Заголовок поста" style="padding:12px 16px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:16px;" />
+
+                        <textarea id="newBlogContent" placeholder="Текст поста..." rows="4" style="padding:12px 16px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:15px;resize:vertical;"></textarea>
+
                         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-                            <div class="file-upload-wrapper">
-                                <div class="file-input-container">
-                                    <button class="btn btn-sm btn-outline" id="fileSelectBtn"><i class="fas fa-image"></i> Выбрать фото</button>
-                                    <input type="file" id="newBlogImage" accept="image/*" />
-                                </div>
-                                <span class="file-name" id="blogFileName">Файл не выбран</span>
+                            <div style="position:relative;display:inline-block;">
+                                <button class="btn btn-sm btn-outline" id="fileSelectBtn" style="cursor:pointer;">
+                                    <i class="fas fa-image"></i> Выбрать фото
+                                </button>
+                                <input type="file" id="newBlogImage" accept="image/*" style="position:absolute;left:0;top:0;opacity:0;width:100%;height:100%;cursor:pointer;" />
                             </div>
+
+                            <span id="blogFileName" style="color:var(--text-muted);font-size:13px;">Файл не выбран</span>
+
                             <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
                                 <label style="color:var(--text-muted);font-size:13px;">Статус:</label>
                                 <select id="newBlogStatus" style="padding:6px 12px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
@@ -1350,77 +1381,50 @@
                                     <option value="draft">📝 Черновик</option>
                                 </select>
                             </div>
-                            <button class="btn btn-sm" onclick="addBlog()"><i class="fas fa-plus"></i> Опубликовать</button>
+
+                            <button class="btn btn-sm" id="publishBlogBtn"><i class="fas fa-plus"></i> Опубликовать</button>
                         </div>
-                        <!-- Предпросмотр -->
+
                         <div id="blogPreview" class="post-preview" style="display:none;">
-                            <h4>👁 Предпросмотр</h4>
+                            <h4 style="color:var(--text-muted);font-size:13px;margin-bottom:8px;">👁 Предпросмотр</h4>
                             <div class="preview-content">
                                 <div id="previewImageContainer"></div>
-                                <div class="preview-title" id="previewTitle">Заголовок</div>
-                                <div class="preview-text" id="previewText">Текст поста...</div>
+                                <div id="previewTitle" style="font-weight:600;font-size:18px;color:var(--text-primary);">Заголовок</div>
+                                <div id="previewText" style="font-size:14px;color:var(--text-secondary);margin-top:4px;">Текст поста...</div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <h4 style="margin-bottom:16px;color:var(--text-primary);">📰 Все посты (${allBlogPosts.length})</h4>
-                <div class="blog-posts-grid">
+                <div class="blog-posts-grid" id="blogPostsGrid">
+                    ${postsHtml}
+                </div>
             `;
 
-            if (allBlogPosts.length === 0) {
-                html += `<p style="color:var(--text-muted);text-align:center;padding:40px 0;grid-column:1/-1;">Нет постов. Создайте первый!</p>`;
-            }
-
-            for (const p of allBlogPosts) {
-                const statusClass = p.status === 'draft' ? 'draft' : 'published';
-                const statusLabel = p.status === 'draft' ? 'Черновик' : 'Опубликовано';
-                const imageHtml = p.image && p.image !== '' ?
-                    `<img src="${escapeHTML(p.image)}" class="post-image" alt="${escapeHTML(p.title)}" loading="lazy" />` :
-                    `<div class="post-image-placeholder"><i class="fas fa-image" style="font-size:32px;opacity:0.2;"></i></div>`;
-
-                html += `
-                    <div class="blog-post-card">
-                        ${imageHtml}
-                        <div class="post-body">
-                            <div class="post-title">${escapeHTML(p.title)}</div>
-                            <div class="post-date">📅 ${formatDate(p.date)}</div>
-                            <div class="post-excerpt">${escapeHTML(p.content)}</div>
-                            <span class="post-status ${statusClass}">${statusLabel}</span>
-                        </div>
-                        <div class="post-actions">
-                            <button class="btn btn-sm btn-outline" onclick="togglePostStatus('${p.id}')" style="flex:0.5;">
-                                <i class="fas fa-${p.status === 'draft' ? 'check' : 'edit'}"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" onclick="confirmDeletePost('${p.id}')" style="flex:0.5;">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-
-            html += `</div>`;
-            return html;
-        }
-
-        // ============================================================
-        // БЛОГ — ЛОГИКА (РАБОТАЕТ)
-        // ============================================================
-        // Навешиваем обработчики на файл
-        document.addEventListener('DOMContentLoaded', function() {
+            // ============================================================
+            // НАВЕШИВАЕМ ОБРАБОТЧИКИ
+            // ============================================================
             const fileInput = document.getElementById('newBlogImage');
             const titleInput = document.getElementById('newBlogTitle');
             const contentInput = document.getElementById('newBlogContent');
+            const publishBtn = document.getElementById('publishBlogBtn');
 
             // Выбор файла
             if (fileInput) {
-                fileInput.addEventListener('change', function(e) {
+                // Убираем старые обработчики
+                const newFileInput = fileInput.cloneNode(true);
+                fileInput.parentNode.replaceChild(newFileInput, fileInput);
+
+                newFileInput.addEventListener('change', function(e) {
                     const file = this.files[0];
                     const fileNameSpan = document.getElementById('blogFileName');
 
                     if (file) {
                         // Проверяем тип файла
-                        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml', 'image/bmp', 'image/tiff'];
+                        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml',
+                            'image/bmp', 'image/tiff'
+                        ];
                         if (!allowedTypes.includes(file.type)) {
                             alert('⚠️ Неподдерживаемый формат. Поддерживаются: JPG, PNG, WebP, GIF, SVG, BMP, TIFF');
                             this.value = '';
@@ -1456,7 +1460,6 @@
                         if (container) container.innerHTML = '';
                     }
 
-                    // Обновляем превью текста
                     updatePreview();
                 });
             }
@@ -1466,23 +1469,43 @@
                 const preview = document.getElementById('blogPreview');
                 const title = document.getElementById('previewTitle');
                 const text = document.getElementById('previewText');
-                const hasFile = fileInput && fileInput.files && fileInput.files[0];
-                const hasTitle = titleInput && titleInput.value.trim();
-                const hasContent = contentInput && contentInput.value.trim();
+                const fileInput2 = document.getElementById('newBlogImage');
+                const hasFile = fileInput2 && fileInput2.files && fileInput2.files[0];
+                const titleVal = document.getElementById('newBlogTitle');
+                const contentVal = document.getElementById('newBlogContent');
 
-                if (hasTitle || hasContent || hasFile) {
+                if ((titleVal && titleVal.value.trim()) || (contentVal && contentVal.value.trim()) || hasFile) {
                     if (preview) preview.style.display = 'block';
-                    if (title) title.textContent = titleInput ? titleInput.value || 'Заголовок' : 'Заголовок';
-                    if (text) text.textContent = contentInput ? contentInput.value || 'Текст поста...' : 'Текст поста...';
+                    if (title) title.textContent = (titleVal ? titleVal.value || 'Заголовок' : 'Заголовок');
+                    if (text) text.textContent = (contentVal ? contentVal.value || 'Текст поста...' : 'Текст поста...');
                 } else {
                     if (preview) preview.style.display = 'none';
                 }
             }
 
-            if (titleInput) titleInput.addEventListener('input', updatePreview);
-            if (contentInput) contentInput.addEventListener('input', updatePreview);
-        });
+            if (titleInput) {
+                const newTitle = titleInput.cloneNode(true);
+                titleInput.parentNode.replaceChild(newTitle, titleInput);
+                newTitle.addEventListener('input', updatePreview);
+            }
 
+            if (contentInput) {
+                const newContent = contentInput.cloneNode(true);
+                contentInput.parentNode.replaceChild(newContent, contentInput);
+                newContent.addEventListener('input', updatePreview);
+            }
+
+            // Публикация
+            if (publishBtn) {
+                const newPublishBtn = publishBtn.cloneNode(true);
+                publishBtn.parentNode.replaceChild(newPublishBtn, publishBtn);
+                newPublishBtn.addEventListener('click', addBlog);
+            }
+        }
+
+        // ============================================================
+        // ПУБЛИКАЦИЯ ПОСТА
+        // ============================================================
         window.addBlog = async function() {
             const title = document.getElementById('newBlogTitle').value.trim();
             const content = document.getElementById('newBlogContent').value.trim();
