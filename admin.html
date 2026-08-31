@@ -20,7 +20,6 @@
     </script>
 
     <style>
-        /* ===== ВСЕ СТИЛИ (те же, что и в прошлой версии, но с добавлением комментариев) ===== */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -696,9 +695,6 @@
             border-color: var(--gold);
         }
 
-        /* ============================================================
-           КОММЕНТАРИИ В АДМИНКЕ
-           ============================================================ */
         .comments-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -1029,7 +1025,7 @@
         // FIREBASE
         // ============================================================
         import { initializeApp } from 'firebase/app';
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot, increment, arrayRemove } from 'firebase/firestore';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot } from 'firebase/firestore';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -1178,7 +1174,6 @@
                 allUsers = [];
                 usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
 
-                // Загружаем комментарии отдельно через слушатель
                 loadComments();
 
                 isDataLoaded = true;
@@ -1188,11 +1183,7 @@
             }
         }
 
-        // ============================================================
-        // ЗАГРУЗКА КОММЕНТАРИЕВ (реальное время)
-        // ============================================================
         function loadComments() {
-            // Отписываемся от старых слушателей
             commentListeners.forEach(unsubscribe => unsubscribe());
             commentListeners = [];
 
@@ -1203,7 +1194,6 @@
                 snapshot.forEach(doc => {
                     allComments.push({ id: doc.id, ...doc.data() });
                 });
-                // Если мы на вкладке комментариев — обновляем
                 if (currentTab === 'comments') {
                     renderCommentsAdmin();
                 }
@@ -1250,7 +1240,6 @@
             }
         };
 
-        // Проверка сессии
         if (sessionStorage.getItem('admin_session') === 'true') {
             isLoggedIn = true;
             document.getElementById('loginPage').style.display = 'none';
@@ -1342,7 +1331,7 @@
         }
 
         // ============================================================
-        // МАСТЕРА (та же логика, что и раньше)
+        // МАСТЕРА
         // ============================================================
         function renderMasters() {
             let html = `
@@ -1469,7 +1458,7 @@
         }
 
         // ============================================================
-        // БЛОГ (админка)
+        // БЛОГ (АДМИНКА)
         // ============================================================
         function renderBlogAdmin() {
             let postsHtml = '';
@@ -1546,7 +1535,6 @@
             `;
         }
 
-        // Блог — обработчики и функции (аналогично предыдущей версии)
         function attachBlogHandlers() {
             const fileInput = document.getElementById('newBlogImage');
             const titleInput = document.getElementById('newBlogTitle');
@@ -1730,7 +1718,6 @@
             const activeComments = allComments.filter(c => !c.isDeleted).length;
             const deletedComments = allComments.filter(c => c.isDeleted).length;
 
-            // Собираем уникальные посты для фильтра
             const postIds = [...new Set(allComments.map(c => c.postId).filter(Boolean))];
             const postOptions = postIds.map(id => {
                 const post = allBlogPosts.find(p => p.id === id);
@@ -1854,8 +1841,6 @@
         };
 
         window.changeCommentsPost = function(value) {
-            // Для будущего расширения — фильтр по посту
-            // Пока просто перерисовываем
             renderContent('comments');
         };
 
@@ -1874,7 +1859,6 @@
         window.restoreCommentAdmin = async function(commentId) {
             if (!confirm('Восстановить комментарий?')) return;
             try {
-                // Нам нужно восстановить текст — но мы его не храним, поэтому просто убираем флаг
                 await updateDoc(doc(db, 'comments', commentId), {
                     isDeleted: false
                 });
@@ -1921,7 +1905,7 @@
         };
 
         // ============================================================
-        // КЛИЕНТЫ (упрощённая версия)
+        // КЛИЕНТЫ
         // ============================================================
         function renderClients() {
             const filtered = allUsers.filter(u =>
@@ -2124,7 +2108,6 @@
             await loadAllData();
         }
 
-        // Переопределяем renderContent для блога с подключением обработчиков
         const originalRenderContent = renderContent;
         renderContent = function(tab) {
             originalRenderContent(tab);
