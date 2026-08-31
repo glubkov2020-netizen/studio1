@@ -22,7 +22,7 @@
 
     <style>
         /* ============================================================
-           СТИЛИ АДМИНКИ
+           ВСЕ СТИЛИ (те же, что и в предыдущей версии)
            ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
@@ -449,7 +449,7 @@
         }
 
         /* ============================================================
-           БЛОГ — КАРТОЧКИ ПОСТОВ (НОВЫЙ ДИЗАЙН)
+           БЛОГ — КАРТОЧКИ ПОСТОВ
            ============================================================ */
         .blog-posts-grid {
             display: grid;
@@ -682,7 +682,6 @@
             border-color: var(--gold);
         }
 
-        /* Превью поста */
         .post-preview {
             margin-top: 12px;
             padding: 16px;
@@ -1309,7 +1308,7 @@
         }
 
         // ============================================================
-        // БЛОГ — НОВЫЙ ПРЕМИАЛЬНЫЙ ДИЗАЙН
+        // БЛОГ — ИСПРАВЛЕННАЯ ВЕРСИЯ
         // ============================================================
         function renderBlog() {
             let html = `
@@ -1320,7 +1319,7 @@
                         <textarea id="newBlogContent" placeholder="Текст поста..." rows="4" style="font-size:15px;"></textarea>
                         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
                             <div class="file-input-wrapper">
-                                <button class="btn btn-sm btn-outline"><i class="fas fa-image"></i> Обложка</button>
+                                <button class="btn btn-sm btn-outline" id="fileSelectBtn"><i class="fas fa-image"></i> Выбрать фото</button>
                                 <input type="file" id="newBlogImage" accept="image/*" />
                             </div>
                             <span id="blogFileName" style="color:var(--text-muted);font-size:13px;">Файл не выбран</span>
@@ -1355,8 +1354,8 @@
             for (const p of allBlogPosts) {
                 const statusClass = p.status === 'draft' ? 'draft' : 'published';
                 const statusLabel = p.status === 'draft' ? 'Черновик' : 'Опубликовано';
-                const imageHtml = p.image ?
-                    `<img src="${escapeHTML(p.image)}" class="post-image" alt="${escapeHTML(p.title)}" />` :
+                const imageHtml = p.image && p.image !== '' ?
+                    `<img src="${escapeHTML(p.image)}" class="post-image" alt="${escapeHTML(p.title)}" loading="lazy" />` :
                     `<div class="post-image-placeholder"><i class="fas fa-image" style="font-size:32px;opacity:0.2;"></i></div>`;
 
                 html += `
@@ -1385,7 +1384,7 @@
         }
 
         // ============================================================
-        // БЛОГ — ЛОГИКА
+        // БЛОГ — ЛОГИКА (ИСПРАВЛЕНА)
         // ============================================================
         // Предпросмотр в реальном времени
         document.addEventListener('DOMContentLoaded', function() {
@@ -1398,7 +1397,7 @@
                     const preview = document.getElementById('blogPreview');
                     const title = document.getElementById('previewTitle');
                     const text = document.getElementById('previewText');
-                    if (titleInput.value || contentInput.value) {
+                    if (titleInput.value || contentInput.value || (fileInput && fileInput.files && fileInput.files[0])) {
                         preview.style.display = 'block';
                         title.textContent = titleInput.value || 'Заголовок';
                         text.textContent = contentInput.value || 'Текст поста...';
@@ -1422,10 +1421,17 @@
                         reader.onload = function(e) {
                             container.innerHTML =
                                 `<img src="${e.target.result}" style="max-width:100%;max-height:150px;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:8px;" />`;
+                            document.getElementById('blogPreview').style.display = 'block';
                         };
                         reader.readAsDataURL(this.files[0]);
                     } else {
                         container.innerHTML = '';
+                        // Проверяем, есть ли текст или заголовок, чтобы скрыть превью
+                        const title = document.getElementById('newBlogTitle');
+                        const content = document.getElementById('newBlogContent');
+                        if (!title.value && !content.value) {
+                            document.getElementById('blogPreview').style.display = 'none';
+                        }
                     }
                 });
             }
@@ -1437,48 +1443,68 @@
             const fileInput = document.getElementById('newBlogImage');
             const status = document.getElementById('newBlogStatus').value;
 
-            if (!title || !content) { alert('Заполните заголовок и текст'); return; }
+            if (!title || !content) {
+                alert('⚠️ Заполните заголовок и текст поста');
+                return;
+            }
 
             let imageUrl = '';
 
+            // Загружаем фото, если оно выбрано
             if (fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
+                // Проверяем размер файла (максимум 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('❌ Файл слишком большой. Максимальный размер — 5MB.');
+                    return;
+                }
                 const storageRef = ref(storage, 'blog/' + Date.now() + '_' + file.name);
                 try {
                     const snapshot = await uploadBytes(storageRef, file);
                     imageUrl = await getDownloadURL(snapshot.ref);
+                    console.log('✅ Фото загружено:', imageUrl);
                 } catch (e) {
-                    alert('Ошибка загрузки фото: ' + e.message);
+                    alert('❌ Ошибка загрузки фото: ' + e.message);
                     return;
                 }
             }
 
-            await addDoc(collection(db, 'blog'), {
-                title,
-                content,
-                image: imageUrl,
-                status: status,
-                date: new Date().toISOString()
-            });
+            // Сохраняем пост в Firestore
+            try {
+                await addDoc(collection(db, 'blog'), {
+                    title,
+                    content,
+                    image: imageUrl,
+                    status: status,
+                    date: new Date().toISOString()
+                });
 
-            await reloadBlog();
-            renderContent('blog');
-            document.getElementById('newBlogTitle').value = '';
-            document.getElementById('newBlogContent').value = '';
-            document.getElementById('newBlogImage').value = '';
-            document.getElementById('blogFileName').textContent = 'Файл не выбран';
-            document.getElementById('blogPreview').style.display = 'none';
-            document.getElementById('previewImageContainer').innerHTML = '';
-            alert('✅ Пост опубликован!');
+                await reloadBlog();
+                renderContent('blog');
+                // Очищаем форму
+                document.getElementById('newBlogTitle').value = '';
+                document.getElementById('newBlogContent').value = '';
+                document.getElementById('newBlogImage').value = '';
+                document.getElementById('blogFileName').textContent = 'Файл не выбран';
+                document.getElementById('blogPreview').style.display = 'none';
+                document.getElementById('previewImageContainer').innerHTML = '';
+                alert('✅ Пост успешно опубликован!');
+            } catch (e) {
+                alert('❌ Ошибка публикации: ' + e.message);
+            }
         };
 
         window.togglePostStatus = async function(postId) {
             const post = allBlogPosts.find(p => p.id === postId);
             if (!post) return;
             const newStatus = post.status === 'draft' ? 'published' : 'draft';
-            await updateDoc(doc(db, 'blog', postId), { status: newStatus });
-            await reloadBlog();
-            renderContent('blog');
+            try {
+                await updateDoc(doc(db, 'blog', postId), { status: newStatus });
+                await reloadBlog();
+                renderContent('blog');
+            } catch (e) {
+                alert('❌ Ошибка изменения статуса: ' + e.message);
+            }
         };
 
         window.confirmDeletePost = function(postId) {
@@ -1504,16 +1530,24 @@
                     await deleteObject(imageRef);
                 } catch (e) { console.warn('Не удалось удалить изображение:', e); }
             }
-            await deleteDoc(doc(db, 'blog', postId));
-            await reloadBlog();
-            renderContent('blog');
-            closeDeleteConfirm();
+            try {
+                await deleteDoc(doc(db, 'blog', postId));
+                await reloadBlog();
+                renderContent('blog');
+                closeDeleteConfirm();
+            } catch (e) {
+                alert('❌ Ошибка удаления: ' + e.message);
+            }
         }
 
         async function reloadBlog() {
-            const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
-            allBlogPosts = [];
-            blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
+            try {
+                const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
+                allBlogPosts = [];
+                blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
+            } catch (e) {
+                console.error('Ошибка загрузки блога:', e);
+            }
         }
 
         // ============================================================
