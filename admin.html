@@ -433,21 +433,6 @@
             flex-shrink: 0;
         }
 
-        .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-        }
-        .file-input-wrapper input[type="file"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-
         /* ============================================================
            БЛОГ — КАРТОЧКИ ПОСТОВ
            ============================================================ */
@@ -682,6 +667,7 @@
             border-color: var(--gold);
         }
 
+        /* Превью поста */
         .post-preview {
             margin-top: 12px;
             padding: 16px;
@@ -715,6 +701,31 @@
             font-size: 14px;
             color: var(--text-secondary);
             margin-top: 4px;
+        }
+
+        /* Стили для выбора файла */
+        .file-upload-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .file-upload-wrapper .file-input-container {
+            position: relative;
+            display: inline-block;
+        }
+        .file-upload-wrapper .file-input-container input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .file-upload-wrapper .file-name {
+            color: var(--text-muted);
+            font-size: 13px;
         }
 
         @media (max-width:768px) {
@@ -775,6 +786,13 @@
             .blog-post-card .post-image,
             .blog-post-card .post-image-placeholder {
                 height: 150px;
+            }
+            .file-upload-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .file-upload-wrapper .btn {
+                width: 100%;
             }
         }
         @media (max-width:480px) {
@@ -1308,7 +1326,7 @@
         }
 
         // ============================================================
-        // БЛОГ — ИСПРАВЛЕННАЯ ВЕРСИЯ
+        // БЛОГ — НОВАЯ ВЕРСИЯ (РАБОТАЕТ)
         // ============================================================
         function renderBlog() {
             let html = `
@@ -1318,11 +1336,13 @@
                         <input type="text" id="newBlogTitle" placeholder="Заголовок поста" style="font-size:16px;" />
                         <textarea id="newBlogContent" placeholder="Текст поста..." rows="4" style="font-size:15px;"></textarea>
                         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-                            <div class="file-input-wrapper">
-                                <button class="btn btn-sm btn-outline" id="fileSelectBtn"><i class="fas fa-image"></i> Выбрать фото</button>
-                                <input type="file" id="newBlogImage" accept="image/*" />
+                            <div class="file-upload-wrapper">
+                                <div class="file-input-container">
+                                    <button class="btn btn-sm btn-outline" id="fileSelectBtn"><i class="fas fa-image"></i> Выбрать фото</button>
+                                    <input type="file" id="newBlogImage" accept="image/*" />
+                                </div>
+                                <span class="file-name" id="blogFileName">Файл не выбран</span>
                             </div>
-                            <span id="blogFileName" style="color:var(--text-muted);font-size:13px;">Файл не выбран</span>
                             <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
                                 <label style="color:var(--text-muted);font-size:13px;">Статус:</label>
                                 <select id="newBlogStatus" style="padding:6px 12px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
@@ -1384,57 +1404,83 @@
         }
 
         // ============================================================
-        // БЛОГ — ЛОГИКА (ИСПРАВЛЕНА)
+        // БЛОГ — ЛОГИКА (РАБОТАЕТ)
         // ============================================================
-        // Предпросмотр в реальном времени
+        // Навешиваем обработчики на файл
         document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('newBlogImage');
             const titleInput = document.getElementById('newBlogTitle');
             const contentInput = document.getElementById('newBlogContent');
-            const fileInput = document.getElementById('newBlogImage');
 
-            if (titleInput && contentInput) {
-                const updatePreview = () => {
-                    const preview = document.getElementById('blogPreview');
-                    const title = document.getElementById('previewTitle');
-                    const text = document.getElementById('previewText');
-                    if (titleInput.value || contentInput.value || (fileInput && fileInput.files && fileInput.files[0])) {
-                        preview.style.display = 'block';
-                        title.textContent = titleInput.value || 'Заголовок';
-                        text.textContent = contentInput.value || 'Текст поста...';
-                    } else {
-                        preview.style.display = 'none';
-                    }
-                };
-                titleInput.addEventListener('input', updatePreview);
-                contentInput.addEventListener('input', updatePreview);
-            }
-
+            // Выбор файла
             if (fileInput) {
-                fileInput.addEventListener('change', function() {
-                    const label = document.getElementById('blogFileName');
-                    if (label) {
-                        label.textContent = this.files[0] ? this.files[0].name : 'Файл не выбран';
-                    }
-                    const container = document.getElementById('previewImageContainer');
-                    if (this.files && this.files[0]) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            container.innerHTML =
-                                `<img src="${e.target.result}" style="max-width:100%;max-height:150px;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:8px;" />`;
-                            document.getElementById('blogPreview').style.display = 'block';
-                        };
-                        reader.readAsDataURL(this.files[0]);
-                    } else {
-                        container.innerHTML = '';
-                        // Проверяем, есть ли текст или заголовок, чтобы скрыть превью
-                        const title = document.getElementById('newBlogTitle');
-                        const content = document.getElementById('newBlogContent');
-                        if (!title.value && !content.value) {
-                            document.getElementById('blogPreview').style.display = 'none';
+                fileInput.addEventListener('change', function(e) {
+                    const file = this.files[0];
+                    const fileNameSpan = document.getElementById('blogFileName');
+
+                    if (file) {
+                        // Проверяем тип файла
+                        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml', 'image/bmp', 'image/tiff'];
+                        if (!allowedTypes.includes(file.type)) {
+                            alert('⚠️ Неподдерживаемый формат. Поддерживаются: JPG, PNG, WebP, GIF, SVG, BMP, TIFF');
+                            this.value = '';
+                            if (fileNameSpan) fileNameSpan.textContent = 'Файл не выбран';
+                            return;
                         }
+
+                        // Проверяем размер (макс 5MB)
+                        if (file.size > 5 * 1024 * 1024) {
+                            alert('⚠️ Файл слишком большой. Максимальный размер — 5MB.');
+                            this.value = '';
+                            if (fileNameSpan) fileNameSpan.textContent = 'Файл не выбран';
+                            return;
+                        }
+
+                        if (fileNameSpan) fileNameSpan.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) +
+                            ' KB)';
+
+                        // Превью фото
+                        const container = document.getElementById('previewImageContainer');
+                        if (container) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                container.innerHTML =
+                                    `<img src="${e.target.result}" style="max-width:100%;max-height:150px;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:8px;" />`;
+                                document.getElementById('blogPreview').style.display = 'block';
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    } else {
+                        if (fileNameSpan) fileNameSpan.textContent = 'Файл не выбран';
+                        const container = document.getElementById('previewImageContainer');
+                        if (container) container.innerHTML = '';
                     }
+
+                    // Обновляем превью текста
+                    updatePreview();
                 });
             }
+
+            // Обновление превью текста
+            function updatePreview() {
+                const preview = document.getElementById('blogPreview');
+                const title = document.getElementById('previewTitle');
+                const text = document.getElementById('previewText');
+                const hasFile = fileInput && fileInput.files && fileInput.files[0];
+                const hasTitle = titleInput && titleInput.value.trim();
+                const hasContent = contentInput && contentInput.value.trim();
+
+                if (hasTitle || hasContent || hasFile) {
+                    if (preview) preview.style.display = 'block';
+                    if (title) title.textContent = titleInput ? titleInput.value || 'Заголовок' : 'Заголовок';
+                    if (text) text.textContent = contentInput ? contentInput.value || 'Текст поста...' : 'Текст поста...';
+                } else {
+                    if (preview) preview.style.display = 'none';
+                }
+            }
+
+            if (titleInput) titleInput.addEventListener('input', updatePreview);
+            if (contentInput) contentInput.addEventListener('input', updatePreview);
         });
 
         window.addBlog = async function() {
@@ -1451,13 +1497,8 @@
             let imageUrl = '';
 
             // Загружаем фото, если оно выбрано
-            if (fileInput.files && fileInput.files[0]) {
+            if (fileInput && fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
-                // Проверяем размер файла (максимум 5MB)
-                if (file.size > 5 * 1024 * 1024) {
-                    alert('❌ Файл слишком большой. Максимальный размер — 5MB.');
-                    return;
-                }
                 const storageRef = ref(storage, 'blog/' + Date.now() + '_' + file.name);
                 try {
                     const snapshot = await uploadBytes(storageRef, file);
@@ -1469,7 +1510,6 @@
                 }
             }
 
-            // Сохраняем пост в Firestore
             try {
                 await addDoc(collection(db, 'blog'), {
                     title,
@@ -1481,6 +1521,7 @@
 
                 await reloadBlog();
                 renderContent('blog');
+
                 // Очищаем форму
                 document.getElementById('newBlogTitle').value = '';
                 document.getElementById('newBlogContent').value = '';
@@ -1488,6 +1529,7 @@
                 document.getElementById('blogFileName').textContent = 'Файл не выбран';
                 document.getElementById('blogPreview').style.display = 'none';
                 document.getElementById('previewImageContainer').innerHTML = '';
+
                 alert('✅ Пост успешно опубликован!');
             } catch (e) {
                 alert('❌ Ошибка публикации: ' + e.message);
