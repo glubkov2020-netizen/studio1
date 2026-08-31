@@ -22,7 +22,7 @@
 
     <style>
         /* ============================================================
-           ПОЛНЫЕ СТИЛИ
+           ВСЕ СТИЛИ (ПОЛНЫЕ, БЕЗ ЛИШНЕГО КОДА В КАРТЕ)
            ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
@@ -1043,7 +1043,7 @@
         }
 
         /* ============================================================
-           ПРЕМИАЛЬНАЯ КАРТА МИНУТ
+           ПРЕМИАЛЬНАЯ КАРТА МИНУТ (ИСПРАВЛЕНА)
            ============================================================ */
         .card-wrapper {
             perspective: 1400px;
@@ -1382,6 +1382,9 @@
             background: radial-gradient(circle, #ffd966, transparent);
         }
 
+        /* ============================================================
+           КОНТАКТЫ, МОДАЛКИ, АДАПТИВ
+           ============================================================ */
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -1966,63 +1969,6 @@
                 font-size: 14px;
                 padding: 10px 16px;
             }
-            .card-flip {
-                aspect-ratio: 440 / 270;
-            }
-            .front-content {
-                padding: 14px 16px;
-            }
-            .card-balance .number {
-                font-size: 32px;
-            }
-            .card-balance .label {
-                font-size: 10px;
-                letter-spacing: 2px;
-            }
-            .card-brand .logo-text {
-                font-size: 14px;
-            }
-            .card-brand .logo-text small {
-                font-size: 8px;
-            }
-            .card-chip {
-                width: 32px;
-                height: 24px;
-            }
-            .card-chip::after {
-                width: 18px;
-                height: 12px;
-            }
-            .card-id {
-                font-size: 9px;
-            }
-            .card-footer-details .holder .name {
-                font-size: 12px;
-            }
-            .card-footer-details .valid span {
-                font-size: 12px;
-            }
-            .card-back {
-                padding: 14px 16px;
-            }
-            .back-stripe {
-                height: 30px;
-            }
-            .back-stripe::after {
-                font-size: 10px;
-            }
-            .back-phone {
-                font-size: 11px;
-            }
-            .back-since {
-                font-size: 9px;
-            }
-            .back-footer .brand {
-                font-size: 9px;
-            }
-            .back-footer .support span {
-                font-size: 10px;
-            }
         }
     </style>
 </head>
@@ -2420,7 +2366,7 @@
                 console.error('Ошибка загрузки комментариев:', error);
                 const container = document.getElementById(`comments_${postId}`);
                 if (container) {
-                    container.innerHTML = `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">⚠️ Ошибка загрузки комментариев. Проверьте подключение к интернету и наличие коллекции 'comments' в Firestore.</div>`;
+                    container.innerHTML = `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">⚠️ Ошибка загрузки комментариев. Проверьте правила безопасности Firestore.</div>`;
                 }
             });
         }
@@ -2819,8 +2765,7 @@
                         <div class="card-face card-front" style="background: ${design.front};">
                             <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.12;z-index:1;pointer-events:none;top:-30px;left:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
                             <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.12;z-index:1;pointer-events:none;bottom:-30px;right:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
-                            <div style="position:absolute;top:50%;left:-10%;width:80%;height:1px;filter:blur(1px);transform:rotate(-6deg);z-index:4;background:linear-gradient(90deg,transparent,${design.accent}44,${design.accent}88,${design.accent}44,transparent);animation:holoMove 6s infinite alternate;"></div>
-                            @keyframes holoMove { 0% { opacity:0.2; transform: rotate(-6deg) translateX(-20px); } 100% { opacity:0.6; transform: rotate(-6deg) translateX(20px); } }
+                            <div style="position:absolute;top:50%;left:-10%;width:80%;height:1px;filter:blur(1px);transform:rotate(-6deg);z-index:4;background:linear-gradient(90deg,transparent,${design.accent}44,${design.accent}88,${design.accent}44,transparent);"></div>
 
                             <div class="front-content">
                                 <div class="card-header">
