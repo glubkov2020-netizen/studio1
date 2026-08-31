@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Студия №1 — Премиальный салон красоты в Кемерово</title>
+    <meta name="theme-color" content="#C9A96E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
@@ -20,7 +21,9 @@
     </script>
 
     <style>
-        /* ===== ВСЕ СТИЛИ ===== */
+        /* ============================================================
+           ПОЛНЫЕ СТИЛИ
+           ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -780,9 +783,6 @@
             min-height: 44px;
         }
 
-        /* ============================================================
-           БЛОГ + КОММЕНТАРИИ
-           ============================================================ */
         .blog-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -849,6 +849,7 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 4px;
+            flex-wrap: wrap;
         }
         .comment .comment-header .avatar {
             width: 32px;
@@ -863,6 +864,12 @@
             font-weight: 600;
             font-size: 14px;
             flex-shrink: 0;
+        }
+        .comment .comment-header .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
         }
         .comment .comment-header .author {
             font-weight: 600;
@@ -880,11 +887,16 @@
             margin: 4px 0 8px;
             word-wrap: break-word;
         }
+        .comment .comment-text.deleted {
+            font-style: italic;
+            color: var(--text-muted);
+        }
         .comment .comment-actions {
             display: flex;
             gap: 14px;
             align-items: center;
             font-size: 13px;
+            flex-wrap: wrap;
         }
         .comment .comment-actions button {
             background: none;
@@ -966,12 +978,16 @@
             margin-left: 36px;
             margin-top: 8px;
             display: none;
+            gap: 10px;
+            align-items: flex-start;
+            flex-wrap: wrap;
         }
         .reply-form.active {
             display: flex;
         }
         .reply-form textarea {
             flex: 1;
+            min-width: 120px;
             padding: 8px 12px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -1027,7 +1043,7 @@
         }
 
         /* ============================================================
-           КАРТА МИНУТ
+           ПРЕМИАЛЬНАЯ КАРТА МИНУТ
            ============================================================ */
         .card-wrapper {
             perspective: 1400px;
@@ -1056,6 +1072,7 @@
             border-radius: 24px;
             overflow: hidden;
         }
+
         .card-front {
             transform: rotateY(0deg);
             z-index: 2;
@@ -1096,6 +1113,7 @@
             pointer-events: none;
             z-index: 2;
         }
+
         .front-content {
             position: relative;
             z-index: 5;
@@ -1106,6 +1124,7 @@
             justify-content: space-between;
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
         }
+
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -1152,6 +1171,7 @@
             border-radius: 4px;
             background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255, 215, 0, 0.05) 3px, rgba(255, 215, 0, 0.05) 5px);
         }
+
         .card-balance {
             text-align: center;
             margin: 4px 0 0;
@@ -1175,6 +1195,7 @@
             margin-top: 2px;
             display: block;
         }
+
         .card-id {
             text-align: center;
             font-size: clamp(10px, 1.2vw, 12px);
@@ -1183,6 +1204,7 @@
             color: rgba(255, 215, 0, 0.3);
             margin-top: 2px;
         }
+
         .card-footer-details {
             display: flex;
             justify-content: space-between;
@@ -1219,6 +1241,7 @@
             color: #f5e7b0;
             text-transform: uppercase;
         }
+
         .card-premium-tag {
             position: absolute;
             bottom: 10px;
@@ -1229,14 +1252,16 @@
             text-transform: uppercase;
             z-index: 6;
         }
+
         .card-back {
             transform: rotateY(180deg);
-            background: radial-gradient(ellipse at 70% 30%, #1a1a1a, #080808);
-            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8);
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a, #2a2a2a);
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
             padding: 20px 24px;
             justify-content: space-between;
+            color: #f0e6c5;
         }
         .card-back::before {
             content: '';
@@ -1245,7 +1270,7 @@
             left: -30%;
             width: 160%;
             height: 160%;
-            background: radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.03), transparent 50%);
+            background: radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05), transparent 50%);
             pointer-events: none;
             animation: backGlow 10s infinite alternate;
         }
@@ -1259,11 +1284,12 @@
                 opacity: 0.8;
             }
         }
+
         .back-stripe {
             width: 100%;
             height: 40px;
-            background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
-            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 0 rgba(255, 215, 0, 0.05);
+            background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 0 rgba(255, 215, 0, 0.08);
             border-radius: 4px;
             display: flex;
             align-items: center;
@@ -1274,10 +1300,11 @@
             content: '••••••••••••••••••••••••••••••••••••••••';
             letter-spacing: 2px;
             font-size: 12px;
-            color: #222;
-            opacity: 0.6;
+            color: #444;
+            opacity: 0.5;
             word-break: break-all;
         }
+
         .back-info {
             display: flex;
             justify-content: space-between;
@@ -1286,21 +1313,22 @@
         }
         .back-phone {
             font-size: clamp(12px, 1.5vw, 14px);
-            color: rgba(255, 215, 0, 0.5);
-            font-weight: 400;
+            color: #C9A96E;
+            font-weight: 500;
             letter-spacing: 1px;
         }
         .back-phone i {
             margin-right: 8px;
             color: var(--gold);
-            opacity: 0.5;
+            opacity: 0.7;
         }
         .back-since {
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 215, 0, 0.3);
             letter-spacing: 3px;
             text-transform: uppercase;
         }
+
         .back-footer {
             display: flex;
             justify-content: space-between;
@@ -1308,24 +1336,50 @@
             margin-top: 12px;
         }
         .back-footer .brand {
-            font-size: 10px;
+            font-size: 11px;
             letter-spacing: 2px;
-            color: rgba(255, 215, 0, 0.15);
+            color: rgba(255, 215, 0, 0.4);
             text-transform: uppercase;
-            border-top: 1px solid rgba(255, 215, 0, 0.05);
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
             padding-top: 6px;
+            background: linear-gradient(90deg, #C9A96E, #E8D5A8, #C9A96E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
         }
         .back-footer .support {
             font-size: 10px;
-            color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.15);
             letter-spacing: 1px;
         }
         .back-footer .support span {
             display: block;
-            color: rgba(255, 215, 0, 0.2);
+            color: #C9A96E;
             font-size: 12px;
             font-weight: 400;
             margin-top: 2px;
+        }
+
+        .corner-glow {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.06;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .corner-glow.tl {
+            top: -30px;
+            left: -30px;
+            background: radial-gradient(circle, #ffd966, transparent);
+        }
+        .corner-glow.br {
+            bottom: -30px;
+            right: -30px;
+            background: radial-gradient(circle, #ffd966, transparent);
         }
 
         .contact-grid {
@@ -1912,6 +1966,63 @@
                 font-size: 14px;
                 padding: 10px 16px;
             }
+            .card-flip {
+                aspect-ratio: 440 / 270;
+            }
+            .front-content {
+                padding: 14px 16px;
+            }
+            .card-balance .number {
+                font-size: 32px;
+            }
+            .card-balance .label {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+            .card-brand .logo-text {
+                font-size: 14px;
+            }
+            .card-brand .logo-text small {
+                font-size: 8px;
+            }
+            .card-chip {
+                width: 32px;
+                height: 24px;
+            }
+            .card-chip::after {
+                width: 18px;
+                height: 12px;
+            }
+            .card-id {
+                font-size: 9px;
+            }
+            .card-footer-details .holder .name {
+                font-size: 12px;
+            }
+            .card-footer-details .valid span {
+                font-size: 12px;
+            }
+            .card-back {
+                padding: 14px 16px;
+            }
+            .back-stripe {
+                height: 30px;
+            }
+            .back-stripe::after {
+                font-size: 10px;
+            }
+            .back-phone {
+                font-size: 11px;
+            }
+            .back-since {
+                font-size: 9px;
+            }
+            .back-footer .brand {
+                font-size: 9px;
+            }
+            .back-footer .support span {
+                font-size: 10px;
+            }
         }
     </style>
 </head>
@@ -2107,7 +2218,7 @@
         // ============================================================
         import { initializeApp } from 'firebase/app';
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, addDoc, deleteDoc, query, orderBy, where, onSnapshot, increment, arrayUnion, arrayRemove, Timestamp } from 'firebase/firestore';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, addDoc, deleteDoc, query, orderBy, where, onSnapshot, increment, arrayUnion, arrayRemove } from 'firebase/firestore';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -2287,7 +2398,6 @@
         // КОММЕНТАРИИ
         // ============================================================
         function loadComments(postId) {
-            // Отписываемся от старых слушателей
             if (commentListeners[postId]) {
                 commentListeners[postId]();
                 delete commentListeners[postId];
@@ -2308,64 +2418,65 @@
                 renderComments(postId);
             }, (error) => {
                 console.error('Ошибка загрузки комментариев:', error);
+                const container = document.getElementById(`comments_${postId}`);
+                if (container) {
+                    container.innerHTML = `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">⚠️ Ошибка загрузки комментариев. Проверьте подключение к интернету и наличие коллекции 'comments' в Firestore.</div>`;
+                }
             });
         }
 
         function renderComments(postId) {
             const container = document.getElementById(`comments_${postId}`);
-            if (!container) return;
+            if (!container) {
+                setTimeout(() => renderComments(postId), 200);
+                return;
+            }
 
             const comments = allComments[postId] || {};
             const commentList = Object.values(comments);
 
-            // Строим дерево комментариев
-            const commentTree = {};
-            const roots = [];
-
-            commentList.forEach(c => {
-                if (!c.isDeleted) {
-                    if (c.parentId && comments[c.parentId] && !comments[c.parentId].isDeleted) {
-                        if (!commentTree[c.parentId]) commentTree[c.parentId] = [];
-                        commentTree[c.parentId].push(c);
-                    } else if (!c.parentId) {
-                        roots.push(c);
-                    }
-                }
-            });
-
-            // Сортируем по времени
-            roots.sort((a, b) => a.createdAt?.toMillis?.() - b.createdAt?.toMillis?.() || 0);
-            Object.keys(commentTree).forEach(key => {
-                commentTree[key].sort((a, b) => a.createdAt?.toMillis?.() - b.createdAt?.toMillis?.() || 0);
-            });
-
-            if (roots.length === 0) {
-                container.innerHTML =
-                    `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">Пока нет комментариев. Будьте первым!</div>`;
+            if (commentList.length === 0) {
+                container.innerHTML = `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">Пока нет комментариев. Будьте первым!</div>`;
                 return;
             }
 
-            let html = roots.map(c => renderCommentTree(c, comments, commentTree, postId)).join('');
+            const tree = {};
+            const roots = [];
+
+            commentList.forEach(c => {
+                if (c.parentId && comments[c.parentId]) {
+                    if (!tree[c.parentId]) tree[c.parentId] = [];
+                    tree[c.parentId].push(c);
+                } else if (!c.parentId) {
+                    roots.push(c);
+                }
+            });
+
+            roots.sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+            Object.keys(tree).forEach(key => {
+                tree[key].sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+            });
+
+            let html = roots.map(c => renderCommentTree(c, comments, tree, postId)).join('');
             container.innerHTML = html;
         }
 
         function renderCommentTree(comment, allComments, tree, postId, level = 0) {
+            const isDeleted = comment.isDeleted === true;
             const isAuthor = currentUser && currentUser.uid === comment.userId;
+            const isAdmin = currentUser && (currentUser.email === 'glubkov2020@gmail.com' || currentUser.email === 'Studiia1@mail.ru');
             const userPhoto = comment.userPhoto ||
                 `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${(comment.userName || '?').charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
             const isLiked = currentUser && comment.likedBy?.includes(currentUser.uid);
             const replies = tree[comment.id] || [];
 
-            let html = `
-                <div class="comment" style="${level > 0 ? 'border-left-color: rgba(201,169,110,0.3);' : ''}">
-                    <div class="comment-header">
-                        <div class="avatar">
-                            ${comment.userPhoto ? `<img src="${comment.userPhoto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />` : (comment.userName || '?').charAt(0).toUpperCase()}
-                        </div>
-                        <span class="author">${escapeHTML(comment.userName || 'Аноним')}</span>
-                        <span class="time">${formatDate(comment.createdAt?.toDate?.() || new Date())}</span>
-                    </div>
-                    <div class="comment-text">${escapeHTML(comment.text)}</div>
+            let textHtml = isDeleted ?
+                `<div class="comment-text deleted">[Комментарий удалён]</div>` :
+                `<div class="comment-text">${escapeHTML(comment.text || '')}</div>`;
+
+            let actionsHtml = '';
+            if (!isDeleted) {
+                actionsHtml = `
                     <div class="comment-actions">
                         ${currentUser ? `
                             <button onclick="toggleLike('${comment.id}')" class="${isLiked ? 'liked' : ''}">
@@ -2374,7 +2485,7 @@
                             <button onclick="showReplyForm('${comment.id}')">
                                 <i class="fas fa-reply"></i> Ответить
                             </button>
-                            ${isAuthor || (currentUser && currentUser.email === 'glubkov2020@gmail.com') ? `
+                            ${(isAuthor || isAdmin) ? `
                                 <button onclick="deleteComment('${comment.id}')" style="color:#E74C3C;">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -2385,6 +2496,21 @@
                             </span>
                         `}
                     </div>
+                `;
+            }
+
+            let html = `
+                <div class="comment" style="${level > 0 ? 'border-left-color: rgba(201,169,110,0.3);' : ''}">
+                    <div class="comment-header">
+                        <div class="avatar">
+                            ${comment.userPhoto ? `<img src="${comment.userPhoto}" />` : (comment.userName || '?').charAt(0).toUpperCase()}
+                        </div>
+                        <span class="author">${escapeHTML(comment.userName || 'Аноним')}</span>
+                        <span class="time">${formatDate(comment.createdAt?.toDate?.() || new Date())}</span>
+                        ${isDeleted ? `<span style="color:#E74C3C;font-size:11px;margin-left:8px;">🗑️ Удалён</span>` : ''}
+                    </div>
+                    ${textHtml}
+                    ${actionsHtml}
                     <div class="reply-form" id="replyForm_${comment.id}">
                         <textarea id="replyText_${comment.id}" placeholder="Написать ответ..." rows="2"></textarea>
                         <button class="btn btn-sm" onclick="addComment('${postId}', '${comment.id}')">
@@ -2403,7 +2529,7 @@
         }
 
         // ============================================================
-        // ФУНКЦИИ КОММЕНТАРИЕВ (глобальные)
+        // ФУНКЦИИ КОММЕНТАРИЕВ
         // ============================================================
         window.addComment = async function(postId, parentId = null) {
             if (!currentUser) {
@@ -2423,7 +2549,7 @@
             try {
                 const commentData = {
                     postId: postId,
-                    parentId: parentId,
+                    parentId: parentId || null,
                     userId: currentUser.uid,
                     userName: currentUserData?.name || currentUser.displayName || 'Пользователь',
                     userEmail: currentUser.email,
@@ -2442,13 +2568,14 @@
                 }
             } catch (e) {
                 alert('❌ Ошибка: ' + e.message);
+                console.error(e);
             }
         };
 
         window.showReplyForm = function(commentId) {
             const form = document.getElementById(`replyForm_${commentId}`);
             if (form) {
-                form.classList.add('active');
+                form.style.display = 'flex';
                 form.querySelector('textarea')?.focus();
             }
         };
@@ -2456,8 +2583,9 @@
         window.hideReplyForm = function(commentId) {
             const form = document.getElementById(`replyForm_${commentId}`);
             if (form) {
-                form.classList.remove('active');
-                form.querySelector('textarea').value = '';
+                form.style.display = 'none';
+                const textarea = form.querySelector('textarea');
+                if (textarea) textarea.value = '';
             }
         };
 
@@ -2468,14 +2596,14 @@
             }
 
             const commentRef = doc(db, 'comments', commentId);
-            const commentSnap = await getDoc(commentRef);
-            if (!commentSnap.exists()) return;
-
-            const data = commentSnap.data();
-            const likedBy = data.likedBy || [];
-            const isLiked = likedBy.includes(currentUser.uid);
-
             try {
+                const commentSnap = await getDoc(commentRef);
+                if (!commentSnap.exists()) return;
+
+                const data = commentSnap.data();
+                const likedBy = data.likedBy || [];
+                const isLiked = likedBy.includes(currentUser.uid);
+
                 if (isLiked) {
                     await updateDoc(commentRef, {
                         likes: increment(-1),
@@ -2494,9 +2622,7 @@
 
         window.deleteComment = async function(commentId) {
             if (!confirm('Удалить комментарий?')) return;
-
             try {
-                // Помечаем как удалённый вместо полного удаления
                 await updateDoc(doc(db, 'comments', commentId), {
                     isDeleted: true,
                     text: '[Комментарий удалён]'
@@ -2507,7 +2633,7 @@
         };
 
         // ============================================================
-        // РЕНДЕРИНГ БЛОГА С КОММЕНТАРИЯМИ
+        // РЕНДЕРИНГ БЛОГА
         // ============================================================
         function renderBlog() {
             const container = document.getElementById('blogContainer');
@@ -2559,7 +2685,7 @@
         }
 
         // ============================================================
-        // ОСТАЛЬНЫЕ ФУНКЦИИ (без изменений)
+        // ОСТАЛЬНЫЕ ФУНКЦИИ
         // ============================================================
         function renderAll() {
             renderCategories();
@@ -2843,8 +2969,7 @@
                     if (userDoc.exists()) {
                         currentUserData = userDoc.data();
                     } else {
-                        const cardId = 'ST-' + String(Math.floor(Math.random() * 900) + 100) + '-' + new Date()
-                        .getFullYear();
+                        const cardId = 'ST-' + String(Math.floor(Math.random() * 900) + 100) + '-' + new Date().getFullYear();
                         const newUser = {
                             name: user.displayName || user.email?.split('@')[0] || 'Клиент',
                             email: user.email,
@@ -3052,6 +3177,7 @@
         console.log(`💇 Услуг: ${allServices.length}`);
         console.log('💳 10 дизайнов карт готовы!');
         console.log('💬 Комментарии в реальном времени!');
+        console.log('👤 Пользователь авторизован:', !!currentUser);
     </script>
 </body>
 </html>
