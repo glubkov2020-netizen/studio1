@@ -14,8 +14,7 @@
             "imports": {
                 "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
                 "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
-                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js",
-                "firebase/storage": "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js"
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js"
             }
         }
     </script>
@@ -696,30 +695,6 @@
             border-color: var(--gold);
         }
 
-        .file-upload-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .file-upload-wrapper .file-input-container {
-            position: relative;
-            display: inline-block;
-        }
-        .file-upload-wrapper .file-input-container input[type="file"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        .file-upload-wrapper .file-name {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
         @media (max-width:768px) {
             body {
                 padding: 12px;
@@ -778,13 +753,6 @@
             .blog-post-card .post-image,
             .blog-post-card .post-image-placeholder {
                 height: 150px;
-            }
-            .file-upload-wrapper {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .file-upload-wrapper .btn {
-                width: 100%;
             }
         }
         @media (max-width:480px) {
@@ -920,7 +888,6 @@
         // ============================================================
         import { initializeApp } from 'firebase/app';
         import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy } from 'firebase/firestore';
-        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -933,7 +900,6 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
         // ============================================================
         // ДАННЫЕ
@@ -1318,7 +1284,7 @@
         }
 
         // ============================================================
-        // БЛОГ — НОВАЯ ВЕРСИЯ (РАБОТАЕТ)
+        // БЛОГ — НОВАЯ ВЕРСИЯ (BASE64)
         // ============================================================
         function renderBlog() {
             let postsHtml = '';
@@ -1329,7 +1295,7 @@
                     const statusClass = p.status === 'draft' ? 'draft' : 'published';
                     const statusLabel = p.status === 'draft' ? 'Черновик' : 'Опубликовано';
                     const imageHtml = p.image && p.image !== '' ?
-                        `<img src="${escapeHTML(p.image)}" class="post-image" alt="${escapeHTML(p.title)}" loading="lazy" />` :
+                        `<img src="${p.image}" class="post-image" alt="${escapeHTML(p.title)}" loading="lazy" />` :
                         `<div class="post-image-placeholder"><i class="fas fa-image" style="font-size:32px;opacity:0.2;"></i></div>`;
 
                     return `
@@ -1373,6 +1339,7 @@
                             </div>
 
                             <span id="blogFileName" style="color:var(--text-muted);font-size:13px;">Файл не выбран</span>
+                            <span style="color:var(--text-muted);font-size:12px;opacity:0.5;">(макс. 300KB)</span>
 
                             <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
                                 <label style="color:var(--text-muted);font-size:13px;">Статус:</label>
@@ -1412,7 +1379,6 @@
 
             // Выбор файла
             if (fileInput) {
-                // Убираем старые обработчики
                 const newFileInput = fileInput.cloneNode(true);
                 fileInput.parentNode.replaceChild(newFileInput, fileInput);
 
@@ -1421,7 +1387,7 @@
                     const fileNameSpan = document.getElementById('blogFileName');
 
                     if (file) {
-                        // Проверяем тип файла
+                        // Проверяем тип
                         const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml',
                             'image/bmp', 'image/tiff'
                         ];
@@ -1432,9 +1398,9 @@
                             return;
                         }
 
-                        // Проверяем размер (макс 5MB)
-                        if (file.size > 5 * 1024 * 1024) {
-                            alert('⚠️ Файл слишком большой. Максимальный размер — 5MB.');
+                        // Проверяем размер (макс 300KB для Base64)
+                        if (file.size > 300 * 1024) {
+                            alert('⚠️ Файл слишком большой. Максимальный размер — 300KB.');
                             this.value = '';
                             if (fileNameSpan) fileNameSpan.textContent = 'Файл не выбран';
                             return;
@@ -1443,7 +1409,7 @@
                         if (fileNameSpan) fileNameSpan.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) +
                             ' KB)';
 
-                        // Превью фото
+                        // Превью фото через Base64
                         const container = document.getElementById('previewImageContainer');
                         if (container) {
                             const reader = new FileReader();
@@ -1504,7 +1470,7 @@
         }
 
         // ============================================================
-        // ПУБЛИКАЦИЯ ПОСТА
+        // ПУБЛИКАЦИЯ ПОСТА (BASE64)
         // ============================================================
         window.addBlog = async function() {
             const title = document.getElementById('newBlogTitle').value.trim();
@@ -1517,18 +1483,25 @@
                 return;
             }
 
-            let imageUrl = '';
+            let imageData = '';
 
-            // Загружаем фото, если оно выбрано
+            // Конвертируем фото в Base64
             if (fileInput && fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
-                const storageRef = ref(storage, 'blog/' + Date.now() + '_' + file.name);
                 try {
-                    const snapshot = await uploadBytes(storageRef, file);
-                    imageUrl = await getDownloadURL(snapshot.ref);
-                    console.log('✅ Фото загружено:', imageUrl);
+                    imageData = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            resolve(e.target.result);
+                        };
+                        reader.onerror = function(e) {
+                            reject(e);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                    console.log('✅ Фото сконвертировано в Base64');
                 } catch (e) {
-                    alert('❌ Ошибка загрузки фото: ' + e.message);
+                    alert('❌ Ошибка конвертации фото: ' + e.message);
                     return;
                 }
             }
@@ -1537,7 +1510,7 @@
                 await addDoc(collection(db, 'blog'), {
                     title,
                     content,
-                    image: imageUrl,
+                    image: imageData, // Сохраняем Base64 прямо в Firestore
                     status: status,
                     date: new Date().toISOString()
                 });
@@ -1588,13 +1561,6 @@
         };
 
         async function deletePost(postId) {
-            const post = allBlogPosts.find(p => p.id === postId);
-            if (post && post.image) {
-                try {
-                    const imageRef = ref(storage, post.image);
-                    await deleteObject(imageRef);
-                } catch (e) { console.warn('Не удалось удалить изображение:', e); }
-            }
             try {
                 await deleteDoc(doc(db, 'blog', postId));
                 await reloadBlog();
