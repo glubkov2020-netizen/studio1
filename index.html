@@ -22,7 +22,7 @@
 
     <style>
         /* ============================================================
-           ВСЕ СТИЛИ (ПОЛНОСТЬЮ ОБНОВЛЕНЫ)
+           ВСЕ СТИЛИ (ОБНОВЛЕНЫ)
            ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
@@ -220,7 +220,6 @@
             }
         }
 
-        /* Секретная кнопка админки (только иконка) */
         .secret-admin-link {
             display: inline-block;
             font-size: 18px;
@@ -241,7 +240,6 @@
             background: var(--bg-card);
         }
 
-        /* Кнопка "Карта минут" */
         .card-btn {
             display: inline-flex;
             align-items: center;
@@ -825,7 +823,7 @@
         }
 
         /* ============================================================
-           ПРЕМИАЛЬНАЯ КАРТА МИНУТ (3D FLIP)
+           ПРЕМИАЛЬНАЯ КАРТА МИНУТ (ОБНОВЛЕНА)
            ============================================================ */
         .card-wrapper {
             perspective: 1400px;
@@ -836,12 +834,12 @@
         }
         .card-flip {
             width: 100%;
-            aspect-ratio: 440/270;
+            aspect-ratio: 440 / 270;
             position: relative;
             transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
             transform-style: preserve-3d;
-            border-radius: 28px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 215, 0, 0.15);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 215, 0, 0.1);
         }
         .card-flip.flipped {
             transform: rotateY(180deg);
@@ -851,14 +849,14 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 28px;
+            border-radius: 24px;
             overflow: hidden;
         }
 
-        /* ----- ЛИЦЕВАЯ СТОРОНА (премиум) ----- */
+        /* ЛИЦЕВАЯ СТОРОНА — минималистичный премиум */
         .card-front {
-            background: radial-gradient(circle at 30% 30%, #2b2b2b, #0d0d0d);
-            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
+            background: radial-gradient(ellipse at 30% 20%, #2a2a2a, #0a0a0a);
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.7);
             transform: rotateY(0deg);
             color: #f0e6c5;
             z-index: 2;
@@ -866,27 +864,26 @@
         .card-front::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 70% 20%, rgba(255, 215, 0, 0.12), transparent 60%),
-                radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.04), transparent 40%),
-                linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+            top: -40%;
+            right: -20%;
+            width: 80%;
+            height: 120%;
+            background: radial-gradient(ellipse, rgba(255, 215, 0, 0.06), transparent 70%);
             pointer-events: none;
-            animation: shimmer 8s infinite alternate ease-in-out;
-            z-index: 5;
+            animation: glowPulse 6s ease-in-out infinite alternate;
+            z-index: 3;
         }
-        @keyframes shimmer {
+        @keyframes glowPulse {
             0% {
-                transform: translateX(-5%) translateY(-5%) rotate(0deg);
-                opacity: 0.6;
+                opacity: 0.4;
+                transform: scale(1);
             }
             100% {
-                transform: translateX(5%) translateY(5%) rotate(5deg);
-                opacity: 1;
+                opacity: 0.9;
+                transform: scale(1.2);
             }
         }
+
         .card-front::after {
             content: '';
             position: absolute;
@@ -894,32 +891,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.07) 0%, transparent 40%, rgba(255, 215, 0, 0.02) 80%);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.04) 0%, transparent 40%, rgba(255, 215, 0, 0.02) 80%);
             pointer-events: none;
-            z-index: 6;
-            mix-blend-mode: overlay;
-            animation: glowMove 6s infinite alternate;
-        }
-        @keyframes glowMove {
-            0% {
-                opacity: 0.3;
-                transform: scale(1) rotate(0deg);
-            }
-            100% {
-                opacity: 0.8;
-                transform: scale(1.1) rotate(3deg);
-            }
+            z-index: 2;
         }
 
         .front-content {
             position: relative;
-            z-index: 10;
+            z-index: 5;
             height: 100%;
-            padding: 24px 28px;
+            padding: 20px 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
         }
 
         .card-header {
@@ -927,231 +912,139 @@
             justify-content: space-between;
             align-items: flex-start;
         }
-
-        .logo-area {
+        .card-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
-
-        .logo-icon svg {
-            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
-        }
-
-        .logo-text {
-            font-size: 22px;
+        .card-brand .logo-text {
+            font-size: clamp(16px, 2.5vw, 20px);
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: #f5e7b0;
             text-transform: uppercase;
-            text-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
         }
-
-        .chip {
-            width: 48px;
-            height: 36px;
+        .card-brand .logo-text small {
+            font-weight: 300;
+            font-size: 10px;
+            opacity: 0.5;
+            display: block;
+            letter-spacing: 3px;
+            margin-top: -2px;
+        }
+        .card-chip {
+            width: 40px;
+            height: 30px;
             background: linear-gradient(135deg, #d4b87a, #b8944a);
-            border-radius: 8px;
-            box-shadow: inset 0 0 6px rgba(255, 215, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 6px;
+            box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 215, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
-        .chip::after {
+        .card-chip::after {
             content: '';
-            width: 30px;
-            height: 20px;
-            border: 2px solid rgba(255, 215, 0, 0.2);
+            width: 24px;
+            height: 16px;
+            border: 2px solid rgba(255, 215, 0, 0.15);
             border-radius: 4px;
-            background: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255, 215, 0, 0.06) 4px, rgba(255, 215, 0, 0.06) 6px);
+            background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255, 215, 0, 0.05) 3px, rgba(255, 215, 0, 0.05) 5px);
         }
 
-        .card-number {
-            margin-top: 8px;
-            font-size: clamp(22px, 4vw, 28px);
-            letter-spacing: 6px;
-            font-weight: 500;
-            font-family: 'Courier New', monospace;
-            background: linear-gradient(90deg, #f5e7b0, #d4b87a);
+        .card-balance {
+            text-align: center;
+            margin: 4px 0 0;
+        }
+        .card-balance .number {
+            font-size: clamp(40px, 10vw, 56px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(180deg, #f5e7b0, #d4b87a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-            word-spacing: 8px;
+            line-height: 1;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
+        }
+        .card-balance .label {
+            font-size: clamp(12px, 1.5vw, 16px);
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: rgba(255, 215, 0, 0.5);
+            text-transform: uppercase;
+            margin-top: 2px;
+            display: block;
         }
 
-        .card-details {
+        .card-id {
+            text-align: center;
+            font-size: clamp(10px, 1.2vw, 12px);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            color: rgba(255, 215, 0, 0.3);
+            margin-top: 2px;
+        }
+
+        .card-footer-details {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-top: 12px;
+            margin-top: 8px;
         }
-
-        .valid-thru {
-            font-size: 12px;
+        .card-footer-details .valid {
+            font-size: 10px;
             letter-spacing: 2px;
-            color: #c4b287;
+            color: rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
         }
-        .valid-thru span {
+        .card-footer-details .valid span {
             display: block;
-            font-size: 18px;
-            letter-spacing: 4px;
+            font-size: clamp(14px, 1.8vw, 18px);
             color: #f5e7b0;
-            margin-top: 2px;
+            letter-spacing: 3px;
             font-weight: 500;
+            margin-top: 1px;
         }
-
-        .card-holder {
+        .card-footer-details .holder {
             text-align: right;
         }
-        .card-holder .label {
-            font-size: 11px;
+        .card-footer-details .holder .label {
+            font-size: 9px;
             letter-spacing: 2px;
-            color: #c4b287;
+            color: rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
         }
-        .card-holder .name {
-            font-size: clamp(16px, 2.5vw, 20px);
+        .card-footer-details .holder .name {
+            font-size: clamp(14px, 1.8vw, 18px);
             font-weight: 500;
             letter-spacing: 2px;
             color: #f5e7b0;
             text-transform: uppercase;
-            margin-top: 2px;
-            text-shadow: 0 0 16px rgba(255, 215, 0, 0.15);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.08);
         }
 
-        .card-footer {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 6px;
-        }
-        .brand {
-            font-size: 14px;
-            letter-spacing: 2px;
-            color: #b8944a;
-            font-weight: 300;
+        .card-premium-tag {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: rgba(255, 215, 0, 0.15);
             text-transform: uppercase;
-            opacity: 0.8;
-            border-top: 1px solid rgba(255, 215, 0, 0.2);
-            padding-top: 4px;
-            width: fit-content;
+            z-index: 6;
         }
 
-        .corner-glow {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.12;
-            z-index: 2;
-            pointer-events: none;
-        }
-        .corner-glow.tl {
-            top: -40px;
-            left: -40px;
-            background: radial-gradient(circle, #ffd966, transparent);
-        }
-        .corner-glow.br {
-            bottom: -40px;
-            right: -40px;
-            background: radial-gradient(circle, #ffd966, transparent);
-        }
-
-        .sparkle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(2px);
-            animation: sparkleAnim 4s infinite alternate;
-            z-index: 7;
-            pointer-events: none;
-        }
-        .sparkle:nth-child(1) {
-            top: 15%;
-            left: 25%;
-            animation-delay: 0s;
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 215, 0, 0.4);
-        }
-        .sparkle:nth-child(2) {
-            bottom: 20%;
-            right: 15%;
-            animation-delay: 1.5s;
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 215, 0, 0.2);
-        }
-        .sparkle:nth-child(3) {
-            top: 60%;
-            left: 65%;
-            animation-delay: 0.8s;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 215, 0, 0.5);
-        }
-        .sparkle:nth-child(4) {
-            top: 40%;
-            left: 10%;
-            animation-delay: 2.2s;
-            width: 7px;
-            height: 7px;
-            background: rgba(255, 215, 0, 0.15);
-        }
-        .sparkle:nth-child(5) {
-            bottom: 35%;
-            right: 40%;
-            animation-delay: 0.3s;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 215, 0, 0.3);
-        }
-
-        @keyframes sparkleAnim {
-            0% {
-                opacity: 0.1;
-                transform: scale(0.5);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1.8);
-            }
-        }
-
-        .holo-stripe {
-            position: absolute;
-            top: 20%;
-            right: -10%;
-            width: 60%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.4), rgba(255, 215, 0, 0.15), transparent);
-            filter: blur(2px);
-            transform: rotate(-8deg);
-            z-index: 8;
-            animation: holoMove 5s infinite alternate;
-        }
-        @keyframes holoMove {
-            0% {
-                opacity: 0.2;
-                transform: rotate(-8deg) translateX(-20px);
-            }
-            100% {
-                opacity: 0.8;
-                transform: rotate(-8deg) translateX(20px);
-            }
-        }
-
-        /* ----- ЗАДНЯЯ СТОРОНА (элегантная) ----- */
+        /* ОБРАТНАЯ СТОРОНА */
         .card-back {
-            background: radial-gradient(circle at 70% 30%, #1f1f1f, #0a0a0a);
+            background: radial-gradient(ellipse at 70% 30%, #1a1a1a, #080808);
             transform: rotateY(180deg);
-            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
-            padding: 26px 28px;
+            padding: 20px 24px;
             justify-content: space-between;
         }
         .card-back::before {
@@ -1161,11 +1054,11 @@
             left: -30%;
             width: 160%;
             height: 160%;
-            background: radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05), transparent 50%);
+            background: radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.03), transparent 50%);
             pointer-events: none;
-            animation: backShimmer 10s infinite alternate;
+            animation: backGlow 10s infinite alternate;
         }
-        @keyframes backShimmer {
+        @keyframes backGlow {
             0% {
                 transform: translateX(-5%) rotate(0deg);
                 opacity: 0.3;
@@ -1177,24 +1070,22 @@
         }
 
         .back-stripe {
-            margin-top: 8px;
             width: 100%;
-            height: 48px;
-            background: linear-gradient(180deg, #1a1a1a, #0d0d0d);
-            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.8), 0 2px 0 rgba(255, 215, 0, 0.1);
+            height: 40px;
+            background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 0 rgba(255, 215, 0, 0.05);
             border-radius: 4px;
-            position: relative;
             display: flex;
             align-items: center;
             padding: 0 16px;
+            position: relative;
         }
         .back-stripe::after {
             content: '••••••••••••••••••••••••••••••••••••••••';
-            letter-spacing: 3px;
-            font-size: 14px;
-            color: #2a2a2a;
-            font-weight: 400;
-            opacity: 0.7;
+            letter-spacing: 2px;
+            font-size: 12px;
+            color: #222;
+            opacity: 0.6;
             word-break: break-all;
         }
 
@@ -1205,19 +1096,20 @@
             margin-top: 12px;
         }
         .back-phone {
-            font-size: 14px;
-            color: #b8944a;
-            font-weight: 500;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: rgba(255, 215, 0, 0.5);
+            font-weight: 400;
             letter-spacing: 1px;
         }
         .back-phone i {
             margin-right: 8px;
             color: var(--gold);
+            opacity: 0.5;
         }
         .back-since {
-            font-size: 12px;
-            color: #555;
-            letter-spacing: 2px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.1);
+            letter-spacing: 3px;
             text-transform: uppercase;
         }
 
@@ -1227,86 +1119,177 @@
             align-items: flex-end;
             margin-top: 12px;
         }
-        .back-brand {
-            font-size: 12px;
+        .back-footer .brand {
+            font-size: 10px;
             letter-spacing: 2px;
-            color: #555;
+            color: rgba(255, 215, 0, 0.15);
             text-transform: uppercase;
-            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            border-top: 1px solid rgba(255, 215, 0, 0.05);
             padding-top: 6px;
         }
-        .back-contact {
-            font-size: 11px;
-            color: #444;
+        .back-footer .support {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.1);
             letter-spacing: 1px;
         }
-        .back-contact span {
+        .back-footer .support span {
             display: block;
-            color: #b8944a;
-            font-size: 14px;
-            font-weight: 500;
+            color: rgba(255, 215, 0, 0.2);
+            font-size: 12px;
+            font-weight: 400;
             margin-top: 2px;
         }
 
-        .signature-line {
-            width: 60%;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(255, 215, 0, 0.15), transparent);
-            margin-top: 4px;
-            align-self: flex-end;
-        }
-        .card-back .corner-glow {
+        .corner-glow {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            filter: blur(60px);
             opacity: 0.06;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .corner-glow.tl {
+            top: -30px;
+            left: -30px;
+            background: radial-gradient(circle, #ffd966, transparent);
+        }
+        .corner-glow.br {
+            bottom: -30px;
+            right: -30px;
+            background: radial-gradient(circle, #ffd966, transparent);
         }
 
-        /* Адаптив карты */
+        .holo-line {
+            position: absolute;
+            top: 50%;
+            left: -10%;
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.08), transparent);
+            filter: blur(1px);
+            transform: rotate(-6deg);
+            z-index: 4;
+            animation: holoMove 6s infinite alternate;
+        }
+        @keyframes holoMove {
+            0% {
+                opacity: 0.2;
+                transform: rotate(-6deg) translateX(-20px);
+            }
+            100% {
+                opacity: 0.6;
+                transform: rotate(-6deg) translateX(20px);
+            }
+        }
+
+        /* Адаптив карты для телефонов */
         @media (max-width: 500px) {
             .card-wrapper {
                 max-width: 100%;
+                padding: 0 4px;
             }
             .card-flip {
-                aspect-ratio: 440/270;
-            }
-            .front-content {
-                padding: 18px 20px;
-            }
-            .card-number {
-                font-size: clamp(16px, 3.5vw, 22px);
-                letter-spacing: 4px;
-            }
-            .chip {
-                width: 38px;
-                height: 28px;
-            }
-            .logo-text {
-                font-size: 18px;
-            }
-            .back-stripe {
-                height: 38px;
-            }
-            .back-stripe::after {
-                font-size: 12px;
-            }
-            .back-phone {
-                font-size: 12px;
-            }
-        }
-        @media (max-width: 380px) {
-            .card-number {
-                font-size: 14px;
-                letter-spacing: 2px;
+                aspect-ratio: 440 / 270;
             }
             .front-content {
                 padding: 14px 16px;
             }
-            .logo-text {
-                font-size: 15px;
+            .card-balance .number {
+                font-size: 32px;
             }
-            .card-holder .name {
+            .card-balance .label {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+            .card-brand .logo-text {
                 font-size: 14px;
             }
-            .valid-thru span {
-                font-size: 14px;
+            .card-brand .logo-text small {
+                font-size: 8px;
+            }
+            .card-chip {
+                width: 32px;
+                height: 24px;
+            }
+            .card-chip::after {
+                width: 18px;
+                height: 12px;
+            }
+            .card-id {
+                font-size: 9px;
+            }
+            .card-footer-details .holder .name {
+                font-size: 12px;
+            }
+            .card-footer-details .valid span {
+                font-size: 12px;
+            }
+            .card-back {
+                padding: 14px 16px;
+            }
+            .back-stripe {
+                height: 30px;
+            }
+            .back-stripe::after {
+                font-size: 10px;
+            }
+            .back-phone {
+                font-size: 11px;
+            }
+            .back-since {
+                font-size: 9px;
+            }
+            .back-footer .brand {
+                font-size: 8px;
+            }
+            .back-footer .support span {
+                font-size: 10px;
+            }
+            .corner-glow {
+                width: 60px;
+                height: 60px;
+                filter: blur(40px);
+            }
+        }
+        @media (max-width: 380px) {
+            .front-content {
+                padding: 10px 12px;
+            }
+            .card-balance .number {
+                font-size: 26px;
+            }
+            .card-balance .label {
+                font-size: 8px;
+            }
+            .card-brand .logo-text {
+                font-size: 12px;
+            }
+            .card-chip {
+                width: 26px;
+                height: 20px;
+            }
+            .card-footer-details .holder .name {
+                font-size: 10px;
+            }
+            .card-footer-details .valid span {
+                font-size: 10px;
+            }
+            .card-id {
+                font-size: 7px;
+            }
+            .card-back {
+                padding: 10px 12px;
+            }
+            .back-stripe {
+                height: 24px;
+            }
+            .back-stripe::after {
+                font-size: 8px;
+            }
+            .back-phone {
+                font-size: 9px;
             }
         }
 
@@ -1840,13 +1823,6 @@
                 font-size: 14px;
                 padding: 10px 16px;
             }
-            .card-number {
-                font-size: 12px;
-                letter-spacing: 2px;
-            }
-            .card-holder .name {
-                font-size: 12px;
-            }
         }
     </style>
 </head>
@@ -1882,7 +1858,7 @@
                     <button class="btn btn-outline" onclick="navigateTo('masters')">Мастера</button>
                 </div>
 
-                <!-- КНОПКА "КАРТА МИНУТ" (для телефонов) -->
+                <!-- КНОПКА "КАРТА МИНУТ" -->
                 <div class="hero-card-btn">
                     <button class="card-btn" onclick="goToCabinet()">
                         <i class="fas fa-credit-card"></i> Карта минут
@@ -2345,83 +2321,78 @@
             }
 
             container.innerHTML = `
-                <!-- ПРЕМИАЛЬНАЯ КАРТА 3D FLIP -->
+                <!-- ПРЕМИАЛЬНАЯ КАРТА 3D FLIP (ОБНОВЛЕНА) -->
                 <div class="card-wrapper" onclick="this.querySelector('.card-flip').classList.toggle('flipped')">
                     <div class="card-flip">
                         <!-- ЛИЦЕВАЯ СТОРОНА -->
                         <div class="card-face card-front">
                             <div class="corner-glow tl"></div>
                             <div class="corner-glow br"></div>
-                            <div class="holo-stripe"></div>
-                            <div class="sparkle"></div>
-                            <div class="sparkle"></div>
-                            <div class="sparkle"></div>
-                            <div class="sparkle"></div>
-                            <div class="sparkle"></div>
+                            <div class="holo-line"></div>
+
                             <div class="front-content">
                                 <div class="card-header">
-                                    <div class="logo-area">
-                                        <div class="logo-icon">
-                                            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="22" cy="22" r="20" stroke="#F5E7B0" stroke-width="2.5" stroke-dasharray="4 2" opacity="0.7"/>
-                                                <circle cx="22" cy="22" r="14" stroke="#F5E7B0" stroke-width="1.5" opacity="0.5"/>
-                                                <path d="M22 6 L25 16 L36 16 L27 22 L31 32 L22 26 L13 32 L17 22 L8 16 L19 16 L22 6Z" fill="#F5E7B0" opacity="0.9" filter="url(#glow)"/>
-                                                <defs><filter id="glow"><feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#FFD966" flood-opacity="0.8"/></filter></defs>
+                                    <div class="card-brand">
+                                        <div style="display:flex;align-items:center;gap:8px;">
+                                            <svg width="32" height="32" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="22" cy="22" r="20" stroke="#F5E7B0" stroke-width="2" stroke-dasharray="4 2" opacity="0.6"/>
+                                                <circle cx="22" cy="22" r="14" stroke="#F5E7B0" stroke-width="1" opacity="0.4"/>
+                                                <path d="M22 6 L25 16 L36 16 L27 22 L31 32 L22 26 L13 32 L17 22 L8 16 L19 16 L22 6Z" fill="#F5E7B0" opacity="0.8"/>
                                             </svg>
+                                            <div>
+                                                <span class="logo-text">СТУДИЯ №1</span>
+                                                <small>GOLD PREMIUM</small>
+                                            </div>
                                         </div>
-                                        <span class="logo-text">СТУДИЯ №1</span>
                                     </div>
-                                    <div class="chip"></div>
+                                    <div class="card-chip"></div>
                                 </div>
 
-                                <div style="text-align:center;margin:4px 0;">
-                                    <div style="font-size:clamp(32px,8vw,48px);font-weight:800;color:#f5e7b0;text-shadow:0 0 30px rgba(255,215,0,0.3);">
-                                        ${minutes}
-                                        <span style="font-size:18px;font-weight:400;opacity:0.7;display:block;">минут</span>
-                                    </div>
+                                <div class="card-balance">
+                                    <div class="number">${minutes}</div>
+                                    <span class="label">минут</span>
                                 </div>
 
-                                <div style="text-align:center;font-size:12px;color:#c4b287;letter-spacing:2px;font-family:'Courier New',monospace;">
-                                    ${cardId}
-                                </div>
+                                <div class="card-id">${cardId}</div>
 
-                                <div class="card-details">
-                                    <div class="valid-thru">VALID THRU <span>12/26</span></div>
-                                    <div class="card-holder">
+                                <div class="card-footer-details">
+                                    <div class="valid">VALID THRU <span>12/26</span></div>
+                                    <div class="holder">
                                         <div class="label">Cardholder</div>
                                         <div class="name">${escapeHTML(userName)}</div>
                                     </div>
                                 </div>
-
-                                <div class="card-footer">
-                                    <div class="brand">✦ GOLD PREMIUM ✦</div>
-                                </div>
                             </div>
+
+                            <div class="card-premium-tag">✦ premium ✦</div>
                         </div>
 
                         <!-- ЗАДНЯЯ СТОРОНА -->
                         <div class="card-face card-back">
-                            <div class="corner-glow tl" style="opacity:0.05;"></div>
-                            <div class="corner-glow br" style="opacity:0.05;"></div>
+                            <div class="corner-glow tl" style="opacity:0.03;"></div>
+                            <div class="corner-glow br" style="opacity:0.03;"></div>
+
                             <div style="display:flex;flex-direction:column;height:100%;">
                                 <div class="back-stripe"></div>
+
                                 <div class="back-info">
                                     <div class="back-phone"><i class="fas fa-phone"></i> +7 (951) 606-20-01</div>
                                     <div class="back-since">SINCE 2013</div>
                                 </div>
+
                                 <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;">
                                     <div style="display:flex;justify-content:space-between;align-items:flex-end;">
                                         <div>
-                                            <div style="font-size:10px;letter-spacing:2px;color:#444;text-transform:uppercase;">Authorized signature</div>
-                                            <div style="width:120px;height:2px;background:linear-gradient(90deg,rgba(255,215,0,0.2),transparent);margin-top:6px;"></div>
+                                            <div style="font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.08);text-transform:uppercase;">Authorized signature</div>
+                                            <div style="width:80px;height:1px;background:linear-gradient(90deg,rgba(255,215,0,0.15),transparent);margin-top:4px;"></div>
                                         </div>
-                                        <div class="back-contact">
-                                            SUPPORT <span>+7 (951) 606-20-01</span>
+                                        <div class="back-footer">
+                                            <div class="support">SUPPORT <span>+7 (951) 606-20-01</span></div>
                                         </div>
                                     </div>
-                                    <div style="display:flex;justify-content:space-between;margin-top:14px;">
-                                        <div class="back-brand">✦ STUDIO №1 • PREMIUM ✦</div>
-                                        <div style="font-size:10px;color:#333;letter-spacing:1px;">BANK • SINCE 2013</div>
+                                    <div style="display:flex;justify-content:space-between;margin-top:8px;">
+                                        <div class="brand">✦ STUDIO №1 • PREMIUM ✦</div>
+                                        <div style="font-size:8px;color:rgba(255,255,255,0.04);letter-spacing:1px;">BANK • SINCE 2013</div>
                                     </div>
                                 </div>
                             </div>
@@ -2429,7 +2400,7 @@
                     </div>
                 </div>
 
-                <div style="text-align:center;font-size:13px;color:var(--text-muted);margin-bottom:16px;">
+                <div style="text-align:center;font-size:12px;color:var(--text-muted);margin-bottom:16px;opacity:0.5;">
                     <i class="fas fa-hand-pointer"></i> Нажмите на карту, чтобы перевернуть
                 </div>
 
@@ -2491,7 +2462,6 @@
                     if (userDoc.exists()) {
                         currentUserData = userDoc.data();
                     } else {
-                        // Генерируем ID карты
                         const cardId = 'ST-' + String(Math.floor(Math.random() * 900) + 100) + '-' + new Date()
                         .getFullYear();
                         const newUser = {
@@ -2692,7 +2662,7 @@
         console.log('🚀 Студия №1 запущена!');
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
         console.log(`💇 Услуг: ${allServices.length}`);
-        console.log('💳 Премиальная карта минут готова!');
+        console.log('💳 Премиальная карта минут обновлена!');
     </script>
 </body>
 </html>
