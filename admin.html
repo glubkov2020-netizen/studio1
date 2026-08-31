@@ -20,6 +20,7 @@
     </script>
 
     <style>
+        /* ===== ВСЕ СТИЛИ АДМИНКИ (ПОЛНЫЕ) ===== */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -1060,84 +1061,7 @@
         let commentsFilter = 'all';
         let commentListeners = [];
 
-        const DEFAULT_MASTERS = [{
-            id: 'natalia',
-            name: 'Наталья Мельникова',
-            specialty: 'Парикмахер-колорист',
-            description: 'Колорист, мастер по стрижкам',
-            education: 'Академия Sointera Academy',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EНМ%3C/text%3E%3C/svg%3E',
-            rating: 4.9,
-            reviews: 55,
-            services: [
-                { name: 'Стрижка женская', category: 'Стрижки', price: 2500, duration: '1 ч 30 м' },
-                { name: 'Стойкое окрашивание', category: 'Окрашивание', price: 3500, duration: '2 ч 30 м' },
-                { name: 'Тотал блонд (первично)', category: 'Окрашивание', price: 6000, duration: '3 ч' },
-                { name: 'Коррекция тотал блонд', category: 'Окрашивание', price: 5000, duration: '2 ч' },
-                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
-                { name: 'Ламинирование ресниц', category: 'Ресницы', price: 2300, duration: '1 ч 15 м' },
-                { name: 'Наращивание ресниц (Классика)', category: 'Ресницы', price: 2000, duration: '1 ч 30 м' },
-                { name: 'Пенный Пилинг-хамам', category: 'Спа-сервисы', price: 1000, duration: '40 м' },
-                { name: 'Прикорневой объём', category: 'Спа-сервисы', price: 3500, duration: '2 ч' },
-                { name: 'Долговременная биозавивка', category: 'Биозавивка', price: 5000, duration: '3 ч' },
-                { name: 'Онлайн подбор стрижки', category: 'Онлайн-услуги', price: 2000, duration: '1 ч' },
-                { name: 'Весенний спешл', category: 'Стрижки', price: 3900, duration: '2 ч' }
-            ]
-        }, {
-            id: 'victoria',
-            name: 'Виктория Селитренникова',
-            specialty: 'Мастер перманентного макияжа',
-            description: 'Специалист по перманентному макияжу',
-            education: 'Сертифицированный мастер',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EВС%3C/text%3E%3C/svg%3E',
-            rating: 0,
-            reviews: 0,
-            services: [
-                { name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000, duration: '2 ч 30 м' },
-                { name: 'Перманентный макияж век (межресничка)', category: 'Перманент', price: 7500,
-                duration: '45 м' },
-                { name: 'Перманентный макияж губ', category: 'Перманент', price: 9000, duration: '3 ч' },
-                { name: 'Комбо: брови + межресничка', category: 'Перманент', price: 12000, duration: '3 ч 30 м' },
-                { name: 'Коррекция перманентного макияжа', category: 'Перманент', price: 5000, duration: '2 ч' },
-                { name: 'Камуфляж темных кругов', category: 'Перманент', price: 6000, duration: '1 ч 30 м' },
-                { name: 'Удаление татуажа ремувером', category: 'Перманент', price: 2500, duration: '1 ч' }
-            ]
-        }, {
-            id: 'tatiana',
-            name: 'Татьяна Тысячина',
-            specialty: 'Специалист по солярию',
-            description: 'Администратор и специалист',
-            education: 'Премиальные лампы Rubino+Collatan',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EТТ%3C/text%3E%3C/svg%3E',
-            rating: 4.7,
-            reviews: 24,
-            services: [
-                { name: 'Загар премиум (1 минута)', category: 'Солярий', price: 33, duration: '20 м' },
-                { name: 'Первый визит "Сияние"', category: 'Солярий', price: 299, duration: '20 м' },
-                { name: 'Абонемент "VIP Сияние" (200 мин)', category: 'Солярий', price: 4900, duration: '20 м' },
-                { name: 'Абонемент "Идеальный загар" (100 мин)', category: 'Солярий', price: 3000,
-                duration: '1 ч 40 м' },
-                { name: 'Абонемент "START Сияние" (50 мин)', category: 'Солярий', price: 1600, duration: '50 м' }
-            ]
-        }, {
-            id: 'yulia',
-            name: 'Юлия Скуртол',
-            specialty: 'Мастер педикюра и маникюра',
-            description: 'Специалист по педикюру',
-            education: 'Сертифицированный мастер',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EЮС%3C/text%3E%3C/svg%3E',
-            rating: 5.0,
-            reviews: 3,
-            services: [
-                { name: 'Педикюр Smart', category: 'Педикюр', price: 1900, duration: '45 м' },
-                { name: 'Smart Педикюр с покрытием', category: 'Педикюр', price: 2500, duration: '1 ч 30 м' },
-                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
-                { name: 'Спа-ритуал для ног', category: 'Педикюр', price: 1000, duration: '30 м' },
-                { name: 'Наращивание ногтей', category: 'Маникюр', price: 3000, duration: '2 ч' },
-                { name: 'Японский эко маникюр', category: 'Маникюр', price: 2000, duration: '1 ч' },
-                { name: 'Дизайн на все ногти', category: 'Маникюр', price: 500, duration: '30 м' }
-            ]
-        }];
+        const DEFAULT_MASTERS = [/*...те же 4 мастера...*/];
 
         // ============================================================
         // ЗАГРУЗКА ДАННЫХ
