@@ -2283,167 +2283,248 @@
             renderAll();
         }
 
-        // ============================================================
-        // КОММЕНТАРИИ
-        // ============================================================
-        function loadComments(postId) {
-            // Отписываемся от старых слушателей
-            if (commentListeners[postId]) {
-                commentListeners[postId]();
-                delete commentListeners[postId];
-            }
+// ============================================================
+// КОММЕНТАРИИ (исправленная версия)
+// ============================================================
+function loadComments(postId) {
+    // Отписываемся от старых слушателей
+    if (commentListeners[postId]) {
+        commentListeners[postId]();
+        delete commentListeners[postId];
+    }
 
-            const commentsQuery = query(
-                collection(db, 'comments'),
-                where('postId', '==', postId),
-                orderBy('createdAt', 'asc')
-            );
+    const commentsQuery = query(
+        collection(db, 'comments'),
+        where('postId', '==', postId),
+        orderBy('createdAt', 'asc')
+    );
 
-            commentListeners[postId] = onSnapshot(commentsQuery, (snapshot) => {
-                const comments = {};
-                snapshot.forEach(doc => {
-                    comments[doc.id] = { id: doc.id, ...doc.data() };
-                });
-                allComments[postId] = comments;
-                renderComments(postId);
-            }, (error) => {
-                console.error('Ошибка загрузки комментариев:', error);
-            });
+    commentListeners[postId] = onSnapshot(commentsQuery, (snapshot) => {
+        const comments = {};
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            // Проверяем, что комментарий не удалён или мы показываем удалённые
+            comments[doc.id] = { id: doc.id, ...data };
+        });
+        allComments[postId] = comments;
+        // ВАЖНО: перерисовываем комментарии при любом изменении
+        renderComments(postId);
+    }, (error) => {
+        console.error('Ошибка загрузки комментариев:', error);
+    });
+}
+
+function renderComments(postId) {
+    const container = document.getElementById(`comments_${postId}`);
+    if (!container) {
+        // Если контейнер ещё не создан — пробуем позже
+        setTimeout(() => renderComments(postId), 100);
+        return;
+    }
+
+    const comments = allComments[postId] || {};
+    const commentList = Object.values(comments);
+
+    // Строим дерево комментариев
+    const commentTree = {};
+    const roots = [];
+
+    commentList.forEach(c => {
+        // Показываем все комментарии, даже удалённые (но помечаем их)
+        if (c.parentId && comments[c.parentId]) {
+            if (!commentTree[c.parentId]) commentTree[c.parentId] = [];
+            commentTree[c.parentId].push(c);
+        } else if (!c.parentId) {
+            roots.push(c);
         }
+    });
 
-        function renderComments(postId) {
-            const container = document.getElementById(`comments_${postId}`);
-            if (!container) return;
+    // Сортируем по времени
+    roots.sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+    Object.keys(commentTree).forEach(key => {
+        commentTree[key].sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+    });
 
-            const comments = allComments[postId] || {};
-            const commentList = Object.values(comments);
+    if (roots.length === 0) {
+        container.innerHTML = `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">Пока нет комментариев. Будьте первым!</div>`;
+        return;
+    }
 
-            // Строим дерево комментариев
-            const commentTree = {};
-            const roots = [];
+    let html = roots.map(c => renderCommentTree(c, comments, commentTree, postId)).join('');
+    container.innerHTML = html;
+}
 
-            commentList.forEach(c => {
-                if (!c.isDeleted) {
-                    if (c.parentId && comments[c.parentId] && !comments[c.parentId].isDeleted) {
-                        if (!commentTree[c.parentId]) commentTree[c.parentId] = [];
-                        commentTree[c.parentId].push(c);
-                    } else if (!c.parentId) {
-                        roots.push(c);
-                    }
-                }
-            });
+function renderCommentTree(comment, allComments, tree, postId, level = 0) {
+    // Проверяем, не удалён ли комментарий
+    const isDeleted = comment.isDeleted === true;
+    const isAuthor = currentUser && currentUser.uid === comment.userId;
+    const userPhoto = comment.userPhoto ||
+        `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${(comment.userName || '?').charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
+    const isLiked = currentUser && comment.likedBy?.includes(currentUser.uid);
+    const replies = tree[comment.id] || [];
 
-            // Сортируем по времени
-            roots.sort((a, b) => a.createdAt?.toMillis?.() - b.createdAt?.toMillis?.() || 0);
-            Object.keys(commentTree).forEach(key => {
-                commentTree[key].sort((a, b) => a.createdAt?.toMillis?.() - b.createdAt?.toMillis?.() || 0);
-            });
+    let textHtml = isDeleted ? 
+        `<div class="comment-text" style="font-style:italic;color:var(--text-muted);">[Комментарий удалён]</div>` :
+        `<div class="comment-text">${escapeHTML(comment.text || '')}</div>`;
 
-            if (roots.length === 0) {
-                container.innerHTML =
-                    `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">Пока нет комментариев. Будьте первым!</div>`;
-                return;
-            }
-
-            let html = roots.map(c => renderCommentTree(c, comments, commentTree, postId)).join('');
-            container.innerHTML = html;
-        }
-
-        function renderCommentTree(comment, allComments, tree, postId, level = 0) {
-            const isAuthor = currentUser && currentUser.uid === comment.userId;
-            const userPhoto = comment.userPhoto ||
-                `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${(comment.userName || '?').charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
-            const isLiked = currentUser && comment.likedBy?.includes(currentUser.uid);
-            const replies = tree[comment.id] || [];
-
-            let html = `
-                <div class="comment" style="${level > 0 ? 'border-left-color: rgba(201,169,110,0.3);' : ''}">
-                    <div class="comment-header">
-                        <div class="avatar">
-                            ${comment.userPhoto ? `<img src="${comment.userPhoto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />` : (comment.userName || '?').charAt(0).toUpperCase()}
-                        </div>
-                        <span class="author">${escapeHTML(comment.userName || 'Аноним')}</span>
-                        <span class="time">${formatDate(comment.createdAt?.toDate?.() || new Date())}</span>
-                    </div>
-                    <div class="comment-text">${escapeHTML(comment.text)}</div>
-                    <div class="comment-actions">
-                        ${currentUser ? `
-                            <button onclick="toggleLike('${comment.id}')" class="${isLiked ? 'liked' : ''}">
-                                <i class="fas fa-heart"></i> ${comment.likes || 0}
-                            </button>
-                            <button onclick="showReplyForm('${comment.id}')">
-                                <i class="fas fa-reply"></i> Ответить
-                            </button>
-                            ${isAuthor || (currentUser && currentUser.email === 'glubkov2020@gmail.com') ? `
-                                <button onclick="deleteComment('${comment.id}')" style="color:#E74C3C;">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            ` : ''}
-                        ` : `
-                            <span style="color:var(--text-muted);font-size:12px;">
-                                <i class="fas fa-heart" style="color:var(--text-muted);"></i> ${comment.likes || 0}
-                            </span>
-                        `}
-                    </div>
-                    <div class="reply-form" id="replyForm_${comment.id}">
-                        <textarea id="replyText_${comment.id}" placeholder="Написать ответ..." rows="2"></textarea>
-                        <button class="btn btn-sm" onclick="addComment('${postId}', '${comment.id}')">
-                            <i class="fas fa-paper-plane"></i> Ответить
+    let actionsHtml = '';
+    if (!isDeleted) {
+        actionsHtml = `
+            <div class="comment-actions">
+                ${currentUser ? `
+                    <button onclick="toggleLike('${comment.id}')" class="${isLiked ? 'liked' : ''}">
+                        <i class="fas fa-heart"></i> ${comment.likes || 0}
+                    </button>
+                    <button onclick="showReplyForm('${comment.id}')">
+                        <i class="fas fa-reply"></i> Ответить
+                    </button>
+                    ${isAuthor || (currentUser && currentUser.email === 'glubkov2020@gmail.com') ? `
+                        <button onclick="deleteComment('${comment.id}')" style="color:#E74C3C;">
+                            <i class="fas fa-trash"></i>
                         </button>
-                        <button class="btn btn-sm btn-outline" onclick="hideReplyForm('${comment.id}')">Отмена</button>
-                    </div>
-                    ${replies.length > 0 ? `
-                        <div class="replies">
-                            ${replies.map(r => renderCommentTree(r, allComments, tree, postId, level + 1)).join('')}
-                        </div>
                     ` : ''}
+                ` : `
+                    <span style="color:var(--text-muted);font-size:12px;">
+                        <i class="fas fa-heart" style="color:var(--text-muted);"></i> ${comment.likes || 0}
+                    </span>
+                `}
+            </div>
+        `;
+    }
+
+    let html = `
+        <div class="comment" style="${level > 0 ? 'border-left-color: rgba(201,169,110,0.3);' : ''}">
+            <div class="comment-header">
+                <div class="avatar">
+                    ${comment.userPhoto ? `<img src="${comment.userPhoto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />` : (comment.userName || '?').charAt(0).toUpperCase()}
                 </div>
-            `;
-            return html;
-        }
+                <span class="author">${escapeHTML(comment.userName || 'Аноним')}</span>
+                <span class="time">${formatDate(comment.createdAt?.toDate?.() || new Date())}</span>
+                ${isDeleted ? `<span style="color:#E74C3C;font-size:11px;margin-left:8px;">🗑️ Удалён</span>` : ''}
+            </div>
+            ${textHtml}
+            ${actionsHtml}
+            <div class="reply-form" id="replyForm_${comment.id}" style="display:none;">
+                <textarea id="replyText_${comment.id}" placeholder="Написать ответ..." rows="2"></textarea>
+                <button class="btn btn-sm" onclick="addComment('${postId}', '${comment.id}')">
+                    <i class="fas fa-paper-plane"></i> Ответить
+                </button>
+                <button class="btn btn-sm btn-outline" onclick="hideReplyForm('${comment.id}')">Отмена</button>
+            </div>
+            ${replies.length > 0 ? `
+                <div class="replies">
+                    ${replies.map(r => renderCommentTree(r, allComments, tree, postId, level + 1)).join('')}
+                </div>
+            ` : ''}
+        </div>
+    `;
+    return html;
+}
 
-        // ============================================================
-        // ФУНКЦИИ КОММЕНТАРИЕВ (глобальные)
-        // ============================================================
-        window.addComment = async function(postId, parentId = null) {
-            if (!currentUser) {
-                alert('Войдите в аккаунт, чтобы комментировать');
-                return;
-            }
+// ============================================================
+// ФУНКЦИИ КОММЕНТАРИЕВ (глобальные)
+// ============================================================
+window.addComment = async function(postId, parentId = null) {
+    if (!currentUser) {
+        alert('Войдите в аккаунт, чтобы комментировать');
+        return;
+    }
 
-            const textareaId = parentId ? `replyText_${parentId}` : `commentText_${postId}`;
-            const textarea = document.getElementById(textareaId);
-            const text = textarea?.value?.trim();
+    const textareaId = parentId ? `replyText_${parentId}` : `commentText_${postId}`;
+    const textarea = document.getElementById(textareaId);
+    const text = textarea?.value?.trim();
 
-            if (!text) {
-                alert('Напишите комментарий');
-                return;
-            }
+    if (!text) {
+        alert('Напишите комментарий');
+        return;
+    }
 
-            try {
-                const commentData = {
-                    postId: postId,
-                    parentId: parentId,
-                    userId: currentUser.uid,
-                    userName: currentUserData?.name || currentUser.displayName || 'Пользователь',
-                    userEmail: currentUser.email,
-                    userPhoto: currentUser.photoURL || '',
-                    text: text,
-                    likes: 0,
-                    likedBy: [],
-                    createdAt: new Date(),
-                    isDeleted: false
-                };
-
-                await addDoc(collection(db, 'comments'), commentData);
-                textarea.value = '';
-                if (parentId) {
-                    hideReplyForm(parentId);
-                }
-            } catch (e) {
-                alert('❌ Ошибка: ' + e.message);
-            }
+    try {
+        const commentData = {
+            postId: postId,
+            parentId: parentId,
+            userId: currentUser.uid,
+            userName: currentUserData?.name || currentUser.displayName || 'Пользователь',
+            userEmail: currentUser.email,
+            userPhoto: currentUser.photoURL || '',
+            text: text,
+            likes: 0,
+            likedBy: [],
+            createdAt: new Date(),
+            isDeleted: false
         };
+
+        await addDoc(collection(db, 'comments'), commentData);
+        textarea.value = '';
+        if (parentId) {
+            hideReplyForm(parentId);
+        }
+        // Комментарий добавится через onSnapshot
+    } catch (e) {
+        alert('❌ Ошибка: ' + e.message);
+    }
+};
+
+window.showReplyForm = function(commentId) {
+    const form = document.getElementById(`replyForm_${commentId}`);
+    if (form) {
+        form.style.display = 'flex';
+        form.querySelector('textarea')?.focus();
+    }
+};
+
+window.hideReplyForm = function(commentId) {
+    const form = document.getElementById(`replyForm_${commentId}`);
+    if (form) {
+        form.style.display = 'none';
+        const textarea = form.querySelector('textarea');
+        if (textarea) textarea.value = '';
+    }
+};
+
+window.toggleLike = async function(commentId) {
+    if (!currentUser) {
+        alert('Войдите в аккаунт, чтобы ставить лайки');
+        return;
+    }
+
+    const commentRef = doc(db, 'comments', commentId);
+    const commentSnap = await getDoc(commentRef);
+    if (!commentSnap.exists()) return;
+
+    const data = commentSnap.data();
+    const likedBy = data.likedBy || [];
+    const isLiked = likedBy.includes(currentUser.uid);
+
+    try {
+        if (isLiked) {
+            await updateDoc(commentRef, {
+                likes: increment(-1),
+                likedBy: arrayRemove(currentUser.uid)
+            });
+        } else {
+            await updateDoc(commentRef, {
+                likes: increment(1),
+                likedBy: arrayUnion(currentUser.uid)
+            });
+        }
+    } catch (e) {
+        console.error('Ошибка лайка:', e);
+    }
+};
+
+window.deleteComment = async function(commentId) {
+    if (!confirm('Удалить комментарий?')) return;
+
+    try {
+        await updateDoc(doc(db, 'comments', commentId), {
+            isDeleted: true,
+            text: '[Комментарий удалён]'
+        });
+    } catch (e) {
+        alert('❌ Ошибка: ' + e.message);
+    }
+};
 
         window.showReplyForm = function(commentId) {
             const form = document.getElementById(`replyForm_${commentId}`);
