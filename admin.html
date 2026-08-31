@@ -20,6 +20,9 @@
     </script>
 
     <style>
+        /* ============================================================
+           СТИЛИ АДМИНКИ (премиум, тёмная, адаптивная)
+           ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -29,6 +32,9 @@
             --text-secondary: #D0CBC6;
             --text-muted: #8A8580;
             --border-color: rgba(201, 169, 110, 0.15);
+            --border-hover: rgba(201, 169, 110, 0.3);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.1);
             --gold: #C9A96E;
             --gold-dark: #B8974D;
             --gold-light: #E8D5A8;
@@ -36,20 +42,7 @@
             --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --radius: 16px;
             --radius-sm: 12px;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.1);
-        }
-        [data-theme="light"] {
-            --bg-primary: #FCF9F5;
-            --bg-secondary: #F8F5F0;
-            --bg-card: rgba(0, 0, 0, 0.02);
-            --bg-card-hover: rgba(0, 0, 0, 0.04);
-            --text-primary: #1E1E1E;
-            --text-secondary: #3D3D3D;
-            --text-muted: #7A7A7A;
-            --border-color: rgba(201, 169, 110, 0.12);
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.12);
+            --header-height: 0px;
         }
 
         * {
@@ -64,9 +57,6 @@
             transition: background 0.4s ease, color 0.4s ease;
             min-height: 100vh;
             background: var(--bg-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
         }
         body::before {
@@ -97,12 +87,11 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 16px;
             position: relative;
             z-index: 1;
-            width: 100%;
         }
 
         .glass-card {
@@ -112,12 +101,12 @@
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow);
             transition: var(--transition);
-            padding: 40px 30px;
             border-radius: var(--radius);
+            padding: 24px 20px;
         }
         .glass-card:hover {
             background: var(--bg-card-hover);
-            border-color: rgba(201, 169, 110, 0.3);
+            border-color: var(--border-hover);
             box-shadow: var(--shadow-hover);
         }
 
@@ -125,20 +114,19 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 14px 28px;
-            min-height: 44px;
+            gap: 8px;
+            padding: 10px 20px;
+            min-height: 40px;
             background: var(--gold-gradient);
             color: #fff;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 14px;
             border: none;
             border-radius: 60px;
             cursor: pointer;
             transition: var(--transition);
             box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
             background-size: 200% auto;
-            width: 100%;
         }
         .btn:hover {
             transform: translateY(-2px);
@@ -156,10 +144,9 @@
             color: #fff;
         }
         .btn-sm {
-            padding: 8px 16px;
-            font-size: 13px;
-            min-height: 36px;
-            width: auto;
+            padding: 6px 14px;
+            font-size: 12px;
+            min-height: 32px;
         }
         .btn-danger {
             background: #E74C3C;
@@ -176,93 +163,39 @@
             background: #219A52;
         }
 
-        .admin-login {
-            max-width: 420px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .admin-login .icon {
-            font-size: 48px;
-            color: var(--gold);
-            display: block;
-            margin-bottom: 12px;
-        }
-        .admin-login h2 {
-            font-size: 28px;
-            margin-bottom: 4px;
-        }
-        .admin-login .gold-text {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .admin-login .subtitle {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            font-size: 14px;
-        }
-        .admin-login input {
-            display: block;
-            width: 100%;
-            padding: 12px 16px;
-            margin-bottom: 12px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-size: 16px;
-            transition: var(--transition);
-        }
-        .admin-login input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
-        }
-        .admin-login .error {
-            color: #E74C3C;
-            font-size: 14px;
-            margin-top: 8px;
-            display: none;
-        }
-        .admin-login .back-link {
-            display: block;
-            margin-top: 16px;
-            color: var(--text-muted);
-            font-size: 13px;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        .admin-login .back-link:hover {
-            color: var(--gold);
-        }
-
-        .admin-panel .admin-header {
+        .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
-        .admin-panel .admin-header h2 {
+        .admin-header h2 {
             font-size: 28px;
         }
-        .admin-panel .admin-header .admin-actions {
+        .admin-header .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .admin-header .admin-actions {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
 
-        .admin-panel .admin-tabs {
+        .admin-tabs {
             display: flex;
             gap: 8px;
             overflow-x: auto;
             padding: 8px 0 16px;
             margin-bottom: 20px;
             scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
-        .admin-panel .admin-tabs::-webkit-scrollbar {
+        .admin-tabs::-webkit-scrollbar {
             display: none;
         }
         .admin-tab {
@@ -288,57 +221,9 @@
             border-color: transparent;
         }
 
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        .admin-table th {
-            text-align: left;
-            padding: 10px 12px;
-            color: var(--gold);
-            border-bottom: 2px solid var(--border-color);
-            font-weight: 600;
-        }
-        .admin-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
-        }
-        .admin-table tr:hover td {
-            background: var(--bg-card-hover);
-        }
-        .admin-table .actions {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .admin-table .actions .btn {
-            padding: 4px 12px;
-            font-size: 12px;
-            min-height: 30px;
-            min-width: auto;
-        }
-        .admin-table input,
-        .admin-table select {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 6px 10px;
-            color: var(--text-primary);
-            font-size: 13px;
-            width: 100%;
-            transition: var(--transition);
-        }
-        .admin-table input:focus,
-        .admin-table select:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
@@ -348,6 +233,12 @@
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
             text-align: center;
+            transition: var(--transition);
+        }
+        .stat-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
         }
         .stat-card .stat-icon {
             font-size: 28px;
@@ -363,6 +254,60 @@
             font-size: 13px;
         }
 
+        .admin-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 600px;
+        }
+        .admin-table th {
+            text-align: left;
+            padding: 10px 12px;
+            color: var(--gold);
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .admin-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        .admin-table tr:hover td {
+            background: var(--bg-card-hover);
+        }
+        .admin-table .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .admin-table .actions .btn {
+            padding: 4px 10px;
+            font-size: 11px;
+            min-height: 28px;
+        }
+        .admin-table input,
+        .admin-table select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 10px;
+            color: var(--text-primary);
+            font-size: 13px;
+            width: 100%;
+            transition: var(--transition);
+            min-width: 60px;
+        }
+        .admin-table input:focus,
+        .admin-table select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
         .service-row {
             display: flex;
             gap: 4px;
@@ -372,7 +317,7 @@
         }
         .service-row input {
             flex: 1;
-            min-width: 60px;
+            min-width: 50px;
             padding: 4px 8px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -384,20 +329,205 @@
             padding: 2px 8px;
             font-size: 10px;
             min-height: 24px;
-            min-width: auto;
-            width: auto;
+        }
+
+        .add-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .add-form input,
+        .add-form textarea {
+            flex: 1;
+            min-width: 150px;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+        .add-form input:focus,
+        .add-form textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        .add-form textarea {
+            min-height: 80px;
+            width: 100%;
+        }
+        .add-form .btn {
+            flex-shrink: 0;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal {
+            background: var(--bg-primary);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 24px;
+            padding: 28px 24px 24px;
+            position: relative;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+            animation: modalSlideUp 0.35s ease forwards;
+        }
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: scale(0.96) translateY(30px)
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0)
+            }
+        }
+        .modal-close {
+            position: sticky;
+            top: 0;
+            float: right;
+            font-size: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition);
+            z-index: 10;
+            padding: 8px;
+            min-height: 40px;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            background: var(--gold);
+            color: #fff;
+            border-color: var(--gold);
+            transform: rotate(90deg);
+        }
+        .modal h2 {
+            font-size: clamp(22px, 5vw, 28px);
+            margin-bottom: 4px;
+            color: var(--text-primary);
+            padding-right: 48px;
+        }
+        .modal .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .modal .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .modal .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+        .modal .info-row .label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .modal .info-row .value {
+            color: var(--text-primary);
+            font-weight: 600;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+        .modal .history-list {
+            margin-top: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .modal .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .modal .history-item .spent {
+            color: #E74C3C;
+        }
+        .modal .history-item .added {
+            color: #27AE60;
+        }
+
+        .search-box {
+            margin-bottom: 16px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .search-box input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--gold);
         }
 
         @media (max-width:768px) {
+            body {
+                padding: 12px;
+            }
             .glass-card {
-                padding: 20px 16px;
-            }
-            .admin-table {
-                font-size: 12px;
-            }
-            .admin-table td,
-            .admin-table th {
-                padding: 6px 8px;
+                padding: 16px 14px;
             }
             .admin-header {
                 flex-direction: column;
@@ -411,14 +541,74 @@
             }
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .stat-card {
+                padding: 12px;
+            }
+            .stat-card .stat-number {
+                font-size: 18px;
+            }
+            .admin-table {
+                font-size: 12px;
+                min-width: 500px;
+            }
+            .admin-table td,
+            .admin-table th {
+                padding: 6px 8px;
+            }
+            .add-form {
+                flex-direction: column;
+            }
+            .add-form input,
+            .add-form textarea {
+                min-width: 100%;
+            }
+            .modal {
+                padding: 20px 16px;
+            }
+            .admin-tab {
+                font-size: 12px;
+                padding: 6px 14px;
             }
         }
-        @media (max-width:400px) {
+        @media (max-width:480px) {
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
             }
-            .admin-login {
-                padding: 0;
+            .stat-card .stat-number {
+                font-size: 16px;
+            }
+            .stat-card .stat-icon {
+                font-size: 22px;
+            }
+            .admin-table {
+                font-size: 11px;
+                min-width: 400px;
+            }
+            .admin-table td,
+            .admin-table th {
+                padding: 4px 6px;
+            }
+            .admin-table .actions .btn {
+                font-size: 10px;
+                padding: 2px 8px;
+                min-height: 24px;
+            }
+            .modal .info-row {
+                font-size: 13px;
+            }
+            .admin-header h2 {
+                font-size: 22px;
+            }
+        }
+        @media (min-width:1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            .admin-table {
+                min-width: 100%;
             }
         }
     </style>
@@ -426,46 +616,33 @@
 <body>
 
     <div class="container" id="app">
-        <!-- СТРАНИЦА ВХОДА -->
-        <div id="loginPage">
-            <div class="glass-card admin-login">
-                <i class="fas fa-crown icon"></i>
-                <h2>Вход в <span class="gold-text">админку</span></h2>
-                <p class="subtitle">Введите логин и пароль для управления сайтом</p>
-                <form id="adminLoginForm" onsubmit="adminLogin(event)">
-                    <input type="text" id="adminLoginInput" placeholder="Логин" value="admin" required />
-                    <input type="password" id="adminPasswordInput" placeholder="Пароль" required />
-                    <div class="error" id="adminLoginError">Неверный логин или пароль</div>
-                    <button type="submit" class="btn"><i class="fas fa-lock"></i> Войти</button>
-                </form>
-                <p style="margin-top:16px;font-size:12px;color:var(--text-muted);">
-                    <i class="fas fa-info-circle"></i> Логин: <strong>admin</strong> • Пароль: <strong>Studio2026Kemerovo#1</strong>
-                </p>
-                <a href="/studio1/" class="back-link"><i class="fas fa-arrow-left"></i> На главную</a>
+        <div class="glass-card">
+            <div class="admin-header">
+                <div>
+                    <h2>⚙️ Админ-панель <span class="gold-text">Студия №1</span></h2>
+                    <p style="color:var(--text-muted);">Управление сайтом</p>
+                </div>
+                <div class="admin-actions">
+                    <a href="/studio1/" class="btn btn-sm btn-outline"><i class="fas fa-eye"></i> На сайт</a>
+                </div>
             </div>
-        </div>
 
-        <!-- АДМИН-ПАНЕЛЬ -->
-        <div id="adminPanel" style="display:none;">
-            <div class="glass-card">
-                <div class="admin-header">
-                    <div>
-                        <h2>⚙️ Админ-панель</h2>
-                        <p style="color:var(--text-muted);">Управление сайтом Студия №1</p>
-                    </div>
-                    <div class="admin-actions">
-                        <a href="/studio1/" class="btn btn-sm btn-outline"><i class="fas fa-eye"></i> На сайт</a>
-                        <button class="btn btn-sm btn-danger" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Выйти</button>
-                    </div>
-                </div>
-                <div class="admin-tabs" id="adminTabs">
-                    <div class="admin-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">📊 Дашборд</div>
-                    <div class="admin-tab" data-tab="masters" onclick="switchTab('masters')">👩‍🎨 Мастера</div>
-                    <div class="admin-tab" data-tab="blog" onclick="switchTab('blog')">📝 Блог</div>
-                    <div class="admin-tab" data-tab="clients" onclick="switchTab('clients')">👤 Клиенты</div>
-                </div>
-                <div id="adminContent"></div>
+            <div class="admin-tabs" id="adminTabs">
+                <div class="admin-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">📊 Дашборд</div>
+                <div class="admin-tab" data-tab="masters" onclick="switchTab('masters')">👩‍🎨 Мастера</div>
+                <div class="admin-tab" data-tab="blog" onclick="switchTab('blog')">📝 Блог</div>
+                <div class="admin-tab" data-tab="clients" onclick="switchTab('clients')">👤 Клиенты</div>
             </div>
+
+            <div id="adminContent"></div>
+        </div>
+    </div>
+
+    <!-- МОДАЛКА КЛИЕНТА -->
+    <div class="modal-overlay" id="clientModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeClientModal()">&times;</button>
+            <div id="clientModalContent"></div>
         </div>
     </div>
 
@@ -474,8 +651,8 @@
         // FIREBASE
         // ============================================================
         import { initializeApp } from 'firebase/app';
-        import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc } from 'firebase/firestore';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy } from 'firebase/firestore';
+        import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -487,21 +664,15 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
         const db = getFirestore(app);
-
-        // ============================================================
-        // ДАННЫЕ
-        // ============================================================
-        const ADMIN_CREDENTIALS = {
-            login: 'admin',
-            password: 'Studio2026Kemerovo#1'
-        };
+        const storage = getStorage(app);
 
         let allMasters = [];
         let allServices = [];
         let allBlogPosts = [];
-        let isLoggedIn = false;
+        let allUsers = [];
+        let currentTab = 'dashboard';
+        let clientSearch = '';
 
         const DEFAULT_MASTERS = [{
             id: 'natalia',
@@ -611,55 +782,29 @@
             });
 
             try {
-                const blogSnap = await getDocs(collection(db, 'blog'));
+                const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
                 allBlogPosts = [];
                 blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
-                allBlogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
             } catch (e) {
                 allBlogPosts = [];
             }
-        }
 
-        // ============================================================
-        // ВХОД В АДМИНКУ
-        // ============================================================
-        window.adminLogin = function(e) {
-            e.preventDefault();
-            const login = document.getElementById('adminLoginInput').value.trim();
-            const password = document.getElementById('adminPasswordInput').value.trim();
-            const errorEl = document.getElementById('adminLoginError');
-
-            if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
-                errorEl.style.display = 'none';
-                isLoggedIn = true;
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                renderAdminPanel();
-            } else {
-                errorEl.style.display = 'block';
-                document.getElementById('adminPasswordInput').value = '';
-                document.getElementById('adminPasswordInput').focus();
+            try {
+                const usersSnap = await getDocs(collection(db, 'users'));
+                allUsers = [];
+                usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
+            } catch (e) {
+                allUsers = [];
             }
-        };
 
-        window.adminLogout = function() {
-            if (confirm('Выйти из админки?')) {
-                isLoggedIn = false;
-                document.getElementById('loginPage').style.display = 'block';
-                document.getElementById('adminPanel').style.display = 'none';
-                document.getElementById('adminPasswordInput').value = '';
-                document.getElementById('adminLoginError').style.display = 'none';
-            }
-        };
-
-        // ============================================================
-        // АДМИН-ПАНЕЛЬ
-        // ============================================================
-        function renderAdminPanel() {
             switchTab('dashboard');
         }
 
+        // ============================================================
+        // ВКЛАДКИ
+        // ============================================================
         window.switchTab = function(tab) {
+            currentTab = tab;
             document.querySelectorAll('.admin-tab').forEach(t => {
                 t.classList.toggle('active', t.dataset.tab === tab);
             });
@@ -670,34 +815,32 @@
             const container = document.getElementById('adminContent');
             switch (tab) {
                 case 'dashboard':
-                    container.innerHTML = await renderDashboard();
+                    container.innerHTML = renderDashboard();
                     break;
                 case 'masters':
-                    container.innerHTML = await renderMasters();
+                    container.innerHTML = renderMasters();
                     break;
                 case 'blog':
-                    container.innerHTML = await renderBlog();
+                    container.innerHTML = renderBlog();
                     break;
                 case 'clients':
-                    container.innerHTML = await renderClients();
+                    container.innerHTML = renderClients();
                     break;
                 default:
                     container.innerHTML = '<p>Раздел в разработке</p>';
             }
         }
 
-        async function renderDashboard() {
-            const usersSnap = await getDocs(collection(db, 'users'));
-            const usersCount = usersSnap.size;
-            let totalMinutes = 0;
-            usersSnap.forEach(d => { const data = d.data();
-                totalMinutes += data.minutes || 0; });
-
+        // ============================================================
+        // ДАШБОРД
+        // ============================================================
+        function renderDashboard() {
+            const totalMinutes = allUsers.reduce((sum, u) => sum + (u.minutes || 0), 0);
             return `
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon">👤</div>
-                        <div class="stat-number">${usersCount}</div>
+                        <div class="stat-number">${allUsers.length}</div>
                         <div class="stat-label">Клиентов</div>
                     </div>
                     <div class="stat-card">
@@ -727,14 +870,17 @@
             `;
         }
 
-        async function renderMasters() {
+        // ============================================================
+        // МАСТЕРА
+        // ============================================================
+        function renderMasters() {
             let html = `
-                <div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;">
-                    <input type="text" id="newMasterName" placeholder="Имя мастера" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
-                    <input type="text" id="newMasterSpecialty" placeholder="Специальность" style="flex:1;min-width:150px;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
+                <div class="add-form">
+                    <input type="text" id="newMasterName" placeholder="Имя мастера" />
+                    <input type="text" id="newMasterSpecialty" placeholder="Специальность" />
                     <button class="btn btn-sm" onclick="addMaster()"><i class="fas fa-plus"></i> Добавить</button>
                 </div>
-                <div style="overflow-x:auto;">
+                <div class="admin-table-wrapper">
                     <table class="admin-table">
                         <thead><tr><th>Мастер</th><th>Специальность</th><th>Услуги</th><th>Действия</th></tr></thead>
                         <tbody>
@@ -760,6 +906,7 @@
                                     <input type="text" id="newServiceName_${m.id}" placeholder="Название" />
                                     <input type="text" id="newServiceCategory_${m.id}" placeholder="Кат." style="flex:0.5;min-width:60px;" />
                                     <input type="number" id="newServicePrice_${m.id}" placeholder="Цена" style="width:60px;" />
+                                    <input type="text" id="newServiceDuration_${m.id}" placeholder="Время" style="width:60px;" />
                                     <button class="btn btn-sm" onclick="addService('${m.id}')" style="padding:2px 8px;font-size:12px;min-height:28px;">
                                         <i class="fas fa-plus"></i>
                                     </button>
@@ -779,84 +926,6 @@
             return html;
         }
 
-        async function renderBlog() {
-            let html = `
-                <div style="margin-bottom:16px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
-                    <h4 style="margin-bottom:12px;">➕ Добавить новость</h4>
-                    <div style="display:flex;flex-direction:column;gap:8px;">
-                        <input type="text" id="newBlogTitle" placeholder="Заголовок" style="padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);" />
-                        <textarea id="newBlogContent" placeholder="Текст" rows="3" style="padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);"></textarea>
-                        <button class="btn btn-sm" onclick="addBlog()"><i class="fas fa-plus"></i> Опубликовать</button>
-                    </div>
-                </div>
-                <div style="overflow-x:auto;">
-                    <table class="admin-table">
-                        <thead><tr><th>Дата</th><th>Заголовок</th><th>Действия</th></tr></thead>
-                        <tbody>
-            `;
-
-            for (const p of allBlogPosts) {
-                html += `
-                    <tr>
-                        <td>${formatDate(p.date)}</td>
-                        <td>${escapeHTML(p.title)}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" onclick="deleteBlog('${p.id}')" style="padding:2px 10px;font-size:12px;min-height:30px;">
-                                <i class="fas fa-trash"></i> Удалить
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }
-
-            html += `</tbody></table></div>`;
-            return html;
-        }
-
-        async function renderClients() {
-            const usersSnap = await getDocs(collection(db, 'users'));
-            let html = `
-                <div style="margin-bottom:16px;">
-                    <button class="btn btn-sm" onclick="addClient()"><i class="fas fa-user-plus"></i> Добавить клиента</button>
-                </div>
-                <div style="overflow-x:auto;">
-                    <table class="admin-table">
-                        <thead><tr><th>Клиент</th><th>Телефон</th><th>Email</th><th>Минуты</th><th>Действия</th></tr></thead>
-                        <tbody>
-            `;
-
-            for (const docSnap of usersSnap.docs) {
-                const user = { id: docSnap.id, ...docSnap.data() };
-                html += `
-                    <tr>
-                        <td>${escapeHTML(user.name || 'Без имени')}</td>
-                        <td>${escapeHTML(user.phone || '—')}</td>
-                        <td>${escapeHTML(user.email || '—')}</td>
-                        <td><strong style="color:var(--gold);font-size:18px;">${user.minutes || 0}</strong></td>
-                        <td>
-                            <div style="display:flex;gap:4px;flex-wrap:wrap;">
-                                <button class="btn btn-sm btn-success" onclick="addMinutes('${user.id}')" style="padding:2px 8px;font-size:11px;min-height:28px;" title="Пополнить">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger" onclick="spendMinutes('${user.id}')" style="padding:2px 8px;font-size:11px;min-height:28px;" title="Списать">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline" onclick="showHistory('${user.id}')" style="padding:2px 8px;font-size:11px;min-height:28px;" title="История">
-                                    <i class="fas fa-history"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }
-
-            html += `</tbody></table></div>`;
-            return html;
-        }
-
-        // ============================================================
-        // АДМИН-ФУНКЦИИ
-        // ============================================================
         window.addMaster = async function() {
             const name = document.getElementById('newMasterName').value.trim();
             const specialty = document.getElementById('newMasterSpecialty').value.trim();
@@ -893,11 +962,12 @@
             const name = document.getElementById(`newServiceName_${masterId}`).value.trim();
             const category = document.getElementById(`newServiceCategory_${masterId}`).value.trim() || 'Услуга';
             const price = parseInt(document.getElementById(`newServicePrice_${masterId}`).value) || 0;
+            const duration = document.getElementById(`newServiceDuration_${masterId}`).value.trim() || '1 ч';
             if (!name) { alert('Введите название'); return; }
             const master = allMasters.find(m => m.id === masterId);
             if (!master) return;
             const services = master.services || [];
-            services.push({ name, category, price, duration: '1 ч' });
+            services.push({ name, category, price, duration });
             await updateDoc(doc(db, 'masters', masterId), { services });
             await initData();
             renderContent('masters');
@@ -913,15 +983,97 @@
             renderContent('masters');
         };
 
+        // ============================================================
+        // БЛОГ (с загрузкой фото)
+        // ============================================================
+        function renderBlog() {
+            let html = `
+                <div style="margin-bottom:16px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
+                    <h4 style="margin-bottom:12px;">➕ Добавить новость</h4>
+                    <div class="add-form" style="flex-direction:column;">
+                        <input type="text" id="newBlogTitle" placeholder="Заголовок" />
+                        <textarea id="newBlogContent" placeholder="Текст" rows="3"></textarea>
+                        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                            <div class="file-input-wrapper">
+                                <button class="btn btn-sm btn-outline"><i class="fas fa-image"></i> Выбрать фото</button>
+                                <input type="file" id="newBlogImage" accept="image/*" />
+                            </div>
+                            <span id="blogFileName" style="color:var(--text-muted);font-size:13px;">Файл не выбран</span>
+                            <button class="btn btn-sm" onclick="addBlog()"><i class="fas fa-plus"></i> Опубликовать</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead><tr><th>Дата</th><th>Изображение</th><th>Заголовок</th><th>Действия</th></tr></thead>
+                        <tbody>
+            `;
+
+            for (const p of allBlogPosts) {
+                html += `
+                    <tr>
+                        <td>${formatDate(p.date)}</td>
+                        <td>${p.image ? `<i class="fas fa-check-circle" style="color:#27AE60;"></i>` : `<i class="fas fa-times-circle" style="color:#E74C3C;"></i>`}</td>
+                        <td>${escapeHTML(p.title)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" onclick="deleteBlog('${p.id}')" style="padding:2px 10px;font-size:12px;min-height:30px;">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            html += `</tbody></table></div>`;
+            return html;
+        }
+
+        // Отображение имени файла
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('newBlogImage');
+            if (fileInput) {
+                fileInput.addEventListener('change', function() {
+                    const label = document.getElementById('blogFileName');
+                    if (label) {
+                        label.textContent = this.files[0] ? this.files[0].name : 'Файл не выбран';
+                    }
+                });
+            }
+        });
+
         window.addBlog = async function() {
             const title = document.getElementById('newBlogTitle').value.trim();
             const content = document.getElementById('newBlogContent').value.trim();
-            if (!title || !content) { alert('Заполните поля'); return; }
-            await addDoc(collection(db, 'blog'), { title, content, date: new Date().toISOString() });
+            const fileInput = document.getElementById('newBlogImage');
+            if (!title || !content) { alert('Заполните заголовок и текст'); return; }
+
+            let imageUrl = '';
+
+            if (fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                const storageRef = ref(storage, 'blog/' + Date.now() + '_' + file.name);
+                try {
+                    const snapshot = await uploadBytes(storageRef, file);
+                    imageUrl = await getDownloadURL(snapshot.ref);
+                } catch (e) {
+                    alert('Ошибка загрузки фото: ' + e.message);
+                    return;
+                }
+            }
+
+            await addDoc(collection(db, 'blog'), {
+                title,
+                content,
+                image: imageUrl,
+                date: new Date().toISOString()
+            });
+
             await initData();
             renderContent('blog');
             document.getElementById('newBlogTitle').value = '';
             document.getElementById('newBlogContent').value = '';
+            document.getElementById('newBlogImage').value = '';
+            document.getElementById('blogFileName').textContent = 'Файл не выбран';
         };
 
         window.deleteBlog = async function(id) {
@@ -931,23 +1083,124 @@
             renderContent('blog');
         };
 
+        // ============================================================
+        // КЛИЕНТЫ
+        // ============================================================
+        function renderClients() {
+            const filtered = allUsers.filter(u =>
+                (u.name || '').toLowerCase().includes(clientSearch.toLowerCase()) ||
+                (u.phone || '').includes(clientSearch) ||
+                (u.email || '').toLowerCase().includes(clientSearch.toLowerCase()) ||
+                (u.cardId || '').toLowerCase().includes(clientSearch.toLowerCase())
+            );
+
+            let html = `
+                <div class="search-box">
+                    <input type="text" id="clientSearchInput" placeholder="🔍 Поиск по имени, телефону, email или ID карты..." value="${escapeHTML(clientSearch)}" oninput="updateClientSearch(this.value)" />
+                    <button class="btn btn-sm btn-outline" onclick="addClient()"><i class="fas fa-user-plus"></i> Добавить клиента</button>
+                </div>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead><tr><th>Клиент</th><th>Телефон</th><th>ID карты</th><th>Минуты</th><th>Действия</th></tr></thead>
+                        <tbody>
+            `;
+
+            for (const u of filtered) {
+                html += `
+                    <tr>
+                        <td>${escapeHTML(u.name || 'Без имени')}</td>
+                        <td>${escapeHTML(u.phone || '—')}</td>
+                        <td><code style="color:var(--gold);font-size:12px;">${escapeHTML(u.cardId || '—')}</code></td>
+                        <td><strong style="color:var(--gold);font-size:18px;">${u.minutes || 0}</strong></td>
+                        <td>
+                            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                                <button class="btn btn-sm btn-outline" onclick="showClient('${u.id}')" title="Информация"><i class="fas fa-info-circle"></i></button>
+                                <button class="btn btn-sm btn-success" onclick="addMinutes('${u.id}')" title="Пополнить"><i class="fas fa-plus"></i></button>
+                                <button class="btn btn-sm btn-danger" onclick="spendMinutes('${u.id}')" title="Списать"><i class="fas fa-minus"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            html += `</tbody></table></div>`;
+            return html;
+        }
+
+        window.updateClientSearch = function(value) {
+            clientSearch = value;
+            renderContent('clients');
+        };
+
         window.addClient = async function() {
             const name = prompt('Введите имя клиента:');
             if (!name) return;
             const phone = prompt('Введите телефон:') || '';
             const email = prompt('Введите Email (опционально):') || '';
+            const cardId = 'ST-' + String(Math.floor(Math.random() * 900) + 100) + '-' + new Date().getFullYear();
             const uid = 'manual_' + Date.now();
             await setDoc(doc(db, 'users', uid), {
                 name: name,
                 phone: phone,
                 email: email,
                 minutes: 0,
+                cardId: cardId,
                 history: [],
                 createdAt: new Date().toISOString()
             });
             await initData();
             renderContent('clients');
-            alert(`✅ Клиент "${name}" добавлен!`);
+            alert(`✅ Клиент "${name}" добавлен! ID карты: ${cardId}`);
+        };
+
+        window.showClient = async function(userId) {
+            const user = allUsers.find(u => u.id === userId);
+            if (!user) { alert('Клиент не найден'); return; }
+
+            const modal = document.getElementById('clientModal');
+            const content = document.getElementById('clientModalContent');
+
+            const history = user.history || [];
+            let historyHtml = '';
+            if (history.length) {
+                historyHtml = `
+                    <div class="history-list">
+                        ${history.slice().reverse().map(h => `
+                            <div class="history-item">
+                                <span>${formatDate(h.date)} — ${escapeHTML(h.action)}</span>
+                                <span class="${h.spent ? 'spent' : 'added'}">${h.spent ? '-' : '+'}${Math.abs(h.spent || h.added || 0)} мин</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                historyHtml = `<p style="color:var(--text-muted);font-size:13px;">История операций пуста</p>`;
+            }
+
+            content.innerHTML = `
+                <h2>👤 <span class="gold-text">${escapeHTML(user.name || 'Без имени')}</span></h2>
+                <p class="subtitle">Вся информация о клиенте</p>
+                <div class="info-row"><span class="label">📇 ID карты</span><span class="value"><code style="color:var(--gold);">${escapeHTML(user.cardId || '—')}</code></span></div>
+                <div class="info-row"><span class="label">📞 Телефон</span><span class="value">${escapeHTML(user.phone || '—')}</span></div>
+                <div class="info-row"><span class="label">✉️ Email</span><span class="value">${escapeHTML(user.email || '—')}</span></div>
+                <div class="info-row"><span class="label">☀️ Баланс минут</span><span class="value" style="font-size:24px;color:var(--gold);">${user.minutes || 0}</span></div>
+                <div class="info-row"><span class="label">📅 Дата регистрации</span><span class="value">${formatDate(user.createdAt) || '—'}</span></div>
+                <h4 style="margin-top:16px;margin-bottom:8px;color:var(--text-primary);">📜 История операций</h4>
+                ${historyHtml}
+                <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+                    <button class="btn btn-sm btn-success" onclick="closeClientModal();addMinutes('${user.id}')"><i class="fas fa-plus"></i> Пополнить</button>
+                    <button class="btn btn-sm btn-danger" onclick="closeClientModal();spendMinutes('${user.id}')"><i class="fas fa-minus"></i> Списать</button>
+                    <button class="btn btn-sm btn-outline" onclick="closeClientModal()">Закрыть</button>
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeClientModal = function() {
+            document.getElementById('clientModal').classList.remove('active');
+            document.body.style.overflow = '';
         };
 
         window.addMinutes = async function(userId) {
@@ -969,6 +1222,7 @@
             });
 
             await updateDoc(userRef, { minutes: newMinutes, history });
+            await initData();
             renderContent('clients');
         };
 
@@ -996,31 +1250,8 @@
             });
 
             await updateDoc(userRef, { minutes: newMinutes, history });
+            await initData();
             renderContent('clients');
-        };
-
-        window.showHistory = async function(userId) {
-            const userSnap = await getDoc(doc(db, 'users', userId));
-            const user = userSnap.data();
-            if (!user) { alert('Клиент не найден'); return; }
-
-            const history = user.history || [];
-            if (!history.length) {
-                alert(`📜 История для ${user.name}:\n\nИстория пуста`);
-                return;
-            }
-
-            let msg = `📜 ИСТОРИЯ: ${user.name}\n`;
-            msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-            history.slice().reverse().forEach(h => {
-                const date = new Date(h.date).toLocaleString('ru-RU');
-                const action = h.action || 'Операция';
-                const amount = h.spent ? `-${h.spent}` : (h.added ? `+${h.added}` : '0');
-                msg += `${date}\n  ${action}\n  Остаток: ${h.remaining} мин\n━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-            });
-            msg += `Текущий баланс: ${user.minutes || 0} мин`;
-
-            alert(msg);
         };
 
         // ============================================================
@@ -1044,17 +1275,10 @@
         // ============================================================
         await initData();
 
-        // Проверяем, есть ли сессия
-        if (sessionStorage.getItem('admin_session') === 'true') {
-            // Автоматический вход
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('adminPanel').style.display = 'block';
-            renderAdminPanel();
-        }
-
         console.log('🔐 Админка Студия №1 загружена!');
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
         console.log(`💇 Услуг: ${allServices.length}`);
+        console.log(`👤 Клиентов: ${allUsers.length}`);
         console.log(`📝 Постов: ${allBlogPosts.length}`);
     </script>
 </body>
