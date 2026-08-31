@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Студия №1 — Премиальный салон красоты в Кемерово</title>
-    <meta name="theme-color" content="#C9A96E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
@@ -21,6 +20,7 @@
     </script>
 
     <style>
+        /* ===== ВСЕ СТИЛИ ===== */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -780,10 +780,13 @@
             min-height: 44px;
         }
 
+        /* ============================================================
+           БЛОГ + КОММЕНТАРИИ
+           ============================================================ */
         .blog-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 30px;
         }
         .blog-card {
             background: var(--bg-card);
@@ -820,7 +823,211 @@
         }
 
         /* ============================================================
-           ПРЕМИАЛЬНАЯ КАРТА МИНУТ
+           КОММЕНТАРИИ
+           ============================================================ */
+        .comments-section {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .comments-section .comments-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .comment {
+            margin-bottom: 12px;
+            padding: 12px 14px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            border-left: 2px solid var(--gold);
+        }
+        .comment .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+        .comment .comment-header .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--gold-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .comment .comment-header .author {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+        .comment .comment-header .time {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-left: auto;
+        }
+        .comment .comment-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 4px 0 8px;
+            word-wrap: break-word;
+        }
+        .comment .comment-actions {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            font-size: 13px;
+        }
+        .comment .comment-actions button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 6px;
+            border-radius: 6px;
+        }
+        .comment .comment-actions button:hover {
+            color: var(--gold);
+            background: var(--bg-card);
+        }
+        .comment .comment-actions .liked {
+            color: #E74C3C;
+        }
+        .comment .comment-actions .liked i {
+            animation: likeAnim 0.3s ease;
+        }
+        @keyframes likeAnim {
+            0% {
+                transform: scale(1)
+            }
+            50% {
+                transform: scale(1.4)
+            }
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        .comment .replies {
+            margin-left: 36px;
+            margin-top: 8px;
+            padding-left: 12px;
+            border-left: 2px solid var(--border-color);
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            align-items: flex-start;
+        }
+        .comment-form textarea {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            min-height: 50px;
+            transition: var(--transition);
+        }
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
+        }
+        .comment-form .btn {
+            padding: 10px 20px;
+            min-height: 50px;
+            flex-shrink: 0;
+        }
+        .comment-form .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .reply-form {
+            margin-left: 36px;
+            margin-top: 8px;
+            display: none;
+        }
+        .reply-form.active {
+            display: flex;
+        }
+        .reply-form textarea {
+            flex: 1;
+            padding: 8px 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            min-height: 40px;
+        }
+        .reply-form textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        .reply-form .btn {
+            padding: 8px 16px;
+            min-height: 40px;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+        .reply-form .btn-sm {
+            padding: 6px 12px;
+            min-height: 32px;
+            font-size: 12px;
+        }
+        .reply-form .btn-outline {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+        .reply-form .btn-outline:hover {
+            background: var(--gold);
+            color: #fff;
+        }
+
+        .login-to-comment {
+            padding: 16px;
+            text-align: center;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px dashed var(--border-color);
+        }
+        .login-to-comment .btn {
+            margin-top: 8px;
+        }
+
+        .comment-deleted {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 13px;
+            padding: 4px 0;
+        }
+
+        /* ============================================================
+           КАРТА МИНУТ
            ============================================================ */
         .card-wrapper {
             perspective: 1400px;
@@ -849,51 +1056,46 @@
             border-radius: 24px;
             overflow: hidden;
         }
-
         .card-front {
             transform: rotateY(0deg);
             z-index: 2;
+            background: radial-gradient(ellipse at 30% 20%, #2a2a2a, #0a0a0a);
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.7);
+            color: #f0e6c5;
         }
-        .card-front .corner-glow {
+        .card-front::before {
+            content: '';
             position: absolute;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.12;
-            z-index: 1;
-            pointer-events: none;
-        }
-        .card-front .corner-glow.tl {
-            top: -30px;
-            left: -30px;
-        }
-        .card-front .corner-glow.br {
-            bottom: -30px;
-            right: -30px;
-        }
-        .card-front .holo-line {
-            position: absolute;
-            top: 50%;
-            left: -10%;
+            top: -40%;
+            right: -20%;
             width: 80%;
-            height: 1px;
-            filter: blur(1px);
-            transform: rotate(-6deg);
-            z-index: 4;
-            animation: holoMove 6s infinite alternate;
+            height: 120%;
+            background: radial-gradient(ellipse, rgba(255, 215, 0, 0.06), transparent 70%);
+            pointer-events: none;
+            animation: glowPulse 6s ease-in-out infinite alternate;
+            z-index: 3;
         }
-        @keyframes holoMove {
+        @keyframes glowPulse {
             0% {
-                opacity: 0.2;
-                transform: rotate(-6deg) translateX(-20px);
+                opacity: 0.4;
+                transform: scale(1);
             }
             100% {
-                opacity: 0.6;
-                transform: rotate(-6deg) translateX(20px);
+                opacity: 0.9;
+                transform: scale(1.2);
             }
         }
-
+        .card-front::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.04) 0%, transparent 40%, rgba(255, 215, 0, 0.02) 80%);
+            pointer-events: none;
+            z-index: 2;
+        }
         .front-content {
             position: relative;
             z-index: 5;
@@ -904,7 +1106,6 @@
             justify-content: space-between;
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
         }
-
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -919,7 +1120,9 @@
             font-size: clamp(16px, 2.5vw, 20px);
             font-weight: 700;
             letter-spacing: 2px;
+            color: #f5e7b0;
             text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
         }
         .card-brand .logo-text small {
             font-weight: 300;
@@ -932,6 +1135,7 @@
         .card-chip {
             width: 40px;
             height: 30px;
+            background: linear-gradient(135deg, #d4b87a, #b8944a);
             border-radius: 6px;
             box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 215, 0, 0.2);
@@ -948,7 +1152,6 @@
             border-radius: 4px;
             background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255, 215, 0, 0.05) 3px, rgba(255, 215, 0, 0.05) 5px);
         }
-
         .card-balance {
             text-align: center;
             margin: 4px 0 0;
@@ -957,25 +1160,29 @@
             font-size: clamp(40px, 10vw, 56px);
             font-weight: 800;
             letter-spacing: -1px;
+            background: linear-gradient(180deg, #f5e7b0, #d4b87a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1;
         }
         .card-balance .label {
             font-size: clamp(12px, 1.5vw, 16px);
             font-weight: 300;
             letter-spacing: 4px;
+            color: rgba(255, 215, 0, 0.5);
             text-transform: uppercase;
             margin-top: 2px;
             display: block;
         }
-
         .card-id {
             text-align: center;
             font-size: clamp(10px, 1.2vw, 12px);
             font-family: 'Courier New', monospace;
             letter-spacing: 2px;
+            color: rgba(255, 215, 0, 0.3);
             margin-top: 2px;
         }
-
         .card-footer-details {
             display: flex;
             justify-content: space-between;
@@ -985,11 +1192,13 @@
         .card-footer-details .valid {
             font-size: 10px;
             letter-spacing: 2px;
+            color: rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
         }
         .card-footer-details .valid span {
             display: block;
             font-size: clamp(14px, 1.8vw, 18px);
+            color: #f5e7b0;
             letter-spacing: 3px;
             font-weight: 500;
             margin-top: 1px;
@@ -1000,47 +1209,61 @@
         .card-footer-details .holder .label {
             font-size: 9px;
             letter-spacing: 2px;
+            color: rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
         }
         .card-footer-details .holder .name {
             font-size: clamp(14px, 1.8vw, 18px);
             font-weight: 500;
             letter-spacing: 2px;
+            color: #f5e7b0;
             text-transform: uppercase;
         }
-
         .card-premium-tag {
             position: absolute;
             bottom: 10px;
             right: 20px;
             font-size: 10px;
             letter-spacing: 3px;
+            color: rgba(255, 215, 0, 0.15);
             text-transform: uppercase;
             z-index: 6;
         }
-
         .card-back {
             transform: rotateY(180deg);
+            background: radial-gradient(ellipse at 70% 30%, #1a1a1a, #080808);
             box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
             padding: 20px 24px;
             justify-content: space-between;
         }
-        .card-back .corner-glow {
+        .card-back::before {
+            content: '';
             position: absolute;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.04;
-            z-index: 1;
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.03), transparent 50%);
             pointer-events: none;
+            animation: backGlow 10s infinite alternate;
         }
-
+        @keyframes backGlow {
+            0% {
+                transform: translateX(-5%) rotate(0deg);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateX(5%) rotate(5deg);
+                opacity: 0.8;
+            }
+        }
         .back-stripe {
             width: 100%;
             height: 40px;
+            background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 0 rgba(255, 215, 0, 0.05);
             border-radius: 4px;
             display: flex;
             align-items: center;
@@ -1051,10 +1274,10 @@
             content: '••••••••••••••••••••••••••••••••••••••••';
             letter-spacing: 2px;
             font-size: 12px;
+            color: #222;
             opacity: 0.6;
             word-break: break-all;
         }
-
         .back-info {
             display: flex;
             justify-content: space-between;
@@ -1063,19 +1286,21 @@
         }
         .back-phone {
             font-size: clamp(12px, 1.5vw, 14px);
+            color: rgba(255, 215, 0, 0.5);
             font-weight: 400;
             letter-spacing: 1px;
         }
         .back-phone i {
             margin-right: 8px;
+            color: var(--gold);
             opacity: 0.5;
         }
         .back-since {
             font-size: 11px;
+            color: rgba(255, 255, 255, 0.1);
             letter-spacing: 3px;
             text-transform: uppercase;
         }
-
         .back-footer {
             display: flex;
             justify-content: space-between;
@@ -1085,130 +1310,22 @@
         .back-footer .brand {
             font-size: 10px;
             letter-spacing: 2px;
+            color: rgba(255, 215, 0, 0.15);
             text-transform: uppercase;
             border-top: 1px solid rgba(255, 215, 0, 0.05);
             padding-top: 6px;
-            font-weight: 600;
-            letter-spacing: 2px;
         }
         .back-footer .support {
             font-size: 10px;
+            color: rgba(255, 255, 255, 0.1);
             letter-spacing: 1px;
         }
         .back-footer .support span {
             display: block;
+            color: rgba(255, 215, 0, 0.2);
             font-size: 12px;
             font-weight: 400;
             margin-top: 2px;
-        }
-
-        /* Адаптив карты */
-        @media (max-width: 500px) {
-            .card-wrapper {
-                max-width: 100%;
-                padding: 0 4px;
-            }
-            .card-flip {
-                aspect-ratio: 440 / 270;
-            }
-            .front-content {
-                padding: 14px 16px;
-            }
-            .card-balance .number {
-                font-size: 32px;
-            }
-            .card-balance .label {
-                font-size: 10px;
-                letter-spacing: 2px;
-            }
-            .card-brand .logo-text {
-                font-size: 14px;
-            }
-            .card-brand .logo-text small {
-                font-size: 8px;
-            }
-            .card-chip {
-                width: 32px;
-                height: 24px;
-            }
-            .card-chip::after {
-                width: 18px;
-                height: 12px;
-            }
-            .card-id {
-                font-size: 9px;
-            }
-            .card-footer-details .holder .name {
-                font-size: 12px;
-            }
-            .card-footer-details .valid span {
-                font-size: 12px;
-            }
-            .card-back {
-                padding: 14px 16px;
-            }
-            .back-stripe {
-                height: 30px;
-            }
-            .back-stripe::after {
-                font-size: 10px;
-            }
-            .back-phone {
-                font-size: 11px;
-            }
-            .back-since {
-                font-size: 9px;
-            }
-            .back-footer .brand {
-                font-size: 8px;
-            }
-            .back-footer .support span {
-                font-size: 10px;
-            }
-            .card-front .corner-glow {
-                width: 60px;
-                height: 60px;
-                filter: blur(40px);
-            }
-        }
-        @media (max-width: 380px) {
-            .front-content {
-                padding: 10px 12px;
-            }
-            .card-balance .number {
-                font-size: 26px;
-            }
-            .card-balance .label {
-                font-size: 8px;
-            }
-            .card-brand .logo-text {
-                font-size: 12px;
-            }
-            .card-chip {
-                width: 26px;
-                height: 20px;
-            }
-            .card-footer-details .holder .name {
-                font-size: 10px;
-            }
-            .card-footer-details .valid span {
-                font-size: 10px;
-            }
-            .card-id {
-                font-size: 7px;
-            }
-            .card-back {
-                padding: 10px 12px;
-            }
-            .back-stripe {
-                height: 24px;
-            }
-            .back-stripe::after {
-                font-size: 8px;
-            }
-            .back-phone {
-                font-size: 9px;
-            }
         }
 
         .contact-grid {
@@ -1634,6 +1751,9 @@
             .modal {
                 padding: 32px 28px
             }
+            .comment .replies {
+                margin-left: 48px;
+            }
         }
         @media (min-width:768px) {
             .services-grid {
@@ -1727,6 +1847,23 @@
                 align-items: stretch;
             }
             .design-selector select {
+                width: 100%;
+            }
+            .comment .replies {
+                margin-left: 16px;
+                padding-left: 8px;
+            }
+            .reply-form {
+                margin-left: 16px;
+                flex-direction: column;
+            }
+            .reply-form .btn {
+                width: 100%;
+            }
+            .comment-form {
+                flex-direction: column;
+            }
+            .comment-form .btn {
                 width: 100%;
             }
         }
@@ -1922,7 +2059,7 @@
             <button class="modal-close" onclick="closeAuthModal()">&times;</button>
             <div id="authContent">
                 <h2>Вход в <span class="gold-text">аккаунт</span></h2>
-                <p class="subtitle">Войдите, чтобы увидеть карту минут</p>
+                <p class="subtitle">Войдите, чтобы видеть карту минут и комментировать</p>
                 <form id="loginForm" onsubmit="loginWithEmail(event)">
                     <input type="email" id="loginEmail" placeholder="Email" required />
                     <input type="password" id="loginPassword" placeholder="Пароль" required />
@@ -1970,7 +2107,7 @@
         // ============================================================
         import { initializeApp } from 'firebase/app';
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, addDoc, deleteDoc, query, orderBy, where, onSnapshot, increment, arrayUnion, arrayRemove, Timestamp } from 'firebase/firestore';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -1987,6 +2124,18 @@
         const googleProvider = new GoogleAuthProvider();
 
         // ============================================================
+        // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
+        // ============================================================
+        let currentUser = null;
+        let currentUserData = null;
+        let allMasters = [];
+        let allServices = [];
+        let allBlogPosts = [];
+        let allComments = {};
+        let currentCategory = 'Все';
+        let commentListeners = {};
+
+        // ============================================================
         // 10 ДИЗАЙНОВ КАРТ
         // ============================================================
         const CARD_DESIGNS = [
@@ -2001,16 +2150,6 @@
             { id: 'obsidian', name: 'Obsidian', front: 'linear-gradient(145deg, #0a0a0a, #1a1a1a, #0a0a0a)', back: '#050505', accent: '#C9A96E', textColor: '#d0c0a0' },
             { id: 'royal_gold', name: 'Royal Gold', front: 'linear-gradient(145deg, #1a0a00, #3a2a10, #1a0a00)', back: '#0a0500', accent: '#E8D5A8', textColor: '#f5e7b0' }
         ];
-
-        // ============================================================
-        // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
-        // ============================================================
-        let currentUser = null;
-        let currentUserData = null;
-        let allMasters = [];
-        let allServices = [];
-        let allBlogPosts = [];
-        let currentCategory = 'Все';
 
         const CATEGORIES = [
             { id: 'Все', icon: '📋' },
@@ -2106,7 +2245,7 @@
         }];
 
         // ============================================================
-        // ИНИЦИАЛИЗАЦИЯ ДАННЫХ
+        // ИНИЦИАЛИЗАЦИЯ
         // ============================================================
         async function initData() {
             try {
@@ -2134,10 +2273,9 @@
             });
 
             try {
-                const blogSnap = await getDocs(collection(db, 'blog'));
+                const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
                 allBlogPosts = [];
                 blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
-                allBlogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
             } catch (e) {
                 allBlogPosts = [];
             }
@@ -2146,7 +2284,282 @@
         }
 
         // ============================================================
-        // РЕНДЕРИНГ
+        // КОММЕНТАРИИ
+        // ============================================================
+        function loadComments(postId) {
+            // Отписываемся от старых слушателей
+            if (commentListeners[postId]) {
+                commentListeners[postId]();
+                delete commentListeners[postId];
+            }
+
+            const commentsQuery = query(
+                collection(db, 'comments'),
+                where('postId', '==', postId),
+                orderBy('createdAt', 'asc')
+            );
+
+            commentListeners[postId] = onSnapshot(commentsQuery, (snapshot) => {
+                const comments = {};
+                snapshot.forEach(doc => {
+                    comments[doc.id] = { id: doc.id, ...doc.data() };
+                });
+                allComments[postId] = comments;
+                renderComments(postId);
+            }, (error) => {
+                console.error('Ошибка загрузки комментариев:', error);
+            });
+        }
+
+        function renderComments(postId) {
+            const container = document.getElementById(`comments_${postId}`);
+            if (!container) return;
+
+            const comments = allComments[postId] || {};
+            const commentList = Object.values(comments);
+
+            // Строим дерево комментариев
+            const commentTree = {};
+            const roots = [];
+
+            commentList.forEach(c => {
+                if (!c.isDeleted) {
+                    if (c.parentId && comments[c.parentId] && !comments[c.parentId].isDeleted) {
+                        if (!commentTree[c.parentId]) commentTree[c.parentId] = [];
+                        commentTree[c.parentId].push(c);
+                    } else if (!c.parentId) {
+                        roots.push(c);
+                    }
+                }
+            });
+
+            // Сортируем по времени
+            roots.sort((a, b) => a.createdAt?.toMillis?.() - b.createdAt?.toMillis?.() || 0);
+            Object.keys(commentTree).forEach(key => {
+                commentTree[key].sort((a, b) => a.createdAt?.toMillis?.() - b.createdAt?.toMillis?.() || 0);
+            });
+
+            if (roots.length === 0) {
+                container.innerHTML =
+                    `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">Пока нет комментариев. Будьте первым!</div>`;
+                return;
+            }
+
+            let html = roots.map(c => renderCommentTree(c, comments, commentTree, postId)).join('');
+            container.innerHTML = html;
+        }
+
+        function renderCommentTree(comment, allComments, tree, postId, level = 0) {
+            const isAuthor = currentUser && currentUser.uid === comment.userId;
+            const userPhoto = comment.userPhoto ||
+                `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${(comment.userName || '?').charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
+            const isLiked = currentUser && comment.likedBy?.includes(currentUser.uid);
+            const replies = tree[comment.id] || [];
+
+            let html = `
+                <div class="comment" style="${level > 0 ? 'border-left-color: rgba(201,169,110,0.3);' : ''}">
+                    <div class="comment-header">
+                        <div class="avatar">
+                            ${comment.userPhoto ? `<img src="${comment.userPhoto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />` : (comment.userName || '?').charAt(0).toUpperCase()}
+                        </div>
+                        <span class="author">${escapeHTML(comment.userName || 'Аноним')}</span>
+                        <span class="time">${formatDate(comment.createdAt?.toDate?.() || new Date())}</span>
+                    </div>
+                    <div class="comment-text">${escapeHTML(comment.text)}</div>
+                    <div class="comment-actions">
+                        ${currentUser ? `
+                            <button onclick="toggleLike('${comment.id}')" class="${isLiked ? 'liked' : ''}">
+                                <i class="fas fa-heart"></i> ${comment.likes || 0}
+                            </button>
+                            <button onclick="showReplyForm('${comment.id}')">
+                                <i class="fas fa-reply"></i> Ответить
+                            </button>
+                            ${isAuthor || (currentUser && currentUser.email === 'glubkov2020@gmail.com') ? `
+                                <button onclick="deleteComment('${comment.id}')" style="color:#E74C3C;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            ` : ''}
+                        ` : `
+                            <span style="color:var(--text-muted);font-size:12px;">
+                                <i class="fas fa-heart" style="color:var(--text-muted);"></i> ${comment.likes || 0}
+                            </span>
+                        `}
+                    </div>
+                    <div class="reply-form" id="replyForm_${comment.id}">
+                        <textarea id="replyText_${comment.id}" placeholder="Написать ответ..." rows="2"></textarea>
+                        <button class="btn btn-sm" onclick="addComment('${postId}', '${comment.id}')">
+                            <i class="fas fa-paper-plane"></i> Ответить
+                        </button>
+                        <button class="btn btn-sm btn-outline" onclick="hideReplyForm('${comment.id}')">Отмена</button>
+                    </div>
+                    ${replies.length > 0 ? `
+                        <div class="replies">
+                            ${replies.map(r => renderCommentTree(r, allComments, tree, postId, level + 1)).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            return html;
+        }
+
+        // ============================================================
+        // ФУНКЦИИ КОММЕНТАРИЕВ (глобальные)
+        // ============================================================
+        window.addComment = async function(postId, parentId = null) {
+            if (!currentUser) {
+                alert('Войдите в аккаунт, чтобы комментировать');
+                return;
+            }
+
+            const textareaId = parentId ? `replyText_${parentId}` : `commentText_${postId}`;
+            const textarea = document.getElementById(textareaId);
+            const text = textarea?.value?.trim();
+
+            if (!text) {
+                alert('Напишите комментарий');
+                return;
+            }
+
+            try {
+                const commentData = {
+                    postId: postId,
+                    parentId: parentId,
+                    userId: currentUser.uid,
+                    userName: currentUserData?.name || currentUser.displayName || 'Пользователь',
+                    userEmail: currentUser.email,
+                    userPhoto: currentUser.photoURL || '',
+                    text: text,
+                    likes: 0,
+                    likedBy: [],
+                    createdAt: new Date(),
+                    isDeleted: false
+                };
+
+                await addDoc(collection(db, 'comments'), commentData);
+                textarea.value = '';
+                if (parentId) {
+                    hideReplyForm(parentId);
+                }
+            } catch (e) {
+                alert('❌ Ошибка: ' + e.message);
+            }
+        };
+
+        window.showReplyForm = function(commentId) {
+            const form = document.getElementById(`replyForm_${commentId}`);
+            if (form) {
+                form.classList.add('active');
+                form.querySelector('textarea')?.focus();
+            }
+        };
+
+        window.hideReplyForm = function(commentId) {
+            const form = document.getElementById(`replyForm_${commentId}`);
+            if (form) {
+                form.classList.remove('active');
+                form.querySelector('textarea').value = '';
+            }
+        };
+
+        window.toggleLike = async function(commentId) {
+            if (!currentUser) {
+                alert('Войдите в аккаунт, чтобы ставить лайки');
+                return;
+            }
+
+            const commentRef = doc(db, 'comments', commentId);
+            const commentSnap = await getDoc(commentRef);
+            if (!commentSnap.exists()) return;
+
+            const data = commentSnap.data();
+            const likedBy = data.likedBy || [];
+            const isLiked = likedBy.includes(currentUser.uid);
+
+            try {
+                if (isLiked) {
+                    await updateDoc(commentRef, {
+                        likes: increment(-1),
+                        likedBy: arrayRemove(currentUser.uid)
+                    });
+                } else {
+                    await updateDoc(commentRef, {
+                        likes: increment(1),
+                        likedBy: arrayUnion(currentUser.uid)
+                    });
+                }
+            } catch (e) {
+                console.error('Ошибка лайка:', e);
+            }
+        };
+
+        window.deleteComment = async function(commentId) {
+            if (!confirm('Удалить комментарий?')) return;
+
+            try {
+                // Помечаем как удалённый вместо полного удаления
+                await updateDoc(doc(db, 'comments', commentId), {
+                    isDeleted: true,
+                    text: '[Комментарий удалён]'
+                });
+            } catch (e) {
+                alert('❌ Ошибка: ' + e.message);
+            }
+        };
+
+        // ============================================================
+        // РЕНДЕРИНГ БЛОГА С КОММЕНТАРИЯМИ
+        // ============================================================
+        function renderBlog() {
+            const container = document.getElementById('blogContainer');
+            if (!allBlogPosts.length) {
+                container.innerHTML =
+                    `<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Новостей пока нет</div>`;
+                return;
+            }
+
+            container.innerHTML = allBlogPosts.map(p => {
+                let imgHtml = '';
+                if (p.image) {
+                    imgHtml = `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.title)}" loading="lazy" />`;
+                }
+
+                return `
+                    <div class="blog-card" id="post_${p.id}">
+                        ${imgHtml}
+                        <div class="date">📅 ${formatDate(p.date)}</div>
+                        <h3>${escapeHTML(p.title)}</h3>
+                        <p>${escapeHTML(p.content)}</p>
+                        <div class="comments-section">
+                            <div class="comments-title">💬 Комментарии</div>
+                            <div id="comments_${p.id}">
+                                <div style="color:var(--text-muted);font-size:14px;padding:8px 0;">Загрузка комментариев...</div>
+                            </div>
+                            ${currentUser ? `
+                                <div class="comment-form">
+                                    <textarea id="commentText_${p.id}" placeholder="Написать комментарий..." rows="2"></textarea>
+                                    <button class="btn btn-sm" onclick="addComment('${p.id}')">
+                                        <i class="fas fa-paper-plane"></i> Отправить
+                                    </button>
+                                </div>
+                            ` : `
+                                <div class="login-to-comment">
+                                    <p><i class="fas fa-lock"></i> Войдите, чтобы комментировать</p>
+                                    <button class="btn btn-sm btn-outline" onclick="handleAuthClick()">Войти</button>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Загружаем комментарии для каждого поста
+            allBlogPosts.forEach(p => {
+                loadComments(p.id);
+            });
+        }
+
+        // ============================================================
+        // ОСТАЛЬНЫЕ ФУНКЦИИ (без изменений)
         // ============================================================
         function renderAll() {
             renderCategories();
@@ -2228,32 +2641,6 @@
             }
         };
 
-        function renderBlog() {
-            const container = document.getElementById('blogContainer');
-            if (!allBlogPosts.length) {
-                container.innerHTML =
-                    `<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Новостей пока нет</div>`;
-                return;
-            }
-            container.innerHTML = allBlogPosts.map(p => {
-                let imgHtml = '';
-                if (p.image) {
-                    imgHtml = `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.title)}" loading="lazy" />`;
-                }
-                return `
-                    <div class="blog-card glass-card">
-                        ${imgHtml}
-                        <div class="date">📅 ${formatDate(p.date)}</div>
-                        <h3>${escapeHTML(p.title)}</h3>
-                        <p>${escapeHTML(p.content)}</p>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // ============================================================
-        // КАРТА МИНУТ С ВЫБОРОМ ДИЗАЙНА
-        // ============================================================
         function renderCabinet() {
             const container = document.getElementById('cabinetContainer');
             if (!currentUser) {
@@ -2303,11 +2690,11 @@
 
                 <div class="card-wrapper" onclick="this.querySelector('.card-flip').classList.toggle('flipped')">
                     <div class="card-flip">
-                        <!-- ЛИЦЕВАЯ СТОРОНА -->
                         <div class="card-face card-front" style="background: ${design.front};">
-                            <div class="corner-glow tl" style="background: radial-gradient(circle, ${design.accent}, transparent);"></div>
-                            <div class="corner-glow br" style="background: radial-gradient(circle, ${design.accent}, transparent);"></div>
-                            <div class="holo-line" style="background: linear-gradient(90deg, transparent, ${design.accent}44, ${design.accent}88, ${design.accent}44, transparent);"></div>
+                            <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.12;z-index:1;pointer-events:none;top:-30px;left:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
+                            <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.12;z-index:1;pointer-events:none;bottom:-30px;right:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
+                            <div style="position:absolute;top:50%;left:-10%;width:80%;height:1px;filter:blur(1px);transform:rotate(-6deg);z-index:4;background:linear-gradient(90deg,transparent,${design.accent}44,${design.accent}88,${design.accent}44,transparent);animation:holoMove 6s infinite alternate;"></div>
+                            @keyframes holoMove { 0% { opacity:0.2; transform: rotate(-6deg) translateX(-20px); } 100% { opacity:0.6; transform: rotate(-6deg) translateX(20px); } }
 
                             <div class="front-content">
                                 <div class="card-header">
@@ -2324,11 +2711,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-chip" style="background: linear-gradient(135deg, ${design.accent}, ${design.accent}88);"></div>
+                                    <div class="card-chip" style="background:linear-gradient(135deg,${design.accent},${design.accent}88);"></div>
                                 </div>
 
                                 <div class="card-balance">
-                                    <div class="number" style="background: linear-gradient(180deg, ${design.textColor}, ${design.accent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">${minutes}</div>
+                                    <div class="number" style="background:linear-gradient(180deg,${design.textColor},${design.accent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">${minutes}</div>
                                     <span class="label" style="color:${design.accent}88;">минут</span>
                                 </div>
 
@@ -2346,13 +2733,12 @@
                             <div class="card-premium-tag" style="color:${design.accent}44;">✦ premium ✦</div>
                         </div>
 
-                        <!-- ЗАДНЯЯ СТОРОНА -->
-                        <div class="card-face card-back" style="background: ${design.back};">
-                            <div class="corner-glow tl" style="opacity:0.03;background: radial-gradient(circle, ${design.accent}, transparent);"></div>
-                            <div class="corner-glow br" style="opacity:0.03;background: radial-gradient(circle, ${design.accent}, transparent);"></div>
+                        <div class="card-face card-back" style="background:${design.back};">
+                            <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.03;z-index:1;pointer-events:none;top:-30px;left:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
+                            <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.03;z-index:1;pointer-events:none;bottom:-30px;right:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
 
                             <div style="display:flex;flex-direction:column;height:100%;">
-                                <div class="back-stripe" style="background: linear-gradient(180deg, ${design.back}dd, ${design.back}88);"></div>
+                                <div class="back-stripe" style="background:linear-gradient(180deg,${design.back}dd,${design.back}88);"></div>
 
                                 <div class="back-info">
                                     <div class="back-phone" style="color:${design.accent}88;"><i class="fas fa-phone"></i> +7 (951) 606-20-01</div>
@@ -2370,7 +2756,7 @@
                                         </div>
                                     </div>
                                     <div style="display:flex;justify-content:space-between;margin-top:8px;">
-                                        <div class="brand" style="color:${design.accent}44;background: linear-gradient(90deg, ${design.accent}, ${design.textColor}, ${design.accent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;letter-spacing:2px;">✦ STUDIO №1 • PREMIUM ✦</div>
+                                        <div class="brand" style="color:${design.accent}44;background:linear-gradient(90deg,${design.accent},${design.textColor},${design.accent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;letter-spacing:2px;">✦ STUDIO №1 • PREMIUM ✦</div>
                                         <div style="font-size:8px;color:${design.accent}22;letter-spacing:1px;">BANK • SINCE 2013</div>
                                     </div>
                                 </div>
@@ -2388,9 +2774,6 @@
             `;
         }
 
-        // ============================================================
-        // СМЕНА ДИЗАЙНА КАРТЫ
-        // ============================================================
         window.changeCardDesign = async function(designId) {
             if (!currentUser) {
                 alert('Войдите в аккаунт');
@@ -2477,11 +2860,13 @@
                     }
                 } catch (e) { console.error(e); }
                 updateUIForUser();
+                renderBlog();
                 renderCabinet();
             } else {
                 currentUser = null;
                 currentUserData = null;
                 updateUIForUser();
+                renderBlog();
                 renderCabinet();
             }
         });
@@ -2591,10 +2976,13 @@
             return div.innerHTML;
         }
 
-        function formatDate(dateStr) {
-            if (!dateStr) return '';
-            try { return new Date(dateStr).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit',
-                    year: 'numeric' }); } catch { return dateStr; }
+        function formatDate(date) {
+            if (!date) return '';
+            try {
+                const d = date instanceof Date ? date : new Date(date);
+                return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }) +
+                    ' ' + d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+            } catch { return ''; }
         }
 
         // ============================================================
@@ -2663,6 +3051,7 @@
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
         console.log(`💇 Услуг: ${allServices.length}`);
         console.log('💳 10 дизайнов карт готовы!');
+        console.log('💬 Комментарии в реальном времени!');
     </script>
 </body>
 </html>
