@@ -865,13 +865,12 @@
         }];
 
         // ============================================================
-        // ЗАГРУЗКА ДАННЫХ (ОДИН РАЗ)
+        // ЗАГРУЗКА ДАННЫХ
         // ============================================================
         async function loadAllData() {
             if (isDataLoaded) return;
 
             try {
-                // Мастера
                 const mastersSnap = await getDocs(collection(db, 'masters'));
                 if (mastersSnap.empty) {
                     for (const m of DEFAULT_MASTERS) {
@@ -883,7 +882,6 @@
                     mastersSnap.forEach(d => allMasters.push({ id: d.id, ...d.data() }));
                 }
 
-                // Услуги
                 allServices = [];
                 allMasters.forEach(m => {
                     if (m.services) {
@@ -893,12 +891,10 @@
                     }
                 });
 
-                // Блог
                 const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
                 allBlogPosts = [];
                 blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
 
-                // Клиенты
                 const usersSnap = await getDocs(collection(db, 'users'));
                 allUsers = [];
                 usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
@@ -1321,6 +1317,7 @@
                 email: email,
                 minutes: 0,
                 cardId: cardId,
+                cardDesign: 'onyx_gold',
                 history: [],
                 createdAt: new Date().toISOString()
             });
@@ -1379,6 +1376,9 @@
             document.body.style.overflow = '';
         };
 
+        // ============================================================
+        // ПОПОЛНЕНИЕ / СПИСАНИЕ МИНУТ (ИСПРАВЛЕНО)
+        // ============================================================
         window.addMinutes = async function(userId) {
             const amount = prompt('Сколько минут добавить?', '30');
             if (!amount) return;
@@ -1400,6 +1400,7 @@
             await updateDoc(userRef, { minutes: newMinutes, history });
             await reloadUsers();
             renderContent('clients');
+            alert(`✅ Добавлено ${num} минут. Новый баланс: ${newMinutes}`);
         };
 
         window.spendMinutes = async function(userId) {
@@ -1408,13 +1409,13 @@
             const userData = userSnap.data();
             const current = userData.minutes || 0;
 
-            if (current <= 0) { alert('У клиента 0 минут. Сначала пополните баланс.'); return; }
+            if (current <= 0) { alert('❌ У клиента 0 минут. Сначала пополните баланс.'); return; }
 
             const amount = prompt(`Списать минут (доступно: ${current})`, '10');
             if (!amount) return;
             const num = parseInt(amount);
             if (isNaN(num) || num <= 0) { alert('Введите число > 0'); return; }
-            if (num > current) { alert(`Недостаточно минут. Доступно: ${current}`); return; }
+            if (num > current) { alert(`❌ Недостаточно минут. Доступно: ${current}`); return; }
 
             const newMinutes = current - num;
             const history = userData.history || [];
@@ -1428,6 +1429,7 @@
             await updateDoc(userRef, { minutes: newMinutes, history });
             await reloadUsers();
             renderContent('clients');
+            alert(`✅ Списано ${num} минут. Новый баланс: ${newMinutes}`);
         };
 
         async function reloadUsers() {
@@ -1455,7 +1457,6 @@
         // ============================================================
         // ЗАПУСК
         // ============================================================
-        // Если сессия уже есть — загружаем данные
         if (sessionStorage.getItem('admin_session') === 'true') {
             await loadAllData();
         }
