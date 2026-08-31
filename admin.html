@@ -164,7 +164,6 @@
             background: #219A52;
         }
 
-        /* ===== СТРАНИЦА ВХОДА ===== */
         .login-page {
             display: flex;
             align-items: center;
@@ -234,7 +233,6 @@
             color: var(--gold);
         }
 
-        /* ===== АДМИН-ПАНЕЛЬ ===== */
         .admin-panel {
             display: none;
         }
@@ -696,7 +694,7 @@
 
     <div class="container" id="app">
 
-        <!-- ===== СТРАНИЦА ВХОДА ===== -->
+        <!-- ===== ВХОД ===== -->
         <div id="loginPage" class="login-page">
             <div class="glass-card login-box">
                 <i class="fas fa-crown icon"></i>
@@ -785,6 +783,7 @@
         let currentTab = 'dashboard';
         let clientSearch = '';
         let isLoggedIn = false;
+        let isDataLoaded = false;
 
         const DEFAULT_MASTERS = [{
             id: 'natalia',
@@ -866,10 +865,13 @@
         }];
 
         // ============================================================
-        // ИНИЦИАЛИЗАЦИЯ
+        // ЗАГРУЗКА ДАННЫХ (ОДИН РАЗ)
         // ============================================================
-        async function initData() {
+        async function loadAllData() {
+            if (isDataLoaded) return;
+
             try {
+                // Мастера
                 const mastersSnap = await getDocs(collection(db, 'masters'));
                 if (mastersSnap.empty) {
                     for (const m of DEFAULT_MASTERS) {
@@ -880,44 +882,38 @@
                     allMasters = [];
                     mastersSnap.forEach(d => allMasters.push({ id: d.id, ...d.data() }));
                 }
-            } catch (e) {
-                allMasters = DEFAULT_MASTERS;
-            }
 
-            allServices = [];
-            allMasters.forEach(m => {
-                if (m.services) {
-                    m.services.forEach(s => {
-                        allServices.push({ ...s, masterName: m.name, masterId: m.id });
-                    });
-                }
-            });
+                // Услуги
+                allServices = [];
+                allMasters.forEach(m => {
+                    if (m.services) {
+                        m.services.forEach(s => {
+                            allServices.push({ ...s, masterName: m.name, masterId: m.id });
+                        });
+                    }
+                });
 
-            try {
+                // Блог
                 const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
                 allBlogPosts = [];
                 blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
-            } catch (e) {
-                allBlogPosts = [];
-            }
 
-            try {
+                // Клиенты
                 const usersSnap = await getDocs(collection(db, 'users'));
                 allUsers = [];
                 usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
-            } catch (e) {
-                allUsers = [];
-            }
 
-            if (isLoggedIn) {
-                renderContent(currentTab);
+                isDataLoaded = true;
+                console.log('✅ Все данные загружены!');
+            } catch (e) {
+                console.error('Ошибка загрузки данных:', e);
             }
         }
 
         // ============================================================
         // ВХОД / ВЫХОД
         // ============================================================
-        window.adminLogin = function(e) {
+        window.adminLogin = async function(e) {
             e.preventDefault();
             const login = document.getElementById('adminLoginInput').value.trim();
             const password = document.getElementById('adminPasswordInput').value.trim();
@@ -929,7 +925,9 @@
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
                 sessionStorage.setItem('admin_session', 'true');
-                renderContent('dashboard');
+
+                await loadAllData();
+                renderContent(currentTab);
             } else {
                 errorEl.style.display = 'block';
                 document.getElementById('adminPasswordInput').value = '';
@@ -953,6 +951,9 @@
             isLoggedIn = true;
             document.getElementById('loginPage').style.display = 'none';
             document.getElementById('adminPanel').style.display = 'block';
+            loadAllData().then(() => {
+                renderContent('dashboard');
+            });
         }
 
         // ============================================================
@@ -966,9 +967,8 @@
             renderContent(tab);
         };
 
-        async function renderContent(tab) {
+        function renderContent(tab) {
             const container = document.getElementById('adminContent');
-            await initData();
             switch (tab) {
                 case 'dashboard':
                     container.innerHTML = renderDashboard();
@@ -1082,7 +1082,6 @@
             return html;
         }
 
-        // Глобальные функции для мастеров
         window.addMaster = async function() {
             const name = document.getElementById('newMasterName').value.trim();
             const specialty = document.getElementById('newMasterSpecialty').value.trim();
@@ -1099,19 +1098,19 @@
                 services: []
             };
             await setDoc(doc(db, 'masters', newMaster.id), newMaster);
-            await initData();
+            await reloadMasters();
             renderContent('masters');
         };
 
         window.updateMaster = async function(id, field, value) {
             await updateDoc(doc(db, 'masters', id), { [field]: value });
-            await initData();
+            await reloadMasters();
         };
 
         window.deleteMaster = async function(id) {
             if (!confirm('Удалить мастера?')) return;
             await deleteDoc(doc(db, 'masters', id));
-            await initData();
+            await reloadMasters();
             renderContent('masters');
         };
 
@@ -1126,7 +1125,7 @@
             const services = master.services || [];
             services.push({ name, category, price, duration });
             await updateDoc(doc(db, 'masters', masterId), { services });
-            await initData();
+            await reloadMasters();
             renderContent('masters');
         };
 
@@ -1136,9 +1135,23 @@
             if (!confirm(`Удалить "${master.services[index].name}"?`)) return;
             const services = master.services.filter((_, i) => i !== index);
             await updateDoc(doc(db, 'masters', masterId), { services });
-            await initData();
+            await reloadMasters();
             renderContent('masters');
         };
+
+        async function reloadMasters() {
+            const mastersSnap = await getDocs(collection(db, 'masters'));
+            allMasters = [];
+            mastersSnap.forEach(d => allMasters.push({ id: d.id, ...d.data() }));
+            allServices = [];
+            allMasters.forEach(m => {
+                if (m.services) {
+                    m.services.forEach(s => {
+                        allServices.push({ ...s, masterName: m.name, masterId: m.id });
+                    });
+                }
+            });
+        }
 
         // ============================================================
         // БЛОГ
@@ -1225,7 +1238,7 @@
                 date: new Date().toISOString()
             });
 
-            await initData();
+            await reloadBlog();
             renderContent('blog');
             document.getElementById('newBlogTitle').value = '';
             document.getElementById('newBlogContent').value = '';
@@ -1236,9 +1249,15 @@
         window.deleteBlog = async function(id) {
             if (!confirm('Удалить пост?')) return;
             await deleteDoc(doc(db, 'blog', id));
-            await initData();
+            await reloadBlog();
             renderContent('blog');
         };
+
+        async function reloadBlog() {
+            const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
+            allBlogPosts = [];
+            blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
+        }
 
         // ============================================================
         // КЛИЕНТЫ
@@ -1305,7 +1324,7 @@
                 history: [],
                 createdAt: new Date().toISOString()
             });
-            await initData();
+            await reloadUsers();
             renderContent('clients');
             alert(`✅ Клиент "${name}" добавлен! ID карты: ${cardId}`);
         };
@@ -1379,7 +1398,7 @@
             });
 
             await updateDoc(userRef, { minutes: newMinutes, history });
-            await initData();
+            await reloadUsers();
             renderContent('clients');
         };
 
@@ -1407,9 +1426,15 @@
             });
 
             await updateDoc(userRef, { minutes: newMinutes, history });
-            await initData();
+            await reloadUsers();
             renderContent('clients');
         };
+
+        async function reloadUsers() {
+            const usersSnap = await getDocs(collection(db, 'users'));
+            allUsers = [];
+            usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
+        }
 
         // ============================================================
         // УТИЛИТЫ
@@ -1430,14 +1455,9 @@
         // ============================================================
         // ЗАПУСК
         // ============================================================
-        await initData();
-
-        // Если сессия уже есть — показываем админку
+        // Если сессия уже есть — загружаем данные
         if (sessionStorage.getItem('admin_session') === 'true') {
-            isLoggedIn = true;
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('adminPanel').style.display = 'block';
-            renderContent('dashboard');
+            await loadAllData();
         }
 
         console.log('🔐 Админка Студия №1 загружена!');
