@@ -20,6 +20,9 @@
     </script>
 
     <style>
+        /* ============================================================
+           ВСЕ СТИЛИ (те же, что и были)
+           ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -858,7 +861,7 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА КЛИЕНТА -->
+    <!-- МОДАЛКИ -->
     <div class="modal-overlay" id="clientModal">
         <div class="modal">
             <button class="modal-close" onclick="closeClientModal()">&times;</button>
@@ -866,7 +869,6 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ ПОСТА -->
     <div class="modal-overlay" id="deleteConfirmModal">
         <div class="modal" style="max-width:420px;">
             <button class="modal-close" onclick="closeDeleteConfirm()">&times;</button>
@@ -1113,7 +1115,7 @@
                     container.innerHTML = renderClients();
                     break;
                 default:
-                    container.innerHTML = '<p>Раздел в разработке</p>';
+                    container.innerHTML = '<p style="color:var(--text-muted);padding:40px 0;text-align:center;">Раздел в разработке</p>';
             }
         }
 
@@ -1284,27 +1286,30 @@
         }
 
         // ============================================================
-        // БЛОГ — НОВАЯ ВЕРСИЯ (BASE64)
+        // БЛОГ — ИСПРАВЛЕННАЯ ВЕРСИЯ (БЕЗ UNDEFINED)
         // ============================================================
         function renderBlog() {
+            // Убеждаемся, что allBlogPosts — это массив
+            const posts = Array.isArray(allBlogPosts) ? allBlogPosts : [];
+            
             let postsHtml = '';
-            if (allBlogPosts.length === 0) {
+            if (posts.length === 0) {
                 postsHtml = `<p style="color:var(--text-muted);text-align:center;padding:40px 0;grid-column:1/-1;">Нет постов. Создайте первый!</p>`;
             } else {
-                postsHtml = allBlogPosts.map(p => {
+                postsHtml = posts.map(p => {
                     const statusClass = p.status === 'draft' ? 'draft' : 'published';
                     const statusLabel = p.status === 'draft' ? 'Черновик' : 'Опубликовано';
                     const imageHtml = p.image && p.image !== '' ?
-                        `<img src="${p.image}" class="post-image" alt="${escapeHTML(p.title)}" loading="lazy" />` :
+                        `<img src="${p.image}" class="post-image" alt="${escapeHTML(p.title || '')}" loading="lazy" />` :
                         `<div class="post-image-placeholder"><i class="fas fa-image" style="font-size:32px;opacity:0.2;"></i></div>`;
 
                     return `
                         <div class="blog-post-card">
                             ${imageHtml}
                             <div class="post-body">
-                                <div class="post-title">${escapeHTML(p.title)}</div>
+                                <div class="post-title">${escapeHTML(p.title || 'Без заголовка')}</div>
                                 <div class="post-date">📅 ${formatDate(p.date)}</div>
-                                <div class="post-excerpt">${escapeHTML(p.content)}</div>
+                                <div class="post-excerpt">${escapeHTML(p.content || '')}</div>
                                 <span class="post-status ${statusClass}">${statusLabel}</span>
                             </div>
                             <div class="post-actions">
@@ -1320,8 +1325,7 @@
                 }).join('');
             }
 
-            const container = document.getElementById('adminContent');
-            container.innerHTML = `
+            return `
                 <div style="margin-bottom:20px;padding:20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
                     <h4 style="margin-bottom:12px;font-size:18px;color:var(--text-primary);">✍️ Создать новый пост</h4>
 
@@ -1363,15 +1367,17 @@
                     </div>
                 </div>
 
-                <h4 style="margin-bottom:16px;color:var(--text-primary);">📰 Все посты (${allBlogPosts.length})</h4>
+                <h4 style="margin-bottom:16px;color:var(--text-primary);">📰 Все посты (${posts.length})</h4>
                 <div class="blog-posts-grid" id="blogPostsGrid">
                     ${postsHtml}
                 </div>
             `;
+        }
 
-            // ============================================================
-            // НАВЕШИВАЕМ ОБРАБОТЧИКИ
-            // ============================================================
+        // ============================================================
+        // НАВЕШИВАНИЕ ОБРАБОТЧИКОВ ПОСЛЕ РЕНДЕРИНГА
+        // ============================================================
+        function attachBlogHandlers() {
             const fileInput = document.getElementById('newBlogImage');
             const titleInput = document.getElementById('newBlogTitle');
             const contentInput = document.getElementById('newBlogContent');
@@ -1387,7 +1393,6 @@
                     const fileNameSpan = document.getElementById('blogFileName');
 
                     if (file) {
-                        // Проверяем тип
                         const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml',
                             'image/bmp', 'image/tiff'
                         ];
@@ -1398,7 +1403,6 @@
                             return;
                         }
 
-                        // Проверяем размер (макс 300KB для Base64)
                         if (file.size > 300 * 1024) {
                             alert('⚠️ Файл слишком большой. Максимальный размер — 300KB.');
                             this.value = '';
@@ -1409,7 +1413,6 @@
                         if (fileNameSpan) fileNameSpan.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) +
                             ' KB)';
 
-                        // Превью фото через Base64
                         const container = document.getElementById('previewImageContainer');
                         if (container) {
                             const reader = new FileReader();
@@ -1430,7 +1433,6 @@
                 });
             }
 
-            // Обновление превью текста
             function updatePreview() {
                 const preview = document.getElementById('blogPreview');
                 const title = document.getElementById('previewTitle');
@@ -1461,7 +1463,6 @@
                 newContent.addEventListener('input', updatePreview);
             }
 
-            // Публикация
             if (publishBtn) {
                 const newPublishBtn = publishBtn.cloneNode(true);
                 publishBtn.parentNode.replaceChild(newPublishBtn, publishBtn);
@@ -1485,7 +1486,6 @@
 
             let imageData = '';
 
-            // Конвертируем фото в Base64
             if (fileInput && fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
                 try {
@@ -1510,15 +1510,16 @@
                 await addDoc(collection(db, 'blog'), {
                     title,
                     content,
-                    image: imageData, // Сохраняем Base64 прямо в Firestore
+                    image: imageData,
                     status: status,
                     date: new Date().toISOString()
                 });
 
                 await reloadBlog();
                 renderContent('blog');
+                // Переподключаем обработчики
+                setTimeout(attachBlogHandlers, 50);
 
-                // Очищаем форму
                 document.getElementById('newBlogTitle').value = '';
                 document.getElementById('newBlogContent').value = '';
                 document.getElementById('newBlogImage').value = '';
@@ -1540,6 +1541,7 @@
                 await updateDoc(doc(db, 'blog', postId), { status: newStatus });
                 await reloadBlog();
                 renderContent('blog');
+                setTimeout(attachBlogHandlers, 50);
             } catch (e) {
                 alert('❌ Ошибка изменения статуса: ' + e.message);
             }
@@ -1565,6 +1567,7 @@
                 await deleteDoc(doc(db, 'blog', postId));
                 await reloadBlog();
                 renderContent('blog');
+                setTimeout(attachBlogHandlers, 50);
                 closeDeleteConfirm();
             } catch (e) {
                 alert('❌ Ошибка удаления: ' + e.message);
@@ -1578,6 +1581,7 @@
                 blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
             } catch (e) {
                 console.error('Ошибка загрузки блога:', e);
+                allBlogPosts = [];
             }
         }
 
@@ -1783,6 +1787,15 @@
         if (sessionStorage.getItem('admin_session') === 'true') {
             await loadAllData();
         }
+
+        // Переопределяем renderContent для блога с подключением обработчиков
+        const originalRenderContent = renderContent;
+        renderContent = function(tab) {
+            originalRenderContent(tab);
+            if (tab === 'blog') {
+                setTimeout(attachBlogHandlers, 100);
+            }
+        };
 
         console.log('🔐 Админка Студия №1 загружена!');
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
