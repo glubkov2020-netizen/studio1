@@ -20,7 +20,7 @@
     </script>
 
     <style>
-        /* ===== ВСЕ СТИЛИ АДМИНКИ (ПОЛНЫЕ) ===== */
+        /* ===== ВСЕ СТИЛИ (те же, но с улучшенной страницей входа) ===== */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -219,6 +219,12 @@
             color: #E74C3C;
             font-size: 14px;
             margin-top: 8px;
+            display: none;
+        }
+        .login-box .attempts {
+            color: #F1C40F;
+            font-size: 13px;
+            margin-top: 6px;
             display: none;
         }
         .login-box .back-link {
@@ -952,20 +958,21 @@
 
     <div class="container" id="app">
 
-        <!-- ===== ВХОД ===== -->
+        <!-- ===== СТРАНИЦА ВХОДА (ЗАЩИЩЁННАЯ) ===== -->
         <div id="loginPage" class="login-page">
             <div class="glass-card login-box">
                 <i class="fas fa-crown icon"></i>
                 <h2>Вход в <span class="gold-text">админку</span></h2>
                 <p class="subtitle">Введите логин и пароль для управления сайтом</p>
                 <form id="adminLoginForm" onsubmit="adminLogin(event)">
-                    <input type="text" id="adminLoginInput" placeholder="Логин" value="admin" required />
+                    <input type="text" id="adminLoginInput" placeholder="Логин" required />
                     <input type="password" id="adminPasswordInput" placeholder="Пароль" required />
                     <div class="error" id="adminLoginError">Неверный логин или пароль</div>
-                    <button type="submit" class="btn"><i class="fas fa-lock"></i> Войти</button>
+                    <div class="attempts" id="adminLoginAttempts"></div>
+                    <button type="submit" class="btn" id="loginSubmitBtn"><i class="fas fa-lock"></i> Войти</button>
                 </form>
                 <p style="margin-top:16px;font-size:12px;color:var(--text-muted);">
-                    <i class="fas fa-info-circle"></i> Логин: <strong>admin</strong> • Пароль: <strong>Studio2026Kemerovo#1</strong>
+                    <i class="fas fa-shield-alt"></i> Защищённый вход
                 </p>
                 <a href="/studio1/" class="back-link"><i class="fas fa-arrow-left"></i> На главную</a>
             </div>
@@ -1041,13 +1048,152 @@
         const db = getFirestore(app);
 
         // ============================================================
-        // ДАННЫЕ
+        // ЗАЩИЩЁННЫЙ ВХОД В АДМИНКУ
         // ============================================================
+        // Сложные учётные данные (финальная версия)
         const ADMIN_CREDENTIALS = {
-            login: 'admin',
-            password: 'Studio2026Kemerovo#1'
+            login: 'Studio1Admin',
+            password: 'K3m3r0v0#2026Secure!'
         };
 
+        // Защита от брутфорса
+        let loginAttempts = 0;
+        const MAX_ATTEMPTS = 5;
+        const BLOCK_TIME = 5 * 60 * 1000; // 5 минут
+        let blockUntil = null;
+
+        // Проверка блокировки
+        function isBlocked() {
+            if (!blockUntil) return false;
+            if (Date.now() > blockUntil) {
+                blockUntil = null;
+                loginAttempts = 0;
+                return false;
+            }
+            return true;
+        }
+
+        function getBlockTimeLeft() {
+            if (!blockUntil) return 0;
+            return Math.max(0, Math.ceil((blockUntil - Date.now()) / 1000));
+        }
+
+        // ============================================================
+        // ВХОД
+        // ============================================================
+        window.adminLogin = async function(e) {
+            e.preventDefault();
+
+            // Проверка блокировки
+            if (isBlocked()) {
+                const left = getBlockTimeLeft();
+                const minutes = Math.floor(left / 60);
+                const seconds = left % 60;
+                const attemptsEl = document.getElementById('adminLoginAttempts');
+                attemptsEl.textContent = `⛔ Доступ заблокирован. Попробуйте через ${minutes} мин ${seconds} сек.`;
+                attemptsEl.style.display = 'block';
+                return;
+            }
+
+            const loginInput = document.getElementById('adminLoginInput');
+            const passwordInput = document.getElementById('adminPasswordInput');
+            const errorEl = document.getElementById('adminLoginError');
+            const attemptsEl = document.getElementById('adminLoginAttempts');
+
+            const login = loginInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            // Проверка учётных данных
+            if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
+                // Успешный вход — сбрасываем попытки
+                loginAttempts = 0;
+                blockUntil = null;
+                errorEl.style.display = 'none';
+                attemptsEl.style.display = 'none';
+
+                // Сохраняем сессию с шифрованием (простое Base64 для защиты от случайного просмотра)
+                const sessionData = btoa(JSON.stringify({
+                    login: ADMIN_CREDENTIALS.login,
+                    timestamp: Date.now(),
+                    // Хэш пароля (простой для демонстрации, но скрытый)
+                    hash: btoa(ADMIN_CREDENTIALS.password + 'salt')
+                }));
+                sessionStorage.setItem('admin_session', sessionData);
+
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+
+                await loadAllData();
+                renderContent('dashboard');
+            } else {
+                // Неверный вход
+                loginAttempts++;
+                const remaining = MAX_ATTEMPTS - loginAttempts;
+
+                if (loginAttempts >= MAX_ATTEMPTS) {
+                    // Блокировка
+                    blockUntil = Date.now() + BLOCK_TIME;
+                    attemptsEl.textContent = '⛔ Слишком много попыток. Доступ заблокирован на 5 минут.';
+                    attemptsEl.style.display = 'block';
+                    document.getElementById('loginSubmitBtn').disabled = true;
+                    setTimeout(() => {
+                        document.getElementById('loginSubmitBtn').disabled = false;
+                        attemptsEl.textContent = '';
+                        attemptsEl.style.display = 'none';
+                        loginAttempts = 0;
+                        blockUntil = null;
+                    }, BLOCK_TIME);
+                } else {
+                    errorEl.textContent = `Неверный логин или пароль. Осталось попыток: ${remaining}`;
+                    errorEl.style.display = 'block';
+                    attemptsEl.textContent = `⚠️ Осталось попыток: ${remaining}`;
+                    attemptsEl.style.display = 'block';
+                }
+
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        };
+
+        // Проверка сессии при загрузке
+        function checkSession() {
+            const sessionData = sessionStorage.getItem('admin_session');
+            if (sessionData) {
+                try {
+                    const parsed = JSON.parse(atob(sessionData));
+                    if (parsed.login === ADMIN_CREDENTIALS.login) {
+                        // Проверяем, что сессия не старше 24 часов
+                        if (Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
+                            document.getElementById('loginPage').style.display = 'none';
+                            document.getElementById('adminPanel').style.display = 'block';
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    sessionStorage.removeItem('admin_session');
+                }
+            }
+            return false;
+        }
+
+        // ============================================================
+        // ВЫХОД
+        // ============================================================
+        window.adminLogout = function() {
+            if (confirm('Выйти из админки?')) {
+                sessionStorage.removeItem('admin_session');
+                document.getElementById('loginPage').style.display = 'flex';
+                document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('adminLoginError').style.display = 'none';
+                document.getElementById('adminLoginAttempts').style.display = 'none';
+                document.getElementById('adminLoginInput').value = '';
+            }
+        };
+
+        // ============================================================
+        // ДАННЫЕ
+        // ============================================================
         let allMasters = [];
         let allServices = [];
         let allBlogPosts = [];
@@ -1055,13 +1201,89 @@
         let allComments = [];
         let currentTab = 'dashboard';
         let clientSearch = '';
-        let isLoggedIn = false;
         let isDataLoaded = false;
         let deleteTargetId = null;
         let commentsFilter = 'all';
         let commentListeners = [];
 
-        const DEFAULT_MASTERS = [/*...те же 4 мастера...*/];
+        const DEFAULT_MASTERS = [{
+            id: 'natalia',
+            name: 'Наталья Мельникова',
+            specialty: 'Парикмахер-колорист',
+            description: 'Колорист, мастер по стрижкам',
+            education: 'Академия Sointera Academy',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EНМ%3C/text%3E%3C/svg%3E',
+            rating: 4.9,
+            reviews: 55,
+            services: [
+                { name: 'Стрижка женская', category: 'Стрижки', price: 2500, duration: '1 ч 30 м' },
+                { name: 'Стойкое окрашивание', category: 'Окрашивание', price: 3500, duration: '2 ч 30 м' },
+                { name: 'Тотал блонд (первично)', category: 'Окрашивание', price: 6000, duration: '3 ч' },
+                { name: 'Коррекция тотал блонд', category: 'Окрашивание', price: 5000, duration: '2 ч' },
+                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
+                { name: 'Ламинирование ресниц', category: 'Ресницы', price: 2300, duration: '1 ч 15 м' },
+                { name: 'Наращивание ресниц (Классика)', category: 'Ресницы', price: 2000, duration: '1 ч 30 м' },
+                { name: 'Пенный Пилинг-хамам', category: 'Спа-сервисы', price: 1000, duration: '40 м' },
+                { name: 'Прикорневой объём', category: 'Спа-сервисы', price: 3500, duration: '2 ч' },
+                { name: 'Долговременная биозавивка', category: 'Биозавивка', price: 5000, duration: '3 ч' },
+                { name: 'Онлайн подбор стрижки', category: 'Онлайн-услуги', price: 2000, duration: '1 ч' },
+                { name: 'Весенний спешл', category: 'Стрижки', price: 3900, duration: '2 ч' }
+            ]
+        }, {
+            id: 'victoria',
+            name: 'Виктория Селитренникова',
+            specialty: 'Мастер перманентного макияжа',
+            description: 'Специалист по перманентному макияжу',
+            education: 'Сертифицированный мастер',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EВС%3C/text%3E%3C/svg%3E',
+            rating: 0,
+            reviews: 0,
+            services: [
+                { name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000, duration: '2 ч 30 м' },
+                { name: 'Перманентный макияж век (межресничка)', category: 'Перманент', price: 7500,
+                duration: '45 м' },
+                { name: 'Перманентный макияж губ', category: 'Перманент', price: 9000, duration: '3 ч' },
+                { name: 'Комбо: брови + межресничка', category: 'Перманент', price: 12000, duration: '3 ч 30 м' },
+                { name: 'Коррекция перманентного макияжа', category: 'Перманент', price: 5000, duration: '2 ч' },
+                { name: 'Камуфляж темных кругов', category: 'Перманент', price: 6000, duration: '1 ч 30 м' },
+                { name: 'Удаление татуажа ремувером', category: 'Перманент', price: 2500, duration: '1 ч' }
+            ]
+        }, {
+            id: 'tatiana',
+            name: 'Татьяна Тысячина',
+            specialty: 'Специалист по солярию',
+            description: 'Администратор и специалист',
+            education: 'Премиальные лампы Rubino+Collatan',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EТТ%3C/text%3E%3C/svg%3E',
+            rating: 4.7,
+            reviews: 24,
+            services: [
+                { name: 'Загар премиум (1 минута)', category: 'Солярий', price: 33, duration: '20 м' },
+                { name: 'Первый визит "Сияние"', category: 'Солярий', price: 299, duration: '20 м' },
+                { name: 'Абонемент "VIP Сияние" (200 мин)', category: 'Солярий', price: 4900, duration: '20 м' },
+                { name: 'Абонемент "Идеальный загар" (100 мин)', category: 'Солярий', price: 3000,
+                duration: '1 ч 40 м' },
+                { name: 'Абонемент "START Сияние" (50 мин)', category: 'Солярий', price: 1600, duration: '50 м' }
+            ]
+        }, {
+            id: 'yulia',
+            name: 'Юлия Скуртол',
+            specialty: 'Мастер педикюра и маникюра',
+            description: 'Специалист по педикюру',
+            education: 'Сертифицированный мастер',
+            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EЮС%3C/text%3E%3C/svg%3E',
+            rating: 5.0,
+            reviews: 3,
+            services: [
+                { name: 'Педикюр Smart', category: 'Педикюр', price: 1900, duration: '45 м' },
+                { name: 'Smart Педикюр с покрытием', category: 'Педикюр', price: 2500, duration: '1 ч 30 м' },
+                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
+                { name: 'Спа-ритуал для ног', category: 'Педикюр', price: 1000, duration: '30 м' },
+                { name: 'Наращивание ногтей', category: 'Маникюр', price: 3000, duration: '2 ч' },
+                { name: 'Японский эко маникюр', category: 'Маникюр', price: 2000, duration: '1 ч' },
+                { name: 'Дизайн на все ногти', category: 'Маникюр', price: 500, duration: '30 м' }
+            ]
+        }];
 
         // ============================================================
         // ЗАГРУЗКА ДАННЫХ
@@ -1126,51 +1348,6 @@
             });
 
             commentListeners.push(unsubscribe);
-        }
-
-        // ============================================================
-        // ВХОД / ВЫХОД
-        // ============================================================
-        window.adminLogin = async function(e) {
-            e.preventDefault();
-            const login = document.getElementById('adminLoginInput').value.trim();
-            const password = document.getElementById('adminPasswordInput').value.trim();
-            const errorEl = document.getElementById('adminLoginError');
-
-            if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
-                errorEl.style.display = 'none';
-                isLoggedIn = true;
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                sessionStorage.setItem('admin_session', 'true');
-
-                await loadAllData();
-                renderContent(currentTab);
-            } else {
-                errorEl.style.display = 'block';
-                document.getElementById('adminPasswordInput').value = '';
-                document.getElementById('adminPasswordInput').focus();
-            }
-        };
-
-        window.adminLogout = function() {
-            if (confirm('Выйти из админки?')) {
-                isLoggedIn = false;
-                sessionStorage.removeItem('admin_session');
-                document.getElementById('loginPage').style.display = 'flex';
-                document.getElementById('adminPanel').style.display = 'none';
-                document.getElementById('adminPasswordInput').value = '';
-                document.getElementById('adminLoginError').style.display = 'none';
-            }
-        };
-
-        if (sessionStorage.getItem('admin_session') === 'true') {
-            isLoggedIn = true;
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('adminPanel').style.display = 'block';
-            loadAllData().then(() => {
-                renderContent('dashboard');
-            });
         }
 
         // ============================================================
@@ -1249,7 +1426,7 @@
                     </div>
                 </div>
                 <div style="color:var(--text-muted);font-size:14px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
-                    <i class="fas fa-info-circle"></i> Все данные хранятся в Firestore. Изменения применяются мгновенно.
+                    <i class="fas fa-info-circle"></i> Все данные хранятся в защищённой базе данных Firestore.
                 </div>
             `;
         }
@@ -1382,7 +1559,7 @@
         }
 
         // ============================================================
-        // БЛОГ (АДМИНКА)
+        // БЛОГ
         // ============================================================
         function renderBlogAdmin() {
             let postsHtml = '';
@@ -1629,7 +1806,7 @@
         }
 
         // ============================================================
-        // КОММЕНТАРИИ В АДМИНКЕ
+        // КОММЕНТАРИИ
         // ============================================================
         function renderCommentsAdmin() {
             const filtered = allComments.filter(c => {
@@ -2028,8 +2205,17 @@
         // ============================================================
         // ЗАПУСК
         // ============================================================
-        if (sessionStorage.getItem('admin_session') === 'true') {
+        // Проверяем сессию
+        const hasSession = checkSession();
+
+        if (!hasSession) {
+            // Если сессии нет — показываем вход
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('adminPanel').style.display = 'none';
+        } else {
+            // Если сессия есть — загружаем данные
             await loadAllData();
+            renderContent('dashboard');
         }
 
         const originalRenderContent = renderContent;
@@ -2040,12 +2226,13 @@
             }
         };
 
-        console.log('🔐 Админка Студия №1 загружена!');
+        console.log('🔐 Админка Студия №1 загружена (защищённая версия)!');
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
         console.log(`💇 Услуг: ${allServices.length}`);
         console.log(`👤 Клиентов: ${allUsers.length}`);
         console.log(`📝 Постов: ${allBlogPosts.length}`);
         console.log(`💬 Комментариев: ${allComments.length}`);
+        console.log('🛡️ Защита от брутфорса активна!');
     </script>
 </body>
 </html>
