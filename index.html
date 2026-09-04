@@ -22,7 +22,7 @@
 
     <style>
         /* ============================================================
-           ВСЕ СТИЛИ (ПОЛНЫЕ, БЕЗ ЛИШНЕГО КОДА В КАРТЕ)
+           БАЗОВЫЕ СТИЛИ (ПОЛНЫЕ)
            ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
@@ -1043,86 +1043,179 @@
         }
 
         /* ============================================================
-           ПРЕМИАЛЬНАЯ КАРТА МИНУТ (ИСПРАВЛЕНА)
+           КАРТА МИНУТ — ПРЕМИАЛЬНАЯ ВЕРСИЯ
            ============================================================ */
         .card-wrapper {
-            perspective: 1400px;
+            perspective: 1600px;
             width: 100%;
-            max-width: 440px;
+            max-width: 480px;
             margin: 0 auto 30px;
             cursor: pointer;
+            position: relative;
         }
+
+        .card-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            z-index: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(201, 169, 110, 0.08), transparent 70%);
+            filter: blur(40px);
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .card-wrapper:hover::after {
+            opacity: 1;
+        }
+
         .card-flip {
             width: 100%;
-            aspect-ratio: 440 / 270;
+            aspect-ratio: 480 / 300;
             position: relative;
-            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
             transform-style: preserve-3d;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 215, 0, 0.1);
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.06);
+            z-index: 1;
         }
+
         .card-flip.flipped {
             transform: rotateY(180deg);
         }
+
         .card-face {
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 24px;
+            border-radius: 28px;
             overflow: hidden;
         }
 
+        /* ---- Фронт (лицевая сторона) ---- */
         .card-front {
             transform: rotateY(0deg);
             z-index: 2;
-            background: radial-gradient(ellipse at 30% 20%, #2a2a2a, #0a0a0a);
-            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.7);
+            position: relative;
             color: #f0e6c5;
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.3);
         }
-        .card-front::before {
+
+        .card-front .bg-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .card-front .bg-overlay::before {
             content: '';
             position: absolute;
-            top: -40%;
-            right: -20%;
-            width: 80%;
-            height: 120%;
-            background: radial-gradient(ellipse, rgba(255, 215, 0, 0.06), transparent 70%);
-            pointer-events: none;
-            animation: glowPulse 6s ease-in-out infinite alternate;
-            z-index: 3;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.06), transparent 60%);
         }
-        @keyframes glowPulse {
+
+        .card-front .bg-overlay::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 80% 80%, rgba(255, 215, 0, 0.04), transparent 50%);
+        }
+
+        /* Паттерны для разных карт */
+        .card-front .pattern {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.06;
+        }
+
+        .card-front .pattern.diamonds {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 215, 0, 0.1) 10px, rgba(255, 215, 0, 0.1) 11px);
+        }
+
+        .card-front .pattern.lines {
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 8px, rgba(255, 255, 255, 0.03) 8px, rgba(255, 255, 255, 0.03) 9px);
+        }
+
+        .card-front .pattern.circles {
+            background-image: radial-gradient(circle, rgba(255, 215, 0, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .card-front .pattern.hexagons {
+            background-image: repeating-linear-gradient(60deg, transparent, transparent 20px, rgba(255, 215, 0, 0.04) 20px, rgba(255, 215, 0, 0.04) 21px),
+                repeating-linear-gradient(-60deg, transparent, transparent 20px, rgba(255, 215, 0, 0.04) 20px, rgba(255, 215, 0, 0.04) 21px);
+        }
+
+        .card-front .pattern.waves {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255, 215, 0, 0.03) 15px, rgba(255, 215, 0, 0.03) 16px);
+            background-size: 30px 30px;
+        }
+
+        .card-front .glow-spot {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.15;
+            animation: glowFloat 6s ease-in-out infinite alternate;
+        }
+
+        .card-front .glow-spot.tl {
+            top: -30px;
+            left: -30px;
+            width: 150px;
+            height: 150px;
+        }
+
+        .card-front .glow-spot.br {
+            bottom: -30px;
+            right: -30px;
+            width: 200px;
+            height: 200px;
+            animation-delay: 3s;
+        }
+
+        .card-front .glow-spot.tr {
+            top: -20px;
+            right: -20px;
+            width: 120px;
+            height: 120px;
+            animation-delay: 1.5s;
+        }
+
+        .card-front .glow-spot.bl {
+            bottom: -20px;
+            left: -20px;
+            width: 120px;
+            height: 120px;
+            animation-delay: 4.5s;
+        }
+
+        @keyframes glowFloat {
             0% {
-                opacity: 0.4;
-                transform: scale(1);
+                transform: scale(1) translate(0, 0);
+                opacity: 0.08;
             }
             100% {
-                opacity: 0.9;
-                transform: scale(1.2);
+                transform: scale(1.3) translate(10px, -10px);
+                opacity: 0.2;
             }
-        }
-        .card-front::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.04) 0%, transparent 40%, rgba(255, 215, 0, 0.02) 80%);
-            pointer-events: none;
-            z-index: 2;
         }
 
         .front-content {
             position: relative;
             z-index: 5;
             height: 100%;
-            padding: 20px 24px;
+            padding: 22px 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
         }
 
         .card-header {
@@ -1130,78 +1223,145 @@
             justify-content: space-between;
             align-items: flex-start;
         }
+
         .card-brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
+
+        .card-brand .brand-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.4s ease;
+        }
+
+        .card-wrapper:hover .brand-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
         .card-brand .logo-text {
-            font-size: clamp(16px, 2.5vw, 20px);
+            font-size: clamp(18px, 2.5vw, 22px);
             font-weight: 700;
             letter-spacing: 2px;
-            color: #f5e7b0;
             text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+            line-height: 1.1;
         }
+
         .card-brand .logo-text small {
-            font-weight: 300;
-            font-size: 10px;
-            opacity: 0.5;
             display: block;
-            letter-spacing: 3px;
-            margin-top: -2px;
+            font-weight: 300;
+            font-size: 9px;
+            letter-spacing: 4px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            margin-top: 1px;
         }
+
         .card-chip {
-            width: 40px;
-            height: 30px;
-            background: linear-gradient(135deg, #d4b87a, #b8944a);
-            border-radius: 6px;
-            box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            width: 44px;
+            height: 32px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.08);
         }
+
         .card-chip::after {
             content: '';
-            width: 24px;
-            height: 16px;
-            border: 2px solid rgba(255, 215, 0, 0.15);
+            width: 28px;
+            height: 18px;
+            border: 2px solid rgba(255, 215, 0, 0.12);
             border-radius: 4px;
-            background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255, 215, 0, 0.05) 3px, rgba(255, 215, 0, 0.05) 5px);
+            background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 215, 0, 0.04) 2px, rgba(255, 215, 0, 0.04) 4px);
+        }
+
+        .card-chip.hologram {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.15));
+            animation: hologramShine 3s ease-in-out infinite;
+        }
+
+        @keyframes hologramShine {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .card-balance {
             text-align: center;
-            margin: 4px 0 0;
+            margin: 2px 0 0;
+            position: relative;
         }
+
         .card-balance .number {
-            font-size: clamp(40px, 10vw, 56px);
+            font-size: clamp(48px, 12vw, 68px);
             font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(180deg, #f5e7b0, #d4b87a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: -2px;
             line-height: 1;
+            position: relative;
+            display: inline-block;
+            transition: all 0.3s ease;
         }
-        .card-balance .label {
-            font-size: clamp(12px, 1.5vw, 16px);
+
+        .card-balance .number .currency {
+            font-size: 28px;
             font-weight: 300;
-            letter-spacing: 4px;
-            color: rgba(255, 215, 0, 0.5);
+            opacity: 0.5;
+            margin-right: 4px;
+        }
+
+        .card-balance .number .count {
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+
+        .card-balance .number .count.pulse {
+            animation: countPulse 0.4s ease;
+        }
+
+        @keyframes countPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .card-balance .label {
+            font-size: clamp(11px, 1.2vw, 14px);
+            font-weight: 300;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            margin-top: 2px;
             display: block;
+            margin-top: -2px;
+            opacity: 0.6;
         }
 
         .card-id {
             text-align: center;
-            font-size: clamp(10px, 1.2vw, 12px);
             font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
-            color: rgba(255, 215, 0, 0.3);
+            font-size: clamp(11px, 1.2vw, 13px);
+            letter-spacing: 3px;
+            opacity: 0.4;
             margin-top: 2px;
         }
 
@@ -1209,124 +1369,187 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-top: 8px;
+            margin-top: 4px;
         }
+
         .card-footer-details .valid {
             font-size: 10px;
             letter-spacing: 2px;
-            color: rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
+            opacity: 0.4;
         }
+
         .card-footer-details .valid span {
             display: block;
-            font-size: clamp(14px, 1.8vw, 18px);
-            color: #f5e7b0;
+            font-size: clamp(16px, 2vw, 20px);
             letter-spacing: 3px;
             font-weight: 500;
             margin-top: 1px;
+            opacity: 0.9;
         }
+
         .card-footer-details .holder {
             text-align: right;
         }
+
         .card-footer-details .holder .label {
             font-size: 9px;
             letter-spacing: 2px;
-            color: rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
+            opacity: 0.4;
         }
+
         .card-footer-details .holder .name {
-            font-size: clamp(14px, 1.8vw, 18px);
+            font-size: clamp(16px, 2vw, 20px);
             font-weight: 500;
             letter-spacing: 2px;
-            color: #f5e7b0;
             text-transform: uppercase;
+            opacity: 0.9;
         }
 
         .card-premium-tag {
             position: absolute;
-            bottom: 10px;
-            right: 20px;
+            bottom: 12px;
+            right: 24px;
             font-size: 10px;
             letter-spacing: 3px;
-            color: rgba(255, 215, 0, 0.15);
             text-transform: uppercase;
+            opacity: 0.12;
             z-index: 6;
+            font-weight: 300;
         }
 
+        .card-front .shine-line {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02), transparent);
+            transform: skewX(-20deg);
+            z-index: 3;
+            pointer-events: none;
+            animation: shineSlide 8s ease-in-out infinite;
+        }
+
+        @keyframes shineSlide {
+            0% {
+                left: -100%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            30% {
+                left: 150%;
+                opacity: 0;
+            }
+            100% {
+                left: 150%;
+                opacity: 0;
+            }
+        }
+
+        /* ---- Бэк (оборотная сторона) ---- */
         .card-back {
             transform: rotateY(180deg);
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a, #2a2a2a);
-            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
-            padding: 20px 24px;
+            padding: 22px 28px;
             justify-content: space-between;
             color: #f0e6c5;
+            position: relative;
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.2);
         }
-        .card-back::before {
-            content: '';
+
+        .card-back .back-glow {
             position: absolute;
-            top: -30%;
-            left: -30%;
-            width: 160%;
-            height: 160%;
-            background: radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05), transparent 50%);
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
             pointer-events: none;
-            animation: backGlow 10s infinite alternate;
+            opacity: 0.06;
+            animation: backGlowFloat 10s ease-in-out infinite alternate;
         }
-        @keyframes backGlow {
+
+        .card-back .back-glow.tl {
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+        }
+
+        .card-back .back-glow.br {
+            bottom: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            animation-delay: 5s;
+        }
+
+        @keyframes backGlowFloat {
             0% {
                 transform: translateX(-5%) rotate(0deg);
-                opacity: 0.3;
+                opacity: 0.04;
             }
             100% {
                 transform: translateX(5%) rotate(5deg);
-                opacity: 0.8;
+                opacity: 0.1;
             }
         }
 
         .back-stripe {
             width: 100%;
-            height: 40px;
-            background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
-            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 0 rgba(255, 215, 0, 0.08);
-            border-radius: 4px;
+            height: 44px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
-            padding: 0 16px;
+            padding: 0 18px;
             position: relative;
+            z-index: 1;
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
         }
-        .back-stripe::after {
-            content: '••••••••••••••••••••••••••••••••••••••••';
-            letter-spacing: 2px;
+
+        .back-stripe .stripe-text {
+            letter-spacing: 3px;
             font-size: 12px;
-            color: #444;
-            opacity: 0.5;
-            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            opacity: 0.4;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .back-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 12px;
+            margin-top: 10px;
+            z-index: 1;
+            position: relative;
         }
+
         .back-phone {
-            font-size: clamp(12px, 1.5vw, 14px);
-            color: #C9A96E;
+            font-size: clamp(13px, 1.5vw, 15px);
             font-weight: 500;
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+
         .back-phone i {
-            margin-right: 8px;
-            color: var(--gold);
-            opacity: 0.7;
+            opacity: 0.6;
+            font-size: 14px;
         }
+
         .back-since {
             font-size: 11px;
-            color: rgba(255, 215, 0, 0.3);
             letter-spacing: 3px;
             text-transform: uppercase;
+            opacity: 0.3;
+            font-weight: 300;
         }
 
         .back-footer {
@@ -1334,52 +1557,117 @@
             justify-content: space-between;
             align-items: flex-end;
             margin-top: 12px;
+            z-index: 1;
+            position: relative;
+            border-top: 1px solid rgba(255, 215, 0, 0.04);
+            padding-top: 10px;
         }
+
         .back-footer .brand {
             font-size: 11px;
             letter-spacing: 2px;
-            color: rgba(255, 215, 0, 0.4);
             text-transform: uppercase;
-            border-top: 1px solid rgba(255, 215, 0, 0.1);
-            padding-top: 6px;
-            background: linear-gradient(90deg, #C9A96E, #E8D5A8, #C9A96E);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
             font-weight: 600;
-        }
-        .back-footer .support {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.15);
-            letter-spacing: 1px;
-        }
-        .back-footer .support span {
-            display: block;
-            color: #C9A96E;
-            font-size: 12px;
-            font-weight: 400;
-            margin-top: 2px;
+            opacity: 0.6;
         }
 
-        .corner-glow {
-            position: absolute;
-            width: 100px;
-            height: 100px;
+        .back-footer .support {
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-align: right;
+            opacity: 0.3;
+        }
+
+        .back-footer .support span {
+            display: block;
+            font-size: 13px;
+            font-weight: 400;
+            margin-top: 2px;
+            opacity: 0.7;
+            letter-spacing: 0;
+        }
+
+        /* ---- АНИМАЦИЯ ПРИ ПОЯВЛЕНИИ ---- */
+        .card-wrapper .card-flip {
+            animation: cardAppear 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+        }
+
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ---- СЕЛЕКТОР ДИЗАЙНА ---- */
+        .design-selector {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 24px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(8px);
+        }
+
+        .design-selector label {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .design-selector label i {
+            color: var(--gold);
+        }
+
+        .design-selector select {
+            padding: 10px 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 14px;
+            cursor: pointer;
+            min-width: 180px;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A96E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        .design-selector select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
+        }
+
+        .design-selector select option {
+            padding: 8px;
+        }
+
+        .design-selector .preview-dot {
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.06;
-            z-index: 1;
-            pointer-events: none;
+            border: 2px solid var(--border-color);
+            flex-shrink: 0;
+            transition: var(--transition);
         }
-        .corner-glow.tl {
-            top: -30px;
-            left: -30px;
-            background: radial-gradient(circle, #ffd966, transparent);
-        }
-        .corner-glow.br {
-            bottom: -30px;
-            right: -30px;
-            background: radial-gradient(circle, #ffd966, transparent);
+
+        .design-selector .preview-dot:hover {
+            transform: scale(1.15);
+            border-color: var(--gold);
         }
 
         /* ============================================================
@@ -1753,33 +2041,9 @@
             font-weight: 600;
         }
 
-        .design-selector {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        .design-selector label {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-        .design-selector select {
-            padding: 8px 16px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-size: 14px;
-            cursor: pointer;
-            min-width: 150px;
-        }
-        .design-selector select:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
+        /* ============================================================
+           АДАПТИВ
+           ============================================================ */
         @media (min-width:480px) {
             .services-grid,
             .masters-grid,
@@ -1840,6 +2104,15 @@
                 right: 28px;
                 padding: 18px 32px
             }
+            .card-wrapper {
+                max-width: 520px;
+            }
+            .front-content {
+                padding: 28px 36px;
+            }
+            .card-back {
+                padding: 28px 36px;
+            }
         }
         @media (max-width:768px) {
             .menu-toggle {
@@ -1899,13 +2172,6 @@
                 font-size: 16px;
                 padding: 12px 20px;
             }
-            .design-selector {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .design-selector select {
-                width: 100%;
-            }
             .comment .replies {
                 margin-left: 16px;
                 padding-left: 8px;
@@ -1922,6 +2188,46 @@
             }
             .comment-form .btn {
                 width: 100%;
+            }
+            .design-selector {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .design-selector select {
+                width: 100%;
+                min-width: unset;
+            }
+            .card-wrapper {
+                max-width: 100%;
+            }
+            .front-content {
+                padding: 16px 18px;
+            }
+            .card-back {
+                padding: 16px 18px;
+            }
+            .card-brand .brand-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+            }
+            .card-chip {
+                width: 36px;
+                height: 26px;
+            }
+            .card-chip::after {
+                width: 22px;
+                height: 14px;
+            }
+            .card-balance .number {
+                font-size: 38px;
+            }
+            .card-balance .number .currency {
+                font-size: 20px;
+            }
+            .back-stripe {
+                height: 34px;
             }
         }
         @media (max-width:400px) {
@@ -2195,33 +2501,181 @@
         // ============================================================
         // 10 ДИЗАЙНОВ КАРТ
         // ============================================================
-        const CARD_DESIGNS = [
-            { id: 'onyx_gold', name: 'Onyx Gold', front: 'linear-gradient(145deg, #1a1a1a, #0d0d0d, #1a1a1a)', back: '#0a0a0a', accent: '#C9A96E', textColor: '#f5e7b0' },
-            { id: 'platinum', name: 'Platinum', front: 'linear-gradient(145deg, #2a2a2a, #4a4a4a, #2a2a2a)', back: '#1a1a1a', accent: '#E8D5A8', textColor: '#f0f0f0' },
-            { id: 'rose_gold', name: 'Rose Gold', front: 'linear-gradient(145deg, #2a1a1a, #4a2a2a, #2a1a1a)', back: '#1a0a0a', accent: '#E8A8A8', textColor: '#f5e0e0' },
-            { id: 'carbon', name: 'Carbon', front: 'linear-gradient(145deg, #1a1a1a, #2a2a2a, #1a1a1a)', back: '#111111', accent: '#C9A96E', textColor: '#e0e0e0' },
-            { id: 'midnight_blue', name: 'Midnight Blue', front: 'linear-gradient(145deg, #0a0a2a, #1a1a4a, #0a0a2a)', back: '#0a0a1a', accent: '#C9A96E', textColor: '#c0d0f0' },
-            { id: 'emerald', name: 'Emerald', front: 'linear-gradient(145deg, #0a1a0a, #1a3a1a, #0a1a0a)', back: '#0a1a0a', accent: '#C9A96E', textColor: '#c0e0c0' },
-            { id: 'burgundy', name: 'Burgundy', front: 'linear-gradient(145deg, #2a0a0a, #4a1a1a, #2a0a0a)', back: '#1a0a0a', accent: '#C9A96E', textColor: '#f0c0c0' },
-            { id: 'titanium', name: 'Titanium', front: 'linear-gradient(145deg, #2a2a2a, #5a5a5a, #2a2a2a)', back: '#1a1a1a', accent: '#B8B8B8', textColor: '#f0f0f0' },
-            { id: 'obsidian', name: 'Obsidian', front: 'linear-gradient(145deg, #0a0a0a, #1a1a1a, #0a0a0a)', back: '#050505', accent: '#C9A96E', textColor: '#d0c0a0' },
-            { id: 'royal_gold', name: 'Royal Gold', front: 'linear-gradient(145deg, #1a0a00, #3a2a10, #1a0a00)', back: '#0a0500', accent: '#E8D5A8', textColor: '#f5e7b0' }
-        ];
+        const CARD_DESIGNS = [{
+            id: 'onyx_gold',
+            name: 'Onyx Gold',
+            frontBg: 'linear-gradient(145deg, #1a1208, #0d0a04, #1a1208)',
+            frontAccent: '#C9A96E',
+            frontAccent2: '#E8D5A8',
+            frontText: '#f5e7b0',
+            frontGlow: 'rgba(201, 169, 110, 0.2)',
+            pattern: 'diamonds',
+            chip: 'hologram',
+            icon: '👑',
+            backBg: 'linear-gradient(145deg, #0d0a04, #1a1208)',
+            backAccent: '#C9A96E',
+            backText: '#f5e7b0',
+            backGlow: 'rgba(201, 169, 110, 0.08)',
+            stripeBg: 'rgba(0,0,0,0.4)',
+            description: 'Классический золотой — символ статуса и элегантности'
+        }, {
+            id: 'platinum',
+            name: 'Platinum',
+            frontBg: 'linear-gradient(145deg, #2a2a2a, #4a4a4a, #2a2a2a)',
+            frontAccent: '#E8D5A8',
+            frontAccent2: '#FFFFFF',
+            frontText: '#f0f0f0',
+            frontGlow: 'rgba(200, 200, 200, 0.15)',
+            pattern: 'lines',
+            chip: 'hologram',
+            icon: '💎',
+            backBg: 'linear-gradient(145deg, #1a1a1a, #3a3a3a)',
+            backAccent: '#E8D5A8',
+            backText: '#f0f0f0',
+            backGlow: 'rgba(200, 200, 200, 0.06)',
+            stripeBg: 'rgba(255,255,255,0.05)',
+            description: 'Платиновое сияние — холодная элегантность'
+        }, {
+            id: 'rose_gold',
+            name: 'Rose Gold',
+            frontBg: 'linear-gradient(145deg, #2a1a1a, #4a2a2a, #2a1a1a)',
+            frontAccent: '#E8A8A8',
+            frontAccent2: '#F5C8C8',
+            frontText: '#f5e0e0',
+            frontGlow: 'rgba(232, 168, 168, 0.2)',
+            pattern: 'circles',
+            chip: 'hologram',
+            icon: '🌹',
+            backBg: 'linear-gradient(145deg, #1a0a0a, #3a1a1a)',
+            backAccent: '#E8A8A8',
+            backText: '#f5e0e0',
+            backGlow: 'rgba(232, 168, 168, 0.08)',
+            stripeBg: 'rgba(232,168,168,0.05)',
+            description: 'Розовое золото — нежность и романтика'
+        }, {
+            id: 'carbon',
+            name: 'Carbon',
+            frontBg: 'linear-gradient(145deg, #0a0a0a, #2a2a2a, #0a0a0a)',
+            frontAccent: '#C9A96E',
+            frontAccent2: '#D4C8A0',
+            frontText: '#e0e0e0',
+            frontGlow: 'rgba(201, 169, 110, 0.08)',
+            pattern: 'hexagons',
+            chip: 'hologram',
+            icon: '⚡',
+            backBg: 'linear-gradient(145deg, #050505, #1a1a1a)',
+            backAccent: '#C9A96E',
+            backText: '#e0e0e0',
+            backGlow: 'rgba(201, 169, 110, 0.04)',
+            stripeBg: 'rgba(255,255,255,0.03)',
+            description: 'Карбон — технологичность и минимализм'
+        }, {
+            id: 'midnight_blue',
+            name: 'Midnight Blue',
+            frontBg: 'linear-gradient(145deg, #0a0a2a, #1a1a5a, #0a0a2a)',
+            frontAccent: '#C9A96E',
+            frontAccent2: '#8AB4F8',
+            frontText: '#c0d0f0',
+            frontGlow: 'rgba(100, 150, 255, 0.15)',
+            pattern: 'waves',
+            chip: 'hologram',
+            icon: '🌙',
+            backBg: 'linear-gradient(145deg, #0a0a1a, #1a1a3a)',
+            backAccent: '#8AB4F8',
+            backText: '#c0d0f0',
+            backGlow: 'rgba(100, 150, 255, 0.06)',
+            stripeBg: 'rgba(100,150,255,0.05)',
+            description: 'Полночь — глубина и загадка'
+        }, {
+            id: 'emerald',
+            name: 'Emerald',
+            frontBg: 'linear-gradient(145deg, #0a1a0a, #1a3a1a, #0a1a0a)',
+            frontAccent: '#50C878',
+            frontAccent2: '#90EE90',
+            frontText: '#c0e0c0',
+            frontGlow: 'rgba(80, 200, 120, 0.15)',
+            pattern: 'diamonds',
+            chip: 'hologram',
+            icon: '🌿',
+            backBg: 'linear-gradient(145deg, #0a1a0a, #1a2a1a)',
+            backAccent: '#50C878',
+            backText: '#c0e0c0',
+            backGlow: 'rgba(80, 200, 120, 0.06)',
+            stripeBg: 'rgba(80,200,120,0.05)',
+            description: 'Изумруд — природная свежесть'
+        }, {
+            id: 'burgundy',
+            name: 'Burgundy',
+            frontBg: 'linear-gradient(145deg, #2a0a0a, #4a1a1a, #2a0a0a)',
+            frontAccent: '#C9A96E',
+            frontAccent2: '#E8C8C8',
+            frontText: '#f0c0c0',
+            frontGlow: 'rgba(180, 50, 50, 0.15)',
+            pattern: 'circles',
+            chip: 'hologram',
+            icon: '🍷',
+            backBg: 'linear-gradient(145deg, #1a0a0a, #3a1a1a)',
+            backAccent: '#C9A96E',
+            backText: '#f0c0c0',
+            backGlow: 'rgba(180, 50, 50, 0.06)',
+            stripeBg: 'rgba(180,50,50,0.05)',
+            description: 'Бургунди — страсть и роскошь'
+        }, {
+            id: 'titanium',
+            name: 'Titanium',
+            frontBg: 'linear-gradient(145deg, #2a2a2a, #5a5a5a, #2a2a2a)',
+            frontAccent: '#B8B8B8',
+            frontAccent2: '#E0E0E0',
+            frontText: '#f0f0f0',
+            frontGlow: 'rgba(180, 180, 180, 0.15)',
+            pattern: 'hexagons',
+            chip: 'hologram',
+            icon: '🔩',
+            backBg: 'linear-gradient(145deg, #1a1a1a, #4a4a4a)',
+            backAccent: '#B8B8B8',
+            backText: '#f0f0f0',
+            backGlow: 'rgba(180, 180, 180, 0.06)',
+            stripeBg: 'rgba(255,255,255,0.04)',
+            description: 'Титан — сила и надёжность'
+        }, {
+            id: 'obsidian',
+            name: 'Obsidian',
+            frontBg: 'linear-gradient(145deg, #0a0a0a, #1a1a1a, #0a0a0a)',
+            frontAccent: '#8A7A6A',
+            frontAccent2: '#C9A96E',
+            frontText: '#d0c0a0',
+            frontGlow: 'rgba(138, 122, 106, 0.12)',
+            pattern: 'lines',
+            chip: 'hologram',
+            icon: '🗿',
+            backBg: 'linear-gradient(145deg, #050505, #151515)',
+            backAccent: '#8A7A6A',
+            backText: '#d0c0a0',
+            backGlow: 'rgba(138, 122, 106, 0.04)',
+            stripeBg: 'rgba(255,255,255,0.02)',
+            description: 'Обсидиан — минимализм и глубина'
+        }, {
+            id: 'royal_gold',
+            name: 'Royal Gold',
+            frontBg: 'linear-gradient(145deg, #1a0a00, #3a2a10, #1a0a00)',
+            frontAccent: '#E8D5A8',
+            frontAccent2: '#FFE8C0',
+            frontText: '#f5e7b0',
+            frontGlow: 'rgba(232, 213, 168, 0.2)',
+            pattern: 'waves',
+            chip: 'hologram',
+            icon: '👑',
+            backBg: 'linear-gradient(145deg, #0a0500, #2a1a08)',
+            backAccent: '#E8D5A8',
+            backText: '#f5e7b0',
+            backGlow: 'rgba(232, 213, 168, 0.08)',
+            stripeBg: 'rgba(232,213,168,0.05)',
+            description: 'Королевское золото — абсолютная роскошь'
+        }];
 
-        const CATEGORIES = [
-            { id: 'Все', icon: '📋' },
-            { id: 'Стрижки', icon: '💇‍♀️' },
-            { id: 'Окрашивание', icon: '🎨' },
-            { id: 'Маникюр', icon: '💅' },
-            { id: 'Педикюр', icon: '🦶' },
-            { id: 'Ресницы', icon: '👁️' },
-            { id: 'Перманент', icon: '💋' },
-            { id: 'Солярий', icon: '☀️' },
-            { id: 'Спа-сервисы', icon: '💆' },
-            { id: 'Биозавивка', icon: '🔄' },
-            { id: 'Онлайн-услуги', icon: '💻' }
-        ];
-
+        // ============================================================
+        // ДАННЫЕ ПО УМОЛЧАНИЮ
+        // ============================================================
         const DEFAULT_MASTERS = [{
             id: 'natalia',
             name: 'Наталья Мельникова',
@@ -2257,7 +2711,7 @@
             services: [
                 { name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000, duration: '2 ч 30 м' },
                 { name: 'Перманентный макияж век (межресничка)', category: 'Перманент', price: 7500,
-                duration: '45 м' },
+                    duration: '45 м' },
                 { name: 'Перманентный макияж губ', category: 'Перманент', price: 9000, duration: '3 ч' },
                 { name: 'Комбо: брови + межресничка', category: 'Перманент', price: 12000, duration: '3 ч 30 м' },
                 { name: 'Коррекция перманентного макияжа', category: 'Перманент', price: 5000, duration: '2 ч' },
@@ -2278,7 +2732,7 @@
                 { name: 'Первый визит "Сияние"', category: 'Солярий', price: 299, duration: '20 м' },
                 { name: 'Абонемент "VIP Сияние" (200 мин)', category: 'Солярий', price: 4900, duration: '20 м' },
                 { name: 'Абонемент "Идеальный загар" (100 мин)', category: 'Солярий', price: 3000,
-                duration: '1 ч 40 м' },
+                    duration: '1 ч 40 м' },
                 { name: 'Абонемент "START Сияние" (50 мин)', category: 'Солярий', price: 1600, duration: '50 м' }
             ]
         }, {
@@ -2300,6 +2754,20 @@
                 { name: 'Дизайн на все ногти', category: 'Маникюр', price: 500, duration: '30 м' }
             ]
         }];
+
+        const CATEGORIES = [
+            { id: 'Все', icon: '📋' },
+            { id: 'Стрижки', icon: '💇‍♀️' },
+            { id: 'Окрашивание', icon: '🎨' },
+            { id: 'Маникюр', icon: '💅' },
+            { id: 'Педикюр', icon: '🦶' },
+            { id: 'Ресницы', icon: '👁️' },
+            { id: 'Перманент', icon: '💋' },
+            { id: 'Солярий', icon: '☀️' },
+            { id: 'Спа-сервисы', icon: '💆' },
+            { id: 'Биозавивка', icon: '🔄' },
+            { id: 'Онлайн-услуги', icon: '💻' }
+        ];
 
         // ============================================================
         // ИНИЦИАЛИЗАЦИЯ
@@ -2339,89 +2807,83 @@
 
             renderAll();
         }
-// КОММЕНТАРИИ (УПРОЩЁННАЯ ВЕРСИЯ — БЕЗ ИНДЕКСОВ)
-// ============================================================
-function loadComments(postId) {
-    if (commentListeners[postId]) {
-        commentListeners[postId]();
-        delete commentListeners[postId];
-    }
 
-    // Упрощённый запрос — БЕЗ orderBy
-    const commentsQuery = query(
-        collection(db, 'comments'),
-        where('postId', '==', postId)
-    );
+        // ============================================================
+        // КОММЕНТАРИИ
+        // ============================================================
+        function loadComments(postId) {
+            if (commentListeners[postId]) {
+                commentListeners[postId]();
+                delete commentListeners[postId];
+            }
 
-    commentListeners[postId] = onSnapshot(commentsQuery, (snapshot) => {
-        const comments = {};
-        snapshot.forEach(doc => {
-            const data = doc.data();
-            comments[doc.id] = { id: doc.id, ...data };
-        });
-        allComments[postId] = comments;
-        renderComments(postId);
-    }, (error) => {
-        console.error('Ошибка загрузки комментариев:', error);
-        const container = document.getElementById(`comments_${postId}`);
-        if (container) {
-            container.innerHTML = `<div style="color:#E74C3C;font-size:14px;padding:8px 0;">
-                ⚠️ Ошибка загрузки комментариев. Код ошибки: ${error.message}
-                <br><small>Проверьте консоль для деталей.</small>
-            </div>`;
+            const commentsQuery = query(
+                collection(db, 'comments'),
+                where('postId', '==', postId)
+            );
+
+            commentListeners[postId] = onSnapshot(commentsQuery, (snapshot) => {
+                const comments = {};
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    comments[doc.id] = { id: doc.id, ...data };
+                });
+                allComments[postId] = comments;
+                renderComments(postId);
+            }, (error) => {
+                console.error('Ошибка загрузки комментариев:', error);
+            });
         }
-    });
-}
-function renderComments(postId) {
-    const container = document.getElementById(`comments_${postId}`);
-    if (!container) {
-        setTimeout(() => renderComments(postId), 200);
-        return;
-    }
 
-    const comments = allComments[postId] || {};
-    const commentList = Object.values(comments);
+        function renderComments(postId) {
+            const container = document.getElementById(`comments_${postId}`);
+            if (!container) {
+                setTimeout(() => renderComments(postId), 200);
+                return;
+            }
 
-    // Сортируем на клиенте (без индексов)
-    commentList.sort((a, b) => {
-        const timeA = a.createdAt?.toMillis?.() || 0;
-        const timeB = b.createdAt?.toMillis?.() || 0;
-        return timeA - timeB;
-    });
+            const comments = allComments[postId] || {};
+            const commentList = Object.values(comments);
 
-    if (commentList.length === 0) {
-        container.innerHTML = `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">Пока нет комментариев. Будьте первым!</div>`;
-        return;
-    }
+            commentList.sort((a, b) => {
+                const timeA = a.createdAt?.toMillis?.() || 0;
+                const timeB = b.createdAt?.toMillis?.() || 0;
+                return timeA - timeB;
+            });
 
-    // Строим дерево
-    const tree = {};
-    const roots = [];
+            if (commentList.length === 0) {
+                container.innerHTML =
+                    `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">Пока нет комментариев. Будьте первым!</div>`;
+                return;
+            }
 
-    commentList.forEach(c => {
-        if (c.parentId && comments[c.parentId]) {
-            if (!tree[c.parentId]) tree[c.parentId] = [];
-            tree[c.parentId].push(c);
-        } else if (!c.parentId) {
-            roots.push(c);
+            const tree = {};
+            const roots = [];
+
+            commentList.forEach(c => {
+                if (c.parentId && comments[c.parentId]) {
+                    if (!tree[c.parentId]) tree[c.parentId] = [];
+                    tree[c.parentId].push(c);
+                } else if (!c.parentId) {
+                    roots.push(c);
+                }
+            });
+
+            roots.sort((a, b) => {
+                const timeA = a.createdAt?.toMillis?.() || 0;
+                const timeB = b.createdAt?.toMillis?.() || 0;
+                return timeA - timeB;
+            });
+
+            let html = roots.map(c => renderCommentTree(c, comments, tree, postId)).join('');
+            container.innerHTML = html;
         }
-    });
-
-    // Сортируем корневые комментарии
-    roots.sort((a, b) => {
-        const timeA = a.createdAt?.toMillis?.() || 0;
-        const timeB = b.createdAt?.toMillis?.() || 0;
-        return timeA - timeB;
-    });
-
-    let html = roots.map(c => renderCommentTree(c, comments, tree, postId)).join('');
-    container.innerHTML = html;
-}
 
         function renderCommentTree(comment, allComments, tree, postId, level = 0) {
             const isDeleted = comment.isDeleted === true;
             const isAuthor = currentUser && currentUser.uid === comment.userId;
-            const isAdmin = currentUser && (currentUser.email === 'glubkov2020@gmail.com' || currentUser.email === 'Studiia1@mail.ru');
+            const isAdmin = currentUser && (currentUser.email === 'glubkov2020@gmail.com' || currentUser.email ===
+                'Studiia1@mail.ru');
             const userPhoto = comment.userPhoto ||
                 `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${(comment.userName || '?').charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
             const isLiked = currentUser && comment.likedBy?.includes(currentUser.uid);
@@ -2590,8 +3052,294 @@ function renderComments(postId) {
         };
 
         // ============================================================
-        // РЕНДЕРИНГ БЛОГА
+        // ФУНКЦИЯ РЕНДЕРИНГА КАРТЫ
         // ============================================================
+        function renderPremiumCard(minutes, cardId, userName, designId) {
+            const design = CARD_DESIGNS.find(d => d.id === designId) || CARD_DESIGNS[0];
+
+            const patternMap = {
+                'diamonds': 'diamonds',
+                'lines': 'lines',
+                'circles': 'circles',
+                'hexagons': 'hexagons',
+                'waves': 'waves'
+            };
+            const patternClass = patternMap[design.pattern] || 'diamonds';
+
+            const iconMap = {
+                'onyx_gold': '👑',
+                'platinum': '💎',
+                'rose_gold': '🌹',
+                'carbon': '⚡',
+                'midnight_blue': '🌙',
+                'emerald': '🌿',
+                'burgundy': '🍷',
+                'titanium': '🔩',
+                'obsidian': '🗿',
+                'royal_gold': '👑'
+            };
+            const icon = iconMap[designId] || '💳';
+
+            const formattedMinutes = minutes || 0;
+
+            return `
+                <div class="design-selector">
+                    <label><i class="fas fa-palette"></i> Дизайн карты:</label>
+                    <select id="cardDesignSelect" onchange="changeCardDesign(this.value)">
+                        ${CARD_DESIGNS.map(d => `
+                            <option value="${d.id}" ${d.id === designId ? 'selected' : ''}>
+                                ${d.icon} ${d.name}
+                            </option>
+                        `).join('')}
+                    </select>
+                    <div class="preview-dot" style="background:${design.frontBg};border-color:${design.frontAccent};"></div>
+                    <span style="font-size:12px;color:var(--text-muted);opacity:0.6;">${design.description}</span>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="card-flip" id="cardFlip">
+                        <!-- ЛИЦЕВАЯ СТОРОНА -->
+                        <div class="card-face card-front" style="background: ${design.frontBg};">
+                            <div class="bg-overlay"></div>
+                            <div class="pattern ${patternClass}"></div>
+
+                            <!-- Световые пятна -->
+                            <div class="glow-spot tl" style="background: radial-gradient(circle, ${design.frontGlow}, transparent);"></div>
+                            <div class="glow-spot br" style="background: radial-gradient(circle, ${design.frontGlow}, transparent);"></div>
+                            <div class="glow-spot tr" style="background: radial-gradient(circle, ${design.frontAccent}22, transparent);"></div>
+                            <div class="glow-spot bl" style="background: radial-gradient(circle, ${design.frontAccent}22, transparent);"></div>
+
+                            <!-- Блик -->
+                            <div class="shine-line"></div>
+
+                            <div class="front-content">
+                                <div class="card-header">
+                                    <div class="card-brand">
+                                        <div class="brand-icon" style="border-color: ${design.frontAccent}44; color: ${design.frontAccent};">
+                                            ${icon}
+                                        </div>
+                                        <div>
+                                            <span class="logo-text" style="color: ${design.frontText};">
+                                                СТУДИЯ №1
+                                                <small style="color: ${design.frontAccent}88;">GOLD PREMIUM</small>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="card-chip ${design.chip}" style="background: linear-gradient(135deg, ${design.frontAccent}44, ${design.frontAccent}22, ${design.frontAccent}44); border-color: ${design.frontAccent}33;">
+                                    </div>
+                                </div>
+
+                                <div class="card-balance">
+                                    <div class="number" style="color: ${design.frontText};">
+                                        <span class="currency" style="color: ${design.frontAccent};">✦</span>
+                                        <span class="count" id="balanceCount">${formattedMinutes}</span>
+                                    </div>
+                                    <span class="label" style="color: ${design.frontAccent}88;">минут</span>
+                                </div>
+
+                                <div class="card-id" style="color: ${design.frontAccent}66;">${cardId || 'ST-000-2026'}</div>
+
+                                <div class="card-footer-details">
+                                    <div class="valid" style="color: ${design.frontAccent}66;">
+                                        VALID THRU
+                                        <span style="color: ${design.frontText};">12/26</span>
+                                    </div>
+                                    <div class="holder">
+                                        <div class="label" style="color: ${design.frontAccent}66;">Cardholder</div>
+                                        <div class="name" style="color: ${design.frontText};">${escapeHTML(userName || 'Клиент')}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-premium-tag" style="color: ${design.frontAccent}33;">✦ premium ✦</div>
+                        </div>
+
+                        <!-- ОБОРОТНАЯ СТОРОНА -->
+                        <div class="card-face card-back" style="background: ${design.backBg};">
+                            <div class="back-glow tl" style="background: radial-gradient(circle, ${design.backGlow}, transparent);"></div>
+                            <div class="back-glow br" style="background: radial-gradient(circle, ${design.backGlow}, transparent);"></div>
+
+                            <div style="display:flex;flex-direction:column;height:100%;position:relative;z-index:1;">
+                                <div class="back-stripe" style="background: ${design.stripeBg}; border: 1px solid ${design.backAccent}22;">
+                                    <span class="stripe-text" style="color: ${design.backAccent}44;">••••••••••••••••••••••••••••••••••••••••</span>
+                                </div>
+
+                                <div class="back-info">
+                                    <div class="back-phone" style="color: ${design.backAccent}88;">
+                                        <i class="fas fa-phone" style="color: ${design.backAccent}44;"></i>
+                                        +7 (951) 606-20-01
+                                    </div>
+                                    <div class="back-since" style="color: ${design.backAccent}33;">SINCE 2013</div>
+                                </div>
+
+                                <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;">
+                                    <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+                                        <div>
+                                            <div style="font-size:9px;letter-spacing:2px;color:${design.backAccent}33;text-transform:uppercase;">
+                                                Authorized signature
+                                            </div>
+                                            <div style="width:80px;height:1px;background:linear-gradient(90deg,${design.backAccent}44,transparent);margin-top:4px;"></div>
+                                        </div>
+                                        <div class="back-footer">
+                                            <div class="support" style="color:${design.backAccent}33;">
+                                                SUPPORT
+                                                <span style="color:${design.backAccent}66;">+7 (951) 606-20-01</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="display:flex;justify-content:space-between;margin-top:8px;border-top:1px solid ${design.backAccent}11;padding-top:10px;">
+                                        <div class="brand" style="color:${design.backAccent}44;background:linear-gradient(90deg,${design.backAccent},${design.backText},${design.backAccent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;letter-spacing:2px;">
+                                            ✦ STUDIO №1 • PREMIUM ✦
+                                        </div>
+                                        <div style="font-size:8px;color:${design.backAccent}22;letter-spacing:1px;">BANK • SINCE 2013</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:center;font-size:12px;color:var(--text-muted);opacity:0.4;margin-top:4px;">
+                    <i class="fas fa-hand-pointer"></i> Нажмите на карту, чтобы перевернуть
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // АНИМАЦИЯ БАЛАНСА
+        // ============================================================
+        function animateBalance(newValue) {
+            const el = document.getElementById('balanceCount');
+            if (!el) return;
+            const oldValue = parseInt(el.textContent) || 0;
+            if (oldValue === newValue) return;
+
+            const duration = 800;
+            const startTime = performance.now();
+            const startValue = oldValue;
+
+            function updateCounter(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(startValue + (newValue - startValue) * eased);
+                el.textContent = current;
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    el.textContent = newValue;
+                    el.classList.add('pulse');
+                    setTimeout(() => el.classList.remove('pulse'), 400);
+                }
+            }
+            requestAnimationFrame(updateCounter);
+        }
+
+        // ============================================================
+        // СМЕНА ДИЗАЙНА КАРТЫ
+        // ============================================================
+        window.changeCardDesign = async function(designId) {
+            if (!currentUser) {
+                alert('Войдите в аккаунт, чтобы менять дизайн карты');
+                return;
+            }
+            try {
+                await updateDoc(doc(db, 'users', currentUser.uid), {
+                    cardDesign: designId
+                });
+                currentUserData.cardDesign = designId;
+                renderCabinet();
+            } catch (e) {
+                console.error('Ошибка смены дизайна:', e);
+                alert('❌ Ошибка: ' + e.message);
+            }
+        };
+
+        // ============================================================
+        // РЕНДЕРИНГ
+        // ============================================================
+        function renderAll() {
+            renderCategories();
+            renderServices();
+            renderMasters();
+            renderBlog();
+            renderCabinet();
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categoriesFilter');
+            container.innerHTML = CATEGORIES.map(c =>
+                `<div class="category-tab ${c.id === currentCategory ? 'active' : ''}" onclick="selectCategory('${c.id}')">
+                    <span class="icon">${c.icon}</span> ${c.id}
+                </div>`
+            ).join('');
+        }
+
+        function renderServices() {
+            const container = document.getElementById('servicesContainer');
+            let filtered = currentCategory === 'Все' ? allServices : allServices.filter(s => s.category === currentCategory);
+            if (!filtered.length) {
+                container.innerHTML =
+                    `<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Нет услуг в этой категории</div>`;
+                return;
+            }
+            container.innerHTML = filtered.map(s => `
+                <div class="service-item glass-card" onclick="openBookingByService('${s.name}', '${s.masterId}')">
+                    <div class="info">
+                        <span class="name">${escapeHTML(s.name)}</span>
+                        <span class="category">${escapeHTML(s.category)} • ${escapeHTML(s.duration)} • ${escapeHTML(s.masterName)}</span>
+                    </div>
+                    <div class="price">${s.price} ₽</div>
+                </div>
+            `).join('');
+        }
+
+        function renderMasters() {
+            const container = document.getElementById('mastersContainer');
+            if (!allMasters.length) {
+                container.innerHTML =
+                    `<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Нет данных</div>`;
+                return;
+            }
+            container.innerHTML = allMasters.map(m => {
+                const initials = m.name.split(' ').map(w => w[0]).join('');
+                const servicesHtml = m.services ? m.services.map(s =>
+                    `<li onclick="event.stopPropagation(); openBookingByService('${s.name}', '${m.id}')">
+                        <span>${escapeHTML(s.name)}</span>
+                        <span class="service-price">${s.price} ₽</span>
+                    </li>`
+                ).join('') : '';
+                return `
+                    <div class="master-card glass-card">
+                        <div class="image-wrapper">
+                            <div class="placeholder">${escapeHTML(initials)}</div>
+                            <img src="${escapeHTML(m.photo)}" alt="${escapeHTML(m.name)}" loading="lazy" />
+                        </div>
+                        <h3>${escapeHTML(m.name)}</h3>
+                        <div class="specialty">${escapeHTML(m.specialty)}</div>
+                        <div class="rating"><i class="fas fa-star"></i> ${m.rating || 'Новый'} <span style="color:var(--text-muted);">(${m.reviews || 0} оценок • ${m.services?.length || 0} услуг)</span></div>
+                        <div class="master-services-toggle" onclick="event.stopPropagation(); toggleMasterServices('${m.id}')">
+                            <i class="fas fa-chevron-down"></i> Показать все услуги (${m.services?.length || 0})
+                        </div>
+                        <div class="master-services-list" id="services_${m.id}">
+                            <ul>${servicesHtml}</ul>
+                        </div>
+                        <button class="btn btn-sm" onclick="event.stopPropagation(); openBooking('${m.id}')"><i class="fas fa-calendar-check"></i> Записаться</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.toggleMasterServices = function(masterId) {
+            const list = document.getElementById(`services_${masterId}`);
+            const toggle = list?.parentElement?.querySelector('.master-services-toggle');
+            if (list) {
+                list.classList.toggle('open');
+                if (toggle) toggle.classList.toggle('open');
+            }
+        };
+
         function renderBlog() {
             const container = document.getElementById('blogContainer');
             if (!allBlogPosts.length) {
@@ -2635,103 +3383,25 @@ function renderComments(postId) {
                 `;
             }).join('');
 
-            // Загружаем комментарии для каждого поста
             allBlogPosts.forEach(p => {
                 loadComments(p.id);
             });
         }
 
         // ============================================================
-        // ОСТАЛЬНЫЕ ФУНКЦИИ
+        // КАБИНЕТ (ОБНОВЛЁННЫЙ)
         // ============================================================
-        function renderAll() {
-            renderCategories();
-            renderServices();
-            renderMasters();
-            renderBlog();
-            renderCabinet();
-        }
-
-        function renderCategories() {
-            const container = document.getElementById('categoriesFilter');
-            container.innerHTML = CATEGORIES.map(c =>
-                `<div class="category-tab ${c.id === currentCategory ? 'active' : ''}" onclick="selectCategory('${c.id}')">
-                    <span class="icon">${c.icon}</span> ${c.id}
-                </div>`
-            ).join('');
-        }
-
-        function renderServices() {
-            const container = document.getElementById('servicesContainer');
-            let filtered = currentCategory === 'Все' ? allServices : allServices.filter(s => s.category === currentCategory);
-            if (!filtered.length) {
-                container.innerHTML =
-                    `<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Нет услуг в этой категории</div>`;
-                return;
-            }
-            container.innerHTML = filtered.map(s => `
-                <div class="service-item glass-card" onclick="openBookingByService('${s.name}', '${s.masterId}')">
-                    <div class="info">
-                        <span class="name">${escapeHTML(s.name)}</span>
-                        <span class="category">${escapeHTML(s.category)} • ${escapeHTML(s.duration)} • ${escapeHTML(s.masterName)}</span>
-                    </div>
-                    <div class="price">${s.price} ₽</div>
-                </div>
-            `).join('');
-        }
-
-        function renderMasters() {
-            const container = document.getElementById('mastersContainer');
-            if (!allMasters.length) {
-                container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Нет данных</div>`;
-                return;
-            }
-            container.innerHTML = allMasters.map(m => {
-                const initials = m.name.split(' ').map(w => w[0]).join('');
-                const servicesHtml = m.services ? m.services.map(s =>
-                    `<li onclick="event.stopPropagation(); openBookingByService('${s.name}', '${m.id}')">
-                        <span>${escapeHTML(s.name)}</span>
-                        <span class="service-price">${s.price} ₽</span>
-                    </li>`
-                ).join('') : '';
-                return `
-                    <div class="master-card glass-card">
-                        <div class="image-wrapper">
-                            <div class="placeholder">${escapeHTML(initials)}</div>
-                            <img src="${escapeHTML(m.photo)}" alt="${escapeHTML(m.name)}" loading="lazy" />
-                        </div>
-                        <h3>${escapeHTML(m.name)}</h3>
-                        <div class="specialty">${escapeHTML(m.specialty)}</div>
-                        <div class="rating"><i class="fas fa-star"></i> ${m.rating || 'Новый'} <span style="color:var(--text-muted);">(${m.reviews || 0} оценок • ${m.services?.length || 0} услуг)</span></div>
-                        <div class="master-services-toggle" onclick="event.stopPropagation(); toggleMasterServices('${m.id}')">
-                            <i class="fas fa-chevron-down"></i> Показать все услуги (${m.services?.length || 0})
-                        </div>
-                        <div class="master-services-list" id="services_${m.id}">
-                            <ul>${servicesHtml}</ul>
-                        </div>
-                        <button class="btn btn-sm" onclick="event.stopPropagation(); openBooking('${m.id}')"><i class="fas fa-calendar-check"></i> Записаться</button>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        window.toggleMasterServices = function(masterId) {
-            const list = document.getElementById(`services_${masterId}`);
-            const toggle = list?.parentElement?.querySelector('.master-services-toggle');
-            if (list) {
-                list.classList.toggle('open');
-                if (toggle) toggle.classList.toggle('open');
-            }
-        };
-
         function renderCabinet() {
             const container = document.getElementById('cabinetContainer');
             if (!currentUser) {
                 container.innerHTML = `
                     <div style="text-align:center;color:var(--text-muted);padding:40px 0;">
-                        <i class="fas fa-user-lock" style="font-size:40px;display:block;margin-bottom:12px;color:var(--gold);"></i>
-                        <p>Войдите в аккаунт, чтобы увидеть карту минут</p>
-                        <button class="btn" onclick="handleAuthClick()" style="margin-top:16px;">Войти</button>
+                        <i class="fas fa-user-lock" style="font-size:48px;display:block;margin-bottom:16px;color:var(--gold);opacity:0.5;"></i>
+                        <p style="font-size:18px;margin-bottom:8px;">Войдите в аккаунт</p>
+                        <p style="font-size:14px;opacity:0.7;">Чтобы увидеть карту минут и историю</p>
+                        <button class="btn" onclick="handleAuthClick()" style="margin-top:20px;">
+                            <i class="fas fa-sign-in-alt"></i> Войти
+                        </button>
                     </div>
                 `;
                 return;
@@ -2742,135 +3412,45 @@ function renderComments(postId) {
             const cardId = currentUserData?.cardId || 'ST-000-2026';
             const userName = currentUserData?.name || currentUser?.displayName || 'Клиент';
             const designId = currentUserData?.cardDesign || 'onyx_gold';
-            const design = CARD_DESIGNS.find(d => d.id === designId) || CARD_DESIGNS[0];
+
+            const cardHtml = renderPremiumCard(minutes, cardId, userName, designId);
 
             let historyHtml = '';
             if (history.length) {
                 historyHtml = `
-                    <h4 style="margin-top:24px;margin-bottom:12px;color:var(--text-primary);">📜 История операций</h4>
+                    <h4 style="margin-top:32px;margin-bottom:16px;color:var(--text-primary);font-size:18px;display:flex;align-items:center;gap:10px;">
+                        <i class="fas fa-clock" style="color:var(--gold);"></i> История операций
+                        <span style="font-size:13px;color:var(--text-muted);font-weight:400;">(${history.length})</span>
+                    </h4>
                     <div class="history-list">
                         ${history.slice().reverse().map(h => `
                             <div class="history-item">
                                 <span>${formatDate(h.date)} — ${escapeHTML(h.action)}</span>
-                                <span class="${h.spent ? 'spent' : 'added'}">${h.spent ? '-' : '+'}${Math.abs(h.spent || h.added || 0)} мин</span>
+                                <span class="${h.spent ? 'spent' : 'added'}">${h.spent ? '−' : '+'}${Math.abs(h.spent || h.added || 0)} мин</span>
                             </div>
                         `).join('')}
                     </div>
                 `;
+            } else {
+                historyHtml = `
+                    <div style="text-align:center;color:var(--text-muted);padding:24px 0;font-size:14px;opacity:0.6;">
+                        <i class="fas fa-inbox" style="display:block;font-size:32px;margin-bottom:8px;"></i>
+                        История операций пока пуста
+                    </div>
+                `;
             }
-
-            const designOptions = CARD_DESIGNS.map(d =>
-                `<option value="${d.id}" ${d.id === designId ? 'selected' : ''}>${d.name}</option>`
-            ).join('');
 
             container.innerHTML = `
-                <div class="design-selector">
-                    <label>🎨 Дизайн карты:</label>
-                    <select id="cardDesignSelect" onchange="changeCardDesign(this.value)">
-                        ${designOptions}
-                    </select>
+                ${cardHtml}
+                <div style="max-width:520px;margin:0 auto;">
+                    ${historyHtml}
                 </div>
-
-                <div class="card-wrapper" onclick="this.querySelector('.card-flip').classList.toggle('flipped')">
-                    <div class="card-flip">
-                        <div class="card-face card-front" style="background: ${design.front};">
-                            <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.12;z-index:1;pointer-events:none;top:-30px;left:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
-                            <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.12;z-index:1;pointer-events:none;bottom:-30px;right:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
-                            <div style="position:absolute;top:50%;left:-10%;width:80%;height:1px;filter:blur(1px);transform:rotate(-6deg);z-index:4;background:linear-gradient(90deg,transparent,${design.accent}44,${design.accent}88,${design.accent}44,transparent);"></div>
-
-                            <div class="front-content">
-                                <div class="card-header">
-                                    <div class="card-brand">
-                                        <div style="display:flex;align-items:center;gap:8px;">
-                                            <svg width="32" height="32" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="22" cy="22" r="20" stroke="${design.accent}" stroke-width="2" stroke-dasharray="4 2" opacity="0.6"/>
-                                                <circle cx="22" cy="22" r="14" stroke="${design.accent}" stroke-width="1" opacity="0.4"/>
-                                                <path d="M22 6 L25 16 L36 16 L27 22 L31 32 L22 26 L13 32 L17 22 L8 16 L19 16 L22 6Z" fill="${design.accent}" opacity="0.8"/>
-                                            </svg>
-                                            <div>
-                                                <span class="logo-text" style="color:${design.textColor};">СТУДИЯ №1</span>
-                                                <small style="color:${design.accent}88;">GOLD PREMIUM</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-chip" style="background:linear-gradient(135deg,${design.accent},${design.accent}88);"></div>
-                                </div>
-
-                                <div class="card-balance">
-                                    <div class="number" style="background:linear-gradient(180deg,${design.textColor},${design.accent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">${minutes}</div>
-                                    <span class="label" style="color:${design.accent}88;">минут</span>
-                                </div>
-
-                                <div class="card-id" style="color:${design.accent}66;">${cardId}</div>
-
-                                <div class="card-footer-details">
-                                    <div class="valid" style="color:${design.accent}66;">VALID THRU <span style="color:${design.textColor};">12/26</span></div>
-                                    <div class="holder">
-                                        <div class="label" style="color:${design.accent}66;">Cardholder</div>
-                                        <div class="name" style="color:${design.textColor};">${escapeHTML(userName)}</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-premium-tag" style="color:${design.accent}44;">✦ premium ✦</div>
-                        </div>
-
-                        <div class="card-face card-back" style="background:${design.back};">
-                            <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.03;z-index:1;pointer-events:none;top:-30px;left:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
-                            <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.03;z-index:1;pointer-events:none;bottom:-30px;right:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
-
-                            <div style="display:flex;flex-direction:column;height:100%;">
-                                <div class="back-stripe" style="background:linear-gradient(180deg,${design.back}dd,${design.back}88);"></div>
-
-                                <div class="back-info">
-                                    <div class="back-phone" style="color:${design.accent}88;"><i class="fas fa-phone"></i> +7 (951) 606-20-01</div>
-                                    <div class="back-since" style="color:${design.accent}33;">SINCE 2013</div>
-                                </div>
-
-                                <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;">
-                                    <div style="display:flex;justify-content:space-between;align-items:flex-end;">
-                                        <div>
-                                            <div style="font-size:9px;letter-spacing:2px;color:${design.accent}33;text-transform:uppercase;">Authorized signature</div>
-                                            <div style="width:80px;height:1px;background:linear-gradient(90deg,${design.accent}44,transparent);margin-top:4px;"></div>
-                                        </div>
-                                        <div class="back-footer">
-                                            <div class="support" style="color:${design.accent}33;">SUPPORT <span style="color:${design.accent}66;">+7 (951) 606-20-01</span></div>
-                                        </div>
-                                    </div>
-                                    <div style="display:flex;justify-content:space-between;margin-top:8px;">
-                                        <div class="brand" style="color:${design.accent}44;background:linear-gradient(90deg,${design.accent},${design.textColor},${design.accent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;letter-spacing:2px;">✦ STUDIO №1 • PREMIUM ✦</div>
-                                        <div style="font-size:8px;color:${design.accent}22;letter-spacing:1px;">BANK • SINCE 2013</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="text-align:center;font-size:12px;color:var(--text-muted);margin-bottom:16px;opacity:0.5;">
-                    <i class="fas fa-hand-pointer"></i> Нажмите на карту, чтобы перевернуть
-                </div>
-
-                ${historyHtml}
-                ${!history.length ? `<p style="text-align:center;color:var(--text-muted);margin-top:16px;">История операций пуста</p>` : ''}
             `;
-        }
 
-        window.changeCardDesign = async function(designId) {
-            if (!currentUser) {
-                alert('Войдите в аккаунт');
-                return;
-            }
-            try {
-                await updateDoc(doc(db, 'users', currentUser.uid), {
-                    cardDesign: designId
-                });
-                currentUserData.cardDesign = designId;
-                renderCabinet();
-            } catch (e) {
-                console.error('Ошибка смены дизайна:', e);
-            }
-        };
+            setTimeout(() => {
+                animateBalance(minutes);
+            }, 300);
+        }
 
         // ============================================================
         // НАВИГАЦИЯ
@@ -2925,7 +3505,8 @@ function renderComments(postId) {
                     if (userDoc.exists()) {
                         currentUserData = userDoc.data();
                     } else {
-                        const cardId = 'ST-' + String(Math.floor(Math.random() * 900) + 100) + '-' + new Date().getFullYear();
+                        const cardId = 'ST-' + String(Math.floor(Math.random() * 900) + 100) + '-' + new Date()
+                            .getFullYear();
                         const newUser = {
                             name: user.displayName || user.email?.split('@')[0] || 'Клиент',
                             email: user.email,
@@ -3131,7 +3712,7 @@ function renderComments(postId) {
         console.log('🚀 Студия №1 запущена!');
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
         console.log(`💇 Услуг: ${allServices.length}`);
-        console.log('💳 10 дизайнов карт готовы!');
+        console.log('💳 10 премиальных дизайнов карт готовы!');
         console.log('💬 Комментарии в реальном времени!');
         console.log('👤 Пользователь авторизован:', !!currentUser);
     </script>
