@@ -22,7 +22,7 @@
 
     <style>
         /* ============================================================
-           БАЗОВЫЕ СТИЛИ (ПОЛНЫЕ)
+           БАЗОВЫЕ СТИЛИ
            ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
@@ -274,6 +274,9 @@
             font-size: 22px;
         }
 
+        /* ============================================================
+           ШАПКА И НАВИГАЦИЯ
+           ============================================================ */
         header {
             position: fixed;
             top: 0;
@@ -442,6 +445,9 @@
             align-items: center;
         }
 
+        /* ============================================================
+           СТРАНИЦЫ
+           ============================================================ */
         .page {
             display: none;
             padding: 30px 0 60px;
@@ -498,6 +504,9 @@
             text-align: center;
         }
 
+        /* ============================================================
+           ГЛАВНАЯ (HERO)
+           ============================================================ */
         .hero {
             padding: 40px 0 60px;
             text-align: center;
@@ -545,13 +554,15 @@
             text-transform: uppercase;
             backdrop-filter: blur(8px);
         }
-
         .hero-card-btn {
             margin-top: 20px;
             display: flex;
             justify-content: center;
         }
 
+        /* ============================================================
+           УСЛУГИ
+           ============================================================ */
         .categories-filter {
             display: flex;
             gap: 8px;
@@ -641,6 +652,9 @@
             flex-shrink: 0;
         }
 
+        /* ============================================================
+           МАСТЕРА
+           ============================================================ */
         .masters-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -783,6 +797,9 @@
             min-height: 44px;
         }
 
+        /* ============================================================
+           БЛОГ
+           ============================================================ */
         .blog-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -1035,49 +1052,26 @@
             margin-top: 8px;
         }
 
-        .comment-deleted {
-            color: var(--text-muted);
-            font-style: italic;
-            font-size: 13px;
-            padding: 4px 0;
-        }
-
         /* ============================================================
-           КАРТА МИНУТ — ПРЕМИАЛЬНАЯ ВЕРСИЯ
+           КАРТА МИНУТ — ПРЕМИАЛЬНАЯ (ОБНОВЛЁННАЯ)
            ============================================================ */
         .card-wrapper {
-            perspective: 1600px;
+            perspective: 1200px;
             width: 100%;
-            max-width: 480px;
-            margin: 0 auto 30px;
+            max-width: 440px;
+            margin: 0 auto 20px;
             cursor: pointer;
             position: relative;
         }
 
-        .card-wrapper::after {
-            content: '';
-            position: absolute;
-            inset: -20px;
-            z-index: 0;
-            background: radial-gradient(ellipse at 50% 50%, rgba(201, 169, 110, 0.08), transparent 70%);
-            filter: blur(40px);
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .card-wrapper:hover::after {
-            opacity: 1;
-        }
-
         .card-flip {
             width: 100%;
-            aspect-ratio: 480 / 300;
+            aspect-ratio: 440 / 275;
             position: relative;
-            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
             transform-style: preserve-3d;
-            border-radius: 28px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.06);
-            z-index: 1;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.06);
         }
 
         .card-flip.flipped {
@@ -1089,148 +1083,104 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 28px;
+            border-radius: 24px;
             overflow: hidden;
         }
 
-        /* ---- Фронт (лицевая сторона) ---- */
+        /* ---- ЛИЦЕВАЯ СТОРОНА ---- */
         .card-front {
             transform: rotateY(0deg);
             z-index: 2;
-            position: relative;
-            color: #f0e6c5;
-            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-front .bg-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .card-front .bg-overlay::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.06), transparent 60%);
-        }
-
-        .card-front .bg-overlay::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 80% 80%, rgba(255, 215, 0, 0.04), transparent 50%);
-        }
-
-        /* Паттерны для разных карт */
-        .card-front .pattern {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.06;
-        }
-
-        .card-front .pattern.diamonds {
-            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 215, 0, 0.1) 10px, rgba(255, 215, 0, 0.1) 11px);
-        }
-
-        .card-front .pattern.lines {
-            background-image: repeating-linear-gradient(0deg, transparent, transparent 8px, rgba(255, 255, 255, 0.03) 8px, rgba(255, 255, 255, 0.03) 9px);
-        }
-
-        .card-front .pattern.circles {
-            background-image: radial-gradient(circle, rgba(255, 215, 0, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        .card-front .pattern.hexagons {
-            background-image: repeating-linear-gradient(60deg, transparent, transparent 20px, rgba(255, 215, 0, 0.04) 20px, rgba(255, 215, 0, 0.04) 21px),
-                repeating-linear-gradient(-60deg, transparent, transparent 20px, rgba(255, 215, 0, 0.04) 20px, rgba(255, 215, 0, 0.04) 21px);
-        }
-
-        .card-front .pattern.waves {
-            background-image: repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255, 215, 0, 0.03) 15px, rgba(255, 215, 0, 0.03) 16px);
-            background-size: 30px 30px;
-        }
-
-        .card-front .glow-spot {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.15;
-            animation: glowFloat 6s ease-in-out infinite alternate;
-        }
-
-        .card-front .glow-spot.tl {
-            top: -30px;
-            left: -30px;
-            width: 150px;
-            height: 150px;
-        }
-
-        .card-front .glow-spot.br {
-            bottom: -30px;
-            right: -30px;
-            width: 200px;
-            height: 200px;
-            animation-delay: 3s;
-        }
-
-        .card-front .glow-spot.tr {
-            top: -20px;
-            right: -20px;
-            width: 120px;
-            height: 120px;
-            animation-delay: 1.5s;
-        }
-
-        .card-front .glow-spot.bl {
-            bottom: -20px;
-            left: -20px;
-            width: 120px;
-            height: 120px;
-            animation-delay: 4.5s;
-        }
-
-        @keyframes glowFloat {
-            0% {
-                transform: scale(1) translate(0, 0);
-                opacity: 0.08;
-            }
-            100% {
-                transform: scale(1.3) translate(10px, -10px);
-                opacity: 0.2;
-            }
-        }
-
-        .front-content {
-            position: relative;
-            z-index: 5;
-            height: 100%;
-            padding: 22px 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+            padding: 24px 28px;
+            color: #fff;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+            position: relative;
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.2);
         }
 
-        .card-header {
+        .card-front .bg-pattern {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.08;
+        }
+        .card-front .bg-pattern.diamonds {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(255, 215, 0, 0.1) 12px, rgba(255, 215, 0, 0.1) 13px);
+        }
+        .card-front .bg-pattern.lines {
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 8px, rgba(255, 255, 255, 0.05) 8px, rgba(255, 255, 255, 0.05) 9px);
+        }
+        .card-front .bg-pattern.circles {
+            background-image: radial-gradient(circle, rgba(255, 215, 0, 0.06) 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+        .card-front .bg-pattern.hexagons {
+            background-image: repeating-linear-gradient(60deg, transparent, transparent 16px, rgba(255, 215, 0, 0.05) 16px, rgba(255, 215, 0, 0.05) 17px),
+                repeating-linear-gradient(-60deg, transparent, transparent 16px, rgba(255, 215, 0, 0.05) 16px, rgba(255, 215, 0, 0.05) 17px);
+        }
+        .card-front .bg-pattern.waves {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255, 215, 0, 0.04) 20px, rgba(255, 215, 0, 0.04) 21px);
+            background-size: 30px 30px;
+        }
+
+        .card-front .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.2;
+            animation: glowFloat 6s ease-in-out infinite alternate;
+        }
+        .card-front .glow.tl {
+            top: -30px;
+            left: -30px;
+            width: 120px;
+            height: 120px;
+        }
+        .card-front .glow.br {
+            bottom: -30px;
+            right: -30px;
+            width: 160px;
+            height: 160px;
+            animation-delay: 3s;
+        }
+        @keyframes glowFloat {
+            0% {
+                transform: scale(1) translate(0, 0);
+                opacity: 0.1;
+            }
+            100% {
+                transform: scale(1.4) translate(10px, -10px);
+                opacity: 0.25;
+            }
+        }
+
+        .card-front .content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card-front .header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
         }
 
-        .card-brand {
+        .card-front .brand {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .card-brand .brand-icon {
+        .card-front .brand .icon {
             width: 44px;
             height: 44px;
             border-radius: 12px;
@@ -1239,46 +1189,39 @@
             justify-content: center;
             font-size: 22px;
             background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: transform 0.4s ease;
         }
 
-        .card-wrapper:hover .brand-icon {
-            transform: scale(1.1) rotate(-5deg);
-        }
-
-        .card-brand .logo-text {
+        .card-front .brand .title {
             font-size: clamp(18px, 2.5vw, 22px);
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             line-height: 1.1;
         }
-
-        .card-brand .logo-text small {
+        .card-front .brand .title small {
             display: block;
             font-weight: 300;
             font-size: 9px;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             opacity: 0.5;
             text-transform: uppercase;
-            margin-top: 1px;
+            margin-top: 2px;
         }
 
-        .card-chip {
+        .card-front .chip {
             width: 44px;
             height: 32px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.15));
             border: 1px solid rgba(255, 215, 0, 0.08);
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.2);
         }
-
-        .card-chip::after {
+        .card-front .chip::after {
             content: '';
             width: 28px;
             height: 18px;
@@ -1287,119 +1230,89 @@
             background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 215, 0, 0.04) 2px, rgba(255, 215, 0, 0.04) 4px);
         }
 
-        .card-chip.hologram {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.15));
-            animation: hologramShine 3s ease-in-out infinite;
-        }
-
-        @keyframes hologramShine {
-            0%,
-            100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .card-balance {
+        .card-front .balance {
             text-align: center;
-            margin: 2px 0 0;
-            position: relative;
+            margin: 8px 0 4px;
         }
-
-        .card-balance .number {
-            font-size: clamp(48px, 12vw, 68px);
+        .card-front .balance .number {
+            font-size: clamp(44px, 10vw, 60px);
             font-weight: 800;
             letter-spacing: -2px;
             line-height: 1;
-            position: relative;
-            display: inline-block;
-            transition: all 0.3s ease;
         }
-
-        .card-balance .number .currency {
+        .card-front .balance .number .currency {
             font-size: 28px;
             font-weight: 300;
             opacity: 0.5;
             margin-right: 4px;
         }
-
-        .card-balance .number .count {
+        .card-front .balance .number .count {
             display: inline-block;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s;
         }
-
-        .card-balance .number .count.pulse {
+        .card-front .balance .number .count.pulse {
             animation: countPulse 0.4s ease;
         }
-
         @keyframes countPulse {
             0% {
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.15);
+                transform: scale(1.12);
             }
             100% {
                 transform: scale(1);
             }
         }
-
-        .card-balance .label {
+        .card-front .balance .label {
             font-size: clamp(11px, 1.2vw, 14px);
             font-weight: 300;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             text-transform: uppercase;
+            opacity: 0.5;
             display: block;
             margin-top: -2px;
-            opacity: 0.6;
         }
 
-        .card-id {
+        .card-front .card-id {
             text-align: center;
             font-family: 'Courier New', monospace;
             font-size: clamp(11px, 1.2vw, 13px);
             letter-spacing: 3px;
-            opacity: 0.4;
-            margin-top: 2px;
-        }
-
-        .card-footer-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            opacity: 0.3;
             margin-top: 4px;
         }
 
-        .card-footer-details .valid {
+        .card-front .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 6px;
+        }
+        .card-front .footer .valid {
             font-size: 10px;
             letter-spacing: 2px;
             text-transform: uppercase;
             opacity: 0.4;
         }
-
-        .card-footer-details .valid span {
+        .card-front .footer .valid span {
             display: block;
             font-size: clamp(16px, 2vw, 20px);
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             font-weight: 500;
-            margin-top: 1px;
             opacity: 0.9;
+            margin-top: 1px;
         }
-
-        .card-footer-details .holder {
+        .card-front .footer .holder {
             text-align: right;
         }
-
-        .card-footer-details .holder .label {
+        .card-front .footer .holder .label {
             font-size: 9px;
             letter-spacing: 2px;
             text-transform: uppercase;
             opacity: 0.4;
         }
-
-        .card-footer-details .holder .name {
+        .card-front .footer .holder .name {
             font-size: clamp(16px, 2vw, 20px);
             font-weight: 500;
             letter-spacing: 2px;
@@ -1407,86 +1320,53 @@
             opacity: 0.9;
         }
 
-        .card-premium-tag {
+        .card-front .premium-tag {
             position: absolute;
             bottom: 12px;
-            right: 24px;
+            right: 20px;
             font-size: 10px;
             letter-spacing: 3px;
             text-transform: uppercase;
             opacity: 0.12;
-            z-index: 6;
+            z-index: 3;
             font-weight: 300;
         }
 
-        .card-front .shine-line {
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02), transparent);
-            transform: skewX(-20deg);
-            z-index: 3;
-            pointer-events: none;
-            animation: shineSlide 8s ease-in-out infinite;
-        }
-
-        @keyframes shineSlide {
-            0% {
-                left: -100%;
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            30% {
-                left: 150%;
-                opacity: 0;
-            }
-            100% {
-                left: 150%;
-                opacity: 0;
-            }
-        }
-
-        /* ---- Бэк (оборотная сторона) ---- */
+        /* ---- ОБОРОТНАЯ СТОРОНА ---- */
         .card-back {
             transform: rotateY(180deg);
+            padding: 24px 28px;
             display: flex;
             flex-direction: column;
-            padding: 22px 28px;
             justify-content: space-between;
-            color: #f0e6c5;
+            color: #fff;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
             position: relative;
-            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.2);
         }
 
         .card-back .back-glow {
             position: absolute;
             border-radius: 50%;
-            filter: blur(100px);
+            filter: blur(80px);
             z-index: 0;
             pointer-events: none;
             opacity: 0.06;
             animation: backGlowFloat 10s ease-in-out infinite alternate;
         }
-
         .card-back .back-glow.tl {
-            top: -50px;
-            left: -50px;
+            top: -40px;
+            left: -40px;
+            width: 160px;
+            height: 160px;
+        }
+        .card-back .back-glow.br {
+            bottom: -40px;
+            right: -40px;
             width: 200px;
             height: 200px;
-        }
-
-        .card-back .back-glow.br {
-            bottom: -50px;
-            right: -50px;
-            width: 250px;
-            height: 250px;
             animation-delay: 5s;
         }
-
         @keyframes backGlowFloat {
             0% {
                 transform: translateX(-5%) rotate(0deg);
@@ -1498,30 +1378,31 @@
             }
         }
 
-        .back-stripe {
+        .card-back .stripe {
             width: 100%;
-            height: 44px;
+            height: 40px;
             border-radius: 6px;
             display: flex;
             align-items: center;
-            padding: 0 18px;
+            padding: 0 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.04);
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.2);
             position: relative;
             z-index: 1;
-            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
-
-        .back-stripe .stripe-text {
+        .card-back .stripe .text {
             letter-spacing: 3px;
             font-size: 12px;
             font-family: 'Courier New', monospace;
-            opacity: 0.4;
-            overflow: hidden;
+            opacity: 0.3;
             white-space: nowrap;
+            overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .back-info {
+        .card-back .info {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1529,8 +1410,7 @@
             z-index: 1;
             position: relative;
         }
-
-        .back-phone {
+        .card-back .info .phone {
             font-size: clamp(13px, 1.5vw, 15px);
             font-weight: 500;
             letter-spacing: 1px;
@@ -1538,62 +1418,54 @@
             align-items: center;
             gap: 10px;
         }
-
-        .back-phone i {
-            opacity: 0.6;
-            font-size: 14px;
+        .card-back .info .phone i {
+            opacity: 0.4;
         }
-
-        .back-since {
+        .card-back .info .since {
             font-size: 11px;
             letter-spacing: 3px;
             text-transform: uppercase;
             opacity: 0.3;
-            font-weight: 300;
         }
 
-        .back-footer {
+        .card-back .footer-back {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             margin-top: 12px;
-            z-index: 1;
-            position: relative;
             border-top: 1px solid rgba(255, 215, 0, 0.04);
             padding-top: 10px;
+            z-index: 1;
+            position: relative;
         }
-
-        .back-footer .brand {
+        .card-back .footer-back .brand {
             font-size: 11px;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 600;
-            opacity: 0.6;
+            opacity: 0.5;
         }
-
-        .back-footer .support {
+        .card-back .footer-back .support {
             font-size: 10px;
             letter-spacing: 1px;
             text-align: right;
             opacity: 0.3;
         }
-
-        .back-footer .support span {
+        .card-back .footer-back .support span {
             display: block;
             font-size: 13px;
             font-weight: 400;
             margin-top: 2px;
-            opacity: 0.7;
+            opacity: 0.6;
             letter-spacing: 0;
         }
 
-        /* ---- АНИМАЦИЯ ПРИ ПОЯВЛЕНИИ ---- */
+        /* Анимация появления */
         .card-wrapper .card-flip {
-            animation: cardAppear 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation: cardAppear 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
             opacity: 0;
-            transform: translateY(30px) scale(0.98);
+            transform: translateY(20px) scale(0.97);
         }
-
         @keyframes cardAppear {
             to {
                 opacity: 1;
@@ -1601,21 +1473,20 @@
             }
         }
 
-        /* ---- СЕЛЕКТОР ДИЗАЙНА ---- */
+        /* Селектор дизайнов */
         .design-selector {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
             flex-wrap: wrap;
             justify-content: center;
             margin-bottom: 24px;
-            padding: 16px 20px;
+            padding: 14px 20px;
             background: var(--bg-card);
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
             backdrop-filter: blur(8px);
         }
-
         .design-selector label {
             color: var(--text-muted);
             font-size: 14px;
@@ -1624,38 +1495,31 @@
             align-items: center;
             gap: 8px;
         }
-
         .design-selector label i {
             color: var(--gold);
         }
-
         .design-selector select {
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-sm);
             color: var(--text-primary);
             font-size: 14px;
             cursor: pointer;
-            min-width: 180px;
+            min-width: 160px;
             font-family: 'Inter', sans-serif;
             transition: var(--transition);
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A96E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 16px center;
+            background-position: right 12px center;
+            padding-right: 36px;
         }
-
         .design-selector select:focus {
             outline: none;
             border-color: var(--gold);
             box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
         }
-
-        .design-selector select option {
-            padding: 8px;
-        }
-
         .design-selector .preview-dot {
             width: 28px;
             height: 28px;
@@ -1664,14 +1528,21 @@
             flex-shrink: 0;
             transition: var(--transition);
         }
-
         .design-selector .preview-dot:hover {
             transform: scale(1.15);
             border-color: var(--gold);
         }
+        .design-selector .desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0.6;
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+        }
 
         /* ============================================================
-           КОНТАКТЫ, МОДАЛКИ, АДАПТИВ
+           КОНТАКТЫ
            ============================================================ */
         .contact-grid {
             display: grid;
@@ -1774,6 +1645,9 @@
             border: 0;
         }
 
+        /* ============================================================
+           МОДАЛКИ
+           ============================================================ */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -2105,13 +1979,11 @@
                 padding: 18px 32px
             }
             .card-wrapper {
-                max-width: 520px;
+                max-width: 480px;
             }
-            .front-content {
-                padding: 28px 36px;
-            }
+            .card-front,
             .card-back {
-                padding: 28px 36px;
+                padding: 28px 32px;
             }
         }
         @media (max-width:768px) {
@@ -2192,42 +2064,44 @@
             .design-selector {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 10px;
+                gap: 8px;
             }
             .design-selector select {
                 width: 100%;
                 min-width: unset;
             }
+            .design-selector .desc {
+                text-align: center;
+            }
             .card-wrapper {
                 max-width: 100%;
+                padding: 0 4px;
             }
-            .front-content {
-                padding: 16px 18px;
-            }
+            .card-front,
             .card-back {
                 padding: 16px 18px;
             }
-            .card-brand .brand-icon {
+            .card-front .brand .icon {
                 width: 34px;
                 height: 34px;
                 font-size: 16px;
             }
-            .card-chip {
+            .card-front .chip {
                 width: 36px;
                 height: 26px;
             }
-            .card-chip::after {
+            .card-front .chip::after {
                 width: 22px;
                 height: 14px;
             }
-            .card-balance .number {
-                font-size: 38px;
+            .card-front .balance .number {
+                font-size: 36px;
             }
-            .card-balance .number .currency {
+            .card-front .balance .number .currency {
                 font-size: 20px;
             }
-            .back-stripe {
-                height: 34px;
+            .card-back .stripe {
+                height: 32px;
             }
         }
         @media (max-width:400px) {
@@ -2280,6 +2154,9 @@
 </head>
 <body>
 
+    <!-- ============================================================
+    ШАПКА
+    ============================================================ -->
     <header>
         <div class="header-inner">
             <div class="logo" onclick="navigateTo('home')">Студия<span>№1</span></div>
@@ -2298,7 +2175,9 @@
         </div>
     </header>
 
-    <!-- СТРАНИЦЫ -->
+    <!-- ============================================================
+    СТРАНИЦЫ
+    ============================================================ -->
     <div id="page-home" class="page active">
         <section class="hero">
             <div class="container">
@@ -2406,6 +2285,9 @@
         </div>
     </div>
 
+    <!-- ============================================================
+    ФУТЕР
+    ============================================================ -->
     <footer>
         <div class="container">
             <p>&copy; 2026 <span>Студия №1</span> — Премиальный салон красоты в Кемерово</p>
@@ -2416,7 +2298,9 @@
     <button class="sticky-book btn-pulse" onclick="openBooking()"><i class="fas fa-calendar-plus"></i> Записаться</button>
     <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-up"></i></button>
 
-    <!-- МОДАЛКИ -->
+    <!-- ============================================================
+    МОДАЛКИ
+    ============================================================ -->
     <div class="modal-overlay" id="authModal">
         <div class="modal">
             <button class="modal-close" onclick="closeAuthModal()">&times;</button>
@@ -2464,6 +2348,9 @@
         </div>
     </div>
 
+    <!-- ============================================================
+    СКРИПТ
+    ============================================================ -->
     <script type="module">
         // ============================================================
         // FIREBASE
@@ -2499,182 +2386,132 @@
         let commentListeners = {};
 
         // ============================================================
-        // 10 ДИЗАЙНОВ КАРТ
+        // 10 ДИЗАЙНОВ КАРТ (УНИКАЛЬНЫЕ)
         // ============================================================
         const CARD_DESIGNS = [{
             id: 'onyx_gold',
             name: 'Onyx Gold',
-            frontBg: 'linear-gradient(145deg, #1a1208, #0d0a04, #1a1208)',
+            frontBg: 'linear-gradient(145deg, #1a1208, #0d0a04)',
             frontAccent: '#C9A96E',
-            frontAccent2: '#E8D5A8',
             frontText: '#f5e7b0',
-            frontGlow: 'rgba(201, 169, 110, 0.2)',
-            pattern: 'diamonds',
-            chip: 'hologram',
-            icon: '👑',
             backBg: 'linear-gradient(145deg, #0d0a04, #1a1208)',
             backAccent: '#C9A96E',
             backText: '#f5e7b0',
-            backGlow: 'rgba(201, 169, 110, 0.08)',
-            stripeBg: 'rgba(0,0,0,0.4)',
-            description: 'Классический золотой — символ статуса и элегантности'
+            pattern: 'diamonds',
+            icon: '👑',
+            desc: 'Классическое золото'
         }, {
             id: 'platinum',
             name: 'Platinum',
-            frontBg: 'linear-gradient(145deg, #2a2a2a, #4a4a4a, #2a2a2a)',
+            frontBg: 'linear-gradient(145deg, #2a2a2a, #4a4a4a)',
             frontAccent: '#E8D5A8',
-            frontAccent2: '#FFFFFF',
             frontText: '#f0f0f0',
-            frontGlow: 'rgba(200, 200, 200, 0.15)',
-            pattern: 'lines',
-            chip: 'hologram',
-            icon: '💎',
             backBg: 'linear-gradient(145deg, #1a1a1a, #3a3a3a)',
             backAccent: '#E8D5A8',
             backText: '#f0f0f0',
-            backGlow: 'rgba(200, 200, 200, 0.06)',
-            stripeBg: 'rgba(255,255,255,0.05)',
-            description: 'Платиновое сияние — холодная элегантность'
+            pattern: 'lines',
+            icon: '💎',
+            desc: 'Холодный блеск'
         }, {
             id: 'rose_gold',
             name: 'Rose Gold',
-            frontBg: 'linear-gradient(145deg, #2a1a1a, #4a2a2a, #2a1a1a)',
+            frontBg: 'linear-gradient(145deg, #2a1a1a, #4a2a2a)',
             frontAccent: '#E8A8A8',
-            frontAccent2: '#F5C8C8',
             frontText: '#f5e0e0',
-            frontGlow: 'rgba(232, 168, 168, 0.2)',
-            pattern: 'circles',
-            chip: 'hologram',
-            icon: '🌹',
             backBg: 'linear-gradient(145deg, #1a0a0a, #3a1a1a)',
             backAccent: '#E8A8A8',
             backText: '#f5e0e0',
-            backGlow: 'rgba(232, 168, 168, 0.08)',
-            stripeBg: 'rgba(232,168,168,0.05)',
-            description: 'Розовое золото — нежность и романтика'
+            pattern: 'circles',
+            icon: '🌹',
+            desc: 'Нежность и романтика'
         }, {
             id: 'carbon',
             name: 'Carbon',
-            frontBg: 'linear-gradient(145deg, #0a0a0a, #2a2a2a, #0a0a0a)',
+            frontBg: 'linear-gradient(145deg, #0a0a0a, #2a2a2a)',
             frontAccent: '#C9A96E',
-            frontAccent2: '#D4C8A0',
             frontText: '#e0e0e0',
-            frontGlow: 'rgba(201, 169, 110, 0.08)',
-            pattern: 'hexagons',
-            chip: 'hologram',
-            icon: '⚡',
             backBg: 'linear-gradient(145deg, #050505, #1a1a1a)',
             backAccent: '#C9A96E',
             backText: '#e0e0e0',
-            backGlow: 'rgba(201, 169, 110, 0.04)',
-            stripeBg: 'rgba(255,255,255,0.03)',
-            description: 'Карбон — технологичность и минимализм'
+            pattern: 'hexagons',
+            icon: '⚡',
+            desc: 'Техно-минимализм'
         }, {
             id: 'midnight_blue',
             name: 'Midnight Blue',
-            frontBg: 'linear-gradient(145deg, #0a0a2a, #1a1a5a, #0a0a2a)',
-            frontAccent: '#C9A96E',
-            frontAccent2: '#8AB4F8',
+            frontBg: 'linear-gradient(145deg, #0a0a2a, #1a1a5a)',
+            frontAccent: '#8AB4F8',
             frontText: '#c0d0f0',
-            frontGlow: 'rgba(100, 150, 255, 0.15)',
-            pattern: 'waves',
-            chip: 'hologram',
-            icon: '🌙',
             backBg: 'linear-gradient(145deg, #0a0a1a, #1a1a3a)',
             backAccent: '#8AB4F8',
             backText: '#c0d0f0',
-            backGlow: 'rgba(100, 150, 255, 0.06)',
-            stripeBg: 'rgba(100,150,255,0.05)',
-            description: 'Полночь — глубина и загадка'
+            pattern: 'waves',
+            icon: '🌙',
+            desc: 'Глубина ночи'
         }, {
             id: 'emerald',
             name: 'Emerald',
-            frontBg: 'linear-gradient(145deg, #0a1a0a, #1a3a1a, #0a1a0a)',
+            frontBg: 'linear-gradient(145deg, #0a1a0a, #1a3a1a)',
             frontAccent: '#50C878',
-            frontAccent2: '#90EE90',
             frontText: '#c0e0c0',
-            frontGlow: 'rgba(80, 200, 120, 0.15)',
-            pattern: 'diamonds',
-            chip: 'hologram',
-            icon: '🌿',
             backBg: 'linear-gradient(145deg, #0a1a0a, #1a2a1a)',
             backAccent: '#50C878',
             backText: '#c0e0c0',
-            backGlow: 'rgba(80, 200, 120, 0.06)',
-            stripeBg: 'rgba(80,200,120,0.05)',
-            description: 'Изумруд — природная свежесть'
+            pattern: 'diamonds',
+            icon: '🌿',
+            desc: 'Природная свежесть'
         }, {
             id: 'burgundy',
             name: 'Burgundy',
-            frontBg: 'linear-gradient(145deg, #2a0a0a, #4a1a1a, #2a0a0a)',
-            frontAccent: '#C9A96E',
-            frontAccent2: '#E8C8C8',
+            frontBg: 'linear-gradient(145deg, #2a0a0a, #4a1a1a)',
+            frontAccent: '#E8C8C8',
             frontText: '#f0c0c0',
-            frontGlow: 'rgba(180, 50, 50, 0.15)',
-            pattern: 'circles',
-            chip: 'hologram',
-            icon: '🍷',
             backBg: 'linear-gradient(145deg, #1a0a0a, #3a1a1a)',
-            backAccent: '#C9A96E',
+            backAccent: '#E8C8C8',
             backText: '#f0c0c0',
-            backGlow: 'rgba(180, 50, 50, 0.06)',
-            stripeBg: 'rgba(180,50,50,0.05)',
-            description: 'Бургунди — страсть и роскошь'
+            pattern: 'circles',
+            icon: '🍷',
+            desc: 'Страсть и роскошь'
         }, {
             id: 'titanium',
             name: 'Titanium',
-            frontBg: 'linear-gradient(145deg, #2a2a2a, #5a5a5a, #2a2a2a)',
+            frontBg: 'linear-gradient(145deg, #2a2a2a, #5a5a5a)',
             frontAccent: '#B8B8B8',
-            frontAccent2: '#E0E0E0',
             frontText: '#f0f0f0',
-            frontGlow: 'rgba(180, 180, 180, 0.15)',
-            pattern: 'hexagons',
-            chip: 'hologram',
-            icon: '🔩',
             backBg: 'linear-gradient(145deg, #1a1a1a, #4a4a4a)',
             backAccent: '#B8B8B8',
             backText: '#f0f0f0',
-            backGlow: 'rgba(180, 180, 180, 0.06)',
-            stripeBg: 'rgba(255,255,255,0.04)',
-            description: 'Титан — сила и надёжность'
+            pattern: 'hexagons',
+            icon: '🔩',
+            desc: 'Прочность и стиль'
         }, {
             id: 'obsidian',
             name: 'Obsidian',
-            frontBg: 'linear-gradient(145deg, #0a0a0a, #1a1a1a, #0a0a0a)',
+            frontBg: 'linear-gradient(145deg, #0a0a0a, #1a1a1a)',
             frontAccent: '#8A7A6A',
-            frontAccent2: '#C9A96E',
             frontText: '#d0c0a0',
-            frontGlow: 'rgba(138, 122, 106, 0.12)',
-            pattern: 'lines',
-            chip: 'hologram',
-            icon: '🗿',
             backBg: 'linear-gradient(145deg, #050505, #151515)',
             backAccent: '#8A7A6A',
             backText: '#d0c0a0',
-            backGlow: 'rgba(138, 122, 106, 0.04)',
-            stripeBg: 'rgba(255,255,255,0.02)',
-            description: 'Обсидиан — минимализм и глубина'
+            pattern: 'lines',
+            icon: '🗿',
+            desc: 'Минимализм и глубина'
         }, {
             id: 'royal_gold',
             name: 'Royal Gold',
-            frontBg: 'linear-gradient(145deg, #1a0a00, #3a2a10, #1a0a00)',
+            frontBg: 'linear-gradient(145deg, #1a0a00, #3a2a10)',
             frontAccent: '#E8D5A8',
-            frontAccent2: '#FFE8C0',
             frontText: '#f5e7b0',
-            frontGlow: 'rgba(232, 213, 168, 0.2)',
-            pattern: 'waves',
-            chip: 'hologram',
-            icon: '👑',
             backBg: 'linear-gradient(145deg, #0a0500, #2a1a08)',
             backAccent: '#E8D5A8',
             backText: '#f5e7b0',
-            backGlow: 'rgba(232, 213, 168, 0.08)',
-            stripeBg: 'rgba(232,213,168,0.05)',
-            description: 'Королевское золото — абсолютная роскошь'
+            pattern: 'waves',
+            icon: '👑',
+            desc: 'Абсолютная роскошь'
         }];
 
         // ============================================================
-        // ДАННЫЕ ПО УМОЛЧАНИЮ
+        // ДАННЫЕ ПО УМОЛЧАНИЮ (МАСТЕРА)
         // ============================================================
         const DEFAULT_MASTERS = [{
             id: 'natalia',
@@ -2770,7 +2607,7 @@
         ];
 
         // ============================================================
-        // ИНИЦИАЛИЗАЦИЯ
+        // ИНИЦИАЛИЗАЦИЯ ДАННЫХ
         // ============================================================
         async function initData() {
             try {
@@ -3052,39 +2889,14 @@
         };
 
         // ============================================================
-        // ФУНКЦИЯ РЕНДЕРИНГА КАРТЫ
+        // РЕНДЕРИНГ КАРТЫ
         // ============================================================
         function renderPremiumCard(minutes, cardId, userName, designId) {
             const design = CARD_DESIGNS.find(d => d.id === designId) || CARD_DESIGNS[0];
 
-            const patternMap = {
-                'diamonds': 'diamonds',
-                'lines': 'lines',
-                'circles': 'circles',
-                'hexagons': 'hexagons',
-                'waves': 'waves'
-            };
-            const patternClass = patternMap[design.pattern] || 'diamonds';
-
-            const iconMap = {
-                'onyx_gold': '👑',
-                'platinum': '💎',
-                'rose_gold': '🌹',
-                'carbon': '⚡',
-                'midnight_blue': '🌙',
-                'emerald': '🌿',
-                'burgundy': '🍷',
-                'titanium': '🔩',
-                'obsidian': '🗿',
-                'royal_gold': '👑'
-            };
-            const icon = iconMap[designId] || '💳';
-
-            const formattedMinutes = minutes || 0;
-
             return `
                 <div class="design-selector">
-                    <label><i class="fas fa-palette"></i> Дизайн карты:</label>
+                    <label><i class="fas fa-palette"></i> Дизайн:</label>
                     <select id="cardDesignSelect" onchange="changeCardDesign(this.value)">
                         ${CARD_DESIGNS.map(d => `
                             <option value="${d.id}" ${d.id === designId ? 'selected' : ''}>
@@ -3092,54 +2904,45 @@
                             </option>
                         `).join('')}
                     </select>
-                    <div class="preview-dot" style="background:${design.frontBg};border-color:${design.frontAccent};"></div>
-                    <span style="font-size:12px;color:var(--text-muted);opacity:0.6;">${design.description}</span>
+                    <div class="preview-dot" style="background:${design.frontBg}; border-color:${design.frontAccent};"></div>
+                    <span class="desc">${design.desc}</span>
                 </div>
 
-                <div class="card-wrapper">
+                <div class="card-wrapper" id="cardWrapper">
                     <div class="card-flip" id="cardFlip">
                         <!-- ЛИЦЕВАЯ СТОРОНА -->
-                        <div class="card-face card-front" style="background: ${design.frontBg};">
-                            <div class="bg-overlay"></div>
-                            <div class="pattern ${patternClass}"></div>
+                        <div class="card-face card-front" style="background: ${design.frontBg}; color: ${design.frontText};">
+                            <div class="bg-pattern ${design.pattern}"></div>
+                            <div class="glow tl" style="background: radial-gradient(circle, ${design.frontAccent}44, transparent);"></div>
+                            <div class="glow br" style="background: radial-gradient(circle, ${design.frontAccent}44, transparent);"></div>
 
-                            <!-- Световые пятна -->
-                            <div class="glow-spot tl" style="background: radial-gradient(circle, ${design.frontGlow}, transparent);"></div>
-                            <div class="glow-spot br" style="background: radial-gradient(circle, ${design.frontGlow}, transparent);"></div>
-                            <div class="glow-spot tr" style="background: radial-gradient(circle, ${design.frontAccent}22, transparent);"></div>
-                            <div class="glow-spot bl" style="background: radial-gradient(circle, ${design.frontAccent}22, transparent);"></div>
-
-                            <!-- Блик -->
-                            <div class="shine-line"></div>
-
-                            <div class="front-content">
-                                <div class="card-header">
-                                    <div class="card-brand">
-                                        <div class="brand-icon" style="border-color: ${design.frontAccent}44; color: ${design.frontAccent};">
-                                            ${icon}
+                            <div class="content">
+                                <div class="header">
+                                    <div class="brand">
+                                        <div class="icon" style="border-color: ${design.frontAccent}44; color: ${design.frontAccent};">
+                                            ${design.icon}
                                         </div>
                                         <div>
-                                            <span class="logo-text" style="color: ${design.frontText};">
+                                            <div class="title" style="color: ${design.frontText};">
                                                 СТУДИЯ №1
                                                 <small style="color: ${design.frontAccent}88;">GOLD PREMIUM</small>
-                                            </span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="card-chip ${design.chip}" style="background: linear-gradient(135deg, ${design.frontAccent}44, ${design.frontAccent}22, ${design.frontAccent}44); border-color: ${design.frontAccent}33;">
-                                    </div>
+                                    <div class="chip" style="background: linear-gradient(135deg, ${design.frontAccent}44, ${design.frontAccent}22); border-color: ${design.frontAccent}33;"></div>
                                 </div>
 
-                                <div class="card-balance">
+                                <div class="balance">
                                     <div class="number" style="color: ${design.frontText};">
                                         <span class="currency" style="color: ${design.frontAccent};">✦</span>
-                                        <span class="count" id="balanceCount">${formattedMinutes}</span>
+                                        <span class="count" id="balanceCount">${minutes || 0}</span>
                                     </div>
                                     <span class="label" style="color: ${design.frontAccent}88;">минут</span>
                                 </div>
 
                                 <div class="card-id" style="color: ${design.frontAccent}66;">${cardId || 'ST-000-2026'}</div>
 
-                                <div class="card-footer-details">
+                                <div class="footer">
                                     <div class="valid" style="color: ${design.frontAccent}66;">
                                         VALID THRU
                                         <span style="color: ${design.frontText};">12/26</span>
@@ -3150,56 +2953,54 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="card-premium-tag" style="color: ${design.frontAccent}33;">✦ premium ✦</div>
+                            <div class="premium-tag" style="color: ${design.frontAccent}33;">✦ premium ✦</div>
                         </div>
 
                         <!-- ОБОРОТНАЯ СТОРОНА -->
-                        <div class="card-face card-back" style="background: ${design.backBg};">
-                            <div class="back-glow tl" style="background: radial-gradient(circle, ${design.backGlow}, transparent);"></div>
-                            <div class="back-glow br" style="background: radial-gradient(circle, ${design.backGlow}, transparent);"></div>
+                        <div class="card-face card-back" style="background: ${design.backBg}; color: ${design.backText};">
+                            <div class="back-glow tl" style="background: radial-gradient(circle, ${design.backAccent}44, transparent);"></div>
+                            <div class="back-glow br" style="background: radial-gradient(circle, ${design.backAccent}44, transparent);"></div>
 
-                            <div style="display:flex;flex-direction:column;height:100%;position:relative;z-index:1;">
-                                <div class="back-stripe" style="background: ${design.stripeBg}; border: 1px solid ${design.backAccent}22;">
-                                    <span class="stripe-text" style="color: ${design.backAccent}44;">••••••••••••••••••••••••••••••••••••••••</span>
+                            <div style="display:flex; flex-direction:column; height:100%; position:relative; z-index:1;">
+                                <div class="stripe" style="background: rgba(0,0,0,0.2); border-color: ${design.backAccent}22;">
+                                    <span class="text" style="color: ${design.backAccent}44;">••••••••••••••••••••••••••••••••••••••••</span>
                                 </div>
 
-                                <div class="back-info">
-                                    <div class="back-phone" style="color: ${design.backAccent}88;">
+                                <div class="info">
+                                    <div class="phone" style="color: ${design.backAccent}88;">
                                         <i class="fas fa-phone" style="color: ${design.backAccent}44;"></i>
                                         +7 (951) 606-20-01
                                     </div>
-                                    <div class="back-since" style="color: ${design.backAccent}33;">SINCE 2013</div>
+                                    <div class="since" style="color: ${design.backAccent}33;">SINCE 2013</div>
                                 </div>
 
-                                <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;">
-                                    <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+                                <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end;">
+                                    <div style="display:flex; justify-content:space-between; align-items:flex-end;">
                                         <div>
-                                            <div style="font-size:9px;letter-spacing:2px;color:${design.backAccent}33;text-transform:uppercase;">
+                                            <div style="font-size:9px; letter-spacing:2px; color:${design.backAccent}33; text-transform:uppercase;">
                                                 Authorized signature
                                             </div>
-                                            <div style="width:80px;height:1px;background:linear-gradient(90deg,${design.backAccent}44,transparent);margin-top:4px;"></div>
+                                            <div style="width:80px; height:1px; background:linear-gradient(90deg,${design.backAccent}44,transparent); margin-top:4px;"></div>
                                         </div>
-                                        <div class="back-footer">
+                                        <div class="footer-back">
                                             <div class="support" style="color:${design.backAccent}33;">
                                                 SUPPORT
                                                 <span style="color:${design.backAccent}66;">+7 (951) 606-20-01</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="display:flex;justify-content:space-between;margin-top:8px;border-top:1px solid ${design.backAccent}11;padding-top:10px;">
-                                        <div class="brand" style="color:${design.backAccent}44;background:linear-gradient(90deg,${design.backAccent},${design.backText},${design.backAccent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;letter-spacing:2px;">
+                                    <div style="display:flex; justify-content:space-between; margin-top:8px; border-top:1px solid ${design.backAccent}11; padding-top:10px;">
+                                        <div class="brand" style="color:${design.backAccent}44; background:linear-gradient(90deg,${design.backAccent},${design.backText},${design.backAccent}); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; font-weight:600; letter-spacing:2px;">
                                             ✦ STUDIO №1 • PREMIUM ✦
                                         </div>
-                                        <div style="font-size:8px;color:${design.backAccent}22;letter-spacing:1px;">BANK • SINCE 2013</div>
+                                        <div style="font-size:8px; color:${design.backAccent}22; letter-spacing:1px;">BANK • SINCE 2013</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div style="text-align:center;font-size:12px;color:var(--text-muted);opacity:0.4;margin-top:4px;">
+                <div style="text-align:center; font-size:12px; color:var(--text-muted); opacity:0.4; margin-top:4px;">
                     <i class="fas fa-hand-pointer"></i> Нажмите на карту, чтобы перевернуть
                 </div>
             `;
@@ -3224,7 +3025,6 @@
                 const eased = 1 - Math.pow(1 - progress, 3);
                 const current = Math.round(startValue + (newValue - startValue) * eased);
                 el.textContent = current;
-
                 if (progress < 1) {
                     requestAnimationFrame(updateCounter);
                 } else {
@@ -3237,27 +3037,38 @@
         }
 
         // ============================================================
-        // СМЕНА ДИЗАЙНА КАРТЫ
+        // ПЕРЕВОРОТ КАРТЫ ПО КЛИКУ
+        // ============================================================
+        document.addEventListener('click', function(e) {
+            const wrapper = e.target.closest('.card-wrapper');
+            if (wrapper) {
+                const flip = wrapper.querySelector('.card-flip');
+                if (flip) {
+                    flip.classList.toggle('flipped');
+                }
+            }
+        });
+
+        // ============================================================
+        // СМЕНА ДИЗАЙНА
         // ============================================================
         window.changeCardDesign = async function(designId) {
             if (!currentUser) {
-                alert('Войдите в аккаунт, чтобы менять дизайн карты');
+                alert('Войдите в аккаунт, чтобы менять дизайн');
                 return;
             }
             try {
-                await updateDoc(doc(db, 'users', currentUser.uid), {
-                    cardDesign: designId
-                });
+                await updateDoc(doc(db, 'users', currentUser.uid), { cardDesign: designId });
                 currentUserData.cardDesign = designId;
                 renderCabinet();
             } catch (e) {
-                console.error('Ошибка смены дизайна:', e);
-                alert('❌ Ошибка: ' + e.message);
+                console.error(e);
+                alert('Ошибка: ' + e.message);
             }
         };
 
         // ============================================================
-        // РЕНДЕРИНГ
+        // РЕНДЕРИНГ ВСЕХ БЛОКОВ
         // ============================================================
         function renderAll() {
             renderCategories();
@@ -3395,13 +3206,11 @@
             const container = document.getElementById('cabinetContainer');
             if (!currentUser) {
                 container.innerHTML = `
-                    <div style="text-align:center;color:var(--text-muted);padding:40px 0;">
-                        <i class="fas fa-user-lock" style="font-size:48px;display:block;margin-bottom:16px;color:var(--gold);opacity:0.5;"></i>
-                        <p style="font-size:18px;margin-bottom:8px;">Войдите в аккаунт</p>
-                        <p style="font-size:14px;opacity:0.7;">Чтобы увидеть карту минут и историю</p>
-                        <button class="btn" onclick="handleAuthClick()" style="margin-top:20px;">
-                            <i class="fas fa-sign-in-alt"></i> Войти
-                        </button>
+                    <div style="text-align:center; color:var(--text-muted); padding:40px 0;">
+                        <i class="fas fa-user-lock" style="font-size:48px; display:block; margin-bottom:16px; color:var(--gold); opacity:0.5;"></i>
+                        <p style="font-size:18px; margin-bottom:8px;">Войдите в аккаунт</p>
+                        <p style="font-size:14px; opacity:0.7;">Чтобы увидеть карту минут и историю</p>
+                        <button class="btn" onclick="handleAuthClick()" style="margin-top:20px;">Войти</button>
                     </div>
                 `;
                 return;
@@ -3418,9 +3227,9 @@
             let historyHtml = '';
             if (history.length) {
                 historyHtml = `
-                    <h4 style="margin-top:32px;margin-bottom:16px;color:var(--text-primary);font-size:18px;display:flex;align-items:center;gap:10px;">
+                    <h4 style="margin-top:32px; margin-bottom:16px; color:var(--text-primary); font-size:18px; display:flex; align-items:center; gap:10px;">
                         <i class="fas fa-clock" style="color:var(--gold);"></i> История операций
-                        <span style="font-size:13px;color:var(--text-muted);font-weight:400;">(${history.length})</span>
+                        <span style="font-size:13px; color:var(--text-muted); font-weight:400;">(${history.length})</span>
                     </h4>
                     <div class="history-list">
                         ${history.slice().reverse().map(h => `
@@ -3433,8 +3242,8 @@
                 `;
             } else {
                 historyHtml = `
-                    <div style="text-align:center;color:var(--text-muted);padding:24px 0;font-size:14px;opacity:0.6;">
-                        <i class="fas fa-inbox" style="display:block;font-size:32px;margin-bottom:8px;"></i>
+                    <div style="text-align:center; color:var(--text-muted); padding:24px 0; font-size:14px; opacity:0.6;">
+                        <i class="fas fa-inbox" style="display:block; font-size:32px; margin-bottom:8px;"></i>
                         История операций пока пуста
                     </div>
                 `;
@@ -3442,14 +3251,12 @@
 
             container.innerHTML = `
                 ${cardHtml}
-                <div style="max-width:520px;margin:0 auto;">
+                <div style="max-width:520px; margin:0 auto;">
                     ${historyHtml}
                 </div>
             `;
 
-            setTimeout(() => {
-                animateBalance(minutes);
-            }, 300);
+            setTimeout(() => animateBalance(minutes), 300);
         }
 
         // ============================================================
