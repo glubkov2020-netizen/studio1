@@ -11,9 +11,9 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://glubkov2020-netizen.github.io/studio1/" />
     
-    <!-- Open Graph / Social Media -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Студия №1 — Премиальный салон красоты в Кемерово" />
-    <meta property="og:description" content="Золотой стандарт красоты. Мастера высшего класса, индивидуальный подход. Запись онлайн." />
+    <meta property="og:description" content="Золотой стандарт красоты. Мастера высшего класса, индивидуальный подход." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://glubkov2020-netizen.github.io/studio1/" />
     <meta property="og:image" content="https://glubkov2020-netizen.github.io/studio1/og-image.jpg" />
@@ -25,7 +25,6 @@
     <meta name="twitter:title" content="Студия №1 — Премиальный салон красоты в Кемерово" />
     <meta name="twitter:description" content="Золотой стандарт красоты. Мастера высшего класса." />
     
-    <!-- Theme Color -->
     <meta name="theme-color" content="#C9A96E" />
     
     <!-- Fonts & Icons -->
@@ -34,7 +33,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     
-    <!-- Schema.org Structured Data -->
+    <!-- Schema.org -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -52,23 +51,7 @@
         "telephone": "+79516062001",
         "email": "studiia1@mail.ru",
         "openingHours": "Mo-Su 10:00-21:00",
-        "priceRange": "₽₽",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "ratingCount": "127"
-        },
-        "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Услуги салона красоты",
-            "itemListElement": [
-                { "@type": "Offer", "name": "Стрижки", "description": "Женские и мужские стрижки" },
-                { "@type": "Offer", "name": "Окрашивание", "description": "Профессиональное окрашивание" },
-                { "@type": "Offer", "name": "Маникюр", "description": "Маникюр с покрытием гель-лак" },
-                { "@type": "Offer", "name": "Педикюр", "description": "Smart педикюр" },
-                { "@type": "Offer", "name": "Солярий", "description": "Премиальный загар" }
-            ]
-        }
+        "priceRange": "₽₽"
     }
     </script>
 
@@ -84,7 +67,7 @@
 
     <style>
         /* ============================================================
-           ВСЕ СТИЛИ (ПОЛНЫЕ)
+           ПОЛНЫЕ СТИЛИ
            ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
@@ -163,11 +146,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         @keyframes shimmerLong {
             0%, 100% { background-position: 0% center; }
             50% { background-position: 200% center; }
@@ -188,9 +166,9 @@
             100% { transform: translateX(100%); }
         }
 
-        @keyframes starPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); color: #F5B342; }
+        @keyframes cardGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(201, 169, 110, 0.2); }
+            50% { box-shadow: 0 0 40px rgba(201, 169, 110, 0.4); }
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
@@ -275,19 +253,73 @@
         .btn-success:hover { background: #219A52; }
         .btn-pulse { animation: pulseBtn 2s ease-in-out infinite; }
 
-        .skeleton {
-            background: var(--bg-card);
-            border-radius: var(--radius-sm);
+        /* КРАСИВАЯ КНОПКА КАРТА МИНУТ */
+        .card-btn-main {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 18px 40px;
             min-height: 60px;
+            background: var(--gold-gradient);
+            color: #fff;
+            font-weight: 700;
+            font-size: 20px;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 32px rgba(201, 169, 110, 0.35);
+            background-size: 200% auto;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             position: relative;
             overflow: hidden;
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+            animation: cardGlow 3s ease-in-out infinite;
         }
-        .skeleton::after {
+
+        .card-btn-main::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            animation: skeletonShimmer 1.5s infinite;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .card-btn-main:hover::after { opacity: 1; }
+        .card-btn-main:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 48px rgba(201, 169, 110, 0.5);
+            background-position: right center;
+        }
+
+        .card-btn-main:active { transform: scale(0.97); }
+        .card-btn-main i { font-size: 26px; }
+
+        /* Секретная кнопка админки */
+        .secret-admin-link {
+            display: inline-block;
+            font-size: 14px;
+            color: var(--text-muted);
+            opacity: 0.15;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            background: none;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+        .secret-admin-link:hover {
+            opacity: 0.5;
+            color: var(--text-muted);
+            background: var(--bg-card);
         }
 
         /* TOAST */
@@ -756,7 +788,7 @@
             transition: var(--transition-smooth);
         }
         .review-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-        .review-card .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .review-card .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
         .review-card .review-header .avatar {
             width: 44px; height: 44px;
             border-radius: 50%;
@@ -770,11 +802,55 @@
             font-size: 18px;
             flex-shrink: 0;
         }
+        .review-card .review-header .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         .review-card .review-header .review-name { font-weight: 600; color: var(--text-primary); }
         .review-card .review-header .review-date { font-size: 12px; color: var(--text-muted); margin-left: auto; }
-        .review-card .review-stars { color: #F5B342; font-size: 18px; margin-bottom: 6px; }
+        .review-card .review-stars { color: #F5B342; font-size: 18px; margin-bottom: 6px; letter-spacing: 2px; }
         .review-card .review-text { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
         .review-card .review-master { font-size: 13px; color: var(--gold); margin-top: 8px; }
+        .review-card .review-type { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+        /* REVIEW STATS */
+        .review-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        .stat-box:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .stat-box .stat-number { font-size: 32px; font-weight: 800; color: var(--gold); }
+        .stat-box .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+        .stat-box .stat-stars { color: #F5B342; font-size: 20px; letter-spacing: 2px; margin-top: 4px; }
+
+        .master-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .master-stat-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+        .master-stat-item:hover { border-color: var(--gold); }
+        .master-stat-item .name { font-size: 13px; color: var(--text-secondary); }
+        .master-stat-item .rating { font-size: 14px; font-weight: 600; color: var(--gold); }
+        .master-stat-item .rating i { color: #F5B342; font-size: 12px; }
 
         .review-form {
             background: var(--bg-card);
@@ -823,6 +899,19 @@
             margin: 10px 0;
         }
         .review-form select:focus { outline: none; border-color: var(--gold); }
+        .review-form .review-type-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 8px 0 4px;
+            display: block;
+        }
+
+        .my-reviews-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .my-reviews-section h4 { color: var(--text-primary); margin-bottom: 16px; }
 
         /* COMMENTS */
         .comments-section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); }
@@ -1255,19 +1344,6 @@
             margin-top: 2px;
         }
 
-        .corner-glow {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.06;
-            z-index: 1;
-            pointer-events: none;
-        }
-        .corner-glow.tl { top: -30px; left: -30px; background: radial-gradient(circle, #ffd966, transparent); }
-        .corner-glow.br { bottom: -30px; right: -30px; background: radial-gradient(circle, #ffd966, transparent); }
-
         /* CONTACTS */
         .contact-grid {
             display: grid;
@@ -1428,6 +1504,48 @@
         .modal form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .modal form button { margin-top: 8px; padding: 16px; font-size: 17px; min-height: 50px; width: 100%; }
 
+        /* Profile photo upload */
+        .profile-photo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .profile-photo-wrapper .photo-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold);
+            background: var(--bg-secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-photo-wrapper .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-photo-wrapper .photo-upload-btn {
+            position: relative;
+            cursor: pointer;
+        }
+        .profile-photo-wrapper .photo-upload-btn input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
         .auth-divider {
             display: flex;
             align-items: center;
@@ -1524,37 +1642,6 @@
         .history-item .spent { color: #E74C3C; font-weight: 600; }
         .history-item .added { color: #27AE60; font-weight: 600; }
 
-        .bookings-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 16px;
-        }
-        .booking-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: var(--bg-card);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-            transition: var(--transition-smooth);
-        }
-        .booking-item:hover { border-color: var(--gold); }
-        .booking-item .booking-info { display: flex; flex-direction: column; gap: 2px; }
-        .booking-item .booking-info .service-name { font-weight: 600; color: var(--text-primary); }
-        .booking-item .booking-info .booking-details { font-size: 13px; color: var(--text-muted); }
-        .booking-item .booking-status {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        .booking-item .booking-status.pending { background: rgba(241, 196, 15, 0.2); color: #F1C40F; }
-        .booking-item .booking-status.confirmed { background: rgba(39, 174, 96, 0.2); color: #27AE60; }
-        .booking-item .booking-status.completed { background: rgba(52, 152, 219, 0.2); color: #3498DB; }
-        .booking-item .booking-status.cancelled { background: rgba(231, 76, 60, 0.2); color: #E74C3C; }
-
         .design-selector {
             display: flex;
             align-items: center;
@@ -1576,7 +1663,6 @@
         }
         .design-selector select:focus { outline: none; border-color: var(--gold); }
 
-        /* YANDEX OAUTH BUTTON */
         .ya-oauth-btn {
             display: inline-flex;
             align-items: center;
@@ -1598,14 +1684,48 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
         }
-        .ya-oauth-btn img {
-            width: 24px;
-            height: 24px;
+        .ya-oauth-btn svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+        .edit-profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 16px;
+        }
+        .edit-profile-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .edit-profile-form .form-group label {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .edit-profile-form .form-group input {
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 15px;
+            transition: var(--transition-smooth);
+        }
+        .edit-profile-form .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
         }
 
         /* RESPONSIVE */
         @media (min-width:480px) {
             .services-grid, .masters-grid, .blog-grid, .reviews-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .review-stats {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .master-stats-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
@@ -1628,6 +1748,8 @@
             .hero { padding: 80px 0 100px; min-height: 70vh; }
             .modal { padding: 40px 32px; }
             .sticky-book { bottom: 28px; right: 28px; padding: 18px 32px; }
+            .review-stats { grid-template-columns: 1fr 1fr 1fr 1fr; }
+            .master-stats-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
         }
         @media (max-width:768px) {
             .menu-toggle { display: flex; align-items: center; justify-content: center; }
@@ -1654,7 +1776,7 @@
             #mainNav .auth-btn { justify-content: center; margin-top: 4px; padding: 12px; font-size: 16px; }
             #mainNav .theme-toggle { align-self: center; padding: 12px; }
             .modal form .form-row { grid-template-columns: 1fr; }
-            .hero-card-btn .card-btn { max-width: 100%; font-size: 16px; padding: 12px 20px; }
+            .hero-card-btn .card-btn-main { max-width: 100%; font-size: 18px; padding: 16px 24px; }
             .design-selector { flex-direction: column; align-items: stretch; }
             .design-selector select { width: 100%; }
             .comment .replies { margin-left: 16px; padding-left: 8px; }
@@ -1663,6 +1785,10 @@
             .comment-form { flex-direction: column; }
             .comment-form .btn { width: 100%; }
             .review-form .star-rating { font-size: 28px; }
+            .review-stats { grid-template-columns: 1fr 1fr; }
+            .master-stats-grid { grid-template-columns: 1fr 1fr; }
+            .card-btn-main { font-size: 17px; padding: 14px 28px; min-height: 52px; }
+            .card-btn-main i { font-size: 22px; }
         }
         @media (max-width:400px) {
             .hero h1 { font-size: 26px; }
@@ -1676,8 +1802,15 @@
             .auth-btn { font-size: 12px; padding: 4px 10px; }
             .theme-toggle { font-size: 17px; }
             .nav-book-btn { font-size: 12px; padding: 4px 12px; }
-            .hero-card-btn .card-btn { font-size: 14px; padding: 10px 16px; }
+            .hero-card-btn .card-btn-main { font-size: 15px; padding: 12px 20px; min-height: 46px; }
+            .hero-card-btn .card-btn-main i { font-size: 18px; }
             .review-form .star-rating { font-size: 24px; }
+            .review-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .stat-box .stat-number { font-size: 24px; }
+            .master-stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .master-stat-item { padding: 8px 12px; }
+            .master-stat-item .name { font-size: 12px; }
+            .master-stat-item .rating { font-size: 12px; }
         }
     </style>
 </head>
@@ -1717,13 +1850,13 @@
                     <button class="btn btn-outline" onclick="navigateTo('masters')">Мастера</button>
                 </div>
                 <div class="hero-card-btn">
-                    <button class="card-btn" onclick="goToCabinet()">
+                    <button class="card-btn-main" onclick="goToCabinet()">
                         <i class="fas fa-credit-card"></i> Карта минут
                     </button>
                 </div>
                 <div style="margin-top: 12px;">
                     <a href="/studio1/admin.html" class="secret-admin-link">
-                        <i class="fas fa-cog"></i>
+                        <i class="fas fa-cog"></i> admin
                     </a>
                 </div>
             </div>
@@ -1752,15 +1885,23 @@
             <h2 class="section-title">Отзывы <span>клиентов</span></h2>
             <p class="section-subtitle">Ваше мнение важно для нас</p>
             
-            <div id="reviewFormContainer">
-                <!-- Отображение формы только для авторизованных -->
-            </div>
+            <!-- Статистика -->
+            <div id="reviewStats"></div>
             
+            <!-- Статистика по мастерам -->
+            <div id="masterStats"></div>
+            
+            <!-- Форма отзыва -->
+            <div id="reviewFormContainer"></div>
+            
+            <!-- Все отзывы -->
             <div class="reviews-grid" id="reviewsContainer">
                 <div class="skeleton" style="height:120px;"></div>
                 <div class="skeleton" style="height:120px;"></div>
-                <div class="skeleton" style="height:120px;"></div>
             </div>
+            
+            <!-- Мои отзывы -->
+            <div id="myReviewsContainer"></div>
         </div>
     </div>
 
@@ -1775,7 +1916,7 @@
     <div id="page-cabinet" class="page">
         <div class="container">
             <h2 class="section-title">Личный <span>кабинет</span></h2>
-            <p class="section-subtitle">Ваши минуты, записи и история</p>
+            <p class="section-subtitle">Ваши минуты, данные и история</p>
             <div id="cabinetContainer"></div>
         </div>
     </div>
@@ -1847,7 +1988,7 @@
             <button class="modal-close" onclick="closeAuthModal()">&times;</button>
             <div id="authContent">
                 <h2>Вход в <span class="gold-text">аккаунт</span></h2>
-                <p class="subtitle">Войдите, чтобы видеть карту минут, оставлять отзывы и записываться</p>
+                <p class="subtitle">Войдите, чтобы видеть карту минут, оставлять отзывы и комментировать</p>
                 <form id="loginForm" onsubmit="loginWithEmail(event)">
                     <input type="email" id="loginEmail" placeholder="Email" required />
                     <input type="password" id="loginPassword" placeholder="Пароль" required />
@@ -1856,9 +1997,9 @@
                 </form>
                 <div class="auth-divider">или</div>
                 <button class="ya-oauth-btn" onclick="loginWithYandex()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="#FC3F1D" d="M2.04 12c0-5.523 4.477-10 10-10 5.522 0 10 4.477 10 10 0 5.522-4.478 10-10 10-5.523 0-10-4.478-10-10z"/>
-                        <path fill="#FFF" d="M13.32 7.666h-.72c-1.024 0-1.555.533-1.555 1.597v6.267h1.555V7.666zm4.68 0h-2.88v7.864h2.88V7.666zm-9.6 0h-2.88v1.066h1.333v6.798h1.547V8.732h1.333V7.666z"/>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" rx="4" fill="#FC3F1D"/>
+                        <path d="M12.5 6H7v12h2.5V9.5h3V6zM17 6h-2.5v12H17V6z" fill="white"/>
                     </svg>
                     Войти через Яндекс
                 </button>
@@ -1895,39 +2036,34 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="bookingFormModal">
-        <div class="modal" style="max-width:500px;">
-            <button class="modal-close" onclick="closeBookingForm()">&times;</button>
-            <h2>📋 Запись на <span class="gold-text">услугу</span></h2>
-            <p class="subtitle">Заполните форму для записи</p>
-            <form id="bookingForm" onsubmit="submitBooking(event)">
-                <div class="form-row">
-                    <div>
-                        <label>Услуга</label>
-                        <select id="bookingService" required>
-                            <option value="">Выберите услугу</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Мастер</label>
-                        <select id="bookingMaster" required>
-                            <option value="">Выберите мастера</option>
-                        </select>
-                    </div>
+    <div class="modal-overlay" id="editProfileModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeEditProfile()">&times;</button>
+            <h2>Редактировать <span class="gold-text">профиль</span></h2>
+            <p class="subtitle">Измените свои данные</p>
+            <div class="profile-photo-wrapper">
+                <div class="photo-preview" id="profilePhotoPreview">
+                    <i class="fas fa-user"></i>
                 </div>
-                <div class="form-row">
-                    <div>
-                        <label>Дата</label>
-                        <input type="date" id="bookingDate" required />
-                    </div>
-                    <div>
-                        <label>Время</label>
-                        <input type="time" id="bookingTime" required />
-                    </div>
+                <div class="photo-upload-btn">
+                    <button class="btn btn-sm btn-outline">📷 Загрузить фото</button>
+                    <input type="file" id="profilePhotoInput" accept="image/*" />
                 </div>
-                <label>Комментарий</label>
-                <textarea id="bookingComment" placeholder="Дополнительная информация..." rows="2"></textarea>
-                <button type="submit" class="btn"><i class="fas fa-check"></i> Отправить запись</button>
+            </div>
+            <form id="editProfileForm" onsubmit="saveProfile(event)">
+                <div class="form-group">
+                    <label>Имя</label>
+                    <input type="text" id="editName" required />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="editEmail" required />
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" id="editPhone" />
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-save"></i> Сохранить</button>
             </form>
         </div>
     </div>
@@ -1937,7 +2073,7 @@
         // FIREBASE
         // ============================================================
         import { initializeApp } from 'firebase/app';
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, OAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, OAuthProvider, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth';
         import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, addDoc, deleteDoc, query, orderBy, where, onSnapshot, increment, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
 
         const firebaseConfig = {
@@ -1952,7 +2088,12 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const yandexProvider = new OAuthProvider('yahoo.com'); // Яндекс OAuth
+
+        // Яндекс OAuth через провайдер Yahoo (Яндекс использует протокол OAuth через Yahoo)
+        const yandexProvider = new OAuthProvider('yahoo.com');
+        yandexProvider.setCustomParameters({
+            client_id: 'b2f5738eb9ee444dafb627e58d9a05e1'
+        });
 
         // ============================================================
         // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
@@ -1966,9 +2107,11 @@
         let allReviews = [];
         let currentCategory = 'Все';
         let commentListeners = {};
+        let selectedReviewStar = 0;
+        let selectedMasterReviewStar = 0;
 
         // ============================================================
-        // ТОСТ-УВЕДОМЛЕНИЯ
+        // ТОСТЫ
         // ============================================================
         function showToast(message, type = 'info', duration = 4000) {
             const container = document.getElementById('toastContainer');
@@ -2112,7 +2255,6 @@
         // ============================================================
         async function initData() {
             try {
-                // Masters
                 const mastersSnap = await getDocs(collection(db, 'masters'));
                 if (mastersSnap.empty) {
                     for (const m of DEFAULT_MASTERS) {
@@ -2124,7 +2266,6 @@
                     mastersSnap.forEach(d => allMasters.push({ id: d.id, ...d.data() }));
                 }
 
-                // Services
                 allServices = [];
                 allMasters.forEach(m => {
                     if (m.services) {
@@ -2134,7 +2275,6 @@
                     }
                 });
 
-                // Blog
                 try {
                     const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
                     allBlogPosts = [];
@@ -2143,15 +2283,25 @@
                     allBlogPosts = [];
                 }
 
-                // Reviews
-                const reviewsSnap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
-                allReviews = [];
-                reviewsSnap.forEach(d => allReviews.push({ id: d.id, ...d.data() }));
+                await loadReviews();
 
                 renderAll();
             } catch (e) {
                 console.error('Ошибка загрузки данных:', e);
                 showToast('Ошибка загрузки данных', 'error');
+            }
+        }
+
+        // ============================================================
+        // ЗАГРУЗКА ОТЗЫВОВ
+        // ============================================================
+        async function loadReviews() {
+            try {
+                const reviewsSnap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
+                allReviews = [];
+                reviewsSnap.forEach(d => allReviews.push({ id: d.id, ...d.data() }));
+            } catch (e) {
+                allReviews = [];
             }
         }
 
@@ -2165,7 +2315,6 @@
             renderReviews();
             renderBlog();
             renderCabinet();
-            renderBookingForm();
         }
 
         // ============================================================
@@ -2197,7 +2346,7 @@
                 return;
             }
             container.innerHTML = filtered.map(s => `
-                <div class="service-item glass-card" onclick="openBookingForm('${s.name}', '${s.masterId}')">
+                <div class="service-item glass-card">
                     <div class="info">
                         <span class="name">${escapeHTML(s.name)}</span>
                         <span class="category">${escapeHTML(s.category)} • ${escapeHTML(s.duration)} • ${escapeHTML(s.masterName)}</span>
@@ -2219,7 +2368,7 @@
             container.innerHTML = allMasters.map(m => {
                 const initials = m.name.split(' ').map(w => w[0]).join('');
                 const servicesHtml = m.services ? m.services.map(s =>
-                    `<li onclick="event.stopPropagation(); openBookingForm('${s.name}', '${m.id}')">
+                    `<li>
                         <span>${escapeHTML(s.name)}</span>
                         <span class="service-price">${s.price} ₽</span>
                     </li>`
@@ -2239,7 +2388,6 @@
                         <div class="master-services-list" id="services_${m.id}">
                             <ul>${servicesHtml}</ul>
                         </div>
-                        <button class="btn btn-sm" onclick="event.stopPropagation(); openBookingForm(null, '${m.id}')"><i class="fas fa-calendar-check"></i> Записаться</button>
                     </div>
                 `;
             }).join('');
@@ -2258,46 +2406,129 @@
         // REVIEWS
         // ============================================================
         function renderReviews() {
-            const container = document.getElementById('reviewsContainer');
-            
-            // Форма для отзыва (только авторизованным)
-            const formContainer = document.getElementById('reviewFormContainer');
-            if (currentUser) {
-                formContainer.innerHTML = `
-                    <div class="review-form glass-card">
-                        <h3 style="margin-bottom:8px;font-size:20px;color:var(--text-primary);">✍️ Оставить отзыв</h3>
-                        <p style="color:var(--text-muted);margin-bottom:16px;">Оцените наш салон и мастера</p>
-                        <div class="star-rating" id="reviewStars">
-                            ${[1,2,3,4,5].map(n => `<span class="star" data-value="${n}" onclick="setReviewStar(${n})">★</span>`).join('')}
-                        </div>
-                        <select id="reviewMasterSelect">
-                            <option value="">Выберите мастера (опционально)</option>
-                            ${allMasters.map(m => `<option value="${m.id}">${escapeHTML(m.name)}</option>`).join('')}
-                        </select>
-                        <textarea id="reviewText" placeholder="Расскажите о вашем опыте..." rows="3"></textarea>
-                        <button class="btn" onclick="submitReview()"><i class="fas fa-paper-plane"></i> Отправить отзыв</button>
+            renderReviewStats();
+            renderMasterStats();
+            renderReviewForm();
+            renderReviewList();
+            renderMyReviews();
+        }
+
+        function renderReviewStats() {
+            const container = document.getElementById('reviewStats');
+            const total = allReviews.length;
+            const avgRating = total > 0 ? (allReviews.reduce((sum, r) => sum + (r.rating || 0), 0) / total) : 0;
+            const salonReviews = allReviews.filter(r => !r.masterId || r.masterId === '');
+            const salonAvg = salonReviews.length > 0 ? (salonReviews.reduce((sum, r) => sum + (r.rating || 0), 0) / salonReviews.length) : 0;
+
+            const stars = '★'.repeat(Math.round(avgRating)) + '☆'.repeat(5 - Math.round(avgRating));
+
+            container.innerHTML = `
+                <div class="review-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">${total}</div>
+                        <div class="stat-label">Всего отзывов</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">${avgRating.toFixed(1)}</div>
+                        <div class="stat-stars">${stars}</div>
+                        <div class="stat-label">Средний рейтинг</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">${salonAvg.toFixed(1)}</div>
+                        <div class="stat-stars">${'★'.repeat(Math.round(salonAvg)) + '☆'.repeat(5 - Math.round(salonAvg))}</div>
+                        <div class="stat-label">Рейтинг салона</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">${allMasters.filter(m => m.rating > 0).length}</div>
+                        <div class="stat-label">Мастеров с оценками</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMasterStats() {
+            const container = document.getElementById('masterStats');
+            const mastersWithReviews = allMasters.filter(m => {
+                const reviews = allReviews.filter(r => r.masterId === m.id && r.rating > 0);
+                return reviews.length > 0;
+            });
+
+            if (mastersWithReviews.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = `<div class="master-stats-grid">`;
+            for (const m of mastersWithReviews) {
+                const reviews = allReviews.filter(r => r.masterId === m.id && r.rating > 0);
+                const avg = reviews.length > 0 ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length) : 0;
+                const stars = '★'.repeat(Math.round(avg)) + '☆'.repeat(5 - Math.round(avg));
+                html += `
+                    <div class="master-stat-item">
+                        <span class="name">${escapeHTML(m.name)}</span>
+                        <span class="rating"><i class="fas fa-star"></i> ${avg.toFixed(1)} (${reviews.length})</span>
                     </div>
                 `;
-            } else {
-                formContainer.innerHTML = `
+            }
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        function renderReviewForm() {
+            const container = document.getElementById('reviewFormContainer');
+            if (!currentUser) {
+                container.innerHTML = `
                     <div class="login-to-comment" style="margin-bottom:30px;">
                         <p><i class="fas fa-lock"></i> Войдите, чтобы оставить отзыв</p>
                         <button class="btn btn-sm btn-outline" onclick="handleAuthClick()">Войти</button>
                     </div>
                 `;
+                return;
             }
 
-            // Список отзывов
-            if (!allReviews.length) {
+            container.innerHTML = `
+                <div class="review-form glass-card">
+                    <h3 style="margin-bottom:8px;font-size:20px;color:var(--text-primary);">✍️ Оставить отзыв</h3>
+                    <p style="color:var(--text-muted);margin-bottom:16px;">Оцените наш салон и мастеров</p>
+                    
+                    <span class="review-type-label">⭐ Оценка салона (общая)</span>
+                    <div class="star-rating" id="reviewStars">
+                        ${[1,2,3,4,5].map(n => `<span class="star" data-value="${n}" onclick="setReviewStar(${n})">★</span>`).join('')}
+                    </div>
+                    
+                    <span class="review-type-label">👤 Оценка конкретного мастера (опционально)</span>
+                    <div class="star-rating" id="masterReviewStars">
+                        ${[1,2,3,4,5].map(n => `<span class="star" data-value="${n}" onclick="setMasterReviewStar(${n})">★</span>`).join('')}
+                    </div>
+                    
+                    <select id="reviewMasterSelect">
+                        <option value="">Выберите мастера (опционально)</option>
+                        ${allMasters.map(m => `<option value="${m.id}">${escapeHTML(m.name)}</option>`).join('')}
+                    </select>
+                    
+                    <textarea id="reviewText" placeholder="Расскажите о вашем опыте..." rows="3"></textarea>
+                    <button class="btn" onclick="submitReview()"><i class="fas fa-paper-plane"></i> Отправить отзыв</button>
+                </div>
+            `;
+        }
+
+        function renderReviewList() {
+            const container = document.getElementById('reviewsContainer');
+            const publishedReviews = allReviews.filter(r => r.isPublished !== false);
+
+            if (!publishedReviews.length) {
                 container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Пока нет отзывов. Будьте первым!</div>`;
                 return;
             }
 
-            container.innerHTML = allReviews.map(r => {
+            container.innerHTML = publishedReviews.map(r => {
                 const master = allMasters.find(m => m.id === r.masterId);
                 const ratingStars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
                 const userName = r.userName || 'Аноним';
                 const avatar = r.userPhoto || `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${userName.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
+                
+                const isMasterReview = r.masterId && r.masterId !== '';
+                const reviewType = isMasterReview ? `👤 Мастер: ${escapeHTML(master?.name || '')}` : '🏢 Общая оценка салона';
                 
                 return `
                     <div class="review-card">
@@ -2310,7 +2541,7 @@
                                 <div style="font-size:12px;color:var(--text-muted);">${formatDate(r.createdAt)}</div>
                             </div>
                             <div class="review-date">
-                                ${master ? `👤 ${escapeHTML(master.name)}` : ''}
+                                <span class="review-type">${reviewType}</span>
                             </div>
                         </div>
                         <div class="review-stars">${ratingStars}</div>
@@ -2320,11 +2551,68 @@
             }).join('');
         }
 
-        let selectedReviewStar = 0;
+        function renderMyReviews() {
+            const container = document.getElementById('myReviewsContainer');
+            if (!currentUser) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const myReviews = allReviews.filter(r => r.userId === currentUser.uid);
+
+            if (myReviews.length === 0) {
+                container.innerHTML = `
+                    <div class="my-reviews-section">
+                        <h4>📝 Мои отзывы</h4>
+                        <p style="color:var(--text-muted);font-size:14px;">Вы ещё не оставляли отзывов</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = `
+                <div class="my-reviews-section">
+                    <h4>📝 Мои отзывы (${myReviews.length})</h4>
+                    <div class="reviews-grid">
+            `;
+
+            for (const r of myReviews) {
+                const master = allMasters.find(m => m.id === r.masterId);
+                const ratingStars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+                const isMasterReview = r.masterId && r.masterId !== '';
+                const reviewType = isMasterReview ? `👤 Мастер: ${escapeHTML(master?.name || '')}` : '🏢 Общая оценка салона';
+                
+                html += `
+                    <div class="review-card" style="border-color:var(--gold);">
+                        <div class="review-header">
+                            <div style="font-size:14px;color:var(--gold);font-weight:600;">
+                                <i class="fas fa-pen"></i> Ваш отзыв
+                            </div>
+                            <div class="review-date">
+                                <span class="review-type">${reviewType}</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">${ratingStars}</div>
+                        <div class="review-text">${escapeHTML(r.text)}</div>
+                        <div style="margin-top:10px;font-size:12px;color:var(--text-muted);">${formatDate(r.createdAt)}</div>
+                    </div>
+                `;
+            }
+
+            html += `</div></div>`;
+            container.innerHTML = html;
+        }
 
         window.setReviewStar = function(value) {
             selectedReviewStar = value;
             document.querySelectorAll('#reviewStars .star').forEach((el, i) => {
+                el.classList.toggle('active', i < value);
+            });
+        };
+
+        window.setMasterReviewStar = function(value) {
+            selectedMasterReviewStar = value;
+            document.querySelectorAll('#masterReviewStars .star').forEach((el, i) => {
                 el.classList.toggle('active', i < value);
             });
         };
@@ -2335,18 +2623,24 @@
                 return;
             }
 
-            if (selectedReviewStar === 0) {
-                showToast('Выберите оценку', 'error');
+            const salonRating = selectedReviewStar;
+            const masterRating = selectedMasterReviewStar;
+            const text = document.getElementById('reviewText').value.trim();
+            const masterId = document.getElementById('reviewMasterSelect').value;
+
+            if (salonRating === 0) {
+                showToast('Поставьте оценку салону', 'error');
                 return;
             }
 
-            const text = document.getElementById('reviewText').value.trim();
             if (!text) {
                 showToast('Напишите текст отзыва', 'error');
                 return;
             }
 
-            const masterId = document.getElementById('reviewMasterSelect').value;
+            // Если выбран мастер, используем оценку мастера, иначе общую
+            const finalRating = masterId && masterRating > 0 ? masterRating : salonRating;
+            const finalMasterId = masterId && masterRating > 0 ? masterId : '';
 
             try {
                 await addDoc(collection(db, 'reviews'), {
@@ -2355,10 +2649,10 @@
                     userEmail: currentUser.email,
                     userPhone: currentUserData?.phone || '',
                     userPhoto: currentUser.photoURL || '',
-                    rating: selectedReviewStar,
+                    rating: finalRating,
                     text: text,
-                    masterId: masterId || '',
-                    masterName: masterId ? allMasters.find(m => m.id === masterId)?.name || '' : '',
+                    masterId: finalMasterId,
+                    masterName: finalMasterId ? allMasters.find(m => m.id === finalMasterId)?.name || '' : '',
                     createdAt: new Date().toISOString(),
                     isModerated: false,
                     isPublished: true
@@ -2366,14 +2660,13 @@
 
                 showToast('Спасибо за отзыв! 🎉', 'success');
                 selectedReviewStar = 0;
+                selectedMasterReviewStar = 0;
                 document.querySelectorAll('#reviewStars .star').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('#masterReviewStars .star').forEach(el => el.classList.remove('active'));
                 document.getElementById('reviewText').value = '';
                 document.getElementById('reviewMasterSelect').value = '';
 
-                // Обновляем список
-                const reviewsSnap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
-                allReviews = [];
-                reviewsSnap.forEach(d => allReviews.push({ id: d.id, ...d.data() }));
+                await loadReviews();
                 renderReviews();
             } catch (e) {
                 showToast('Ошибка: ' + e.message, 'error');
@@ -2431,7 +2724,7 @@
         }
 
         // ============================================================
-        // COMMENTS
+        // COMMENTS (исправленная версия)
         // ============================================================
         function loadComments(postId) {
             if (commentListeners[postId]) {
@@ -2456,7 +2749,10 @@
                 console.error('Ошибка загрузки комментариев:', error);
                 const container = document.getElementById(`comments_${postId}`);
                 if (container) {
-                    container.innerHTML = `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">⚠️ Ошибка загрузки комментариев.</div>`;
+                    container.innerHTML = `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">
+                        ⚠️ Не удалось загрузить комментарии. Попробуйте обновить страницу.
+                        <br><span style="font-size:12px;opacity:0.5;">${error.message}</span>
+                    </div>`;
                 }
             });
         }
@@ -2668,118 +2964,6 @@
         };
 
         // ============================================================
-        // BOOKING
-        // ============================================================
-        function renderBookingForm() {
-            const serviceSelect = document.getElementById('bookingService');
-            const masterSelect = document.getElementById('bookingMaster');
-            
-            if (serviceSelect) {
-                const currentVal = serviceSelect.value;
-                serviceSelect.innerHTML = `<option value="">Выберите услугу</option>` +
-                    allServices.map(s => `<option value="${escapeHTML(s.name)}" data-master="${s.masterId}">${escapeHTML(s.name)} (${s.price}₽)</option>`).join('');
-                if (currentVal) serviceSelect.value = currentVal;
-            }
-
-            if (masterSelect) {
-                const currentVal = masterSelect.value;
-                masterSelect.innerHTML = `<option value="">Выберите мастера</option>` +
-                    allMasters.map(m => `<option value="${m.id}">${escapeHTML(m.name)}</option>`).join('');
-                if (currentVal) masterSelect.value = currentVal;
-            }
-        }
-
-        window.openBookingForm = function(serviceName, masterId) {
-            if (!currentUser) {
-                showToast('Войдите в аккаунт для записи', 'error');
-                setTimeout(() => handleAuthClick(), 500);
-                return;
-            }
-
-            document.getElementById('bookingFormModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-
-            // Устанавливаем минимальную дату (сегодня)
-            const dateInput = document.getElementById('bookingDate');
-            const today = new Date().toISOString().split('T')[0];
-            dateInput.min = today;
-            dateInput.value = today;
-
-            // Устанавливаем время (ближайший час)
-            const timeInput = document.getElementById('bookingTime');
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const mins = String(Math.ceil(now.getMinutes() / 30) * 30).padStart(2, '0');
-            timeInput.value = `${hours}:${mins}`;
-
-            // Выбираем услугу и мастера
-            if (serviceName) {
-                const serviceSelect = document.getElementById('bookingService');
-                serviceSelect.value = serviceName;
-            }
-            if (masterId) {
-                const masterSelect = document.getElementById('bookingMaster');
-                masterSelect.value = masterId;
-            }
-
-            renderBookingForm();
-        };
-
-        window.closeBookingForm = function() {
-            document.getElementById('bookingFormModal').classList.remove('active');
-            document.body.style.overflow = '';
-        };
-
-        window.submitBooking = async function(e) {
-            e.preventDefault();
-
-            if (!currentUser) {
-                showToast('Войдите в аккаунт', 'error');
-                return;
-            }
-
-            const service = document.getElementById('bookingService').value;
-            const masterId = document.getElementById('bookingMaster').value;
-            const date = document.getElementById('bookingDate').value;
-            const time = document.getElementById('bookingTime').value;
-            const comment = document.getElementById('bookingComment').value.trim();
-
-            if (!service || !masterId || !date || !time) {
-                showToast('Заполните все поля', 'error');
-                return;
-            }
-
-            const master = allMasters.find(m => m.id === masterId);
-
-            try {
-                await addDoc(collection(db, 'bookings'), {
-                    userId: currentUser.uid,
-                    userName: currentUserData?.name || currentUser.displayName || 'Пользователь',
-                    userEmail: currentUser.email,
-                    userPhone: currentUserData?.phone || '',
-                    serviceName: service,
-                    masterId: masterId,
-                    masterName: master?.name || '',
-                    date: date,
-                    time: time,
-                    comment: comment,
-                    status: 'pending',
-                    createdAt: new Date().toISOString()
-                });
-
-                showToast('Запись отправлена! 📅 Ожидайте подтверждения', 'success');
-                closeBookingForm();
-
-                // Очищаем форму
-                document.getElementById('bookingService').value = '';
-                document.getElementById('bookingMaster').value = '';
-                document.getElementById('bookingComment').value = '';
-            } catch (e) {
-                showToast('Ошибка: ' + e.message, 'error');
-            }
-        };
-
-        // ============================================================
         // CABINET
         // ============================================================
         function renderCabinet() {
@@ -2788,7 +2972,7 @@
                 container.innerHTML = `
                     <div style="text-align:center;color:var(--text-muted);padding:40px 0;">
                         <i class="fas fa-user-lock" style="font-size:40px;display:block;margin-bottom:12px;color:var(--gold);"></i>
-                        <p>Войдите в аккаунт, чтобы увидеть карту минут, записи и историю</p>
+                        <p>Войдите в аккаунт, чтобы увидеть карту минут, данные и историю</p>
                         <button class="btn" onclick="handleAuthClick()" style="margin-top:16px;">Войти</button>
                     </div>
                 `;
@@ -2799,27 +2983,9 @@
             const history = currentUserData?.history || [];
             const cardId = currentUserData?.cardId || 'ST-000-2026';
             const userName = currentUserData?.name || currentUser?.displayName || 'Клиент';
+            const userPhoto = currentUser.photoURL || currentUserData?.photoURL || '';
             const designId = currentUserData?.cardDesign || 'onyx_gold';
             const design = CARD_DESIGNS.find(d => d.id === designId) || CARD_DESIGNS[0];
-
-            // Записи пользователя
-            let bookingsHtml = '';
-            if (currentUserData?.bookings && currentUserData.bookings.length > 0) {
-                bookingsHtml = `
-                    <h4 style="margin-top:24px;margin-bottom:12px;color:var(--text-primary);">📋 Мои записи</h4>
-                    <div class="bookings-list">
-                        ${currentUserData.bookings.slice().reverse().map(b => `
-                            <div class="booking-item">
-                                <div class="booking-info">
-                                    <span class="service-name">${escapeHTML(b.serviceName)}</span>
-                                    <span class="booking-details">${escapeHTML(b.masterName)} • ${b.date} в ${b.time}</span>
-                                </div>
-                                <span class="booking-status ${b.status}">${getStatusLabel(b.status)}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            }
 
             let historyHtml = '';
             if (history.length) {
@@ -2841,6 +3007,20 @@
             ).join('');
 
             container.innerHTML = `
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+                    <div style="display:flex;align-items:center;gap:16px;">
+                        <div style="width:60px;height:60px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--gold);">
+                            ${userPhoto ? `<img src="${userPhoto}" style="width:100%;height:100%;object-fit:cover;" />` : '<i class="fas fa-user"></i>'}
+                        </div>
+                        <div>
+                            <div style="font-size:18px;font-weight:600;color:var(--text-primary);">${escapeHTML(userName)}</div>
+                            <div style="font-size:13px;color:var(--text-muted);">${escapeHTML(currentUser.email)}</div>
+                            <div style="font-size:13px;color:var(--text-muted);">${escapeHTML(currentUserData?.phone || 'Телефон не указан')}</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline" onclick="openEditProfile()"><i class="fas fa-pen"></i> Редактировать</button>
+                </div>
+
                 <div class="design-selector">
                     <label>🎨 Дизайн карты:</label>
                     <select id="cardDesignSelect" onchange="changeCardDesign(this.value)">
@@ -2928,20 +3108,9 @@
                     <i class="fas fa-hand-pointer"></i> Нажмите на карту, чтобы перевернуть
                 </div>
 
-                ${bookingsHtml}
                 ${historyHtml}
-                ${!history.length && !bookingsHtml ? `<p style="text-align:center;color:var(--text-muted);margin-top:16px;">История операций и записей пуста</p>` : ''}
+                ${!history.length ? `<p style="text-align:center;color:var(--text-muted);margin-top:16px;">История операций пуста</p>` : ''}
             `;
-        }
-
-        function getStatusLabel(status) {
-            const labels = {
-                pending: '⏳ Ожидает',
-                confirmed: '✅ Подтверждена',
-                completed: '✓ Выполнена',
-                cancelled: '❌ Отменена'
-            };
-            return labels[status] || status;
         }
 
         window.changeCardDesign = async function(designId) {
@@ -2956,6 +3125,120 @@
                 currentUserData.cardDesign = designId;
                 renderCabinet();
                 showToast('Дизайн обновлён ✨', 'success');
+            } catch (e) {
+                showToast('Ошибка: ' + e.message, 'error');
+            }
+        };
+
+        // ============================================================
+        // EDIT PROFILE
+        // ============================================================
+        window.openEditProfile = function() {
+            if (!currentUser) {
+                showToast('Войдите в аккаунт', 'error');
+                return;
+            }
+
+            const modal = document.getElementById('editProfileModal');
+            document.getElementById('editName').value = currentUserData?.name || currentUser.displayName || '';
+            document.getElementById('editEmail').value = currentUser.email || '';
+            document.getElementById('editPhone').value = currentUserData?.phone || '';
+
+            const preview = document.getElementById('profilePhotoPreview');
+            if (currentUser.photoURL) {
+                preview.innerHTML = `<img src="${currentUser.photoURL}" />`;
+            } else {
+                preview.innerHTML = `<i class="fas fa-user"></i>`;
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Настройка загрузки фото
+            const fileInput = document.getElementById('profilePhotoInput');
+            fileInput.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('profilePhotoPreview').innerHTML = `<img src="${e.target.result}" />`;
+                        // Сохраняем фото во временную переменную
+                        window.tempPhotoData = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+        };
+
+        window.closeEditProfile = function() {
+            document.getElementById('editProfileModal').classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        window.saveProfile = async function(e) {
+            e.preventDefault();
+
+            if (!currentUser) {
+                showToast('Войдите в аккаунт', 'error');
+                return;
+            }
+
+            const name = document.getElementById('editName').value.trim();
+            const email = document.getElementById('editEmail').value.trim();
+            const phone = document.getElementById('editPhone').value.trim();
+
+            if (!name) {
+                showToast('Введите имя', 'error');
+                return;
+            }
+
+            try {
+                // Обновляем в Firestore
+                await updateDoc(doc(db, 'users', currentUser.uid), {
+                    name: name,
+                    email: email,
+                    phone: phone
+                });
+
+                // Обновляем фото в профиле (если загружено)
+                if (window.tempPhotoData) {
+                    // В Firebase нельзя загружать base64 большие файлы в profile,
+                    // но мы можем сохранить в Firestore
+                    await updateDoc(doc(db, 'users', currentUser.uid), {
+                        photoURL: window.tempPhotoData
+                    });
+                    
+                    // Обновляем в auth (если возможно)
+                    try {
+                        await updateProfile(currentUser, {
+                            displayName: name,
+                            photoURL: window.tempPhotoData
+                        });
+                    } catch (e) {}
+                    
+                    window.tempPhotoData = null;
+                } else {
+                    // Обновляем displayName
+                    try {
+                        await updateProfile(currentUser, {
+                            displayName: name
+                        });
+                    } catch (e) {}
+                }
+
+                // Обновляем локальные данные
+                currentUserData.name = name;
+                currentUserData.email = email;
+                currentUserData.phone = phone;
+                if (window.tempPhotoData) {
+                    currentUserData.photoURL = window.tempPhotoData;
+                }
+
+                closeEditProfile();
+                renderCabinet();
+                updateUIForUser();
+                showToast('Профиль обновлён ✅', 'success');
+
             } catch (e) {
                 showToast('Ошибка: ' + e.message, 'error');
             }
@@ -3013,7 +3296,6 @@
                             cardId: cardId,
                             cardDesign: 'onyx_gold',
                             history: [],
-                            bookings: [],
                             createdAt: new Date().toISOString()
                         };
                         await setDoc(doc(db, 'users', user.uid), newUser);
@@ -3109,7 +3391,6 @@
                     cardId: cardId,
                     cardDesign: 'onyx_gold',
                     history: [],
-                    bookings: [],
                     createdAt: new Date().toISOString()
                 });
                 closeAuthModal();
@@ -3130,6 +3411,8 @@
             } catch (error) {
                 if (error.code === 'auth/operation-not-allowed') {
                     showToast('⚠️ Вход через Яндекс временно недоступен. Используйте email.', 'error');
+                } else if (error.code === 'auth/popup-closed-by-user') {
+                    showToast('Вход отменён', 'info');
                 } else {
                     showToast('Ошибка: ' + error.message, 'error');
                 }
@@ -3227,7 +3510,6 @@
         console.log(`💬 Отзывов: ${allReviews.length}`);
         console.log('💳 10 дизайнов карт готовы!');
         console.log('💬 Комментарии в реальном времени!');
-        console.log('📋 Записи и отзывы работают!');
         console.log('👤 Пользователь авторизован:', !!currentUser);
     </script>
 </body>
