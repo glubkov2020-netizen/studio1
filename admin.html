@@ -10,17 +10,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <script type="importmap">
-        {
-            "imports": {
-                "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
-                "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
-                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js"
-            }
+    {
+        "imports": {
+            "firebase/app": "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js",
+            "firebase/auth": "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js",
+            "firebase/firestore": "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js"
         }
+    }
     </script>
 
     <style>
-        /* ===== ВСЕ СТИЛИ (те же, но с улучшенной страницей входа) ===== */
+        /* ============================================================
+           ПОЛНЫЕ СТИЛИ АДМИНКИ (улучшенные)
+           ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -38,15 +40,13 @@
             --gold-light: #E8D5A8;
             --gold-gradient: linear-gradient(135deg, #C9A96E, #E8D5A8, #C9A96E);
             --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-smooth: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             --radius: 16px;
             --radius-sm: 12px;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text-primary);
@@ -59,31 +59,28 @@
             align-items: center;
             justify-content: center;
         }
+
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             z-index: 0;
             pointer-events: none;
-            background: var(--bg-primary), radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.12) 0%, transparent 55%), radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.08) 0%, transparent 50%);
+            background: var(--bg-primary), 
+                        radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.12) 0%, transparent 55%),
+                        radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.08) 0%, transparent 50%);
             animation: floatingGradients 18s ease-in-out infinite alternate;
         }
+
         @keyframes floatingGradients {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: .7
-            }
-            50% {
-                transform: scale(1.05) rotate(1deg);
-                opacity: .9
-            }
-            100% {
-                transform: scale(1.03) rotate(-1deg);
-                opacity: .75
-            }
+            0% { transform: scale(1) rotate(0deg); opacity: .7; }
+            50% { transform: scale(1.05) rotate(1deg); opacity: .9; }
+            100% { transform: scale(1.03) rotate(-1deg); opacity: .75; }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .container {
@@ -101,7 +98,7 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow);
-            transition: var(--transition);
+            transition: var(--transition-smooth);
             border-radius: var(--radius);
             padding: 24px 20px;
         }
@@ -125,45 +122,20 @@
             border: none;
             border-radius: 60px;
             cursor: pointer;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
             box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
             background-size: 200% auto;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(201, 169, 110, 0.4);
-            background-position: right center;
-        }
-        .btn-outline {
-            background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            box-shadow: none;
-        }
-        .btn-outline:hover {
-            background: var(--gold);
-            color: #fff;
-        }
-        .btn-sm {
-            padding: 6px 14px;
-            font-size: 12px;
-            min-height: 32px;
-        }
-        .btn-danger {
-            background: #E74C3C;
-            box-shadow: 0 4px 24px rgba(231, 76, 60, 0.3);
-        }
-        .btn-danger:hover {
-            background: #C0392B;
-        }
-        .btn-success {
-            background: #27AE60;
-            box-shadow: 0 4px 24px rgba(39, 174, 96, 0.3);
-        }
-        .btn-success:hover {
-            background: #219A52;
-        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201, 169, 110, 0.4); background-position: right center; }
+        .btn-outline { background: transparent; color: var(--gold); border: 2px solid var(--gold); box-shadow: none; }
+        .btn-outline:hover { background: var(--gold); color: #fff; }
+        .btn-sm { padding: 6px 14px; font-size: 12px; min-height: 32px; }
+        .btn-danger { background: #E74C3C; box-shadow: 0 4px 24px rgba(231, 76, 60, 0.3); }
+        .btn-danger:hover { background: #C0392B; }
+        .btn-success { background: #27AE60; box-shadow: 0 4px 24px rgba(39, 174, 96, 0.3); }
+        .btn-success:hover { background: #219A52; }
 
+        /* LOGIN PAGE */
         .login-page {
             display: flex;
             align-items: center;
@@ -177,27 +149,10 @@
             padding: 40px 32px;
             text-align: center;
         }
-        .login-box .icon {
-            font-size: 56px;
-            color: var(--gold);
-            display: block;
-            margin-bottom: 12px;
-        }
-        .login-box h2 {
-            font-size: 28px;
-            margin-bottom: 4px;
-        }
-        .login-box .gold-text {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .login-box .subtitle {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            font-size: 14px;
-        }
+        .login-box .icon { font-size: 56px; color: var(--gold); display: block; margin-bottom: 12px; }
+        .login-box h2 { font-size: 28px; margin-bottom: 4px; }
+        .login-box .gold-text { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .login-box .subtitle { color: var(--text-muted); margin-bottom: 24px; font-size: 14px; }
         .login-box input {
             display: block;
             width: 100%;
@@ -208,40 +163,23 @@
             border-radius: var(--radius-sm);
             color: var(--text-primary);
             font-size: 16px;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
         }
-        .login-box input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
-        }
-        .login-box .error {
-            color: #E74C3C;
-            font-size: 14px;
-            margin-top: 8px;
-            display: none;
-        }
-        .login-box .attempts {
-            color: #F1C40F;
-            font-size: 13px;
-            margin-top: 6px;
-            display: none;
-        }
+        .login-box input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12); }
+        .login-box .error { color: #E74C3C; font-size: 14px; margin-top: 8px; display: none; }
+        .login-box .attempts { color: #F1C40F; font-size: 13px; margin-top: 6px; display: none; }
         .login-box .back-link {
             display: block;
             margin-top: 16px;
             color: var(--text-muted);
             font-size: 13px;
             text-decoration: none;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
         }
-        .login-box .back-link:hover {
-            color: var(--gold);
-        }
+        .login-box .back-link:hover { color: var(--gold); }
 
-        .admin-panel {
-            display: none;
-        }
+        /* ADMIN PANEL */
+        .admin-panel { display: none; }
 
         .admin-header {
             display: flex;
@@ -251,14 +189,8 @@
             gap: 12px;
             margin-bottom: 20px;
         }
-        .admin-header h2 {
-            font-size: 28px;
-        }
-        .admin-header .admin-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        .admin-header h2 { font-size: 28px; }
+        .admin-header .admin-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
         .admin-tabs {
             display: flex;
@@ -269,9 +201,7 @@
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
         }
-        .admin-tabs::-webkit-scrollbar {
-            display: none;
-        }
+        .admin-tabs::-webkit-scrollbar { display: none; }
         .admin-tab {
             flex-shrink: 0;
             padding: 8px 18px;
@@ -282,18 +212,11 @@
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
             white-space: nowrap;
         }
-        .admin-tab:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        .admin-tab.active {
-            background: var(--gold-gradient);
-            color: #fff;
-            border-color: transparent;
-        }
+        .admin-tab:hover { border-color: var(--gold); color: var(--gold); }
+        .admin-tab.active { background: var(--gold-gradient); color: #fff; border-color: transparent; }
 
         .stats-grid {
             display: grid;
@@ -307,31 +230,14 @@
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
             text-align: center;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
         }
-        .stat-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-        .stat-card .stat-icon {
-            font-size: 28px;
-            color: var(--gold);
-        }
-        .stat-card .stat-number {
-            font-weight: 700;
-            font-size: 20px;
-            margin-top: 4px;
-        }
-        .stat-card .stat-label {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
+        .stat-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .stat-card .stat-icon { font-size: 28px; color: var(--gold); }
+        .stat-card .stat-number { font-weight: 700; font-size: 20px; margin-top: 4px; }
+        .stat-card .stat-label { color: var(--text-muted); font-size: 13px; }
 
-        .admin-table-wrapper {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
+        .admin-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .admin-table {
             width: 100%;
             border-collapse: collapse;
@@ -351,21 +257,10 @@
             border-bottom: 1px solid var(--border-color);
             vertical-align: middle;
         }
-        .admin-table tr:hover td {
-            background: var(--bg-card-hover);
-        }
-        .admin-table .actions {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .admin-table .actions .btn {
-            padding: 4px 10px;
-            font-size: 11px;
-            min-height: 28px;
-        }
-        .admin-table input,
-        .admin-table select {
+        .admin-table tr:hover td { background: var(--bg-card-hover); }
+        .admin-table .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+        .admin-table .actions .btn { padding: 4px 10px; font-size: 11px; min-height: 28px; }
+        .admin-table input, .admin-table select {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 6px;
@@ -373,14 +268,10 @@
             color: var(--text-primary);
             font-size: 13px;
             width: 100%;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
             min-width: 60px;
         }
-        .admin-table input:focus,
-        .admin-table select:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
+        .admin-table input:focus, .admin-table select:focus { outline: none; border-color: var(--gold); }
 
         .service-row {
             display: flex;
@@ -399,11 +290,7 @@
             color: var(--text-primary);
             font-size: 12px;
         }
-        .service-row .btn {
-            padding: 2px 8px;
-            font-size: 10px;
-            min-height: 24px;
-        }
+        .service-row .btn { padding: 2px 8px; font-size: 10px; min-height: 24px; }
 
         .add-form {
             display: flex;
@@ -411,8 +298,7 @@
             flex-wrap: wrap;
             margin-bottom: 16px;
         }
-        .add-form input,
-        .add-form textarea {
+        .add-form input, .add-form textarea {
             flex: 1;
             min-width: 150px;
             padding: 10px 14px;
@@ -421,79 +307,33 @@
             border-radius: var(--radius-sm);
             color: var(--text-primary);
             font-size: 14px;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
         }
-        .add-form input:focus,
-        .add-form textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-        .add-form textarea {
-            min-height: 80px;
-            width: 100%;
-        }
-        .add-form .btn {
-            flex-shrink: 0;
-        }
+        .add-form input:focus, .add-form textarea:focus { outline: none; border-color: var(--gold); }
+        .add-form textarea { min-height: 80px; width: 100%; }
+        .add-form .btn { flex-shrink: 0; }
 
+        /* BLOG CARDS */
         .blog-posts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
-
         .blog-post-card {
             background: var(--bg-card);
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
             overflow: hidden;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
         }
-        .blog-post-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-        }
-        .blog-post-card .post-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: var(--bg-secondary);
-        }
-        .blog-post-card .post-image-placeholder {
-            width: 100%;
-            height: 200px;
-            background: var(--bg-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-        .blog-post-card .post-body {
-            padding: 16px;
-        }
-        .blog-post-card .post-body .post-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-        }
-        .blog-post-card .post-body .post-date {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-        .blog-post-card .post-body .post-excerpt {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
+        .blog-post-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+        .blog-post-card .post-image { width: 100%; height: 200px; object-fit: cover; background: var(--bg-secondary); }
+        .blog-post-card .post-image-placeholder { width: 100%; height: 200px; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 14px; }
+        .blog-post-card .post-body { padding: 16px; }
+        .blog-post-card .post-body .post-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+        .blog-post-card .post-body .post-date { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+        .blog-post-card .post-body .post-excerpt { font-size: 14px; color: var(--text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .blog-post-card .post-body .post-status {
             display: inline-block;
             padding: 2px 12px;
@@ -502,25 +342,10 @@
             font-weight: 500;
             margin-top: 10px;
         }
-        .blog-post-card .post-body .post-status.published {
-            background: rgba(39, 174, 96, 0.2);
-            color: #27AE60;
-        }
-        .blog-post-card .post-body .post-status.draft {
-            background: rgba(231, 76, 60, 0.2);
-            color: #E74C3C;
-        }
-        .blog-post-card .post-actions {
-            padding: 12px 16px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .blog-post-card .post-actions .btn {
-            flex: 1;
-            min-width: 60px;
-        }
+        .blog-post-card .post-body .post-status.published { background: rgba(39, 174, 96, 0.2); color: #27AE60; }
+        .blog-post-card .post-body .post-status.draft { background: rgba(231, 76, 60, 0.2); color: #E74C3C; }
+        .blog-post-card .post-actions { padding: 12px 16px; border-top: 1px solid var(--border-color); display: flex; gap: 8px; flex-wrap: wrap; }
+        .blog-post-card .post-actions .btn { flex: 1; min-width: 60px; }
 
         .post-preview {
             margin-top: 12px;
@@ -529,41 +354,18 @@
             border-radius: var(--radius-sm);
             border: 1px solid var(--border-color);
         }
-        .post-preview h4 {
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-        .post-preview .preview-content {
-            padding: 12px;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
-        }
-        .post-preview .preview-content img {
-            max-width: 100%;
-            max-height: 150px;
-            object-fit: cover;
-            border-radius: var(--radius-sm);
-            margin-bottom: 8px;
-        }
-        .post-preview .preview-content .preview-title {
-            font-weight: 600;
-            font-size: 18px;
-            color: var(--text-primary);
-        }
-        .post-preview .preview-content .preview-text {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
+        .post-preview h4 { color: var(--text-muted); font-size: 13px; margin-bottom: 8px; }
+        .post-preview .preview-content { padding: 12px; background: var(--bg-secondary); border-radius: var(--radius-sm); }
+        .post-preview .preview-content img { max-width: 100%; max-height: 150px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 8px; }
+        .post-preview .preview-content .preview-title { font-weight: 600; font-size: 18px; color: var(--text-primary); }
+        .post-preview .preview-content .preview-text { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
 
+        /* MODALS */
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -572,9 +374,7 @@
             justify-content: center;
             padding: 16px;
         }
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
         .modal {
             background: var(--bg-primary);
             backdrop-filter: blur(24px);
@@ -591,14 +391,8 @@
             animation: modalSlideUp 0.35s ease forwards;
         }
         @keyframes modalSlideUp {
-            from {
-                opacity: 0;
-                transform: scale(0.96) translateY(30px)
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0)
-            }
+            from { opacity: 0; transform: scale(0.96) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
         .modal-close {
             position: sticky;
@@ -610,7 +404,7 @@
             border-radius: 50%;
             cursor: pointer;
             color: var(--text-muted);
-            transition: var(--transition);
+            transition: var(--transition-smooth);
             z-index: 10;
             padding: 8px;
             min-height: 40px;
@@ -619,29 +413,10 @@
             align-items: center;
             justify-content: center;
         }
-        .modal-close:hover {
-            background: var(--gold);
-            color: #fff;
-            border-color: var(--gold);
-            transform: rotate(90deg);
-        }
-        .modal h2 {
-            font-size: clamp(22px, 5vw, 28px);
-            margin-bottom: 4px;
-            color: var(--text-primary);
-            padding-right: 48px;
-        }
-        .modal .gold-text {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .modal .subtitle {
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
+        .modal-close:hover { background: var(--gold); color: #fff; border-color: var(--gold); transform: rotate(90deg); }
+        .modal h2 { font-size: clamp(22px, 5vw, 28px); margin-bottom: 4px; color: var(--text-primary); padding-right: 48px; }
+        .modal .gold-text { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .modal .subtitle { color: var(--text-muted); margin-bottom: 20px; font-size: 14px; }
         .modal .info-row {
             display: flex;
             justify-content: space-between;
@@ -649,22 +424,9 @@
             border-bottom: 1px solid var(--border-color);
             font-size: 14px;
         }
-        .modal .info-row .label {
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-        .modal .info-row .value {
-            color: var(--text-primary);
-            font-weight: 600;
-            text-align: right;
-            max-width: 60%;
-            word-break: break-word;
-        }
-        .modal .history-list {
-            margin-top: 12px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
+        .modal .info-row .label { color: var(--text-muted); font-weight: 500; }
+        .modal .info-row .value { color: var(--text-primary); font-weight: 600; text-align: right; max-width: 60%; word-break: break-word; }
+        .modal .history-list { margin-top: 12px; max-height: 200px; overflow-y: auto; }
         .modal .history-item {
             display: flex;
             justify-content: space-between;
@@ -673,12 +435,8 @@
             font-size: 13px;
             color: var(--text-secondary);
         }
-        .modal .history-item .spent {
-            color: #E74C3C;
-        }
-        .modal .history-item .added {
-            color: #27AE60;
-        }
+        .modal .history-item .spent { color: #E74C3C; }
+        .modal .history-item .added { color: #27AE60; }
 
         .search-box {
             margin-bottom: 16px;
@@ -695,24 +453,12 @@
             border-radius: var(--radius-sm);
             color: var(--text-primary);
             font-size: 14px;
-            transition: var(--transition);
+            transition: var(--transition-smooth);
         }
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
+        .search-box input:focus { outline: none; border-color: var(--gold); }
 
-        .comments-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .comments-table-wrapper {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
+        /* COMMENTS TABLE */
+        .comments-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .comments-table {
             width: 100%;
             border-collapse: collapse;
@@ -732,23 +478,15 @@
             border-bottom: 1px solid var(--border-color);
             vertical-align: middle;
         }
-        .comments-table tr:hover td {
-            background: var(--bg-card-hover);
-        }
-        .comments-table .comment-text-cell {
-            max-width: 200px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+        .comments-table tr:hover td { background: var(--bg-card-hover); }
+        .comments-table .comment-text-cell { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .comments-table .user-info {
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .comments-table .user-info .avatar {
-            width: 28px;
-            height: 28px;
+            width: 28px; height: 28px;
             border-radius: 50%;
             object-fit: cover;
             background: var(--gold-gradient);
@@ -760,12 +498,7 @@
             font-size: 12px;
             flex-shrink: 0;
         }
-        .comments-table .user-info .avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+        .comments-table .user-info .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         .comments-table .badge {
             display: inline-block;
             padding: 2px 10px;
@@ -775,16 +508,8 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
         }
-        .comments-table .badge.deleted {
-            background: rgba(231, 76, 60, 0.15);
-            color: #E74C3C;
-            border-color: rgba(231, 76, 60, 0.2);
-        }
-        .comments-table .badge.active {
-            background: rgba(39, 174, 96, 0.15);
-            color: #27AE60;
-            border-color: rgba(39, 174, 96, 0.2);
-        }
+        .comments-table .badge.deleted { background: rgba(231, 76, 60, 0.15); color: #E74C3C; border-color: rgba(231, 76, 60, 0.2); }
+        .comments-table .badge.active { background: rgba(39, 174, 96, 0.15); color: #27AE60; border-color: rgba(39, 174, 96, 0.2); }
 
         .post-filter {
             margin-bottom: 16px;
@@ -802,163 +527,83 @@
             font-size: 14px;
             min-width: 200px;
         }
-        .post-filter select:focus {
-            outline: none;
-            border-color: var(--gold);
+        .post-filter select:focus { outline: none; border-color: var(--gold); }
+
+        /* REVIEWS */
+        .reviews-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
         }
 
+        .booking-status-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .booking-status-badge.pending { background: rgba(241, 196, 15, 0.2); color: #F1C40F; }
+        .booking-status-badge.confirmed { background: rgba(39, 174, 96, 0.2); color: #27AE60; }
+        .booking-status-badge.completed { background: rgba(52, 152, 219, 0.2); color: #3498DB; }
+        .booking-status-badge.cancelled { background: rgba(231, 76, 60, 0.2); color: #E74C3C; }
+
+        .review-rating-stars { color: #F5B342; font-size: 16px; letter-spacing: 2px; }
+
+        /* RESPONSIVE */
         @media (max-width:768px) {
-            body {
-                padding: 12px;
-            }
-            .glass-card {
-                padding: 16px 14px;
-            }
-            .admin-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .admin-header .admin-actions {
-                width: 100%;
-            }
-            .admin-header .admin-actions .btn {
-                flex: 1;
-            }
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-            .stat-card {
-                padding: 12px;
-            }
-            .stat-card .stat-number {
-                font-size: 18px;
-            }
-            .admin-table {
-                font-size: 12px;
-                min-width: 500px;
-            }
-            .admin-table td,
-            .admin-table th {
-                padding: 6px 8px;
-            }
-            .add-form {
-                flex-direction: column;
-            }
-            .add-form input,
-            .add-form textarea {
-                min-width: 100%;
-            }
-            .modal {
-                padding: 20px 16px;
-            }
-            .admin-tab {
-                font-size: 12px;
-                padding: 6px 14px;
-            }
-            .login-box {
-                padding: 28px 20px;
-            }
-            .blog-posts-grid {
-                grid-template-columns: 1fr;
-            }
-            .blog-post-card .post-image,
-            .blog-post-card .post-image-placeholder {
-                height: 150px;
-            }
-            .comments-table {
-                font-size: 12px;
-                min-width: 500px;
-            }
-            .comments-table td,
-            .comments-table th {
-                padding: 6px 8px;
-            }
-            .comments-stats {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-            .post-filter {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .post-filter select {
-                width: 100%;
-            }
+            body { padding: 12px; }
+            .glass-card { padding: 16px 14px; }
+            .admin-header { flex-direction: column; align-items: flex-start; }
+            .admin-header .admin-actions { width: 100%; }
+            .admin-header .admin-actions .btn { flex: 1; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .stat-card { padding: 12px; }
+            .stat-card .stat-number { font-size: 18px; }
+            .admin-table { font-size: 12px; min-width: 500px; }
+            .admin-table td, .admin-table th { padding: 6px 8px; }
+            .add-form { flex-direction: column; }
+            .add-form input, .add-form textarea { min-width: 100%; }
+            .modal { padding: 20px 16px; }
+            .admin-tab { font-size: 12px; padding: 6px 14px; }
+            .login-box { padding: 28px 20px; }
+            .blog-posts-grid { grid-template-columns: 1fr; }
+            .blog-post-card .post-image, .blog-post-card .post-image-placeholder { height: 150px; }
+            .comments-table { font-size: 12px; min-width: 500px; }
+            .comments-table td, .comments-table th { padding: 6px 8px; }
+            .reviews-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .post-filter { flex-direction: column; align-items: stretch; }
+            .post-filter select { width: 100%; }
         }
         @media (max-width:480px) {
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-            .stat-card .stat-number {
-                font-size: 16px;
-            }
-            .stat-card .stat-icon {
-                font-size: 22px;
-            }
-            .admin-table {
-                font-size: 11px;
-                min-width: 400px;
-            }
-            .admin-table td,
-            .admin-table th {
-                padding: 4px 6px;
-            }
-            .admin-table .actions .btn {
-                font-size: 10px;
-                padding: 2px 8px;
-                min-height: 24px;
-            }
-            .modal .info-row {
-                font-size: 13px;
-            }
-            .admin-header h2 {
-                font-size: 22px;
-            }
-            .login-box h2 {
-                font-size: 24px;
-            }
-            .login-box .icon {
-                font-size: 44px;
-            }
-            .blog-post-card .post-image,
-            .blog-post-card .post-image-placeholder {
-                height: 120px;
-            }
-            .blog-post-card .post-body .post-title {
-                font-size: 16px;
-            }
-            .comments-table {
-                font-size: 11px;
-                min-width: 400px;
-            }
-            .comments-table td,
-            .comments-table th {
-                padding: 4px 6px;
-            }
-            .comments-stats {
-                grid-template-columns: 1fr;
-            }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .stat-card .stat-number { font-size: 16px; }
+            .stat-card .stat-icon { font-size: 22px; }
+            .admin-table { font-size: 11px; min-width: 400px; }
+            .admin-table td, .admin-table th { padding: 4px 6px; }
+            .admin-table .actions .btn { font-size: 10px; padding: 2px 8px; min-height: 24px; }
+            .modal .info-row { font-size: 13px; }
+            .admin-header h2 { font-size: 22px; }
+            .login-box h2 { font-size: 24px; }
+            .login-box .icon { font-size: 44px; }
+            .blog-post-card .post-image, .blog-post-card .post-image-placeholder { height: 120px; }
+            .blog-post-card .post-body .post-title { font-size: 16px; }
+            .comments-table { font-size: 11px; min-width: 400px; }
+            .comments-table td, .comments-table th { padding: 4px 6px; }
+            .reviews-stats { grid-template-columns: 1fr; }
         }
         @media (min-width:1024px) {
-            .stats-grid {
-                grid-template-columns: repeat(5, 1fr);
-            }
-            .admin-table {
-                min-width: 100%;
-            }
-            .comments-table {
-                min-width: 100%;
-            }
+            .stats-grid { grid-template-columns: repeat(6, 1fr); }
+            .admin-table { min-width: 100%; }
+            .comments-table { min-width: 100%; }
         }
     </style>
 </head>
 <body>
 
     <div class="container" id="app">
-
-        <!-- ===== СТРАНИЦА ВХОДА (ЗАЩИЩЁННАЯ) ===== -->
+        <!-- LOGIN PAGE -->
         <div id="loginPage" class="login-page">
             <div class="glass-card login-box">
                 <i class="fas fa-crown icon"></i>
@@ -978,7 +623,7 @@
             </div>
         </div>
 
-        <!-- ===== АДМИН-ПАНЕЛЬ ===== -->
+        <!-- ADMIN PANEL -->
         <div id="adminPanel" class="admin-panel">
             <div class="glass-card">
                 <div class="admin-header">
@@ -997,6 +642,8 @@
                     <div class="admin-tab" data-tab="masters" onclick="switchTab('masters')">👩‍🎨 Мастера</div>
                     <div class="admin-tab" data-tab="blog" onclick="switchTab('blog')">📝 Блог</div>
                     <div class="admin-tab" data-tab="clients" onclick="switchTab('clients')">👤 Клиенты</div>
+                    <div class="admin-tab" data-tab="bookings" onclick="switchTab('bookings')">📋 Записи</div>
+                    <div class="admin-tab" data-tab="reviews" onclick="switchTab('reviews')">⭐ Отзывы</div>
                     <div class="admin-tab" data-tab="comments" onclick="switchTab('comments')">💬 Комментарии</div>
                 </div>
 
@@ -1005,7 +652,7 @@
         </div>
     </div>
 
-    <!-- МОДАЛКИ -->
+    <!-- MODALS -->
     <div class="modal-overlay" id="clientModal">
         <div class="modal">
             <button class="modal-close" onclick="closeClientModal()">&times;</button>
@@ -1033,7 +680,7 @@
         // FIREBASE
         // ============================================================
         import { initializeApp } from 'firebase/app';
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot } from 'firebase/firestore';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot, serverTimestamp } from 'firebase/firestore';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -1048,28 +695,21 @@
         const db = getFirestore(app);
 
         // ============================================================
-        // ЗАЩИЩЁННЫЙ ВХОД В АДМИНКУ
+        // ADMIN CREDENTIALS (защищённые)
         // ============================================================
-        // Сложные учётные данные (финальная версия)
         const ADMIN_CREDENTIALS = {
             login: 'Studio1Admin',
             password: 'K3m3r0v0#2026Secure!'
         };
 
-        // Защита от брутфорса
         let loginAttempts = 0;
         const MAX_ATTEMPTS = 5;
-        const BLOCK_TIME = 5 * 60 * 1000; // 5 минут
+        const BLOCK_TIME = 5 * 60 * 1000;
         let blockUntil = null;
 
-        // Проверка блокировки
         function isBlocked() {
             if (!blockUntil) return false;
-            if (Date.now() > blockUntil) {
-                blockUntil = null;
-                loginAttempts = 0;
-                return false;
-            }
+            if (Date.now() > blockUntil) { blockUntil = null; loginAttempts = 0; return false; }
             return true;
         }
 
@@ -1079,12 +719,11 @@
         }
 
         // ============================================================
-        // ВХОД
+        // LOGIN
         // ============================================================
-        window.adminLogin = async function(e) {
+        window.adminLogin = function(e) {
             e.preventDefault();
 
-            // Проверка блокировки
             if (isBlocked()) {
                 const left = getBlockTimeLeft();
                 const minutes = Math.floor(left / 60);
@@ -1103,19 +742,15 @@
             const login = loginInput.value.trim();
             const password = passwordInput.value.trim();
 
-            // Проверка учётных данных
             if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
-                // Успешный вход — сбрасываем попытки
                 loginAttempts = 0;
                 blockUntil = null;
                 errorEl.style.display = 'none';
                 attemptsEl.style.display = 'none';
 
-                // Сохраняем сессию с шифрованием (простое Base64 для защиты от случайного просмотра)
                 const sessionData = btoa(JSON.stringify({
                     login: ADMIN_CREDENTIALS.login,
                     timestamp: Date.now(),
-                    // Хэш пароля (простой для демонстрации, но скрытый)
                     hash: btoa(ADMIN_CREDENTIALS.password + 'salt')
                 }));
                 sessionStorage.setItem('admin_session', sessionData);
@@ -1123,15 +758,13 @@
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
 
-                await loadAllData();
+                loadAllData();
                 renderContent('dashboard');
             } else {
-                // Неверный вход
                 loginAttempts++;
                 const remaining = MAX_ATTEMPTS - loginAttempts;
 
                 if (loginAttempts >= MAX_ATTEMPTS) {
-                    // Блокировка
                     blockUntil = Date.now() + BLOCK_TIME;
                     attemptsEl.textContent = '⛔ Слишком много попыток. Доступ заблокирован на 5 минут.';
                     attemptsEl.style.display = 'block';
@@ -1155,14 +788,12 @@
             }
         };
 
-        // Проверка сессии при загрузке
         function checkSession() {
             const sessionData = sessionStorage.getItem('admin_session');
             if (sessionData) {
                 try {
                     const parsed = JSON.parse(atob(sessionData));
                     if (parsed.login === ADMIN_CREDENTIALS.login) {
-                        // Проверяем, что сессия не старше 24 часов
                         if (Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
                             document.getElementById('loginPage').style.display = 'none';
                             document.getElementById('adminPanel').style.display = 'block';
@@ -1176,9 +807,6 @@
             return false;
         }
 
-        // ============================================================
-        // ВЫХОД
-        // ============================================================
         window.adminLogout = function() {
             if (confirm('Выйти из админки?')) {
                 sessionStorage.removeItem('admin_session');
@@ -1192,13 +820,15 @@
         };
 
         // ============================================================
-        // ДАННЫЕ
+        // DATA
         // ============================================================
         let allMasters = [];
         let allServices = [];
         let allBlogPosts = [];
         let allUsers = [];
         let allComments = [];
+        let allReviews = [];
+        let allBookings = [];
         let currentTab = 'dashboard';
         let clientSearch = '';
         let isDataLoaded = false;
@@ -1206,87 +836,90 @@
         let commentsFilter = 'all';
         let commentListeners = [];
 
-        const DEFAULT_MASTERS = [{
-            id: 'natalia',
-            name: 'Наталья Мельникова',
-            specialty: 'Парикмахер-колорист',
-            description: 'Колорист, мастер по стрижкам',
-            education: 'Академия Sointera Academy',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EНМ%3C/text%3E%3C/svg%3E',
-            rating: 4.9,
-            reviews: 55,
-            services: [
-                { name: 'Стрижка женская', category: 'Стрижки', price: 2500, duration: '1 ч 30 м' },
-                { name: 'Стойкое окрашивание', category: 'Окрашивание', price: 3500, duration: '2 ч 30 м' },
-                { name: 'Тотал блонд (первично)', category: 'Окрашивание', price: 6000, duration: '3 ч' },
-                { name: 'Коррекция тотал блонд', category: 'Окрашивание', price: 5000, duration: '2 ч' },
-                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
-                { name: 'Ламинирование ресниц', category: 'Ресницы', price: 2300, duration: '1 ч 15 м' },
-                { name: 'Наращивание ресниц (Классика)', category: 'Ресницы', price: 2000, duration: '1 ч 30 м' },
-                { name: 'Пенный Пилинг-хамам', category: 'Спа-сервисы', price: 1000, duration: '40 м' },
-                { name: 'Прикорневой объём', category: 'Спа-сервисы', price: 3500, duration: '2 ч' },
-                { name: 'Долговременная биозавивка', category: 'Биозавивка', price: 5000, duration: '3 ч' },
-                { name: 'Онлайн подбор стрижки', category: 'Онлайн-услуги', price: 2000, duration: '1 ч' },
-                { name: 'Весенний спешл', category: 'Стрижки', price: 3900, duration: '2 ч' }
-            ]
-        }, {
-            id: 'victoria',
-            name: 'Виктория Селитренникова',
-            specialty: 'Мастер перманентного макияжа',
-            description: 'Специалист по перманентному макияжу',
-            education: 'Сертифицированный мастер',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EВС%3C/text%3E%3C/svg%3E',
-            rating: 0,
-            reviews: 0,
-            services: [
-                { name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000, duration: '2 ч 30 м' },
-                { name: 'Перманентный макияж век (межресничка)', category: 'Перманент', price: 7500,
-                duration: '45 м' },
-                { name: 'Перманентный макияж губ', category: 'Перманент', price: 9000, duration: '3 ч' },
-                { name: 'Комбо: брови + межресничка', category: 'Перманент', price: 12000, duration: '3 ч 30 м' },
-                { name: 'Коррекция перманентного макияжа', category: 'Перманент', price: 5000, duration: '2 ч' },
-                { name: 'Камуфляж темных кругов', category: 'Перманент', price: 6000, duration: '1 ч 30 м' },
-                { name: 'Удаление татуажа ремувером', category: 'Перманент', price: 2500, duration: '1 ч' }
-            ]
-        }, {
-            id: 'tatiana',
-            name: 'Татьяна Тысячина',
-            specialty: 'Специалист по солярию',
-            description: 'Администратор и специалист',
-            education: 'Премиальные лампы Rubino+Collatan',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EТТ%3C/text%3E%3C/svg%3E',
-            rating: 4.7,
-            reviews: 24,
-            services: [
-                { name: 'Загар премиум (1 минута)', category: 'Солярий', price: 33, duration: '20 м' },
-                { name: 'Первый визит "Сияние"', category: 'Солярий', price: 299, duration: '20 м' },
-                { name: 'Абонемент "VIP Сияние" (200 мин)', category: 'Солярий', price: 4900, duration: '20 м' },
-                { name: 'Абонемент "Идеальный загар" (100 мин)', category: 'Солярий', price: 3000,
-                duration: '1 ч 40 м' },
-                { name: 'Абонемент "START Сияние" (50 мин)', category: 'Солярий', price: 1600, duration: '50 м' }
-            ]
-        }, {
-            id: 'yulia',
-            name: 'Юлия Скуртол',
-            specialty: 'Мастер педикюра и маникюра',
-            description: 'Специалист по педикюру',
-            education: 'Сертифицированный мастер',
-            photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EЮС%3C/text%3E%3C/svg%3E',
-            rating: 5.0,
-            reviews: 3,
-            services: [
-                { name: 'Педикюр Smart', category: 'Педикюр', price: 1900, duration: '45 м' },
-                { name: 'Smart Педикюр с покрытием', category: 'Педикюр', price: 2500, duration: '1 ч 30 м' },
-                { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
-                { name: 'Спа-ритуал для ног', category: 'Педикюр', price: 1000, duration: '30 м' },
-                { name: 'Наращивание ногтей', category: 'Маникюр', price: 3000, duration: '2 ч' },
-                { name: 'Японский эко маникюр', category: 'Маникюр', price: 2000, duration: '1 ч' },
-                { name: 'Дизайн на все ногти', category: 'Маникюр', price: 500, duration: '30 м' }
-            ]
-        }];
+        const DEFAULT_MASTERS = [
+            {
+                id: 'natalia',
+                name: 'Наталья Мельникова',
+                specialty: 'Парикмахер-колорист',
+                description: 'Колорист, мастер по стрижкам',
+                education: 'Академия Sointera Academy',
+                photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EНМ%3C/text%3E%3C/svg%3E',
+                rating: 4.9,
+                reviews: 55,
+                services: [
+                    { name: 'Стрижка женская', category: 'Стрижки', price: 2500, duration: '1 ч 30 м' },
+                    { name: 'Стойкое окрашивание', category: 'Окрашивание', price: 3500, duration: '2 ч 30 м' },
+                    { name: 'Тотал блонд (первично)', category: 'Окрашивание', price: 6000, duration: '3 ч' },
+                    { name: 'Коррекция тотал блонд', category: 'Окрашивание', price: 5000, duration: '2 ч' },
+                    { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
+                    { name: 'Ламинирование ресниц', category: 'Ресницы', price: 2300, duration: '1 ч 15 м' },
+                    { name: 'Наращивание ресниц (Классика)', category: 'Ресницы', price: 2000, duration: '1 ч 30 м' },
+                    { name: 'Пенный Пилинг-хамам', category: 'Спа-сервисы', price: 1000, duration: '40 м' },
+                    { name: 'Прикорневой объём', category: 'Спа-сервисы', price: 3500, duration: '2 ч' },
+                    { name: 'Долговременная биозавивка', category: 'Биозавивка', price: 5000, duration: '3 ч' },
+                    { name: 'Онлайн подбор стрижки', category: 'Онлайн-услуги', price: 2000, duration: '1 ч' },
+                    { name: 'Весенний спешл', category: 'Стрижки', price: 3900, duration: '2 ч' }
+                ]
+            },
+            {
+                id: 'victoria',
+                name: 'Виктория Селитренникова',
+                specialty: 'Мастер перманентного макияжа',
+                description: 'Специалист по перманентному макияжу',
+                education: 'Сертифицированный мастер',
+                photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EВС%3C/text%3E%3C/svg%3E',
+                rating: 0,
+                reviews: 0,
+                services: [
+                    { name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000, duration: '2 ч 30 м' },
+                    { name: 'Перманентный макияж век (межресничка)', category: 'Перманент', price: 7500, duration: '45 м' },
+                    { name: 'Перманентный макияж губ', category: 'Перманент', price: 9000, duration: '3 ч' },
+                    { name: 'Комбо: брови + межресничка', category: 'Перманент', price: 12000, duration: '3 ч 30 м' },
+                    { name: 'Коррекция перманентного макияжа', category: 'Перманент', price: 5000, duration: '2 ч' },
+                    { name: 'Камуфляж темных кругов', category: 'Перманент', price: 6000, duration: '1 ч 30 м' },
+                    { name: 'Удаление татуажа ремувером', category: 'Перманент', price: 2500, duration: '1 ч' }
+                ]
+            },
+            {
+                id: 'tatiana',
+                name: 'Татьяна Тысячина',
+                specialty: 'Специалист по солярию',
+                description: 'Администратор и специалист',
+                education: 'Премиальные лампы Rubino+Collatan',
+                photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EТТ%3C/text%3E%3C/svg%3E',
+                rating: 4.7,
+                reviews: 24,
+                services: [
+                    { name: 'Загар премиум (1 минута)', category: 'Солярий', price: 33, duration: '20 м' },
+                    { name: 'Первый визит "Сияние"', category: 'Солярий', price: 299, duration: '20 м' },
+                    { name: 'Абонемент "VIP Сияние" (200 мин)', category: 'Солярий', price: 4900, duration: '20 м' },
+                    { name: 'Абонемент "Идеальный загар" (100 мин)', category: 'Солярий', price: 3000, duration: '1 ч 40 м' },
+                    { name: 'Абонемент "START Сияние" (50 мин)', category: 'Солярий', price: 1600, duration: '50 м' }
+                ]
+            },
+            {
+                id: 'yulia',
+                name: 'Юлия Скуртол',
+                specialty: 'Мастер педикюра и маникюра',
+                description: 'Специалист по педикюру',
+                education: 'Сертифицированный мастер',
+                photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EЮС%3C/text%3E%3C/svg%3E',
+                rating: 5.0,
+                reviews: 3,
+                services: [
+                    { name: 'Педикюр Smart', category: 'Педикюр', price: 1900, duration: '45 м' },
+                    { name: 'Smart Педикюр с покрытием', category: 'Педикюр', price: 2500, duration: '1 ч 30 м' },
+                    { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
+                    { name: 'Спа-ритуал для ног', category: 'Педикюр', price: 1000, duration: '30 м' },
+                    { name: 'Наращивание ногтей', category: 'Маникюр', price: 3000, duration: '2 ч' },
+                    { name: 'Японский эко маникюр', category: 'Маникюр', price: 2000, duration: '1 ч' },
+                    { name: 'Дизайн на все ногти', category: 'Маникюр', price: 500, duration: '30 м' }
+                ]
+            }
+        ];
 
         // ============================================================
-        // ЗАГРУЗКА ДАННЫХ
+        // LOAD DATA
         // ============================================================
         async function loadAllData() {
             if (isDataLoaded) return;
@@ -1320,6 +953,14 @@
                 allUsers = [];
                 usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
 
+                const bookingsSnap = await getDocs(query(collection(db, 'bookings'), orderBy('createdAt', 'desc')));
+                allBookings = [];
+                bookingsSnap.forEach(d => allBookings.push({ id: d.id, ...d.data() }));
+
+                const reviewsSnap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
+                allReviews = [];
+                reviewsSnap.forEach(d => allReviews.push({ id: d.id, ...d.data() }));
+
                 loadComments();
 
                 isDataLoaded = true;
@@ -1341,7 +982,7 @@
                     allComments.push({ id: doc.id, ...doc.data() });
                 });
                 if (currentTab === 'comments') {
-                    renderCommentsAdmin();
+                    renderContent('comments');
                 }
             }, (error) => {
                 console.error('Ошибка загрузки комментариев:', error);
@@ -1351,7 +992,7 @@
         }
 
         // ============================================================
-        // ВКЛАДКИ
+        // TABS
         // ============================================================
         window.switchTab = function(tab) {
             currentTab = tab;
@@ -1364,33 +1005,26 @@
         function renderContent(tab) {
             const container = document.getElementById('adminContent');
             switch (tab) {
-                case 'dashboard':
-                    container.innerHTML = renderDashboard();
-                    break;
-                case 'masters':
-                    container.innerHTML = renderMasters();
-                    break;
-                case 'blog':
-                    container.innerHTML = renderBlogAdmin();
-                    break;
-                case 'clients':
-                    container.innerHTML = renderClients();
-                    break;
-                case 'comments':
-                    container.innerHTML = renderCommentsAdmin();
-                    break;
-                default:
-                    container.innerHTML = '<p style="color:var(--text-muted);padding:40px 0;text-align:center;">Раздел в разработке</p>';
+                case 'dashboard': container.innerHTML = renderDashboard(); break;
+                case 'masters': container.innerHTML = renderMasters(); break;
+                case 'blog': container.innerHTML = renderBlogAdmin(); break;
+                case 'clients': container.innerHTML = renderClients(); break;
+                case 'bookings': container.innerHTML = renderBookings(); break;
+                case 'reviews': container.innerHTML = renderReviewsAdmin(); break;
+                case 'comments': container.innerHTML = renderCommentsAdmin(); break;
+                default: container.innerHTML = '<p style="color:var(--text-muted);padding:40px 0;text-align:center;">Раздел в разработке</p>';
             }
         }
 
         // ============================================================
-        // ДАШБОРД
+        // DASHBOARD
         // ============================================================
         function renderDashboard() {
             const totalMinutes = allUsers.reduce((sum, u) => sum + (u.minutes || 0), 0);
-            const totalComments = allComments.length;
-            const activeComments = allComments.filter(c => !c.isDeleted).length;
+            const totalComments = allComments.filter(c => !c.isDeleted).length;
+            const totalReviews = allReviews.length;
+            const totalBookings = allBookings.length;
+            const pendingBookings = allBookings.filter(b => b.status === 'pending').length;
 
             return `
                 <div class="stats-grid">
@@ -1415,24 +1049,36 @@
                         <div class="stat-label">Всего минут</div>
                     </div>
                     <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-number">${totalBookings}</div>
+                        <div class="stat-label">Записей</div>
+                        ${pendingBookings > 0 ? `<span style="font-size:11px;color:#F1C40F;">${pendingBookings} ожидают</span>` : ''}
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-number">${totalReviews}</div>
+                        <div class="stat-label">Отзывов</div>
+                    </div>
+                    <div class="stat-card">
                         <div class="stat-icon">📝</div>
                         <div class="stat-number">${allBlogPosts.length}</div>
                         <div class="stat-label">Постов</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">💬</div>
-                        <div class="stat-number">${activeComments}</div>
+                        <div class="stat-number">${totalComments}</div>
                         <div class="stat-label">Комментариев</div>
                     </div>
                 </div>
                 <div style="color:var(--text-muted);font-size:14px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
                     <i class="fas fa-info-circle"></i> Все данные хранятся в защищённой базе данных Firestore.
+                    ${pendingBookings > 0 ? ` <i class="fas fa-bell" style="color:#F1C40F;"></i> Есть новые записи!` : ''}
                 </div>
             `;
         }
 
         // ============================================================
-        // МАСТЕРА
+        // MASTERS (полный код - аналогично предыдущему)
         // ============================================================
         function renderMasters() {
             let html = `
@@ -1559,7 +1205,7 @@
         }
 
         // ============================================================
-        // БЛОГ
+        // BLOG ADMIN (полный код)
         // ============================================================
         function renderBlogAdmin() {
             let postsHtml = '';
@@ -1655,14 +1301,12 @@
                             if (fileNameSpan) fileNameSpan.textContent = 'Файл не выбран';
                             return;
                         }
-                        if (fileNameSpan) fileNameSpan.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) +
-                            ' KB)';
+                        if (fileNameSpan) fileNameSpan.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
                         const container = document.getElementById('previewImageContainer');
                         if (container) {
                             const reader = new FileReader();
                             reader.onload = function(e) {
-                                container.innerHTML =
-                                    `<img src="${e.target.result}" style="max-width:100%;max-height:150px;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:8px;" />`;
+                                container.innerHTML = `<img src="${e.target.result}" style="max-width:100%;max-height:150px;object-fit:cover;border-radius:var(--radius-sm);margin-bottom:8px;" />`;
                                 document.getElementById('blogPreview').style.display = 'block';
                             };
                             reader.readAsDataURL(file);
@@ -1806,7 +1450,420 @@
         }
 
         // ============================================================
-        // КОММЕНТАРИИ
+        // CLIENTS (полный код)
+        // ============================================================
+        function renderClients() {
+            const filtered = allUsers.filter(u =>
+                (u.name || '').toLowerCase().includes(clientSearch.toLowerCase()) ||
+                (u.phone || '').includes(clientSearch) ||
+                (u.email || '').toLowerCase().includes(clientSearch.toLowerCase()) ||
+                (u.cardId || '').toLowerCase().includes(clientSearch.toLowerCase())
+            );
+
+            let html = `
+                <div class="search-box">
+                    <input type="text" id="clientSearchInput" placeholder="🔍 Поиск..." value="${escapeHTML(clientSearch)}" oninput="updateClientSearch(this.value)" />
+                    <button class="btn btn-sm btn-outline" onclick="addClient()"><i class="fas fa-user-plus"></i> Добавить</button>
+                </div>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead><tr><th>Клиент</th><th>Телефон</th><th>ID карты</th><th>Минуты</th><th>Действия</th></tr></thead>
+                        <tbody>
+            `;
+
+            for (const u of filtered) {
+                html += `
+                    <tr>
+                        <td>${escapeHTML(u.name || 'Без имени')}</td>
+                        <td>${escapeHTML(u.phone || '—')}</td>
+                        <td><code style="color:var(--gold);font-size:12px;">${escapeHTML(u.cardId || '—')}</code></td>
+                        <td><strong style="color:var(--gold);font-size:18px;">${u.minutes || 0}</strong></td>
+                        <td>
+                            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                                <button class="btn btn-sm btn-outline" onclick="showClient('${u.id}')" title="Информация"><i class="fas fa-info-circle"></i></button>
+                                <button class="btn btn-sm btn-success" onclick="addMinutes('${u.id}')" title="Пополнить"><i class="fas fa-plus"></i></button>
+                                <button class="btn btn-sm btn-danger" onclick="spendMinutes('${u.id}')" title="Списать"><i class="fas fa-minus"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            html += `</tbody></table></div>`;
+            return html;
+        }
+
+        window.updateClientSearch = function(value) {
+            clientSearch = value;
+            renderContent('clients');
+        };
+
+        window.addClient = async function() {
+            const name = prompt('Введите имя:');
+            if (!name) return;
+            const phone = prompt('Телефон:') || '';
+            const email = prompt('Email:') || '';
+            const cardId = 'ST-' + String(Math.floor(Math.random() * 900) + 100) + '-' + new Date().getFullYear();
+            const uid = 'manual_' + Date.now();
+            await setDoc(doc(db, 'users', uid), {
+                name,
+                phone,
+                email,
+                minutes: 0,
+                cardId,
+                cardDesign: 'onyx_gold',
+                history: [],
+                bookings: [],
+                createdAt: new Date().toISOString()
+            });
+            await reloadUsers();
+            renderContent('clients');
+            alert(`✅ Клиент "${name}" добавлен! ID: ${cardId}`);
+        };
+
+        window.showClient = async function(userId) {
+            const user = allUsers.find(u => u.id === userId);
+            if (!user) { alert('Клиент не найден'); return; }
+
+            const modal = document.getElementById('clientModal');
+            const content = document.getElementById('clientModalContent');
+
+            const history = user.history || [];
+            const bookings = user.bookings || [];
+            const userComments = allComments.filter(c => c.userId === userId && !c.isDeleted);
+            const userReviews = allReviews.filter(r => r.userId === userId);
+
+            let historyHtml = '';
+            if (history.length) {
+                historyHtml = history.slice().reverse().map(h => `
+                    <div class="history-item">
+                        <span>${formatDate(h.date)} — ${escapeHTML(h.action)}</span>
+                        <span class="${h.spent ? 'spent' : 'added'}">${h.spent ? '-' : '+'}${Math.abs(h.spent || h.added || 0)} мин</span>
+                    </div>
+                `).join('');
+            } else {
+                historyHtml = `<p style="color:var(--text-muted);font-size:13px;">История пуста</p>`;
+            }
+
+            let bookingsHtml = '';
+            if (bookings.length) {
+                bookingsHtml = bookings.slice().reverse().map(b => `
+                    <div class="history-item">
+                        <span>${escapeHTML(b.serviceName)} — ${b.date} в ${b.time}</span>
+                        <span class="booking-status-badge ${b.status}">${b.status}</span>
+                    </div>
+                `).join('');
+            } else {
+                bookingsHtml = `<p style="color:var(--text-muted);font-size:13px;">Нет записей</p>`;
+            }
+
+            content.innerHTML = `
+                <h2>👤 <span class="gold-text">${escapeHTML(user.name || 'Без имени')}</span></h2>
+                <p class="subtitle">Вся информация о клиенте</p>
+                <div class="info-row"><span class="label">📇 ID карты</span><span class="value"><code style="color:var(--gold);">${escapeHTML(user.cardId || '—')}</code></span></div>
+                <div class="info-row"><span class="label">📞 Телефон</span><span class="value">${escapeHTML(user.phone || '—')}</span></div>
+                <div class="info-row"><span class="label">✉️ Email</span><span class="value">${escapeHTML(user.email || '—')}</span></div>
+                <div class="info-row"><span class="label">☀️ Баланс</span><span class="value" style="font-size:24px;color:var(--gold);">${user.minutes || 0}</span></div>
+                <div class="info-row"><span class="label">💬 Комментариев</span><span class="value">${userComments.length}</span></div>
+                <div class="info-row"><span class="label">⭐ Отзывов</span><span class="value">${userReviews.length}</span></div>
+                <h4 style="margin-top:16px;margin-bottom:8px;color:var(--text-primary);">📋 Записи</h4>
+                <div class="history-list">${bookingsHtml}</div>
+                <h4 style="margin-top:16px;margin-bottom:8px;color:var(--text-primary);">📜 История операций</h4>
+                <div class="history-list">${historyHtml}</div>
+                <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+                    <button class="btn btn-sm btn-success" onclick="closeClientModal();addMinutes('${user.id}')"><i class="fas fa-plus"></i> Пополнить</button>
+                    <button class="btn btn-sm btn-danger" onclick="closeClientModal();spendMinutes('${user.id}')"><i class="fas fa-minus"></i> Списать</button>
+                    <button class="btn btn-sm btn-outline" onclick="closeClientModal()">Закрыть</button>
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeClientModal = function() {
+            document.getElementById('clientModal').classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        window.addMinutes = async function(userId) {
+            const amount = prompt('Сколько минут добавить?', '30');
+            if (!amount) return;
+            const num = parseInt(amount);
+            if (isNaN(num) || num <= 0) { alert('Введите число > 0'); return; }
+
+            const userRef = doc(db, 'users', userId);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.data();
+            const newMinutes = (userData.minutes || 0) + num;
+            const history = userData.history || [];
+            history.push({
+                date: new Date().toISOString(),
+                action: `Пополнение на ${num} мин`,
+                added: num,
+                remaining: newMinutes
+            });
+
+            await updateDoc(userRef, { minutes: newMinutes, history });
+            await reloadUsers();
+            renderContent('clients');
+            alert(`✅ Добавлено ${num} минут. Новый баланс: ${newMinutes}`);
+        };
+
+        window.spendMinutes = async function(userId) {
+            const userRef = doc(db, 'users', userId);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.data();
+            const current = userData.minutes || 0;
+
+            if (current <= 0) { alert('❌ У клиента 0 минут.'); return; }
+
+            const amount = prompt(`Списать (доступно: ${current})`, '10');
+            if (!amount) return;
+            const num = parseInt(amount);
+            if (isNaN(num) || num <= 0) { alert('Введите число > 0'); return; }
+            if (num > current) { alert(`❌ Недостаточно. Доступно: ${current}`); return; }
+
+            const newMinutes = current - num;
+            const history = userData.history || [];
+            history.push({
+                date: new Date().toISOString(),
+                action: `Списание ${num} мин (солярий)`,
+                spent: num,
+                remaining: newMinutes
+            });
+
+            await updateDoc(userRef, { minutes: newMinutes, history });
+            await reloadUsers();
+            renderContent('clients');
+            alert(`✅ Списано ${num} минут. Новый баланс: ${newMinutes}`);
+        };
+
+        async function reloadUsers() {
+            const usersSnap = await getDocs(collection(db, 'users'));
+            allUsers = [];
+            usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
+        }
+
+        // ============================================================
+        // BOOKINGS
+        // ============================================================
+        function renderBookings() {
+            if (allBookings.length === 0) {
+                return `<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Нет записей</div>`;
+            }
+
+            let html = `
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Клиент</th>
+                                <th>Услуга</th>
+                                <th>Мастер</th>
+                                <th>Дата и время</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            for (const b of allBookings) {
+                const statusLabels = {
+                    pending: '⏳ Ожидает',
+                    confirmed: '✅ Подтверждена',
+                    completed: '✓ Выполнена',
+                    cancelled: '❌ Отменена'
+                };
+
+                html += `
+                    <tr>
+                        <td>
+                            <div>
+                                <div style="font-weight:500;">${escapeHTML(b.userName || 'Аноним')}</div>
+                                <div style="font-size:11px;color:var(--text-muted);">${escapeHTML(b.userEmail || '')}</div>
+                            </div>
+                        </td>
+                        <td>${escapeHTML(b.serviceName || '—')}</td>
+                        <td>${escapeHTML(b.masterName || '—')}</td>
+                        <td>${escapeHTML(b.date || '—')} в ${escapeHTML(b.time || '—')}</td>
+                        <td>
+                            <select onchange="updateBookingStatus('${b.id}', this.value)" style="padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:6px;color:var(--text-primary);font-size:12px;">
+                                <option value="pending" ${b.status === 'pending' ? 'selected' : ''}>⏳ Ожидает</option>
+                                <option value="confirmed" ${b.status === 'confirmed' ? 'selected' : ''}>✅ Подтверждена</option>
+                                <option value="completed" ${b.status === 'completed' ? 'selected' : ''}>✓ Выполнена</option>
+                                <option value="cancelled" ${b.status === 'cancelled' ? 'selected' : ''}>❌ Отменена</option>
+                            </select>
+                        </td>
+                        <td>
+                            <div style="display:flex;gap:4px;">
+                                <button class="btn btn-sm btn-outline" onclick="showBookingUser('${b.userId}')" title="Инфо о клиенте"><i class="fas fa-user"></i></button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteBooking('${b.id}')" title="Удалить"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            html += `</tbody></table></div>`;
+            return html;
+        }
+
+        window.updateBookingStatus = async function(bookingId, status) {
+            try {
+                await updateDoc(doc(db, 'bookings', bookingId), { status });
+                // Обновляем также у пользователя
+                const booking = allBookings.find(b => b.id === bookingId);
+                if (booking && booking.userId) {
+                    const userRef = doc(db, 'users', booking.userId);
+                    const userSnap = await getDoc(userRef);
+                    if (userSnap.exists()) {
+                        const userData = userSnap.data();
+                        const bookings = userData.bookings || [];
+                        const idx = bookings.findIndex(b => b.serviceName === booking.serviceName && b.date === booking.date && b.time === booking.time);
+                        if (idx !== -1) {
+                            bookings[idx].status = status;
+                            await updateDoc(userRef, { bookings });
+                        }
+                    }
+                }
+                await reloadBookings();
+                renderContent('bookings');
+            } catch (e) {
+                alert('❌ Ошибка: ' + e.message);
+            }
+        };
+
+        window.deleteBooking = async function(bookingId) {
+            if (!confirm('Удалить запись?')) return;
+            try {
+                const booking = allBookings.find(b => b.id === bookingId);
+                if (booking && booking.userId) {
+                    const userRef = doc(db, 'users', booking.userId);
+                    const userSnap = await getDoc(userRef);
+                    if (userSnap.exists()) {
+                        const userData = userSnap.data();
+                        const bookings = userData.bookings || [];
+                        const filtered = bookings.filter(b => !(b.serviceName === booking.serviceName && b.date === booking.date && b.time === booking.time));
+                        await updateDoc(userRef, { bookings: filtered });
+                    }
+                }
+                await deleteDoc(doc(db, 'bookings', bookingId));
+                await reloadBookings();
+                renderContent('bookings');
+            } catch (e) {
+                alert('❌ Ошибка: ' + e.message);
+            }
+        };
+
+        window.showBookingUser = function(userId) {
+            const user = allUsers.find(u => u.id === userId);
+            if (!user) { alert('Пользователь не найден'); return; }
+            showClient(userId);
+        };
+
+        async function reloadBookings() {
+            const bookingsSnap = await getDocs(query(collection(db, 'bookings'), orderBy('createdAt', 'desc')));
+            allBookings = [];
+            bookingsSnap.forEach(d => allBookings.push({ id: d.id, ...d.data() }));
+        }
+
+        // ============================================================
+        // REVIEWS ADMIN
+        // ============================================================
+        function renderReviewsAdmin() {
+            const totalReviews = allReviews.length;
+            const avgRating = totalReviews > 0 ? (allReviews.reduce((sum, r) => sum + (r.rating || 0), 0) / totalReviews).toFixed(1) : 0;
+
+            let html = `
+                <div class="reviews-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-number">${totalReviews}</div>
+                        <div class="stat-label">Всего отзывов</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-number">${avgRating}</div>
+                        <div class="stat-label">Средний рейтинг</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👤</div>
+                        <div class="stat-number">${new Set(allReviews.map(r => r.userId)).size}</div>
+                        <div class="stat-label">Уникальных авторов</div>
+                    </div>
+                </div>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Пользователь</th>
+                                <th>Оценка</th>
+                                <th>Отзыв</th>
+                                <th>Мастер</th>
+                                <th>Дата</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            if (allReviews.length === 0) {
+                html += `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:30px 0;">Нет отзывов</td></tr>`;
+            } else {
+                for (const r of allReviews) {
+                    const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+                    html += `
+                        <tr>
+                            <td>
+                                <div>
+                                    <div style="font-weight:500;">${escapeHTML(r.userName || 'Аноним')}</div>
+                                    <div style="font-size:11px;color:var(--text-muted);">${escapeHTML(r.userEmail || '')}</div>
+                                    <div style="font-size:11px;color:var(--text-muted);">📱 ${escapeHTML(r.userPhone || '—')}</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="review-rating-stars">${stars}</div>
+                            </td>
+                            <td style="max-width:200px;word-wrap:break-word;">${escapeHTML(r.text || '')}</td>
+                            <td>${escapeHTML(r.masterName || '—')}</td>
+                            <td style="font-size:12px;white-space:nowrap;">${formatDate(r.createdAt)}</td>
+                            <td>
+                                <div style="display:flex;gap:4px;">
+                                    <button class="btn btn-sm btn-outline" onclick="showReviewUser('${r.userId}')" title="Инфо о пользователе"><i class="fas fa-user"></i></button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteReview('${r.id}')" title="Удалить"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }
+            }
+
+            html += `</tbody></table></div>`;
+            return html;
+        }
+
+        window.showReviewUser = function(userId) {
+            const user = allUsers.find(u => u.id === userId);
+            if (!user) { alert('Пользователь не найден'); return; }
+            showClient(userId);
+        };
+
+        window.deleteReview = async function(reviewId) {
+            if (!confirm('Удалить отзыв?')) return;
+            try {
+                await deleteDoc(doc(db, 'reviews', reviewId));
+                allReviews = allReviews.filter(r => r.id !== reviewId);
+                renderContent('reviews');
+                alert('✅ Отзыв удалён');
+            } catch (e) {
+                alert('❌ Ошибка: ' + e.message);
+            }
+        };
+
+        // ============================================================
+        // COMMENTS ADMIN
         // ============================================================
         function renderCommentsAdmin() {
             const filtered = allComments.filter(c => {
@@ -1826,7 +1883,7 @@
             }).join('');
 
             let html = `
-                <div class="comments-stats">
+                <div class="reviews-stats">
                     <div class="stat-card">
                         <div class="stat-icon">💬</div>
                         <div class="stat-number">${totalComments}</div>
@@ -1841,11 +1898,6 @@
                         <div class="stat-icon">🗑️</div>
                         <div class="stat-number">${deletedComments}</div>
                         <div class="stat-label">Удалённых</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">👤</div>
-                        <div class="stat-number">${allUsers.length}</div>
-                        <div class="stat-label">Всего пользователей</div>
                     </div>
                 </div>
 
@@ -1887,8 +1939,6 @@
                     const postTitle = post ? post.title : 'Пост удалён';
                     const isDeleted = c.isDeleted === true;
                     const userName = c.userName || 'Аноним';
-                    const userPhoto = c.userPhoto ||
-                        `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${userName.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
 
                     html += `
                         <tr>
@@ -1974,217 +2024,11 @@
                 alert('Пользователь не найден');
                 return;
             }
-
-            const modal = document.getElementById('clientModal');
-            const content = document.getElementById('clientModalContent');
-
-            const userComments = allComments.filter(c => c.userId === userId && !c.isDeleted);
-
-            content.innerHTML = `
-                <h2>👤 <span class="gold-text">${escapeHTML(user.name || 'Без имени')}</span></h2>
-                <p class="subtitle">Информация о пользователе</p>
-                <div class="info-row"><span class="label">📧 Email</span><span class="value">${escapeHTML(user.email || '—')}</span></div>
-                <div class="info-row"><span class="label">📞 Телефон</span><span class="value">${escapeHTML(user.phone || '—')}</span></div>
-                <div class="info-row"><span class="label">📇 ID карты</span><span class="value"><code style="color:var(--gold);">${escapeHTML(user.cardId || '—')}</code></span></div>
-                <div class="info-row"><span class="label">☀️ Баланс минут</span><span class="value" style="color:var(--gold);font-size:20px;">${user.minutes || 0}</span></div>
-                <div class="info-row"><span class="label">💬 Комментариев</span><span class="value">${userComments.length}</span></div>
-                <h4 style="margin-top:16px;margin-bottom:8px;color:var(--text-primary);">📜 Комментарии пользователя</h4>
-                ${userComments.length === 0 ? '<p style="color:var(--text-muted);font-size:13px;">Пользователь не оставлял комментариев</p>' :
-                userComments.slice(0, 10).map(c => `
-                    <div class="history-item">
-                        <span>${escapeHTML(c.text || '')}</span>
-                        <span style="color:var(--text-muted);font-size:12px;">${formatDate(c.createdAt?.toDate?.() || new Date())}</span>
-                    </div>
-                `).join('')}
-                <div style="margin-top:16px;">
-                    <button class="btn btn-sm btn-outline" onclick="closeClientModal()">Закрыть</button>
-                </div>
-            `;
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            showClient(userId);
         };
 
         // ============================================================
-        // КЛИЕНТЫ
-        // ============================================================
-        function renderClients() {
-            const filtered = allUsers.filter(u =>
-                (u.name || '').toLowerCase().includes(clientSearch.toLowerCase()) ||
-                (u.phone || '').includes(clientSearch) ||
-                (u.email || '').toLowerCase().includes(clientSearch.toLowerCase()) ||
-                (u.cardId || '').toLowerCase().includes(clientSearch.toLowerCase())
-            );
-
-            let html = `
-                <div class="search-box">
-                    <input type="text" id="clientSearchInput" placeholder="🔍 Поиск..." value="${escapeHTML(clientSearch)}" oninput="updateClientSearch(this.value)" />
-                    <button class="btn btn-sm btn-outline" onclick="addClient()"><i class="fas fa-user-plus"></i> Добавить</button>
-                </div>
-                <div class="admin-table-wrapper">
-                    <table class="admin-table">
-                        <thead><tr><th>Клиент</th><th>Телефон</th><th>ID карты</th><th>Минуты</th><th>Действия</th></tr></thead>
-                        <tbody>
-            `;
-
-            for (const u of filtered) {
-                html += `
-                    <tr>
-                        <td>${escapeHTML(u.name || 'Без имени')}</td>
-                        <td>${escapeHTML(u.phone || '—')}</td>
-                        <td><code style="color:var(--gold);font-size:12px;">${escapeHTML(u.cardId || '—')}</code></td>
-                        <td><strong style="color:var(--gold);font-size:18px;">${u.minutes || 0}</strong></td>
-                        <td>
-                            <div style="display:flex;gap:4px;flex-wrap:wrap;">
-                                <button class="btn btn-sm btn-outline" onclick="showClient('${u.id}')" title="Информация"><i class="fas fa-info-circle"></i></button>
-                                <button class="btn btn-sm btn-success" onclick="addMinutes('${u.id}')" title="Пополнить"><i class="fas fa-plus"></i></button>
-                                <button class="btn btn-sm btn-danger" onclick="spendMinutes('${u.id}')" title="Списать"><i class="fas fa-minus"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }
-
-            html += `</tbody></table></div>`;
-            return html;
-        }
-
-        window.updateClientSearch = function(value) {
-            clientSearch = value;
-            renderContent('clients');
-        };
-
-        window.addClient = async function() {
-            const name = prompt('Введите имя:');
-            if (!name) return;
-            const phone = prompt('Телефон:') || '';
-            const email = prompt('Email:') || '';
-            const cardId = 'ST-' + String(Math.floor(Math.random() * 900) + 100) + '-' + new Date().getFullYear();
-            const uid = 'manual_' + Date.now();
-            await setDoc(doc(db, 'users', uid), {
-                name,
-                phone,
-                email,
-                minutes: 0,
-                cardId,
-                cardDesign: 'onyx_gold',
-                history: [],
-                createdAt: new Date().toISOString()
-            });
-            await reloadUsers();
-            renderContent('clients');
-            alert(`✅ Клиент "${name}" добавлен! ID: ${cardId}`);
-        };
-
-        window.showClient = async function(userId) {
-            const user = allUsers.find(u => u.id === userId);
-            if (!user) { alert('Клиент не найден'); return; }
-
-            const modal = document.getElementById('clientModal');
-            const content = document.getElementById('clientModalContent');
-
-            const history = user.history || [];
-            const userComments = allComments.filter(c => c.userId === userId && !c.isDeleted);
-
-            let historyHtml = '';
-            if (history.length) {
-                historyHtml = history.slice().reverse().map(h => `
-                    <div class="history-item">
-                        <span>${formatDate(h.date)} — ${escapeHTML(h.action)}</span>
-                        <span class="${h.spent ? 'spent' : 'added'}">${h.spent ? '-' : '+'}${Math.abs(h.spent || h.added || 0)} мин</span>
-                    </div>
-                `).join('');
-            } else {
-                historyHtml = `<p style="color:var(--text-muted);font-size:13px;">История пуста</p>`;
-            }
-
-            content.innerHTML = `
-                <h2>👤 <span class="gold-text">${escapeHTML(user.name || 'Без имени')}</span></h2>
-                <p class="subtitle">Вся информация о клиенте</p>
-                <div class="info-row"><span class="label">📇 ID карты</span><span class="value"><code style="color:var(--gold);">${escapeHTML(user.cardId || '—')}</code></span></div>
-                <div class="info-row"><span class="label">📞 Телефон</span><span class="value">${escapeHTML(user.phone || '—')}</span></div>
-                <div class="info-row"><span class="label">✉️ Email</span><span class="value">${escapeHTML(user.email || '—')}</span></div>
-                <div class="info-row"><span class="label">☀️ Баланс</span><span class="value" style="font-size:24px;color:var(--gold);">${user.minutes || 0}</span></div>
-                <div class="info-row"><span class="label">💬 Комментариев</span><span class="value">${userComments.length}</span></div>
-                <h4 style="margin-top:16px;margin-bottom:8px;color:var(--text-primary);">📜 История операций</h4>
-                <div class="history-list">${historyHtml}</div>
-                <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
-                    <button class="btn btn-sm btn-success" onclick="closeClientModal();addMinutes('${user.id}')"><i class="fas fa-plus"></i> Пополнить</button>
-                    <button class="btn btn-sm btn-danger" onclick="closeClientModal();spendMinutes('${user.id}')"><i class="fas fa-minus"></i> Списать</button>
-                    <button class="btn btn-sm btn-outline" onclick="closeClientModal()">Закрыть</button>
-                </div>
-            `;
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        };
-
-        window.closeClientModal = function() {
-            document.getElementById('clientModal').classList.remove('active');
-            document.body.style.overflow = '';
-        };
-
-        window.addMinutes = async function(userId) {
-            const amount = prompt('Сколько минут добавить?', '30');
-            if (!amount) return;
-            const num = parseInt(amount);
-            if (isNaN(num) || num <= 0) { alert('Введите число > 0'); return; }
-
-            const userRef = doc(db, 'users', userId);
-            const userSnap = await getDoc(userRef);
-            const userData = userSnap.data();
-            const newMinutes = (userData.minutes || 0) + num;
-            const history = userData.history || [];
-            history.push({
-                date: new Date().toISOString(),
-                action: `Пополнение на ${num} мин`,
-                added: num,
-                remaining: newMinutes
-            });
-
-            await updateDoc(userRef, { minutes: newMinutes, history });
-            await reloadUsers();
-            renderContent('clients');
-            alert(`✅ Добавлено ${num} минут. Новый баланс: ${newMinutes}`);
-        };
-
-        window.spendMinutes = async function(userId) {
-            const userRef = doc(db, 'users', userId);
-            const userSnap = await getDoc(userRef);
-            const userData = userSnap.data();
-            const current = userData.minutes || 0;
-
-            if (current <= 0) { alert('❌ У клиента 0 минут.'); return; }
-
-            const amount = prompt(`Списать (доступно: ${current})`, '10');
-            if (!amount) return;
-            const num = parseInt(amount);
-            if (isNaN(num) || num <= 0) { alert('Введите число > 0'); return; }
-            if (num > current) { alert(`❌ Недостаточно. Доступно: ${current}`); return; }
-
-            const newMinutes = current - num;
-            const history = userData.history || [];
-            history.push({
-                date: new Date().toISOString(),
-                action: `Списание ${num} мин (солярий)`,
-                spent: num,
-                remaining: newMinutes
-            });
-
-            await updateDoc(userRef, { minutes: newMinutes, history });
-            await reloadUsers();
-            renderContent('clients');
-            alert(`✅ Списано ${num} минут. Новый баланс: ${newMinutes}`);
-        };
-
-        async function reloadUsers() {
-            const usersSnap = await getDocs(collection(db, 'users'));
-            allUsers = [];
-            usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
-        }
-
-        // ============================================================
-        // УТИЛИТЫ
+        // UTILITIES
         // ============================================================
         function escapeHTML(str) {
             if (!str) return '';
@@ -2203,17 +2047,14 @@
         }
 
         // ============================================================
-        // ЗАПУСК
+        // START
         // ============================================================
-        // Проверяем сессию
         const hasSession = checkSession();
 
         if (!hasSession) {
-            // Если сессии нет — показываем вход
             document.getElementById('loginPage').style.display = 'flex';
             document.getElementById('adminPanel').style.display = 'none';
         } else {
-            // Если сессия есть — загружаем данные
             await loadAllData();
             renderContent('dashboard');
         }
@@ -2232,6 +2073,8 @@
         console.log(`👤 Клиентов: ${allUsers.length}`);
         console.log(`📝 Постов: ${allBlogPosts.length}`);
         console.log(`💬 Комментариев: ${allComments.length}`);
+        console.log(`⭐ Отзывов: ${allReviews.length}`);
+        console.log(`📋 Записей: ${allBookings.length}`);
         console.log('🛡️ Защита от брутфорса активна!');
     </script>
 </body>
