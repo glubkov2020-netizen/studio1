@@ -21,7 +21,7 @@
 
     <style>
         /* ============================================================
-           ПОЛНЫЕ СТИЛИ АДМИНКИ (улучшенные)
+           СТИЛИ АДМИНКИ (улучшенные)
            ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
@@ -36,11 +36,8 @@
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.1);
             --gold: #C9A96E;
-            --gold-dark: #B8974D;
-            --gold-light: #E8D5A8;
             --gold-gradient: linear-gradient(135deg, #C9A96E, #E8D5A8, #C9A96E);
             --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --transition-smooth: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             --radius: 16px;
             --radius-sm: 12px;
         }
@@ -78,11 +75,6 @@
             100% { transform: scale(1.03) rotate(-1deg); opacity: .75; }
         }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -98,7 +90,7 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow);
-            transition: var(--transition-smooth);
+            transition: var(--transition);
             border-radius: var(--radius);
             padding: 24px 20px;
         }
@@ -122,7 +114,7 @@
             border: none;
             border-radius: 60px;
             cursor: pointer;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
             box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
             background-size: 200% auto;
         }
@@ -135,7 +127,6 @@
         .btn-success { background: #27AE60; box-shadow: 0 4px 24px rgba(39, 174, 96, 0.3); }
         .btn-success:hover { background: #219A52; }
 
-        /* LOGIN PAGE */
         .login-page {
             display: flex;
             align-items: center;
@@ -163,7 +154,7 @@
             border-radius: var(--radius-sm);
             color: var(--text-primary);
             font-size: 16px;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
         }
         .login-box input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12); }
         .login-box .error { color: #E74C3C; font-size: 14px; margin-top: 8px; display: none; }
@@ -174,11 +165,10 @@
             color: var(--text-muted);
             font-size: 13px;
             text-decoration: none;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
         }
         .login-box .back-link:hover { color: var(--gold); }
 
-        /* ADMIN PANEL */
         .admin-panel { display: none; }
 
         .admin-header {
@@ -212,7 +202,7 @@
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
             white-space: nowrap;
         }
         .admin-tab:hover { border-color: var(--gold); color: var(--gold); }
@@ -220,22 +210,22 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
         .stat-card {
             background: var(--bg-card);
-            padding: 16px;
+            padding: 20px 16px;
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
             text-align: center;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
         }
-        .stat-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-        .stat-card .stat-icon { font-size: 28px; color: var(--gold); }
-        .stat-card .stat-number { font-weight: 700; font-size: 20px; margin-top: 4px; }
-        .stat-card .stat-label { color: var(--text-muted); font-size: 13px; }
+        .stat-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+        .stat-card .stat-icon { font-size: 32px; color: var(--gold); display: block; margin-bottom: 6px; }
+        .stat-card .stat-number { font-weight: 700; font-size: 24px; color: var(--gold); }
+        .stat-card .stat-label { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
 
         .admin-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .admin-table {
@@ -268,7 +258,7 @@
             color: var(--text-primary);
             font-size: 13px;
             width: 100%;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
             min-width: 60px;
         }
         .admin-table input:focus, .admin-table select:focus { outline: none; border-color: var(--gold); }
@@ -307,13 +297,12 @@
             border-radius: var(--radius-sm);
             color: var(--text-primary);
             font-size: 14px;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
         }
         .add-form input:focus, .add-form textarea:focus { outline: none; border-color: var(--gold); }
         .add-form textarea { min-height: 80px; width: 100%; }
         .add-form .btn { flex-shrink: 0; }
 
-        /* BLOG CARDS */
         .blog-posts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -325,7 +314,7 @@
             border-radius: var(--radius);
             border: 1px solid var(--border-color);
             overflow: hidden;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
         }
         .blog-post-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
         .blog-post-card .post-image { width: 100%; height: 200px; object-fit: cover; background: var(--bg-secondary); }
@@ -360,7 +349,6 @@
         .post-preview .preview-content .preview-title { font-weight: 600; font-size: 18px; color: var(--text-primary); }
         .post-preview .preview-content .preview-text { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
 
-        /* MODALS */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -404,7 +392,7 @@
             border-radius: 50%;
             cursor: pointer;
             color: var(--text-muted);
-            transition: var(--transition-smooth);
+            transition: var(--transition);
             z-index: 10;
             padding: 8px;
             min-height: 40px;
@@ -453,11 +441,10 @@
             border-radius: var(--radius-sm);
             color: var(--text-primary);
             font-size: 14px;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
         }
         .search-box input:focus { outline: none; border-color: var(--gold); }
 
-        /* COMMENTS TABLE */
         .comments-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .comments-table {
             width: 100%;
@@ -529,29 +516,14 @@
         }
         .post-filter select:focus { outline: none; border-color: var(--gold); }
 
-        /* REVIEWS */
         .reviews-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 16px;
             margin-bottom: 20px;
         }
-
-        .booking-status-badge {
-            display: inline-block;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 500;
-        }
-        .booking-status-badge.pending { background: rgba(241, 196, 15, 0.2); color: #F1C40F; }
-        .booking-status-badge.confirmed { background: rgba(39, 174, 96, 0.2); color: #27AE60; }
-        .booking-status-badge.completed { background: rgba(52, 152, 219, 0.2); color: #3498DB; }
-        .booking-status-badge.cancelled { background: rgba(231, 76, 60, 0.2); color: #E74C3C; }
-
         .review-rating-stars { color: #F5B342; font-size: 16px; letter-spacing: 2px; }
 
-        /* RESPONSIVE */
         @media (max-width:768px) {
             body { padding: 12px; }
             .glass-card { padding: 16px 14px; }
@@ -560,7 +532,7 @@
             .admin-header .admin-actions .btn { flex: 1; }
             .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
             .stat-card { padding: 12px; }
-            .stat-card .stat-number { font-size: 18px; }
+            .stat-card .stat-number { font-size: 20px; }
             .admin-table { font-size: 12px; min-width: 500px; }
             .admin-table td, .admin-table th { padding: 6px 8px; }
             .add-form { flex-direction: column; }
@@ -578,8 +550,8 @@
         }
         @media (max-width:480px) {
             .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-            .stat-card .stat-number { font-size: 16px; }
-            .stat-card .stat-icon { font-size: 22px; }
+            .stat-card .stat-number { font-size: 18px; }
+            .stat-card .stat-icon { font-size: 24px; }
             .admin-table { font-size: 11px; min-width: 400px; }
             .admin-table td, .admin-table th { padding: 4px 6px; }
             .admin-table .actions .btn { font-size: 10px; padding: 2px 8px; min-height: 24px; }
@@ -603,7 +575,7 @@
 <body>
 
     <div class="container" id="app">
-        <!-- LOGIN PAGE -->
+        <!-- LOGIN -->
         <div id="loginPage" class="login-page">
             <div class="glass-card login-box">
                 <i class="fas fa-crown icon"></i>
@@ -642,7 +614,6 @@
                     <div class="admin-tab" data-tab="masters" onclick="switchTab('masters')">👩‍🎨 Мастера</div>
                     <div class="admin-tab" data-tab="blog" onclick="switchTab('blog')">📝 Блог</div>
                     <div class="admin-tab" data-tab="clients" onclick="switchTab('clients')">👤 Клиенты</div>
-                    <div class="admin-tab" data-tab="bookings" onclick="switchTab('bookings')">📋 Записи</div>
                     <div class="admin-tab" data-tab="reviews" onclick="switchTab('reviews')">⭐ Отзывы</div>
                     <div class="admin-tab" data-tab="comments" onclick="switchTab('comments')">💬 Комментарии</div>
                 </div>
@@ -680,7 +651,7 @@
         // FIREBASE
         // ============================================================
         import { initializeApp } from 'firebase/app';
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot, serverTimestamp } from 'firebase/firestore';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot } from 'firebase/firestore';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -695,7 +666,7 @@
         const db = getFirestore(app);
 
         // ============================================================
-        // ADMIN CREDENTIALS (защищённые)
+        // ADMIN CREDENTIALS
         // ============================================================
         const ADMIN_CREDENTIALS = {
             login: 'Studio1Admin',
@@ -718,9 +689,6 @@
             return Math.max(0, Math.ceil((blockUntil - Date.now()) / 1000));
         }
 
-        // ============================================================
-        // LOGIN
-        // ============================================================
         window.adminLogin = function(e) {
             e.preventDefault();
 
@@ -828,7 +796,6 @@
         let allUsers = [];
         let allComments = [];
         let allReviews = [];
-        let allBookings = [];
         let currentTab = 'dashboard';
         let clientSearch = '';
         let isDataLoaded = false;
@@ -953,10 +920,6 @@
                 allUsers = [];
                 usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
 
-                const bookingsSnap = await getDocs(query(collection(db, 'bookings'), orderBy('createdAt', 'desc')));
-                allBookings = [];
-                bookingsSnap.forEach(d => allBookings.push({ id: d.id, ...d.data() }));
-
                 const reviewsSnap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
                 allReviews = [];
                 reviewsSnap.forEach(d => allReviews.push({ id: d.id, ...d.data() }));
@@ -1009,7 +972,6 @@
                 case 'masters': container.innerHTML = renderMasters(); break;
                 case 'blog': container.innerHTML = renderBlogAdmin(); break;
                 case 'clients': container.innerHTML = renderClients(); break;
-                case 'bookings': container.innerHTML = renderBookings(); break;
                 case 'reviews': container.innerHTML = renderReviewsAdmin(); break;
                 case 'comments': container.innerHTML = renderCommentsAdmin(); break;
                 default: container.innerHTML = '<p style="color:var(--text-muted);padding:40px 0;text-align:center;">Раздел в разработке</p>';
@@ -1017,68 +979,74 @@
         }
 
         // ============================================================
-        // DASHBOARD
+        // DASHBOARD (улучшенный)
         // ============================================================
         function renderDashboard() {
             const totalMinutes = allUsers.reduce((sum, u) => sum + (u.minutes || 0), 0);
             const totalComments = allComments.filter(c => !c.isDeleted).length;
             const totalReviews = allReviews.length;
-            const totalBookings = allBookings.length;
-            const pendingBookings = allBookings.filter(b => b.status === 'pending').length;
+            const avgRating = totalReviews > 0 ? (allReviews.reduce((sum, r) => sum + (r.rating || 0), 0) / totalReviews).toFixed(1) : 0;
+
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            const todayReviews = allReviews.filter(r => {
+                const d = new Date(r.createdAt);
+                return d.toISOString().split('T')[0] === todayStr;
+            }).length;
 
             return `
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-icon">👤</div>
+                        <span class="stat-icon">👤</span>
                         <div class="stat-number">${allUsers.length}</div>
                         <div class="stat-label">Клиентов</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">💇</div>
+                        <span class="stat-icon">💇</span>
                         <div class="stat-number">${allMasters.length}</div>
                         <div class="stat-label">Мастеров</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">✨</div>
+                        <span class="stat-icon">✨</span>
                         <div class="stat-number">${allServices.length}</div>
                         <div class="stat-label">Услуг</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">☀️</div>
+                        <span class="stat-icon">☀️</span>
                         <div class="stat-number">${totalMinutes}</div>
                         <div class="stat-label">Всего минут</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">📋</div>
-                        <div class="stat-number">${totalBookings}</div>
-                        <div class="stat-label">Записей</div>
-                        ${pendingBookings > 0 ? `<span style="font-size:11px;color:#F1C40F;">${pendingBookings} ожидают</span>` : ''}
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">⭐</div>
+                        <span class="stat-icon">⭐</span>
                         <div class="stat-number">${totalReviews}</div>
-                        <div class="stat-label">Отзывов</div>
+                        <div class="stat-label">Отзывов (ср. ${avgRating})</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">📝</div>
+                        <span class="stat-icon">📝</span>
                         <div class="stat-number">${allBlogPosts.length}</div>
                         <div class="stat-label">Постов</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">💬</div>
+                        <span class="stat-icon">💬</span>
                         <div class="stat-number">${totalComments}</div>
                         <div class="stat-label">Комментариев</div>
                     </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">📊</span>
+                        <div class="stat-number">${todayReviews}</div>
+                        <div class="stat-label">Отзывов сегодня</div>
+                    </div>
                 </div>
-                <div style="color:var(--text-muted);font-size:14px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
-                    <i class="fas fa-info-circle"></i> Все данные хранятся в защищённой базе данных Firestore.
-                    ${pendingBookings > 0 ? ` <i class="fas fa-bell" style="color:#F1C40F;"></i> Есть новые записи!` : ''}
+                <div style="color:var(--text-muted);font-size:14px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                    <i class="fas fa-info-circle" style="color:var(--gold);"></i>
+                    <span>Все данные хранятся в защищённой базе данных Firestore.</span>
+                    ${todayReviews > 0 ? `<span style="color:#27AE60;font-weight:500;">🆕 ${todayReviews} новых отзывов сегодня!</span>` : ''}
                 </div>
             `;
         }
 
         // ============================================================
-        // MASTERS (полный код - аналогично предыдущему)
+        // MASTERS (полный код)
         // ============================================================
         function renderMasters() {
             let html = `
@@ -1205,7 +1173,7 @@
         }
 
         // ============================================================
-        // BLOG ADMIN (полный код)
+        // BLOG ADMIN
         // ============================================================
         function renderBlogAdmin() {
             let postsHtml = '';
@@ -1450,7 +1418,7 @@
         }
 
         // ============================================================
-        // CLIENTS (полный код)
+        // CLIENTS
         // ============================================================
         function renderClients() {
             const filtered = allUsers.filter(u =>
@@ -1513,7 +1481,6 @@
                 cardId,
                 cardDesign: 'onyx_gold',
                 history: [],
-                bookings: [],
                 createdAt: new Date().toISOString()
             });
             await reloadUsers();
@@ -1529,7 +1496,6 @@
             const content = document.getElementById('clientModalContent');
 
             const history = user.history || [];
-            const bookings = user.bookings || [];
             const userComments = allComments.filter(c => c.userId === userId && !c.isDeleted);
             const userReviews = allReviews.filter(r => r.userId === userId);
 
@@ -1545,18 +1511,6 @@
                 historyHtml = `<p style="color:var(--text-muted);font-size:13px;">История пуста</p>`;
             }
 
-            let bookingsHtml = '';
-            if (bookings.length) {
-                bookingsHtml = bookings.slice().reverse().map(b => `
-                    <div class="history-item">
-                        <span>${escapeHTML(b.serviceName)} — ${b.date} в ${b.time}</span>
-                        <span class="booking-status-badge ${b.status}">${b.status}</span>
-                    </div>
-                `).join('');
-            } else {
-                bookingsHtml = `<p style="color:var(--text-muted);font-size:13px;">Нет записей</p>`;
-            }
-
             content.innerHTML = `
                 <h2>👤 <span class="gold-text">${escapeHTML(user.name || 'Без имени')}</span></h2>
                 <p class="subtitle">Вся информация о клиенте</p>
@@ -1566,8 +1520,6 @@
                 <div class="info-row"><span class="label">☀️ Баланс</span><span class="value" style="font-size:24px;color:var(--gold);">${user.minutes || 0}</span></div>
                 <div class="info-row"><span class="label">💬 Комментариев</span><span class="value">${userComments.length}</span></div>
                 <div class="info-row"><span class="label">⭐ Отзывов</span><span class="value">${userReviews.length}</span></div>
-                <h4 style="margin-top:16px;margin-bottom:8px;color:var(--text-primary);">📋 Записи</h4>
-                <div class="history-list">${bookingsHtml}</div>
                 <h4 style="margin-top:16px;margin-bottom:8px;color:var(--text-primary);">📜 История операций</h4>
                 <div class="history-list">${historyHtml}</div>
                 <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
@@ -1646,152 +1598,41 @@
         }
 
         // ============================================================
-        // BOOKINGS
-        // ============================================================
-        function renderBookings() {
-            if (allBookings.length === 0) {
-                return `<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Нет записей</div>`;
-            }
-
-            let html = `
-                <div class="admin-table-wrapper">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Клиент</th>
-                                <th>Услуга</th>
-                                <th>Мастер</th>
-                                <th>Дата и время</th>
-                                <th>Статус</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-            `;
-
-            for (const b of allBookings) {
-                const statusLabels = {
-                    pending: '⏳ Ожидает',
-                    confirmed: '✅ Подтверждена',
-                    completed: '✓ Выполнена',
-                    cancelled: '❌ Отменена'
-                };
-
-                html += `
-                    <tr>
-                        <td>
-                            <div>
-                                <div style="font-weight:500;">${escapeHTML(b.userName || 'Аноним')}</div>
-                                <div style="font-size:11px;color:var(--text-muted);">${escapeHTML(b.userEmail || '')}</div>
-                            </div>
-                        </td>
-                        <td>${escapeHTML(b.serviceName || '—')}</td>
-                        <td>${escapeHTML(b.masterName || '—')}</td>
-                        <td>${escapeHTML(b.date || '—')} в ${escapeHTML(b.time || '—')}</td>
-                        <td>
-                            <select onchange="updateBookingStatus('${b.id}', this.value)" style="padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:6px;color:var(--text-primary);font-size:12px;">
-                                <option value="pending" ${b.status === 'pending' ? 'selected' : ''}>⏳ Ожидает</option>
-                                <option value="confirmed" ${b.status === 'confirmed' ? 'selected' : ''}>✅ Подтверждена</option>
-                                <option value="completed" ${b.status === 'completed' ? 'selected' : ''}>✓ Выполнена</option>
-                                <option value="cancelled" ${b.status === 'cancelled' ? 'selected' : ''}>❌ Отменена</option>
-                            </select>
-                        </td>
-                        <td>
-                            <div style="display:flex;gap:4px;">
-                                <button class="btn btn-sm btn-outline" onclick="showBookingUser('${b.userId}')" title="Инфо о клиенте"><i class="fas fa-user"></i></button>
-                                <button class="btn btn-sm btn-danger" onclick="deleteBooking('${b.id}')" title="Удалить"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }
-
-            html += `</tbody></table></div>`;
-            return html;
-        }
-
-        window.updateBookingStatus = async function(bookingId, status) {
-            try {
-                await updateDoc(doc(db, 'bookings', bookingId), { status });
-                // Обновляем также у пользователя
-                const booking = allBookings.find(b => b.id === bookingId);
-                if (booking && booking.userId) {
-                    const userRef = doc(db, 'users', booking.userId);
-                    const userSnap = await getDoc(userRef);
-                    if (userSnap.exists()) {
-                        const userData = userSnap.data();
-                        const bookings = userData.bookings || [];
-                        const idx = bookings.findIndex(b => b.serviceName === booking.serviceName && b.date === booking.date && b.time === booking.time);
-                        if (idx !== -1) {
-                            bookings[idx].status = status;
-                            await updateDoc(userRef, { bookings });
-                        }
-                    }
-                }
-                await reloadBookings();
-                renderContent('bookings');
-            } catch (e) {
-                alert('❌ Ошибка: ' + e.message);
-            }
-        };
-
-        window.deleteBooking = async function(bookingId) {
-            if (!confirm('Удалить запись?')) return;
-            try {
-                const booking = allBookings.find(b => b.id === bookingId);
-                if (booking && booking.userId) {
-                    const userRef = doc(db, 'users', booking.userId);
-                    const userSnap = await getDoc(userRef);
-                    if (userSnap.exists()) {
-                        const userData = userSnap.data();
-                        const bookings = userData.bookings || [];
-                        const filtered = bookings.filter(b => !(b.serviceName === booking.serviceName && b.date === booking.date && b.time === booking.time));
-                        await updateDoc(userRef, { bookings: filtered });
-                    }
-                }
-                await deleteDoc(doc(db, 'bookings', bookingId));
-                await reloadBookings();
-                renderContent('bookings');
-            } catch (e) {
-                alert('❌ Ошибка: ' + e.message);
-            }
-        };
-
-        window.showBookingUser = function(userId) {
-            const user = allUsers.find(u => u.id === userId);
-            if (!user) { alert('Пользователь не найден'); return; }
-            showClient(userId);
-        };
-
-        async function reloadBookings() {
-            const bookingsSnap = await getDocs(query(collection(db, 'bookings'), orderBy('createdAt', 'desc')));
-            allBookings = [];
-            bookingsSnap.forEach(d => allBookings.push({ id: d.id, ...d.data() }));
-        }
-
-        // ============================================================
         // REVIEWS ADMIN
         // ============================================================
         function renderReviewsAdmin() {
             const totalReviews = allReviews.length;
             const avgRating = totalReviews > 0 ? (allReviews.reduce((sum, r) => sum + (r.rating || 0), 0) / totalReviews).toFixed(1) : 0;
+            const salonReviews = allReviews.filter(r => !r.masterId || r.masterId === '');
+            const masterReviews = allReviews.filter(r => r.masterId && r.masterId !== '');
+            const uniqueAuthors = new Set(allReviews.map(r => r.userId)).size;
 
             let html = `
                 <div class="reviews-stats">
                     <div class="stat-card">
-                        <div class="stat-icon">⭐</div>
+                        <span class="stat-icon">⭐</span>
                         <div class="stat-number">${totalReviews}</div>
                         <div class="stat-label">Всего отзывов</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">📊</div>
+                        <span class="stat-icon">📊</span>
                         <div class="stat-number">${avgRating}</div>
                         <div class="stat-label">Средний рейтинг</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">👤</div>
-                        <div class="stat-number">${new Set(allReviews.map(r => r.userId)).size}</div>
+                        <span class="stat-icon">👤</span>
+                        <div class="stat-number">${uniqueAuthors}</div>
                         <div class="stat-label">Уникальных авторов</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">🏢</span>
+                        <div class="stat-number">${salonReviews.length}</div>
+                        <div class="stat-label">Отзывов о салоне</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">👨‍🎨</span>
+                        <div class="stat-number">${masterReviews.length}</div>
+                        <div class="stat-label">Отзывов о мастерах</div>
                     </div>
                 </div>
                 <div class="admin-table-wrapper">
@@ -1801,7 +1642,7 @@
                                 <th>Пользователь</th>
                                 <th>Оценка</th>
                                 <th>Отзыв</th>
-                                <th>Мастер</th>
+                                <th>Тип</th>
                                 <th>Дата</th>
                                 <th>Действия</th>
                             </tr>
@@ -1814,6 +1655,9 @@
             } else {
                 for (const r of allReviews) {
                     const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+                    const isMasterReview = r.masterId && r.masterId !== '';
+                    const typeLabel = isMasterReview ? `👤 ${escapeHTML(r.masterName || 'Мастер')}` : '🏢 О салоне';
+                    
                     html += `
                         <tr>
                             <td>
@@ -1827,7 +1671,7 @@
                                 <div class="review-rating-stars">${stars}</div>
                             </td>
                             <td style="max-width:200px;word-wrap:break-word;">${escapeHTML(r.text || '')}</td>
-                            <td>${escapeHTML(r.masterName || '—')}</td>
+                            <td><span style="font-size:12px;">${typeLabel}</span></td>
                             <td style="font-size:12px;white-space:nowrap;">${formatDate(r.createdAt)}</td>
                             <td>
                                 <div style="display:flex;gap:4px;">
@@ -1863,14 +1707,23 @@
         };
 
         // ============================================================
-        // COMMENTS ADMIN
+        // COMMENTS ADMIN (исправленный фильтр)
         // ============================================================
         function renderCommentsAdmin() {
-            const filtered = allComments.filter(c => {
-                if (commentsFilter === 'deleted') return c.isDeleted === true;
-                if (commentsFilter === 'active') return c.isDeleted !== true;
-                return true;
-            });
+            let filtered = allComments;
+            
+            // Фильтр по статусу
+            if (commentsFilter === 'deleted') {
+                filtered = allComments.filter(c => c.isDeleted === true);
+            } else if (commentsFilter === 'active') {
+                filtered = allComments.filter(c => c.isDeleted !== true);
+            }
+            
+            // Фильтр по посту (если выбран)
+            const postFilter = document.getElementById('commentsPostFilter');
+            if (postFilter && postFilter.value !== 'all') {
+                filtered = filtered.filter(c => c.postId === postFilter.value);
+            }
 
             const totalComments = allComments.length;
             const activeComments = allComments.filter(c => !c.isDeleted).length;
@@ -1885,17 +1738,17 @@
             let html = `
                 <div class="reviews-stats">
                     <div class="stat-card">
-                        <div class="stat-icon">💬</div>
+                        <span class="stat-icon">💬</span>
                         <div class="stat-number">${totalComments}</div>
                         <div class="stat-label">Всего комментариев</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">✅</div>
+                        <span class="stat-icon">✅</span>
                         <div class="stat-number">${activeComments}</div>
                         <div class="stat-label">Активных</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">🗑️</div>
+                        <span class="stat-icon">🗑️</span>
                         <div class="stat-number">${deletedComments}</div>
                         <div class="stat-label">Удалённых</div>
                     </div>
@@ -1903,9 +1756,9 @@
 
                 <div class="post-filter">
                     <select id="commentsFilterSelect" onchange="changeCommentsFilter(this.value)">
-                        <option value="all">📋 Все комментарии</option>
-                        <option value="active">✅ Активные</option>
-                        <option value="deleted">🗑️ Удалённые</option>
+                        <option value="all" ${commentsFilter === 'all' ? 'selected' : ''}>📋 Все комментарии</option>
+                        <option value="active" ${commentsFilter === 'active' ? 'selected' : ''}>✅ Активные</option>
+                        <option value="deleted" ${commentsFilter === 'deleted' ? 'selected' : ''}>🗑️ Удалённые</option>
                     </select>
                     <select id="commentsPostFilter" onchange="changeCommentsPost(this.value)">
                         <option value="all">📰 Все посты</option>
@@ -2002,6 +1855,7 @@
                     isDeleted: true,
                     text: '[Комментарий удалён администратором]'
                 });
+                showToast('Комментарий удалён', 'success');
             } catch (e) {
                 alert('❌ Ошибка: ' + e.message);
             }
@@ -2013,6 +1867,7 @@
                 await updateDoc(doc(db, 'comments', commentId), {
                     isDeleted: false
                 });
+                showToast('Комментарий восстановлен', 'success');
             } catch (e) {
                 alert('❌ Ошибка: ' + e.message);
             }
@@ -2046,6 +1901,11 @@
             } catch { return ''; }
         }
 
+        function showToast(message, type = 'info') {
+            // Простой toast для админки
+            alert(message);
+        }
+
         // ============================================================
         // START
         // ============================================================
@@ -2067,14 +1927,12 @@
             }
         };
 
-        console.log('🔐 Админка Студия №1 загружена (защищённая версия)!');
+        console.log('🔐 Админка Студия №1 загружена!');
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
-        console.log(`💇 Услуг: ${allServices.length}`);
         console.log(`👤 Клиентов: ${allUsers.length}`);
         console.log(`📝 Постов: ${allBlogPosts.length}`);
         console.log(`💬 Комментариев: ${allComments.length}`);
         console.log(`⭐ Отзывов: ${allReviews.length}`);
-        console.log(`📋 Записей: ${allBookings.length}`);
         console.log('🛡️ Защита от брутфорса активна!');
     </script>
 </body>
