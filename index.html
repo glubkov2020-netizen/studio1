@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 <script type="importmap">
 {
@@ -2288,9 +2288,9 @@ footer span {
         <span class="label">минут</span>
       </div>
 
-      <div class="qr-container" id="qrContainer">
-        <canvas id="qrCanvas"></canvas>
-      </div>
+<div class="qr-container" id="qrContainer">
+  <div id="qrCanvas" style="padding:10px;background:#fff;border-radius:12px;"></div>
+</div>
 
       <div class="qr-timer">
         <span>🔄 Обновление через:</span>
@@ -3016,17 +3016,48 @@ window.showQRCode = function() {
 async function generateAndRenderQR() {
   try {
     const token = generateQRToken(currentUser.uid);
-    const canvas = document.getElementById('qrCanvas');
-    if (typeof QRCode === 'undefined') { showToast('Библиотека QR не загружена', 'error'); return; }
-    await QRCode.toCanvas(canvas, token, {
-      width: 260,
-      margin: 1,
-      color: { dark: '#0D0D0D', light: '#FFFFFF' },
-      errorCorrectionLevel: 'H'
+    const container = document.getElementById('qrContainer');
+    
+    if (!container) return;
+    
+    // Удаляем старый QR (если есть)
+    const oldCanvas = container.querySelector('canvas');
+    const oldImg = container.querySelector('img');
+    if (oldCanvas) oldCanvas.remove();
+    if (oldImg) oldImg.remove();
+
+    // Проверяем библиотеку
+    if (typeof QRCode === 'undefined') {
+      console.error('QRCode не загружен');
+      showToast('Библиотека QR не загружена. Обновите страницу.', 'error');
+      return;
+    }
+
+    // Создаём новый div для QR (библиотека qrcodejs работает с div)
+    const qrDiv = document.createElement('div');
+    qrDiv.id = 'qrCanvas';
+    qrDiv.style.padding = '10px';
+    qrDiv.style.background = '#fff';
+    qrDiv.style.borderRadius = '12px';
+    container.appendChild(qrDiv);
+
+    // Генерируем QR (правильный API для qrcodejs)
+    new QRCode(qrDiv, {
+      text: token,
+      width: 240,
+      height: 240,
+      colorDark: '#0D0D0D',
+      colorLight: '#FFFFFF',
+      correctLevel: QRCode.CorrectLevel.H
     });
+
+    console.log('✅ QR-код сгенерирован');
     qrSecondsLeft = QR_LIFETIME;
     updateQRTimerDisplay();
-  } catch (e) { console.error('Ошибка QR:', e); showToast('Ошибка генерации QR', 'error'); }
+  } catch (e) {
+    console.error('Ошибка QR:', e);
+    showToast('Ошибка генерации QR: ' + e.message, 'error');
+  }
 }
 
 function startQRTimer() {
