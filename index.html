@@ -860,24 +860,34 @@ nav a:hover, nav a.active { color: var(--gold); }
 .login-to-comment .btn { margin-top: 8px; }
 
 /* ============================================
-   КАРТА МИНУТ — 3D-ПЕРЕВОРОТ
+   КАРТА МИНУТ — 3D-ПЕРЕВОРОТ (FIXED)
    ============================================ */
 .card-wrapper {
   width: 100%;
   max-width: 440px;
   margin: 0 auto 30px;
-  perspective: 1200px;
+  perspective: 1400px;
+  -webkit-perspective: 1400px;
   cursor: pointer;
 }
+
 .card-flip {
   width: 100%;
   aspect-ratio: 1.586 / 1;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.4, 0.0, 0.2, 1);
+  -webkit-transition: -webkit-transform 0.9s cubic-bezier(0.4, 0.0, 0.2, 1);
   border-radius: 22px;
+  will-change: transform;
 }
-.card-flip.flipped { transform: rotateY(180deg); }
+
+.card-flip.flipped {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
 .card-face {
   position: absolute;
   inset: 0;
@@ -885,24 +895,61 @@ nav a:hover, nav a.active { color: var(--gold); }
   overflow: hidden;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  box-shadow:
-    0 30px 60px -15px rgba(0, 0, 0, 0.8),
-    0 15px 30px -10px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 215, 0, 0.15);
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+  /* КРИТИЧНО для мобильных: жёстко задаём translateZ */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
-.card-back { transform: rotateY(180deg); }
 
-/* ПОСТОЯННЫЕ АНИМАЦИИ */
+.card-front {
+  transform: rotateY(0deg) translateZ(1px);
+  -webkit-transform: rotateY(0deg) translateZ(1px);
+  z-index: 2;
+}
+
+.card-back {
+  transform: rotateY(180deg) translateZ(1px);
+  -webkit-transform: rotateY(180deg) translateZ(1px);
+  z-index: 1;
+}
+
+/* ============================================
+   ЛИЦЕВАЯ СТОРОНА
+   ============================================ */
+.card-front {
+  color: #F0EBE6;
+  animation: cardGlowPulse 4s ease-in-out infinite;
+}
+
+@keyframes cardGlowPulse {
+  0%, 100% {
+    box-shadow:
+      0 30px 60px -15px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(201, 169, 110, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 30px 60px -15px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(201, 169, 110, 0.4),
+      0 0 50px rgba(201, 169, 110, 0.25);
+  }
+}
+
+/* Блик, проходящий по карте */
 .card-front::after {
   content: '';
   position: absolute;
-  top: -50%; left: -50%;
-  width: 200%; height: 200%;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
   background: linear-gradient(
     115deg,
     transparent 30%,
     rgba(255, 255, 255, 0.06) 45%,
-    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.18) 50%,
     rgba(255, 255, 255, 0.06) 55%,
     transparent 70%
   );
@@ -911,45 +958,41 @@ nav a:hover, nav a.active { color: var(--gold); }
   z-index: 4;
   animation: cardShine 5s ease-in-out infinite;
 }
+
 @keyframes cardShine {
   0%, 100% { transform: translateX(-100%) rotate(25deg); }
   50% { transform: translateX(100%) rotate(25deg); }
 }
-.card-front { animation: cardGlowPulse 4s ease-in-out infinite; }
-@keyframes cardGlowPulse {
-  0%, 100% {
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(201, 169, 110, 0.15);
-  }
-  50% {
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(201, 169, 110, 0.35), 0 0 40px rgba(201, 169, 110, 0.2);
-  }
-}
+
 .card-front .card-pattern {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.4;
   background-image:
     radial-gradient(circle at 10% 10%, currentColor 1px, transparent 1.5px),
     radial-gradient(circle at 90% 20%, currentColor 1px, transparent 1.5px),
     radial-gradient(circle at 20% 80%, currentColor 1px, transparent 1.5px),
     radial-gradient(circle at 80% 90%, currentColor 1px, transparent 1.5px);
   background-size: 60px 60px, 80px 80px, 70px 70px, 90px 90px;
-  animation: patternDrift 20s linear infinite;
+  animation: patternDrift 25s linear infinite;
 }
+
 @keyframes patternDrift {
   0% { background-position: 0 0, 0 0, 0 0, 0 0; }
   100% { background-position: 60px 60px, -80px 80px, 70px -70px, -90px -90px; }
 }
+
 .card-front .card-lines {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  opacity: 0.1;
+  opacity: 0.12;
   background: repeating-linear-gradient(115deg, currentColor 0 1px, transparent 1px 24px);
 }
+
 .front-content {
   position: relative;
   z-index: 6;
@@ -962,17 +1005,22 @@ nav a:hover, nav a.active { color: var(--gold); }
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
 }
+
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
+
 .card-brand { display: flex; align-items: center; gap: 10px; }
+
 .card-brand .logo-mark {
-  width: 36px; height: 36px;
+  width: 36px;
+  height: 36px;
   flex-shrink: 0;
   filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.5));
 }
+
 .card-brand .logo-text {
   font-size: 15px;
   font-weight: 800;
@@ -980,6 +1028,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   text-transform: uppercase;
   line-height: 1;
 }
+
 .card-brand .logo-text small {
   font-weight: 300;
   font-size: 8px;
@@ -989,8 +1038,10 @@ nav a:hover, nav a.active { color: var(--gold); }
   margin-top: 3px;
   text-transform: uppercase;
 }
+
 .card-chip {
-  width: 42px; height: 32px;
+  width: 42px;
+  height: 32px;
   border-radius: 6px;
   position: relative;
   box-shadow:
@@ -1002,6 +1053,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   overflow: hidden;
   flex-shrink: 0;
 }
+
 .card-chip::before {
   content: '';
   position: absolute;
@@ -1012,7 +1064,9 @@ nav a:hover, nav a.active { color: var(--gold); }
     linear-gradient(90deg, transparent 0 45%, rgba(0, 0, 0, 0.15) 45% 55%, transparent 55%),
     linear-gradient(0deg, transparent 0 40%, rgba(0, 0, 0, 0.15) 40% 60%, transparent 60%);
 }
+
 .card-balance { text-align: center; margin: 8px 0 0; }
+
 .card-balance .number {
   font-size: clamp(38px, 9vw, 52px);
   font-weight: 900;
@@ -1021,6 +1075,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   display: inline-block;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
 }
+
 .card-balance .label {
   font-size: 11px;
   font-weight: 400;
@@ -1030,6 +1085,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   display: block;
   opacity: 0.8;
 }
+
 .card-id {
   text-align: center;
   font-size: 11px;
@@ -1039,12 +1095,14 @@ nav a:hover, nav a.active { color: var(--gold); }
   opacity: 0.6;
   font-weight: 600;
 }
+
 .card-id-mask {
   display: inline-flex;
   gap: 6px;
   align-items: center;
   justify-content: center;
 }
+
 .card-footer-details {
   display: flex;
   justify-content: space-between;
@@ -1052,6 +1110,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   margin-top: 10px;
   gap: 12px;
 }
+
 .card-footer-details .valid {
   font-size: 8px;
   letter-spacing: 2px;
@@ -1060,6 +1119,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   line-height: 1;
   flex-shrink: 0;
 }
+
 .card-footer-details .valid span {
   display: block;
   font-size: 14px;
@@ -1068,7 +1128,9 @@ nav a:hover, nav a.active { color: var(--gold); }
   margin-top: 3px;
   font-family: 'Courier New', monospace;
 }
+
 .card-footer-details .holder { text-align: right; max-width: 55%; min-width: 0; }
+
 .card-footer-details .holder .label {
   font-size: 7px;
   letter-spacing: 2px;
@@ -1076,6 +1138,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   opacity: 0.65;
   line-height: 1;
 }
+
 .card-footer-details .holder .name {
   font-size: 13px;
   font-weight: 600;
@@ -1086,24 +1149,31 @@ nav a:hover, nav a.active { color: var(--gold); }
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .card-network {
   position: absolute;
-  bottom: 18px; right: 22px;
+  bottom: 18px;
+  right: 22px;
   z-index: 7;
   display: flex;
   gap: 4px;
   align-items: center;
 }
+
 .card-network .ring {
-  width: 22px; height: 22px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   border: 2px solid;
   opacity: 0.75;
 }
+
 .card-network .ring:first-child { margin-right: -10px; }
+
 .card-serial-badge {
   position: absolute;
-  top: 14px; right: 14px;
+  top: 14px;
+  right: 14px;
   padding: 3px 8px;
   border-radius: 20px;
   font-size: 8px;
@@ -1114,74 +1184,195 @@ nav a:hover, nav a.active { color: var(--gold); }
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
-.card-back { background: linear-gradient(145deg, #2a2a2a, #1a1a1a, #2a2a2a); }
+
+/* ============================================
+   ЗАДНЯЯ СТОРОНА — НОВАЯ, СВЕТЛАЯ, ЯРКАЯ
+   ============================================ */
+.card-back {
+  color: #F0EBE6;
+  overflow: hidden;
+}
+
+/* Светящийся градиент на фоне */
+.card-back::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(201, 169, 110, 0.35) 0%, transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(232, 213, 168, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(201, 169, 110, 0.08) 0%, transparent 70%);
+  z-index: 1;
+  animation: backGlow 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes backGlow {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+/* Плавающие частицы */
+.card-back .back-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.card-back .back-particles span {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #C9A96E;
+  box-shadow: 0 0 8px #C9A96E, 0 0 16px rgba(201, 169, 110, 0.5);
+  animation: particleFloat 12s linear infinite;
+}
+
+.card-back .back-particles span:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 14s; }
+.card-back .back-particles span:nth-child(2) { left: 25%; animation-delay: 2s; animation-duration: 11s; }
+.card-back .back-particles span:nth-child(3) { left: 40%; animation-delay: 4s; animation-duration: 16s; }
+.card-back .back-particles span:nth-child(4) { left: 55%; animation-delay: 1s; animation-duration: 13s; }
+.card-back .back-particles span:nth-child(5) { left: 70%; animation-delay: 3s; animation-duration: 15s; }
+.card-back .back-particles span:nth-child(6) { left: 85%; animation-delay: 5s; animation-duration: 12s; }
+.card-back .back-particles span:nth-child(7) { left: 50%; animation-delay: 6s; animation-duration: 17s; }
+.card-back .back-particles span:nth-child(8) { left: 15%; animation-delay: 7s; animation-duration: 10s; }
+
+@keyframes particleFloat {
+  0% {
+    top: 110%;
+    opacity: 0;
+    transform: translateX(0) scale(0.5);
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    top: -10%;
+    opacity: 0;
+    transform: translateX(30px) scale(1.2);
+  }
+}
+
+/* Блик на задней стороне */
+.card-back .back-shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.08) 48%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.08) 52%,
+    transparent 60%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  z-index: 3;
+  animation: backShine 7s ease-in-out infinite;
+}
+
+@keyframes backShine {
+  0%, 100% { transform: translateX(-100%) rotate(25deg); }
+  50% { transform: translateX(100%) rotate(25deg); }
+}
+
 .card-back .back-content {
   position: relative;
-  z-index: 2;
+  z-index: 5;
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 22px 0 18px;
+  padding: 18px 0 16px;
   box-sizing: border-box;
 }
+
 .back-top-label {
   padding: 0 22px;
   font-size: 8px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  opacity: 0.55;
+  opacity: 0.75;
   margin-bottom: 8px;
+  font-weight: 700;
 }
+
+/* Магнитная полоса — яркая, с бликом */
 .back-stripe {
   width: 100%;
   height: 44px;
-  background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 50%, #1a1a1a 100%);
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), inset 0 -1px 0 rgba(255, 215, 0, 0.1);
+  background: linear-gradient(180deg, #1a1a1a 0%, #050505 50%, #1a1a1a 100%);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.9),
+    inset 0 -1px 0 rgba(201, 169, 110, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
 }
+
 .back-stripe::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 3px;
-  background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.8), transparent);
+  animation: stripeShine 3s ease-in-out infinite;
 }
+
+@keyframes stripeShine {
+  0%, 100% { opacity: 0.4; transform: translateX(-30%); }
+  50% { opacity: 1; transform: translateX(30%); }
+}
+
 .back-signature {
   padding: 0 22px;
-  margin-top: 12px;
+  margin-top: 14px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 12px;
 }
+
 .back-signature .sig-label {
   font-size: 7px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.55;
+  opacity: 0.7;
   line-height: 1;
   flex-shrink: 0;
+  font-weight: 600;
 }
+
 .back-signature .sig-line {
   flex: 1;
-  height: 26px;
-  border-bottom: 1px solid;
-  opacity: 0.4;
+  height: 28px;
+  border-bottom: 1.5px solid;
+  opacity: 0.6;
+  position: relative;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
 }
+
 .back-cvv {
   font-family: 'Courier New', monospace;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 3px;
-  opacity: 0.85;
-  padding-bottom: 2px;
-  border-bottom: 1px solid;
-  min-width: 48px;
+  padding: 2px 8px 2px 8px;
+  border-bottom: 1.5px solid;
+  min-width: 52px;
   text-align: center;
   flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px 4px 0 0;
 }
+
 .back-bottom {
   margin-top: auto;
   padding: 0 22px;
@@ -1190,6 +1381,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   align-items: flex-end;
   gap: 12px;
 }
+
 .back-bottom .back-phone {
   font-size: 11px;
   font-weight: 600;
@@ -1198,14 +1390,27 @@ nav a:hover, nav a.active { color: var(--gold); }
   align-items: center;
   gap: 6px;
 }
-.back-bottom .back-phone i { opacity: 0.7; font-size: 11px; }
+
+.back-bottom .back-phone i {
+  opacity: 0.9;
+  font-size: 11px;
+  animation: phonePulse 2s ease-in-out infinite;
+}
+
+@keyframes phonePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
 .back-bottom .back-since {
   font-size: 8px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  opacity: 0.55;
+  opacity: 0.7;
   white-space: nowrap;
+  font-weight: 600;
 }
+
 .back-brand-strip {
   margin-top: 10px;
   padding: 8px 22px 0;
@@ -1219,13 +1424,21 @@ nav a:hover, nav a.active { color: var(--gold); }
   text-transform: uppercase;
   font-weight: 700;
 }
+
 .back-brand-strip .b-left {
   background: linear-gradient(90deg, #C9A96E, #E8D5A8, #C9A96E);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: shimmerLong 4s ease-in-out infinite;
 }
-.back-brand-strip .b-right { opacity: 0.45; font-weight: 400; letter-spacing: 1.5px; }
+
+.back-brand-strip .b-right {
+  opacity: 0.6;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+}
 
 @media (max-width: 480px) {
   .front-content { padding: 16px 18px; }
@@ -1235,14 +1448,17 @@ nav a:hover, nav a.active { color: var(--gold); }
   .card-chip { width: 34px; height: 26px; }
   .card-footer-details .holder .name { font-size: 11px; }
   .card-id { font-size: 9px; letter-spacing: 2px; }
-  .card-back .back-content { padding: 16px 0 12px; }
-  .back-top-label, .back-signature, .back-bottom { padding-left: 18px; padding-right: 18px; }
-  .back-brand-strip { padding-left: 18px; padding-right: 18px; font-size: 7px; }
-  .back-stripe { height: 36px; }
+  .card-back .back-content { padding: 12px 0 10px; }
+  .back-top-label, .back-signature, .back-bottom { padding-left: 16px; padding-right: 16px; }
+  .back-brand-strip { padding-left: 16px; padding-right: 16px; font-size: 7px; }
+  .back-stripe { height: 34px; }
   .card-serial-badge { top: 10px; right: 10px; font-size: 7px; padding: 2px 6px; }
   .card-network { bottom: 14px; right: 18px; }
   .card-network .ring { width: 18px; height: 18px; }
   .card-balance .label { font-size: 10px; letter-spacing: 5px; }
+  .back-signature { margin-top: 8px; }
+  .back-signature .sig-line { height: 22px; }
+  .back-cvv { font-size: 13px; min-width: 44px; }
 }
 
 /* CONTACTS */
@@ -2603,7 +2819,7 @@ function renderCabinet() {
   const userPhoto = currentUserData?.photoURL || currentUser.photoURL || '';
   const designId = currentUserData?.cardDesign || 'onyx_gold';
   const design = CARD_DESIGNS.find(d => d.id === designId) || CARD_DESIGNS[0];
-  const cvv = getCvvForUser(currentUser.uid); // ПОСТОЯННЫЙ CVV
+  const cvv = getCvvForUser(currentUser.uid);
 
   const idParts = cardId.split('-');
   const idMasked = idParts.map((p, i) => i === 0 ? p : '••••').join(' ');
@@ -2709,8 +2925,13 @@ function renderCabinet() {
           </div>
         </div>
 
-        <!-- ОБРАТНАЯ СТОРОНА -->
+        <!-- ОБРАТНАЯ СТОРОНА — СВЕТЛАЯ, ЯРКАЯ, С АНИМАЦИЯМИ -->
         <div class="card-face card-back" style="background:${design.back};color:${design.textColor};">
+          <div class="back-particles">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="back-shine"></div>
           <div class="back-content">
             <div class="back-top-label" style="color:${design.accent};">AUTHORIZED SIGNATURE</div>
 
@@ -2718,7 +2939,7 @@ function renderCabinet() {
 
             <div class="back-signature">
               <div class="sig-label" style="color:${design.accent};">SIGNATURE</div>
-              <div class="sig-line" style="color:${design.accent};"></div>
+              <div class="sig-line" style="border-color:${design.accent};"></div>
               <div class="back-cvv" style="color:${design.textColor};border-color:${design.accent};">${cvv}</div>
             </div>
 
@@ -2729,7 +2950,7 @@ function renderCabinet() {
               <div class="back-since" style="color:${design.accent};">SINCE 2013</div>
             </div>
 
-            <div class="back-brand-strip" style="border-color:${design.accent}33;">
+            <div class="back-brand-strip" style="border-color:${design.accent}55;">
               <span class="b-left">✦ STUDIO №1</span>
               <span class="b-right" style="color:${design.accent};">PREMIUM • 2026</span>
             </div>
@@ -2810,23 +3031,36 @@ async function generateAndRenderQR() {
 
     // Создаём div для QR
     const qrDiv = document.createElement('div');
-    qrDiv.style.padding = '10px';
+    qrDiv.style.padding = '12px';
     qrDiv.style.background = '#fff';
     qrDiv.style.borderRadius = '12px';
     qrDiv.style.display = 'inline-block';
     container.appendChild(qrDiv);
 
-    // Генерируем QR с высоким разрешением и коррекцией H
+    // Генерируем QR — увеличили до 320px, максимальная коррекция H
+    // QR-библиотека qrcodejs создаёт canvas нужного размера
     new QRCode(qrDiv, {
       text: token,
-      width: 280,
-      height: 280,
-      colorDark: '#0D0D0D',
-      colorLight: '#FFFFFF',
-      correctLevel: QRCode.CorrectLevel.H
+      width: 320,
+      height: 320,
+      colorDark: '#000000',      // ЧИСТЫЙ чёрный — лучше для сканера
+      colorLight: '#FFFFFF',     // ЧИСТЫЙ белый
+      correctLevel: QRCode.CorrectLevel.H  // Максимальная коррекция (30%)
     });
 
-    console.log('✅ QR-код сгенерирован:', token.substring(0, 30) + '...');
+    // Ждём немного, чтобы canvas отрисовался
+    await new Promise(r => setTimeout(r, 100));
+
+    // Дополнительно: конвертируем в <img> с высоким DPI
+    const canvas = qrDiv.querySelector('canvas');
+    if (canvas) {
+      // Увеличиваем разрешение через image-rendering
+      canvas.style.width = '320px';
+      canvas.style.height = '320px';
+      canvas.style.imageRendering = 'pixelated';
+    }
+
+    console.log('✅ QR-код сгенерирован:', token);
     qrSecondsLeft = QR_LIFETIME;
     updateQRTimerDisplay();
   } catch (e) {
