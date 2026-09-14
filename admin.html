@@ -645,6 +645,9 @@ body::before {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Улучшаем контраст для лучшего распознавания QR */
+  filter: contrast(1.15) brightness(1.05);
+  -webkit-filter: contrast(1.15) brightness(1.05);
 }
 .scanner-overlay {
   position: absolute;
@@ -1553,17 +1556,27 @@ function scanFrame() {
   const canvas = document.getElementById('scannerCanvas');
   if (!video || !canvas || !scannerStream) return;
 
-  // Проверяем, что видео реально играет и есть данные
   if (video.readyState === video.HAVE_ENOUGH_DATA && video.videoWidth > 0 && video.videoHeight > 0) {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    // КРИТИЧНО: уменьшаем кадр до 640px по ширине — jsQR работает в 5-10 раз быстрее
+    const MAX_WIDTH = 640;
+    let w = video.videoWidth;
+    let h = video.videoHeight;
+    if (w > MAX_WIDTH) {
+      h = Math.round(h * (MAX_WIDTH / w));
+      w = MAX_WIDTH;
+    }
+
+    canvas.width = w;
+    canvas.height = h;
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (ctx) {
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      // Рисуем уменьшенный кадр
+      ctx.drawImage(video, 0, 0, w, h);
       try {
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const imageData = ctx.getImageData(0, 0, w, h);
+        // dontInvert — мы генерируем чёрный QR на белом, инверсия не нужна
         const code = jsQR(imageData.data, imageData.width, imageData.height, {
-          inversionAttempts: 'attemptBoth'
+          inversionAttempts: 'dontInvert'
         });
         if (code && code.data) {
           console.log('✅ QR найден:', code.data);
