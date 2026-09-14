@@ -5,53 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Студия №1 — Премиальный салон красоты в Кемерово</title>
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Студия №1 — премиальный салон красоты в Кемерово. Стрижки, окрашивание, маникюр, педикюр, солярий, перманентный макияж. Запись онлайн. Золотой стандарт красоты." />
-    <meta name="keywords" content="салон красоты Кемерово, стрижка, окрашивание, маникюр, педикюр, солярий, перманентный макияж, студия №1, премиальный салон" />
+    <meta name="description" content="Студия №1 — премиальный салон красоты в Кемерово. Стрижки, окрашивание, маникюр, педикюр, солярий, перманентный макияж. Золотой стандарт красоты." />
+    <meta name="keywords" content="салон красоты Кемерово, стрижка, окрашивание, маникюр, педикюр, солярий, перманентный макияж, студия №1" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://glubkov2020-netizen.github.io/studio1/" />
     
-    <!-- Open Graph -->
     <meta property="og:title" content="Студия №1 — Премиальный салон красоты в Кемерово" />
-    <meta property="og:description" content="Золотой стандарт красоты. Мастера высшего класса, индивидуальный подход." />
+    <meta property="og:description" content="Золотой стандарт красоты. Мастера высшего класса." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://glubkov2020-netizen.github.io/studio1/" />
-    <meta property="og:image" content="https://glubkov2020-netizen.github.io/studio1/og-image.jpg" />
     <meta property="og:site_name" content="Студия №1" />
     <meta property="og:locale" content="ru_RU" />
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Студия №1 — Премиальный салон красоты в Кемерово" />
-    <meta name="twitter:description" content="Золотой стандарт красоты. Мастера высшего класса." />
-    
     <meta name="theme-color" content="#C9A96E" />
     
-    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     
-    <!-- Schema.org -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "BeautySalon",
         "name": "Студия №1",
-        "image": "https://glubkov2020-netizen.github.io/studio1/og-image.jpg",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "Пионерский бульвар, 3, 224",
             "addressLocality": "Кемерово",
-            "addressRegion": "Кемеровская область",
-            "postalCode": "650000",
             "addressCountry": "RU"
         },
         "telephone": "+79516062001",
-        "email": "studiia1@mail.ru",
-        "openingHours": "Mo-Su 10:00-21:00",
-        "priceRange": "₽₽"
+        "openingHours": "Mo-Su 10:00-21:00"
     }
     </script>
 
@@ -66,9 +51,6 @@
     </script>
 
     <style>
-        /* ============================================================
-           ПОЛНЫЕ СТИЛИ
-           ============================================================ */
         :root {
             --bg-primary: #0D0D0D;
             --bg-secondary: #161616;
@@ -82,10 +64,7 @@
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.1);
             --gold: #C9A96E;
-            --gold-dark: #B8974D;
-            --gold-light: #E8D5A8;
             --gold-gradient: linear-gradient(135deg, #C9A96E, #E8D5A8, #C9A96E);
-            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --transition-smooth: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             --header-height: 64px;
             --touch-target: 44px;
@@ -103,18 +82,15 @@
             --text-muted: #7A7A7A;
             --border-color: rgba(201, 169, 110, 0.12);
             --border-hover: rgba(201, 169, 110, 0.25);
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 12px 40px rgba(201, 169, 110, 0.12);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        html { scroll-behavior: smooth; }
         
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text-primary);
             line-height: 1.6;
-            transition: background 0.4s ease, color 0.4s ease;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             padding-top: var(--header-height);
@@ -161,11 +137,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes skeletonShimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
         @keyframes cardGlow {
             0%, 100% { box-shadow: 0 0 20px rgba(201, 169, 110, 0.2); }
             50% { box-shadow: 0 0 40px rgba(201, 169, 110, 0.4); }
@@ -207,7 +178,6 @@
             gap: 10px;
             padding: 16px 32px;
             min-height: var(--touch-target);
-            min-width: var(--touch-target);
             background: var(--gold-gradient);
             color: #fff;
             font-weight: 600;
@@ -220,40 +190,17 @@
             background-size: 200% auto;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .btn:hover::after { opacity: 1; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(201, 169, 110, 0.4); background-position: right center; }
         .btn:active { transform: scale(0.97); }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            box-shadow: none;
-        }
+        .btn-outline { background: transparent; color: var(--gold); border: 2px solid var(--gold); box-shadow: none; }
         .btn-outline:hover { background: var(--gold); color: #fff; }
-
         .btn-sm { padding: 10px 20px; font-size: 14px; min-height: 40px; }
-        .btn-danger { background: #E74C3C; box-shadow: 0 4px 24px rgba(231, 76, 60, 0.3); }
-        .btn-danger:hover { background: #C0392B; }
-        .btn-success { background: #27AE60; box-shadow: 0 4px 24px rgba(39, 174, 96, 0.3); }
-        .btn-success:hover { background: #219A52; }
+        .btn-danger { background: #E74C3C; }
+        .btn-success { background: #27AE60; }
         .btn-pulse { animation: pulseBtn 2s ease-in-out infinite; }
 
-        /* КРАСИВАЯ КНОПКА КАРТА МИНУТ */
         .card-btn-main {
             display: inline-flex;
             align-items: center;
@@ -280,28 +227,10 @@
             animation: cardGlow 3s ease-in-out infinite;
         }
 
-        .card-btn-main::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .card-btn-main:hover::after { opacity: 1; }
-        .card-btn-main:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 12px 48px rgba(201, 169, 110, 0.5);
-            background-position: right center;
-        }
-
+        .card-btn-main:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 48px rgba(201, 169, 110, 0.5); background-position: right center; }
         .card-btn-main:active { transform: scale(0.97); }
         .card-btn-main i { font-size: 26px; }
 
-        /* Секретная кнопка админки */
         .secret-admin-link {
             display: inline-block;
             font-size: 14px;
@@ -314,15 +243,9 @@
             border: none;
             padding: 4px 8px;
             border-radius: 20px;
-            font-family: 'Inter', sans-serif;
         }
-        .secret-admin-link:hover {
-            opacity: 0.5;
-            color: var(--text-muted);
-            background: var(--bg-card);
-        }
+        .secret-admin-link:hover { opacity: 0.5; background: var(--bg-card); }
 
-        /* TOAST */
         #toastContainer {
             position: fixed;
             top: 80px;
@@ -357,10 +280,8 @@
         .toast.info { border-left: 4px solid var(--gold); }
         .toast .toast-icon { font-size: 22px; flex-shrink: 0; }
         .toast .toast-close { margin-left: auto; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 18px; padding: 4px; }
-        .toast .toast-close:hover { color: var(--text-primary); }
         .toast.hide { opacity: 0; transform: translateX(50px); }
 
-        /* HEADER */
         header {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -394,18 +315,11 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             white-space: nowrap;
-            flex-shrink: 0;
             cursor: pointer;
-            transition: var(--transition-smooth);
         }
-        .logo:hover { transform: scale(1.02); }
         .logo span { -webkit-text-fill-color: var(--text-primary); }
 
-        nav {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
+        nav { display: flex; gap: 12px; align-items: center; }
 
         nav a {
             font-size: 14px;
@@ -448,10 +362,7 @@
             gap: 6px;
             border: none;
             background-size: 200% auto;
-            box-shadow: 0 2px 10px rgba(201, 169, 110, 0.2);
-            transition: var(--transition-smooth);
         }
-        .nav-book-btn:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3); }
         .nav-book-btn::after { display: none !important; }
 
         .auth-btn {
@@ -487,7 +398,7 @@
             align-items: center;
             justify-content: center;
         }
-        .theme-toggle:hover { background: var(--bg-card-hover); color: var(--gold); border-color: var(--gold); transform: rotate(30deg); }
+        .theme-toggle:hover { background: var(--bg-card-hover); color: var(--gold); border-color: var(--gold); }
 
         .menu-toggle {
             display: none;
@@ -504,11 +415,7 @@
 
         #mainNav { display: flex; gap: 16px; align-items: center; }
 
-        .page {
-            display: none;
-            padding: 30px 0 60px;
-            animation: fadeInUp 0.5s ease;
-        }
+        .page { display: none; padding: 30px 0 60px; animation: fadeInUp 0.5s ease; }
         .page.active { display: block; }
 
         .section-title {
@@ -544,45 +451,12 @@
             animation: shimmerLong 6s ease-in-out infinite;
         }
 
-        .section-subtitle {
-            font-size: clamp(15px, 2vw, 18px);
-            color: var(--text-muted);
-            margin-bottom: 32px;
-            text-align: center;
-        }
+        .section-subtitle { font-size: clamp(15px, 2vw, 18px); color: var(--text-muted); margin-bottom: 32px; text-align: center; }
 
-        /* HERO */
-        .hero {
-            padding: 40px 0 60px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            min-height: 50vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(32px, 8vw, 62px);
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 16px;
-            line-height: 1.1;
-        }
-
-        .hero p {
-            font-size: clamp(16px, 2.5vw, 20px);
-            color: var(--text-muted);
-            max-width: 580px;
-            margin: 0 auto 28px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+        .hero { padding: 40px 0 60px; text-align: center; min-height: 50vh; display: flex; align-items: center; }
+        .hero h1 { font-size: clamp(32px, 8vw, 62px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.1; }
+        .hero p { font-size: clamp(16px, 2.5vw, 20px); color: var(--text-muted); max-width: 580px; margin: 0 auto 28px; }
+        .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
         .hero-buttons .btn { flex: 1; min-width: 140px; max-width: 280px; }
 
         .hero-badge {
@@ -597,12 +471,10 @@
             margin-bottom: 16px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            backdrop-filter: blur(8px);
         }
 
         .hero-card-btn { margin-top: 20px; display: flex; justify-content: center; }
 
-        /* CATEGORIES */
         .categories-filter {
             display: flex;
             gap: 8px;
@@ -611,7 +483,6 @@
             margin-bottom: 20px;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
-            flex-wrap: nowrap;
         }
         .categories-filter::-webkit-scrollbar { display: none; }
 
@@ -629,15 +500,9 @@
             white-space: nowrap;
         }
         .category-tab:hover { border-color: var(--gold); color: var(--gold); }
-        .category-tab.active { background: var(--gold-gradient); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3); }
-        .category-tab .icon { margin-right: 6px; }
+        .category-tab.active { background: var(--gold-gradient); color: #fff; border-color: transparent; }
 
-        /* SERVICES */
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
+        .services-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 
         .service-item {
             background: var(--bg-card);
@@ -648,31 +513,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
             min-height: 56px;
         }
-        .service-item:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
+        .service-item:hover { transform: translateY(-3px); border-color: var(--gold); }
         .service-item .info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
-        .service-item .name { font-weight: 500; font-size: clamp(14px, 2vw, 15px); color: var(--text-primary); }
+        .service-item .name { font-weight: 500; font-size: 15px; }
         .service-item .category { font-size: 12px; color: var(--text-muted); }
-        .service-item .price {
-            font-weight: 600;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: clamp(15px, 2vw, 16px);
-            white-space: nowrap;
-            margin-left: 8px;
-            flex-shrink: 0;
-        }
+        .service-item .price { font-weight: 600; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 16px; white-space: nowrap; margin-left: 8px; }
 
-        /* MASTERS */
-        .masters-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
+        .masters-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 
         .master-card {
             background: var(--bg-card);
@@ -682,7 +531,7 @@
             border: 1px solid var(--border-color);
             transition: var(--transition-smooth);
         }
-        .master-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
+        .master-card:hover { transform: translateY(-8px); border-color: var(--gold); }
         .master-card .image-wrapper {
             width: 100px; height: 100px;
             border-radius: 50%;
@@ -691,9 +540,8 @@
             border: 2px solid var(--gold);
             background: var(--bg-secondary);
             position: relative;
-            transition: var(--transition-smooth);
         }
-        .master-card .image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; position: relative; z-index: 2; }
+        .master-card .image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 2; }
         .master-card .image-wrapper .placeholder {
             width: 100%; height: 100%;
             display: flex; align-items: center; justify-content: center;
@@ -706,8 +554,8 @@
             z-index: 1;
             border-radius: 50%;
         }
-        .master-card h3 { font-size: clamp(18px, 2.5vw, 20px); color: var(--text-primary); }
-        .master-card .specialty { color: var(--gold); font-weight: 500; font-size: clamp(14px, 1.8vw, 16px); }
+        .master-card h3 { font-size: 20px; }
+        .master-card .specialty { color: var(--gold); font-weight: 500; font-size: 16px; }
         .master-card .rating { margin: 6px 0; font-size: 14px; color: var(--text-muted); }
         .master-card .rating i { color: #F5B342; }
 
@@ -717,48 +565,32 @@
             color: var(--gold);
             font-weight: 500;
             font-size: 14px;
-            transition: var(--transition-smooth);
             display: inline-flex;
             align-items: center;
             gap: 6px;
         }
-        .master-services-toggle:hover { color: var(--gold-light); }
         .master-services-toggle i { transition: transform 0.3s ease; }
         .master-services-toggle.open i { transform: rotate(180deg); }
 
         .master-services-list {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease, opacity 0.3s ease, margin 0.3s ease;
+            transition: max-height 0.5s ease, opacity 0.3s ease;
             opacity: 0;
-            margin: 0;
         }
         .master-services-list.open { max-height: 2000px; opacity: 1; margin: 8px 0 12px; }
         .master-services-list ul { list-style: none; text-align: left; padding: 0 4px; }
         .master-services-list li {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 6px 8px;
             border-bottom: 1px solid var(--border-color);
             font-size: 13px;
             color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            border-radius: 6px;
-            margin: 2px 0;
         }
-        .master-services-list li:hover { background: var(--gold); color: #fff; }
-        .master-services-list li .service-price { color: var(--gold); font-weight: 600; white-space: nowrap; }
-        .master-services-list li:hover .service-price { color: #fff; }
-        .master-card .btn { margin-top: 10px; width: 100%; min-height: 44px; }
+        .master-services-list li .service-price { color: var(--gold); font-weight: 600; }
 
-        /* BLOG */
-        .blog-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
+        .blog-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
 
         .blog-card {
             background: var(--bg-card);
@@ -767,18 +599,13 @@
             border: 1px solid var(--border-color);
             transition: var(--transition-smooth);
         }
-        .blog-card:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
+        .blog-card:hover { border-color: var(--gold); }
         .blog-card .date { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
-        .blog-card h3 { font-size: 20px; margin-bottom: 8px; color: var(--text-primary); }
+        .blog-card h3 { font-size: 20px; margin-bottom: 8px; }
         .blog-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
         .blog-card img { width: 100%; max-height: 300px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 12px; }
 
-        /* REVIEWS */
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
+        .reviews-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 
         .review-card {
             background: var(--bg-card);
@@ -787,12 +614,11 @@
             border: 1px solid var(--border-color);
             transition: var(--transition-smooth);
         }
-        .review-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+        .review-card:hover { border-color: var(--gold); transform: translateY(-4px); }
         .review-card .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
         .review-card .review-header .avatar {
             width: 44px; height: 44px;
             border-radius: 50%;
-            object-fit: cover;
             background: var(--gold-gradient);
             display: flex;
             align-items: center;
@@ -801,22 +627,16 @@
             font-weight: 700;
             font-size: 18px;
             flex-shrink: 0;
+            overflow: hidden;
         }
-        .review-card .review-header .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .review-card .review-header .review-name { font-weight: 600; color: var(--text-primary); }
+        .review-card .review-header .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .review-card .review-header .review-name { font-weight: 600; }
         .review-card .review-header .review-date { font-size: 12px; color: var(--text-muted); margin-left: auto; }
         .review-card .review-stars { color: #F5B342; font-size: 18px; margin-bottom: 6px; letter-spacing: 2px; }
         .review-card .review-text { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
-        .review-card .review-master { font-size: 13px; color: var(--gold); margin-top: 8px; }
-        .review-card .review-type { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        .review-card .review-type { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
 
-        /* REVIEW STATS */
-        .review-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 30px;
-        }
+        .review-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 30px; }
 
         .stat-box {
             background: var(--bg-card);
@@ -826,17 +646,12 @@
             text-align: center;
             transition: var(--transition-smooth);
         }
-        .stat-box:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .stat-box:hover { border-color: var(--gold); transform: translateY(-3px); }
         .stat-box .stat-number { font-size: 32px; font-weight: 800; color: var(--gold); }
         .stat-box .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
         .stat-box .stat-stars { color: #F5B342; font-size: 20px; letter-spacing: 2px; margin-top: 4px; }
 
-        .master-stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
+        .master-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
         .master-stat-item {
             background: var(--bg-card);
             border-radius: var(--radius-sm);
@@ -845,7 +660,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: var(--transition-smooth);
         }
         .master-stat-item:hover { border-color: var(--gold); }
         .master-stat-item .name { font-size: 13px; color: var(--text-secondary); }
@@ -859,19 +673,8 @@
             border: 1px solid var(--border-color);
             margin-bottom: 30px;
         }
-        .review-form .star-rating {
-            display: flex;
-            gap: 8px;
-            font-size: 32px;
-            cursor: pointer;
-            margin: 10px 0 16px;
-            justify-content: center;
-        }
-        .review-form .star-rating .star {
-            color: var(--text-muted);
-            transition: var(--transition-smooth);
-            cursor: pointer;
-        }
+        .review-form .star-rating { display: flex; gap: 8px; font-size: 32px; cursor: pointer; margin: 10px 0 16px; justify-content: center; }
+        .review-form .star-rating .star { color: var(--text-muted); transition: var(--transition-smooth); cursor: pointer; }
         .review-form .star-rating .star.active { color: #F5B342; }
         .review-form .star-rating .star:hover { transform: scale(1.2); color: #F5B342; }
         .review-form textarea {
@@ -885,9 +688,8 @@
             font-family: 'Inter', sans-serif;
             resize: vertical;
             min-height: 100px;
-            transition: var(--transition-smooth);
         }
-        .review-form textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12); }
+        .review-form textarea:focus { outline: none; border-color: var(--gold); }
         .review-form select {
             padding: 10px 16px;
             background: var(--bg-secondary);
@@ -898,24 +700,13 @@
             width: 100%;
             margin: 10px 0;
         }
-        .review-form select:focus { outline: none; border-color: var(--gold); }
-        .review-form .review-type-label {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin: 8px 0 4px;
-            display: block;
-        }
+        .review-form .review-type-label { font-size: 14px; color: var(--text-muted); margin: 8px 0 4px; display: block; }
 
-        .my-reviews-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-        }
+        .my-reviews-section { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); }
         .my-reviews-section h4 { color: var(--text-primary); margin-bottom: 16px; }
 
-        /* COMMENTS */
         .comments-section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); }
-        .comments-section .comments-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
+        .comments-section .comments-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
 
         .comment {
             margin-bottom: 12px;
@@ -924,17 +715,10 @@
             border-radius: var(--radius-sm);
             border-left: 2px solid var(--gold);
         }
-        .comment .comment-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 4px;
-            flex-wrap: wrap;
-        }
+        .comment .comment-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
         .comment .comment-header .avatar {
             width: 32px; height: 32px;
             border-radius: 50%;
-            object-fit: cover;
             background: var(--gold-gradient);
             display: flex;
             align-items: center;
@@ -943,19 +727,14 @@
             font-weight: 600;
             font-size: 14px;
             flex-shrink: 0;
+            overflow: hidden;
         }
-        .comment .comment-header .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .comment .comment-header .author { font-weight: 600; color: var(--text-primary); font-size: 14px; }
+        .comment .comment-header .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .comment .comment-header .author { font-weight: 600; font-size: 14px; }
         .comment .comment-header .time { font-size: 12px; color: var(--text-muted); margin-left: auto; }
         .comment .comment-text { color: var(--text-secondary); font-size: 14px; margin: 4px 0 8px; word-wrap: break-word; }
         .comment .comment-text.deleted { font-style: italic; color: var(--text-muted); }
-        .comment .comment-actions {
-            display: flex;
-            gap: 14px;
-            align-items: center;
-            font-size: 13px;
-            flex-wrap: wrap;
-        }
+        .comment .comment-actions { display: flex; gap: 14px; align-items: center; font-size: 13px; flex-wrap: wrap; }
         .comment .comment-actions button {
             background: none;
             border: none;
@@ -971,27 +750,10 @@
         }
         .comment .comment-actions button:hover { color: var(--gold); background: var(--bg-card); }
         .comment .comment-actions .liked { color: #E74C3C; }
-        .comment .comment-actions .liked i { animation: likeAnim 0.3s ease; }
 
-        @keyframes likeAnim {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); }
-            100% { transform: scale(1); }
-        }
+        .comment .replies { margin-left: 36px; margin-top: 8px; padding-left: 12px; border-left: 2px solid var(--border-color); }
 
-        .comment .replies {
-            margin-left: 36px;
-            margin-top: 8px;
-            padding-left: 12px;
-            border-left: 2px solid var(--border-color);
-        }
-
-        .comment-form {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-            align-items: flex-start;
-        }
+        .comment-form { display: flex; gap: 10px; margin-top: 12px; align-items: flex-start; }
         .comment-form textarea {
             flex: 1;
             padding: 10px 14px;
@@ -1003,20 +765,11 @@
             font-family: 'Inter', sans-serif;
             resize: vertical;
             min-height: 50px;
-            transition: var(--transition-smooth);
         }
-        .comment-form textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12); }
+        .comment-form textarea:focus { outline: none; border-color: var(--gold); }
         .comment-form .btn { padding: 10px 20px; min-height: 50px; flex-shrink: 0; }
-        .comment-form .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .reply-form {
-            margin-left: 36px;
-            margin-top: 8px;
-            display: none;
-            gap: 10px;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
+        .reply-form { margin-left: 36px; margin-top: 8px; display: none; gap: 10px; align-items: flex-start; flex-wrap: wrap; }
         .reply-form.active { display: flex; }
         .reply-form textarea {
             flex: 1;
@@ -1031,11 +784,8 @@
             resize: vertical;
             min-height: 40px;
         }
-        .reply-form textarea:focus { outline: none; border-color: var(--gold); }
-        .reply-form .btn { padding: 8px 16px; min-height: 40px; font-size: 13px; flex-shrink: 0; }
-        .reply-form .btn-sm { padding: 6px 12px; min-height: 32px; font-size: 12px; }
+        .reply-form .btn { padding: 8px 16px; min-height: 40px; font-size: 13px; }
         .reply-form .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
-        .reply-form .btn-outline:hover { background: var(--gold); color: #fff; }
 
         .login-to-comment {
             padding: 16px;
@@ -1047,16 +797,7 @@
         }
         .login-to-comment .btn { margin-top: 8px; }
 
-        .comment-deleted { color: var(--text-muted); font-style: italic; font-size: 13px; padding: 4px 0; }
-
-        /* CARD */
-        .card-wrapper {
-            perspective: 1400px;
-            width: 100%;
-            max-width: 440px;
-            margin: 0 auto 30px;
-            cursor: pointer;
-        }
+        .card-wrapper { perspective: 1400px; width: 100%; max-width: 440px; margin: 0 auto 30px; cursor: pointer; }
         .card-flip {
             width: 100%;
             aspect-ratio: 440 / 270;
@@ -1083,31 +824,6 @@
             box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.7);
             color: #f0e6c5;
         }
-        .card-front::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            right: -20%;
-            width: 80%;
-            height: 120%;
-            background: radial-gradient(ellipse, rgba(255, 215, 0, 0.06), transparent 70%);
-            pointer-events: none;
-            animation: glowPulse 6s ease-in-out infinite alternate;
-            z-index: 3;
-        }
-        @keyframes glowPulse {
-            0% { opacity: 0.4; transform: scale(1); }
-            100% { opacity: 0.9; transform: scale(1.2); }
-        }
-        .card-front::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.04) 0%, transparent 40%, rgba(255, 215, 0, 0.02) 80%);
-            pointer-events: none;
-            z-index: 2;
-        }
 
         .front-content {
             position: relative;
@@ -1120,168 +836,48 @@
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .card-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .card-brand .logo-text {
-            font-size: clamp(16px, 2.5vw, 20px);
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #f5e7b0;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
-        }
-        .card-brand .logo-text small {
-            font-weight: 300;
-            font-size: 10px;
-            opacity: 0.5;
-            display: block;
-            letter-spacing: 3px;
-            margin-top: -2px;
-        }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .card-brand { display: flex; align-items: center; gap: 10px; }
+        .card-brand .logo-text { font-size: 20px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        .card-brand .logo-text small { font-weight: 300; font-size: 10px; opacity: 0.5; display: block; letter-spacing: 3px; margin-top: -2px; }
         .card-chip {
-            width: 40px;
-            height: 30px;
-            background: linear-gradient(135deg, #d4b87a, #b8944a);
+            width: 40px; height: 30px;
             border-radius: 6px;
             box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 215, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        .card-chip::after {
-            content: '';
-            width: 24px;
-            height: 16px;
-            border: 2px solid rgba(255, 215, 0, 0.15);
-            border-radius: 4px;
-            background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255, 215, 0, 0.05) 3px, rgba(255, 215, 0, 0.05) 5px);
         }
 
-        .card-balance {
-            text-align: center;
-            margin: 4px 0 0;
-        }
-        .card-balance .number {
-            font-size: clamp(40px, 10vw, 56px);
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(180deg, #f5e7b0, #d4b87a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-        }
-        .card-balance .label {
-            font-size: clamp(12px, 1.5vw, 16px);
-            font-weight: 300;
-            letter-spacing: 4px;
-            color: rgba(255, 215, 0, 0.5);
-            text-transform: uppercase;
-            margin-top: 2px;
-            display: block;
-        }
+        .card-balance { text-align: center; margin: 4px 0 0; }
+        .card-balance .number { font-size: 56px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+        .card-balance .label { font-size: 16px; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; margin-top: 2px; display: block; }
 
-        .card-id {
-            text-align: center;
-            font-size: clamp(10px, 1.2vw, 12px);
-            font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
-            color: rgba(255, 215, 0, 0.3);
-            margin-top: 2px;
-        }
+        .card-id { text-align: center; font-size: 12px; font-family: 'Courier New', monospace; letter-spacing: 2px; margin-top: 2px; }
 
-        .card-footer-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 8px;
-        }
-        .card-footer-details .valid {
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: rgba(255, 215, 0, 0.3);
-            text-transform: uppercase;
-        }
-        .card-footer-details .valid span {
-            display: block;
-            font-size: clamp(14px, 1.8vw, 18px);
-            color: #f5e7b0;
-            letter-spacing: 3px;
-            font-weight: 500;
-            margin-top: 1px;
-        }
+        .card-footer-details { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 8px; }
+        .card-footer-details .valid { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+        .card-footer-details .valid span { display: block; font-size: 18px; letter-spacing: 3px; font-weight: 500; margin-top: 1px; }
         .card-footer-details .holder { text-align: right; }
-        .card-footer-details .holder .label {
-            font-size: 9px;
-            letter-spacing: 2px;
-            color: rgba(255, 215, 0, 0.3);
-            text-transform: uppercase;
-        }
-        .card-footer-details .holder .name {
-            font-size: clamp(14px, 1.8vw, 18px);
-            font-weight: 500;
-            letter-spacing: 2px;
-            color: #f5e7b0;
-            text-transform: uppercase;
-        }
-
-        .card-premium-tag {
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            font-size: 10px;
-            letter-spacing: 3px;
-            color: rgba(255, 215, 0, 0.15);
-            text-transform: uppercase;
-            z-index: 6;
-        }
+        .card-footer-details .holder .label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; }
+        .card-footer-details .holder .name { font-size: 18px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
 
         .card-back {
             transform: rotateY(180deg);
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a, #2a2a2a);
-            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
             padding: 20px 24px;
             justify-content: space-between;
             color: #f0e6c5;
         }
-        .card-back::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            left: -30%;
-            width: 160%;
-            height: 160%;
-            background: radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05), transparent 50%);
-            pointer-events: none;
-            animation: backGlow 10s infinite alternate;
-        }
-        @keyframes backGlow {
-            0% { transform: translateX(-5%) rotate(0deg); opacity: 0.3; }
-            100% { transform: translateX(5%) rotate(5deg); opacity: 0.8; }
-        }
 
         .back-stripe {
             width: 100%;
             height: 40px;
             background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
-            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 0 rgba(255, 215, 0, 0.08);
             border-radius: 4px;
             display: flex;
             align-items: center;
             padding: 0 16px;
-            position: relative;
         }
         .back-stripe::after {
             content: '••••••••••••••••••••••••••••••••••••••••';
@@ -1292,82 +888,29 @@
             word-break: break-all;
         }
 
-        .back-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 12px;
-        }
-        .back-phone {
-            font-size: clamp(12px, 1.5vw, 14px);
-            color: #C9A96E;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-        .back-phone i { margin-right: 8px; color: var(--gold); opacity: 0.7; }
-        .back-since {
-            font-size: 11px;
-            color: rgba(255, 215, 0, 0.3);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
+        .back-info { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+        .back-phone { font-size: 14px; color: #C9A96E; font-weight: 500; letter-spacing: 1px; }
+        .back-phone i { margin-right: 8px; opacity: 0.7; }
+        .back-since { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; }
 
-        .back-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 12px;
-        }
-        .back-footer .brand {
-            font-size: 11px;
-            letter-spacing: 2px;
-            color: rgba(255, 215, 0, 0.4);
-            text-transform: uppercase;
-            border-top: 1px solid rgba(255, 215, 0, 0.1);
-            padding-top: 6px;
-            background: linear-gradient(90deg, #C9A96E, #E8D5A8, #C9A96E);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-        }
-        .back-footer .support {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.15);
-            letter-spacing: 1px;
-        }
-        .back-footer .support span {
-            display: block;
-            color: #C9A96E;
-            font-size: 12px;
-            font-weight: 400;
-            margin-top: 2px;
-        }
+        .back-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 12px; }
+        .back-footer .brand { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; border-top: 1px solid rgba(255, 215, 0, 0.1); padding-top: 6px; font-weight: 600; }
+        .back-footer .support { font-size: 10px; letter-spacing: 1px; }
+        .back-footer .support span { display: block; color: #C9A96E; font-size: 12px; font-weight: 400; margin-top: 2px; }
 
-        /* CONTACTS */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 32px;
-        }
+        .contact-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
 
-        .contact-info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            margin-bottom: 16px;
-        }
+        .contact-info-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
         .contact-info-item i {
             font-size: 20px;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             width: 24px;
             margin-top: 3px;
             flex-shrink: 0;
         }
-        .contact-info-item .label { font-weight: 600; color: var(--text-primary); font-size: 14px; }
+        .contact-info-item .label { font-weight: 600; font-size: 14px; }
         .contact-info-item .value { color: var(--text-secondary); font-size: 14px; }
         .contact-info-item .value a { color: var(--text-secondary); text-decoration: none; }
         .contact-info-item .value a:hover { color: var(--gold); }
@@ -1381,17 +924,11 @@
             flex-wrap: wrap;
             gap: 12px 24px;
             border: 1px solid var(--border-color);
-            backdrop-filter: blur(8px);
         }
-        .working-hours .day { font-weight: 500; color: var(--text-primary); font-size: 14px; }
+        .working-hours .day { font-weight: 500; font-size: 14px; }
         .working-hours .time { color: var(--text-muted); font-size: 14px; }
 
-        .socials {
-            margin-top: 16px;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+        .socials { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
         .socials a {
             display: inline-flex;
             align-items: center;
@@ -1415,10 +952,8 @@
             height: 240px;
             border: 1px solid var(--border-color);
         }
-        .map-container:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
         .map-container iframe { width: 100%; height: 100%; display: block; border: 0; }
 
-        /* MODALS */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -1426,7 +961,6 @@
             width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             z-index: 2000;
             align-items: center;
             justify-content: center;
@@ -1437,7 +971,6 @@
         .modal {
             background: var(--bg-primary);
             backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
             max-width: 700px;
             width: 100%;
             max-height: 90vh;
@@ -1473,16 +1006,12 @@
             align-items: center;
             justify-content: center;
         }
-        .modal-close:hover { background: var(--gold); color: #fff; border-color: var(--gold); transform: rotate(90deg); }
-        .modal h2 { font-size: clamp(22px, 5vw, 28px); margin-bottom: 4px; color: var(--text-primary); padding-right: 48px; }
-        .modal .gold-text { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .modal-close:hover { background: var(--gold); color: #fff; transform: rotate(90deg); }
+        .modal h2 { font-size: clamp(22px, 5vw, 28px); margin-bottom: 4px; padding-right: 48px; }
+        .modal .gold-text { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .modal .subtitle { color: var(--text-muted); margin-bottom: 20px; font-size: 14px; }
 
-        .modal form {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
+        .modal form { display: flex; flex-direction: column; gap: 14px; }
         .modal form label { font-weight: 500; font-size: 14px; color: var(--text-secondary); }
         .modal form input, .modal form select, .modal form textarea {
             padding: 12px 16px;
@@ -1493,7 +1022,6 @@
             background: var(--bg-secondary);
             color: var(--text-primary);
             width: 100%;
-            transition: var(--transition-smooth);
             min-height: var(--touch-target);
         }
         .modal form input:focus, .modal form select:focus, .modal form textarea:focus {
@@ -1504,13 +1032,7 @@
         .modal form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .modal form button { margin-top: 8px; padding: 16px; font-size: 17px; min-height: 50px; width: 100%; }
 
-        /* Profile photo upload */
-        .profile-photo-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 16px;
-        }
+        .profile-photo-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 16px; }
         .profile-photo-wrapper .photo-preview {
             width: 100px;
             height: 100px;
@@ -1527,41 +1049,20 @@
             position: relative;
             overflow: hidden;
         }
-        .profile-photo-wrapper .photo-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .profile-photo-wrapper .photo-upload-btn {
-            position: relative;
-            cursor: pointer;
-        }
+        .profile-photo-wrapper .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-photo-wrapper .photo-upload-btn { position: relative; cursor: pointer; }
         .profile-photo-wrapper .photo-upload-btn input[type="file"] {
             position: absolute;
-            left: 0;
-            top: 0;
+            left: 0; top: 0;
             opacity: 0;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             cursor: pointer;
         }
 
-        .auth-divider {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            color: var(--text-muted);
-            font-size: 13px;
-            margin: 8px 0;
-        }
+        .auth-divider { display: flex; align-items: center; gap: 16px; color: var(--text-muted); font-size: 13px; margin: 8px 0; }
         .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
 
-        .auth-switch {
-            text-align: center;
-            margin-top: 16px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
+        .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-muted); }
         .auth-switch a { color: var(--gold); cursor: pointer; font-weight: 600; }
         .auth-switch a:hover { text-decoration: underline; }
 
@@ -1585,11 +1086,9 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background-size: 200% auto;
             min-height: var(--touch-target);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .sticky-book:hover { transform: scale(1.05); box-shadow: 0 12px 48px rgba(201, 169, 110, 0.35); }
+        .sticky-book:hover { transform: scale(1.05); }
 
         footer {
             background: var(--bg-secondary);
@@ -1599,7 +1098,7 @@
             border-top: 1px solid var(--border-color);
         }
         footer p { font-size: clamp(13px, 2vw, 14px); }
-        footer span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        footer span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         #scrollTop {
             position: fixed;
@@ -1621,14 +1120,8 @@
             transform: translateY(20px);
         }
         #scrollTop.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-        #scrollTop:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(201, 169, 110, 0.35); }
 
-        .history-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 16px;
-        }
+        .history-list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
         .history-item {
             display: flex;
             justify-content: space-between;
@@ -1642,14 +1135,7 @@
         .history-item .spent { color: #E74C3C; font-weight: 600; }
         .history-item .added { color: #27AE60; font-weight: 600; }
 
-        .design-selector {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+        .design-selector { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
         .design-selector label { color: var(--text-muted); font-size: 14px; }
         .design-selector select {
             padding: 8px 16px;
@@ -1661,7 +1147,6 @@
             cursor: pointer;
             min-width: 150px;
         }
-        .design-selector select:focus { outline: none; border-color: var(--gold); }
 
         .ya-oauth-btn {
             display: inline-flex;
@@ -1680,28 +1165,12 @@
             width: 100%;
             font-family: 'Inter', sans-serif;
         }
-        .ya-oauth-btn:hover {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
+        .ya-oauth-btn:hover { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); transform: translateY(-2px); }
         .ya-oauth-btn svg { width: 24px; height: 24px; flex-shrink: 0; }
 
-        .edit-profile-form {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 16px;
-        }
-        .edit-profile-form .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .edit-profile-form .form-group label {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
+        .edit-profile-form { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+        .edit-profile-form .form-group { display: flex; flex-direction: column; gap: 4px; }
+        .edit-profile-form .form-group label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
         .edit-profile-form .form-group input {
             padding: 10px 14px;
             background: var(--bg-secondary);
@@ -1709,25 +1178,29 @@
             border-radius: var(--radius-sm);
             color: var(--text-primary);
             font-size: 15px;
-            transition: var(--transition-smooth);
         }
-        .edit-profile-form .form-group input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
-        }
+        .edit-profile-form .form-group input:focus { outline: none; border-color: var(--gold); }
 
-        /* RESPONSIVE */
+        .profile-avatar-header {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        .profile-avatar-header img { width: 100%; height: 100%; object-fit: cover; }
+
         @media (min-width:480px) {
-            .services-grid, .masters-grid, .blog-grid, .reviews-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .review-stats {
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-            .master-stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            .services-grid, .masters-grid, .blog-grid, .reviews-grid { grid-template-columns: 1fr 1fr; }
+            .review-stats { grid-template-columns: 1fr 1fr 1fr; }
+            .master-stats-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (min-width:600px) {
             .contact-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -1767,7 +1240,6 @@
                 border-bottom: 1px solid var(--border-color);
                 align-items: stretch;
                 backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
             }
             #mainNav.open { display: flex; }
             #mainNav a { padding: 12px 0; font-size: 16px; border-bottom: 1px solid var(--border-color); text-align: center; }
@@ -1793,24 +1265,18 @@
         @media (max-width:400px) {
             .hero h1 { font-size: 26px; }
             .service-item { padding: 12px 14px; min-height: 48px; }
-            .service-item .name { font-size: 13px; }
             .master-card .image-wrapper { width: 80px; height: 80px; }
             .modal { padding: 20px 14px; }
-            .modal h2 { font-size: 20px; }
             .sticky-book { padding: 12px 16px; font-size: 13px; bottom: 12px; right: 12px; }
             .logo { font-size: 18px; }
             .auth-btn { font-size: 12px; padding: 4px 10px; }
             .theme-toggle { font-size: 17px; }
             .nav-book-btn { font-size: 12px; padding: 4px 12px; }
             .hero-card-btn .card-btn-main { font-size: 15px; padding: 12px 20px; min-height: 46px; }
-            .hero-card-btn .card-btn-main i { font-size: 18px; }
             .review-form .star-rating { font-size: 24px; }
             .review-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
             .stat-box .stat-number { font-size: 24px; }
             .master-stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-            .master-stat-item { padding: 8px 12px; }
-            .master-stat-item .name { font-size: 12px; }
-            .master-stat-item .rating { font-size: 12px; }
         }
     </style>
 </head>
@@ -1835,10 +1301,8 @@
         </div>
     </header>
 
-    <!-- TOAST CONTAINER -->
     <div id="toastContainer"></div>
 
-    <!-- PAGES -->
     <div id="page-home" class="page active">
         <section class="hero">
             <div class="container">
@@ -1884,23 +1348,10 @@
         <div class="container">
             <h2 class="section-title">Отзывы <span>клиентов</span></h2>
             <p class="section-subtitle">Ваше мнение важно для нас</p>
-            
-            <!-- Статистика -->
             <div id="reviewStats"></div>
-            
-            <!-- Статистика по мастерам -->
             <div id="masterStats"></div>
-            
-            <!-- Форма отзыва -->
             <div id="reviewFormContainer"></div>
-            
-            <!-- Все отзывы -->
-            <div class="reviews-grid" id="reviewsContainer">
-                <div class="skeleton" style="height:120px;"></div>
-                <div class="skeleton" style="height:120px;"></div>
-            </div>
-            
-            <!-- Мои отзывы -->
+            <div class="reviews-grid" id="reviewsContainer"></div>
             <div id="myReviewsContainer"></div>
         </div>
     </div>
@@ -1966,7 +1417,7 @@
                     </div>
                 </div>
                 <div class="map-container">
-                    <iframe src="https://yandex.ru/map-widget/v1/?ll=86.084475%2C55.355864&z=18&pt=86.084475%2C55.355864&l=map&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fll%3D86.084475%252C55.355864%26spn%3D0.001%252C0.001%26text%3D%D0%9F%D0%B8%D0%BE%D0%BD%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%B9%20%D0%B1%D1%83%D0%BB%D1%8C%D0%B2%D0%B0%D1%80%2C%203%2C%20224%2C%20%D0%9A%D0%B5%D0%BC%D0%B5%D1%80%D0%BE%D0%B2%D0%BE" width="100%" height="100%" frameborder="0" allowfullscreen="true" loading="lazy" title="Студия №1 на карте"></iframe>
+                    <iframe src="https://yandex.ru/map-widget/v1/?ll=86.084475%2C55.355864&z=18&pt=86.084475%2C55.355864&l=map" width="100%" height="100%" frameborder="0" allowfullscreen="true" loading="lazy" title="Студия №1 на карте"></iframe>
                 </div>
             </div>
         </div>
@@ -2073,8 +1524,8 @@
         // FIREBASE
         // ============================================================
         import { initializeApp } from 'firebase/app';
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, OAuthProvider, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth';
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, addDoc, deleteDoc, query, orderBy, where, onSnapshot, increment, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, updateEmail } from 'firebase/auth';
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, addDoc, deleteDoc, query, orderBy, where, onSnapshot, increment, arrayUnion, arrayRemove } from 'firebase/firestore';
 
         const firebaseConfig = {
             apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -2088,12 +1539,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-
-        // Яндекс OAuth через провайдер Yahoo (Яндекс использует протокол OAuth через Yahoo)
-        const yandexProvider = new OAuthProvider('yahoo.com');
-        yandexProvider.setCustomParameters({
-            client_id: 'b2f5738eb9ee444dafb627e58d9a05e1'
-        });
 
         // ============================================================
         // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
@@ -2109,6 +1554,7 @@
         let commentListeners = {};
         let selectedReviewStar = 0;
         let selectedMasterReviewStar = 0;
+        let tempPhotoData = null;
 
         // ============================================================
         // ТОСТЫ
@@ -2118,11 +1564,7 @@
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
             
-            const icons = {
-                success: '✅',
-                error: '❌',
-                info: 'ℹ️'
-            };
+            const icons = { success: '✅', error: '❌', info: 'ℹ️' };
             
             toast.innerHTML = `
                 <span class="toast-icon">${icons[type] || 'ℹ️'}</span>
@@ -2284,7 +1726,6 @@
                 }
 
                 await loadReviews();
-
                 renderAll();
             } catch (e) {
                 console.error('Ошибка загрузки данных:', e);
@@ -2292,9 +1733,6 @@
             }
         }
 
-        // ============================================================
-        // ЗАГРУЗКА ОТЗЫВОВ
-        // ============================================================
         async function loadReviews() {
             try {
                 const reviewsSnap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
@@ -2305,9 +1743,6 @@
             }
         }
 
-        // ============================================================
-        // RENDER ALL
-        // ============================================================
         function renderAll() {
             renderCategories();
             renderServices();
@@ -2317,9 +1752,6 @@
             renderCabinet();
         }
 
-        // ============================================================
-        // CATEGORIES
-        // ============================================================
         function renderCategories() {
             const container = document.getElementById('categoriesFilter');
             container.innerHTML = CATEGORIES.map(c =>
@@ -2335,9 +1767,6 @@
             renderServices();
         };
 
-        // ============================================================
-        // SERVICES
-        // ============================================================
         function renderServices() {
             const container = document.getElementById('servicesContainer');
             let filtered = currentCategory === 'Все' ? allServices : allServices.filter(s => s.category === currentCategory);
@@ -2356,9 +1785,6 @@
             `).join('');
         }
 
-        // ============================================================
-        // MASTERS
-        // ============================================================
         function renderMasters() {
             const container = document.getElementById('mastersContainer');
             if (!allMasters.length) {
@@ -2462,7 +1888,6 @@
             for (const m of mastersWithReviews) {
                 const reviews = allReviews.filter(r => r.masterId === m.id && r.rating > 0);
                 const avg = reviews.length > 0 ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length) : 0;
-                const stars = '★'.repeat(Math.round(avg)) + '☆'.repeat(5 - Math.round(avg));
                 html += `
                     <div class="master-stat-item">
                         <span class="name">${escapeHTML(m.name)}</span>
@@ -2525,7 +1950,7 @@
                 const master = allMasters.find(m => m.id === r.masterId);
                 const ratingStars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
                 const userName = r.userName || 'Аноним';
-                const avatar = r.userPhoto || `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${userName.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
+                const userPhoto = r.userPhoto || '';
                 
                 const isMasterReview = r.masterId && r.masterId !== '';
                 const reviewType = isMasterReview ? `👤 Мастер: ${escapeHTML(master?.name || '')}` : '🏢 Общая оценка салона';
@@ -2534,7 +1959,7 @@
                     <div class="review-card">
                         <div class="review-header">
                             <div class="avatar">
-                                ${r.userPhoto ? `<img src="${r.userPhoto}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" />` : userName.charAt(0).toUpperCase()}
+                                ${userPhoto ? `<img src="${userPhoto}" />` : userName.charAt(0).toUpperCase()}
                             </div>
                             <div>
                                 <div class="review-name">${escapeHTML(userName)}</div>
@@ -2638,7 +2063,6 @@
                 return;
             }
 
-            // Если выбран мастер, используем оценку мастера, иначе общую
             const finalRating = masterId && masterRating > 0 ? masterRating : salonRating;
             const finalMasterId = masterId && masterRating > 0 ? masterId : '';
 
@@ -2648,8 +2072,10 @@
                     userName: currentUserData?.name || currentUser.displayName || 'Пользователь',
                     userEmail: currentUser.email,
                     userPhone: currentUserData?.phone || '',
-                    userPhoto: currentUser.photoURL || '',
+                    userPhoto: currentUserData?.photoURL || '',
                     rating: finalRating,
+                    salonRating: salonRating,
+                    masterRating: masterRating,
                     text: text,
                     masterId: finalMasterId,
                     masterName: finalMasterId ? allMasters.find(m => m.id === finalMasterId)?.name || '' : '',
@@ -2724,7 +2150,8 @@
         }
 
         // ============================================================
-        // COMMENTS (исправленная версия)
+        // COMMENTS — ИСПРАВЛЕНО! Убран orderBy(createdAt), т.к. требует индекс
+        // Теперь сортировка происходит на клиенте
         // ============================================================
         function loadComments(postId) {
             if (commentListeners[postId]) {
@@ -2732,10 +2159,11 @@
                 delete commentListeners[postId];
             }
 
+            // ВАЖНО: Убираем orderBy('createdAt'), чтобы не требовался составной индекс
+            // Сортировку делаем на клиенте
             const commentsQuery = query(
                 collection(db, 'comments'),
-                where('postId', '==', postId),
-                orderBy('createdAt', 'asc')
+                where('postId', '==', postId)
             );
 
             commentListeners[postId] = onSnapshot(commentsQuery, (snapshot) => {
@@ -2751,7 +2179,6 @@
                 if (container) {
                     container.innerHTML = `<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">
                         ⚠️ Не удалось загрузить комментарии. Попробуйте обновить страницу.
-                        <br><span style="font-size:12px;opacity:0.5;">${error.message}</span>
                     </div>`;
                 }
             });
@@ -2784,9 +2211,17 @@
                 }
             });
 
-            roots.sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+            // Сортировка на клиенте
+            const getTime = (c) => {
+                if (!c.createdAt) return 0;
+                if (c.createdAt.toMillis) return c.createdAt.toMillis();
+                if (c.createdAt.seconds) return c.createdAt.seconds * 1000;
+                return new Date(c.createdAt).getTime() || 0;
+            };
+
+            roots.sort((a, b) => getTime(a) - getTime(b));
             Object.keys(tree).forEach(key => {
-                tree[key].sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+                tree[key].sort((a, b) => getTime(a) - getTime(b));
             });
 
             let html = roots.map(c => renderCommentTree(c, comments, tree, postId)).join('');
@@ -2797,8 +2232,6 @@
             const isDeleted = comment.isDeleted === true;
             const isAuthor = currentUser && currentUser.uid === comment.userId;
             const isAdmin = currentUser && (currentUser.email === 'glubkov2020@gmail.com' || currentUser.email === 'Studiia1@mail.ru');
-            const userPhoto = comment.userPhoto ||
-                `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${(comment.userName || '?').charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
             const isLiked = currentUser && comment.likedBy?.includes(currentUser.uid);
             const replies = tree[comment.id] || [];
 
@@ -2838,7 +2271,7 @@
                             ${comment.userPhoto ? `<img src="${comment.userPhoto}" />` : (comment.userName || '?').charAt(0).toUpperCase()}
                         </div>
                         <span class="author">${escapeHTML(comment.userName || 'Аноним')}</span>
-                        <span class="time">${formatDate(comment.createdAt?.toDate?.() || new Date())}</span>
+                        <span class="time">${formatDate(comment.createdAt?.toDate?.() || comment.createdAt || new Date())}</span>
                         ${isDeleted ? `<span style="color:#E74C3C;font-size:11px;margin-left:8px;">🗑️ Удалён</span>` : ''}
                     </div>
                     ${textHtml}
@@ -2860,9 +2293,6 @@
             return html;
         }
 
-        // ============================================================
-        // COMMENT FUNCTIONS
-        // ============================================================
         window.addComment = async function(postId, parentId = null) {
             if (!currentUser) {
                 showToast('Войдите в аккаунт, чтобы комментировать', 'error');
@@ -2885,7 +2315,7 @@
                     userId: currentUser.uid,
                     userName: currentUserData?.name || currentUser.displayName || 'Пользователь',
                     userEmail: currentUser.email,
-                    userPhoto: currentUser.photoURL || '',
+                    userPhoto: currentUserData?.photoURL || currentUser.photoURL || '',
                     text: text,
                     likes: 0,
                     likedBy: [],
@@ -2983,7 +2413,8 @@
             const history = currentUserData?.history || [];
             const cardId = currentUserData?.cardId || 'ST-000-2026';
             const userName = currentUserData?.name || currentUser?.displayName || 'Клиент';
-            const userPhoto = currentUser.photoURL || currentUserData?.photoURL || '';
+            // Приоритет: Firestore photoURL > Auth photoURL
+            const userPhoto = currentUserData?.photoURL || currentUser.photoURL || '';
             const designId = currentUserData?.cardDesign || 'onyx_gold';
             const design = CARD_DESIGNS.find(d => d.id === designId) || CARD_DESIGNS[0];
 
@@ -3009,8 +2440,8 @@
             container.innerHTML = `
                 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
                     <div style="display:flex;align-items:center;gap:16px;">
-                        <div style="width:60px;height:60px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--gold);">
-                            ${userPhoto ? `<img src="${userPhoto}" style="width:100%;height:100%;object-fit:cover;" />` : '<i class="fas fa-user"></i>'}
+                        <div class="profile-avatar-header">
+                            ${userPhoto ? `<img src="${userPhoto}" />` : '<i class="fas fa-user"></i>'}
                         </div>
                         <div>
                             <div style="font-size:18px;font-weight:600;color:var(--text-primary);">${escapeHTML(userName)}</div>
@@ -3033,7 +2464,6 @@
                         <div class="card-face card-front" style="background: ${design.front};">
                             <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.12;z-index:1;pointer-events:none;top:-30px;left:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
                             <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.12;z-index:1;pointer-events:none;bottom:-30px;right:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
-                            <div style="position:absolute;top:50%;left:-10%;width:80%;height:1px;filter:blur(1px);transform:rotate(-6deg);z-index:4;background:linear-gradient(90deg,transparent,${design.accent}44,${design.accent}88,${design.accent}44,transparent);"></div>
 
                             <div class="front-content">
                                 <div class="card-header">
@@ -3068,35 +2498,23 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="card-premium-tag" style="color:${design.accent}44;">✦ premium ✦</div>
                         </div>
 
                         <div class="card-face card-back" style="background:${design.back};">
-                            <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.03;z-index:1;pointer-events:none;top:-30px;left:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
-                            <div style="position:absolute;width:100px;height:100px;border-radius:50%;filter:blur(80px);opacity:0.03;z-index:1;pointer-events:none;bottom:-30px;right:-30px;background:radial-gradient(circle,${design.accent},transparent);"></div>
-
                             <div style="display:flex;flex-direction:column;height:100%;">
                                 <div class="back-stripe" style="background:linear-gradient(180deg,${design.back}dd,${design.back}88);"></div>
-
                                 <div class="back-info">
                                     <div class="back-phone" style="color:${design.accent}88;"><i class="fas fa-phone"></i> +7 (951) 606-20-01</div>
                                     <div class="back-since" style="color:${design.accent}33;">SINCE 2013</div>
                                 </div>
-
                                 <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;">
                                     <div style="display:flex;justify-content:space-between;align-items:flex-end;">
-                                        <div>
-                                            <div style="font-size:9px;letter-spacing:2px;color:${design.accent}33;text-transform:uppercase;">Authorized signature</div>
-                                            <div style="width:80px;height:1px;background:linear-gradient(90deg,${design.accent}44,transparent);margin-top:4px;"></div>
-                                        </div>
                                         <div class="back-footer">
                                             <div class="support" style="color:${design.accent}33;">SUPPORT <span style="color:${design.accent}66;">+7 (951) 606-20-01</span></div>
                                         </div>
                                     </div>
                                     <div style="display:flex;justify-content:space-between;margin-top:8px;">
-                                        <div class="brand" style="color:${design.accent}44;background:linear-gradient(90deg,${design.accent},${design.textColor},${design.accent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;letter-spacing:2px;">✦ STUDIO №1 • PREMIUM ✦</div>
-                                        <div style="font-size:8px;color:${design.accent}22;letter-spacing:1px;">BANK • SINCE 2013</div>
+                                        <div class="brand" style="color:${design.accent}44;">✦ STUDIO №1 • PREMIUM ✦</div>
                                     </div>
                                 </div>
                             </div>
@@ -3131,7 +2549,7 @@
         };
 
         // ============================================================
-        // EDIT PROFILE
+        // EDIT PROFILE — ИСПРАВЛЕНО! Сохраняем везде
         // ============================================================
         window.openEditProfile = function() {
             if (!currentUser) {
@@ -3144,12 +2562,17 @@
             document.getElementById('editEmail').value = currentUser.email || '';
             document.getElementById('editPhone').value = currentUserData?.phone || '';
 
+            // Показываем текущее фото
             const preview = document.getElementById('profilePhotoPreview');
-            if (currentUser.photoURL) {
-                preview.innerHTML = `<img src="${currentUser.photoURL}" />`;
+            const currentPhoto = currentUserData?.photoURL || currentUser.photoURL || '';
+            if (currentPhoto) {
+                preview.innerHTML = `<img src="${currentPhoto}" />`;
             } else {
                 preview.innerHTML = `<i class="fas fa-user"></i>`;
             }
+
+            // Сбрасываем временное фото
+            tempPhotoData = null;
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -3159,11 +2582,14 @@
             fileInput.onchange = function(e) {
                 const file = e.target.files[0];
                 if (file) {
+                    if (file.size > 500 * 1024) {
+                        showToast('Файл слишком большой (макс. 500KB)', 'error');
+                        return;
+                    }
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         document.getElementById('profilePhotoPreview').innerHTML = `<img src="${e.target.result}" />`;
-                        // Сохраняем фото во временную переменную
-                        window.tempPhotoData = e.target.result;
+                        tempPhotoData = e.target.result;
                     };
                     reader.readAsDataURL(file);
                 }
@@ -3173,6 +2599,7 @@
         window.closeEditProfile = function() {
             document.getElementById('editProfileModal').classList.remove('active');
             document.body.style.overflow = '';
+            tempPhotoData = null;
         };
 
         window.saveProfile = async function(e) {
@@ -3193,56 +2620,81 @@
             }
 
             try {
-                // Обновляем в Firestore
-                await updateDoc(doc(db, 'users', currentUser.uid), {
+                // Подготавливаем объект обновлений
+                const updates = {
                     name: name,
                     email: email,
                     phone: phone
-                });
+                };
 
-                // Обновляем фото в профиле (если загружено)
-                if (window.tempPhotoData) {
-                    // В Firebase нельзя загружать base64 большие файлы в profile,
-                    // но мы можем сохранить в Firestore
-                    await updateDoc(doc(db, 'users', currentUser.uid), {
-                        photoURL: window.tempPhotoData
-                    });
-                    
-                    // Обновляем в auth (если возможно)
-                    try {
-                        await updateProfile(currentUser, {
-                            displayName: name,
-                            photoURL: window.tempPhotoData
-                        });
-                    } catch (e) {}
-                    
-                    window.tempPhotoData = null;
-                } else {
-                    // Обновляем displayName
-                    try {
-                        await updateProfile(currentUser, {
-                            displayName: name
-                        });
-                    } catch (e) {}
+                // Если загружено новое фото — добавляем
+                if (tempPhotoData) {
+                    updates.photoURL = tempPhotoData;
                 }
 
-                // Обновляем локальные данные
+                // 1. Обновляем в Firestore
+                await updateDoc(doc(db, 'users', currentUser.uid), updates);
+
+                // 2. Обновляем в Firebase Auth
+                const authUpdates = { displayName: name };
+                if (tempPhotoData) {
+                    authUpdates.photoURL = tempPhotoData;
+                }
+                
+                try {
+                    await updateProfile(currentUser, authUpdates);
+                } catch (authErr) {
+                    console.warn('Не удалось обновить Auth profile:', authErr);
+                }
+
+                // 3. Обновляем локальные данные
                 currentUserData.name = name;
                 currentUserData.email = email;
                 currentUserData.phone = phone;
-                if (window.tempPhotoData) {
-                    currentUserData.photoURL = window.tempPhotoData;
+                if (tempPhotoData) {
+                    currentUserData.photoURL = tempPhotoData;
+                }
+
+                // 4. Обновляем все связанные данные (комментарии, отзывы)
+                if (tempPhotoData) {
+                    await updateUserContent(currentUser.uid, { userName: name, userPhoto: tempPhotoData });
+                } else {
+                    await updateUserContent(currentUser.uid, { userName: name });
                 }
 
                 closeEditProfile();
                 renderCabinet();
                 updateUIForUser();
+                renderReviews();
+                renderBlog();
                 showToast('Профиль обновлён ✅', 'success');
 
             } catch (e) {
+                console.error('Ошибка сохранения профиля:', e);
                 showToast('Ошибка: ' + e.message, 'error');
             }
         };
+
+        // Обновляем имя и фото во всех комментариях и отзывах пользователя
+        async function updateUserContent(userId, updates) {
+            try {
+                // Обновляем комментарии
+                const commentsQuery = query(collection(db, 'comments'), where('userId', '==', userId));
+                const commentsSnap = await getDocs(commentsQuery);
+                for (const d of commentsSnap.docs) {
+                    await updateDoc(d.ref, updates);
+                }
+
+                // Обновляем отзывы
+                const reviewsQuery = query(collection(db, 'reviews'), where('userId', '==', userId));
+                const reviewsSnap = await getDocs(reviewsQuery);
+                for (const d of reviewsSnap.docs) {
+                    await updateDoc(d.ref, updates);
+                }
+            } catch (e) {
+                console.warn('Ошибка обновления контента:', e);
+            }
+        }
 
         // ============================================================
         // NAVIGATION
@@ -3292,6 +2744,7 @@
                             name: user.displayName || user.email?.split('@')[0] || 'Клиент',
                             email: user.email,
                             phone: user.phoneNumber || '',
+                            photoURL: user.photoURL || '',
                             minutes: 0,
                             cardId: cardId,
                             cardDesign: 'onyx_gold',
@@ -3316,11 +2769,16 @@
         function updateUIForUser() {
             const btn = document.getElementById('authButton');
             if (currentUser) {
-                const name = currentUser.displayName || currentUserData?.name || currentUser.email?.split('@')[0] || 'Пользователь';
-                const photo = currentUser.photoURL ||
-                    `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${name.charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
-                btn.innerHTML =
-                    `<img src="${escapeHTML(photo)}" class="avatar" alt="${escapeHTML(name)}" /><span>${escapeHTML(name)}</span>`;
+                const name = currentUserData?.name || currentUser.displayName || currentUser.email?.split('@')[0] || 'Пользователь';
+                // Приоритет: Firestore photoURL
+                const photo = currentUserData?.photoURL || currentUser.photoURL;
+                
+                if (photo) {
+                    btn.innerHTML = `<img src="${photo}" class="avatar" alt="${escapeHTML(name)}" /><span>${escapeHTML(name)}</span>`;
+                } else {
+                    const initial = name.charAt(0).toUpperCase();
+                    btn.innerHTML = `<span style="width:24px;height:24px;border-radius:50%;background:var(--gold-gradient);display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">${initial}</span><span>${escapeHTML(name)}</span>`;
+                }
                 btn.onclick = () => { if (confirm('Выйти?')) signOut(auth); };
             } else {
                 btn.innerHTML = `<i class="fas fa-user"></i> <span>Войти</span>`;
@@ -3387,12 +2845,14 @@
                     name: name,
                     email: email,
                     phone: phone || '',
+                    photoURL: '',
                     minutes: 0,
                     cardId: cardId,
                     cardDesign: 'onyx_gold',
                     history: [],
                     createdAt: new Date().toISOString()
                 });
+                await updateProfile(cred.user, { displayName: name });
                 closeAuthModal();
                 showToast('Регистрация успешна! 🎉', 'success');
             } catch (error) {
@@ -3402,22 +2862,75 @@
             }
         };
 
-        window.loginWithYandex = async function() {
-            try {
-                const result = await signInWithPopup(auth, yandexProvider);
-                const user = result.user;
-                showToast('Вход через Яндекс выполнен ✅', 'success');
-                closeAuthModal();
-            } catch (error) {
-                if (error.code === 'auth/operation-not-allowed') {
-                    showToast('⚠️ Вход через Яндекс временно недоступен. Используйте email.', 'error');
-                } else if (error.code === 'auth/popup-closed-by-user') {
-                    showToast('Вход отменён', 'info');
-                } else {
-                    showToast('Ошибка: ' + error.message, 'error');
-                }
-                console.error('Яндекс OAuth ошибка:', error);
+        // ============================================================
+        // ЯНДЕКС OAuth — ЧЕРЕЗ REST API (не Firebase Popup)
+        // ============================================================
+        window.loginWithYandex = function() {
+            const clientId = 'b2f5738eb9ee444dafb627e58d9a05e1';
+            const redirectUri = encodeURIComponent('https://glubkov2020-netizen.github.io/studio1/');
+            const scope = 'login:email login:info';
+            
+            // Формируем URL для OAuth
+            const authUrl = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
+            
+            // Открываем popup
+            const popup = window.open(authUrl, 'yandex_oauth', 'width=500,height=600,scrollbars=yes');
+            
+            if (!popup) {
+                showToast('Разрешите всплывающие окна для входа через Яндекс', 'error');
+                return;
             }
+            
+            // Слушаем сообщение от popup
+            const messageHandler = async (event) => {
+                if (event.origin !== 'https://glubkov2020-netizen.github.io' && 
+                    event.origin !== 'https://oauth.yandex.ru') return;
+                
+                if (event.data && event.data.type === 'yandex_auth') {
+                    window.removeEventListener('message', messageHandler);
+                    
+                    try {
+                        // Получаем информацию о пользователе через Яндекс API
+                        const response = await fetch('https://login.yandex.ru/info?format=json', {
+                            headers: {
+                                'Authorization': `OAuth ${event.data.token}`
+                            }
+                        });
+                        const userInfo = await response.json();
+                        
+                        // Создаём/логиним пользователя в Firebase через кастомный токен
+                        // Т.к. у нас нет сервера, используем анонимный вход + привязку данных
+                        // ВАЖНО: это упрощённая схема, для продакшена нужен сервер
+                        
+                        showToast('Вход через Яндекс выполнен! ✅', 'success');
+                        
+                        // Сохраняем данные Яндекса в localStorage для последующего использования
+                        localStorage.setItem('yandex_user', JSON.stringify(userInfo));
+                        
+                        // Закрываем popup
+                        if (popup && !popup.closed) popup.close();
+                        
+                        // Показываем уведомление
+                        showToast('Для полного входа используйте email или зарегистрируйтесь', 'info');
+                        
+                    } catch (err) {
+                        console.error('Ошибка получения данных Яндекса:', err);
+                        showToast('Ошибка входа через Яндекс: ' + err.message, 'error');
+                    }
+                }
+            };
+            
+            window.addEventListener('message', messageHandler);
+            
+            // Проверяем закрытие popup
+            const checkClosed = setInterval(() => {
+                if (popup.closed) {
+                    clearInterval(checkClosed);
+                    window.removeEventListener('message', messageHandler);
+                }
+            }, 1000);
+            
+            showToast('Окно входа через Яндекс открыто', 'info');
         };
 
         // ============================================================
@@ -3434,6 +2947,7 @@
             if (!date) return '';
             try {
                 const d = date instanceof Date ? date : new Date(date);
+                if (isNaN(d.getTime())) return '';
                 return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }) +
                     ' ' + d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
             } catch { return ''; }
@@ -3466,17 +2980,11 @@
             }
         };
 
-        // ============================================================
-        // SCROLL TOP
-        // ============================================================
         window.addEventListener('scroll', () => {
             const btn = document.getElementById('scrollTop');
             btn.classList.toggle('visible', window.pageYOffset > 400);
         });
 
-        // ============================================================
-        // MENU
-        // ============================================================
         document.getElementById('menuToggle').addEventListener('click', function() {
             document.getElementById('mainNav').classList.toggle('open');
         });
@@ -3485,9 +2993,6 @@
             link.addEventListener('click', () => document.getElementById('mainNav').classList.remove('open'));
         });
 
-        // ============================================================
-        // CLOSE MODALS ON BACKDROP
-        // ============================================================
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.addEventListener('click', function(e) {
                 if (e.target === this) {
@@ -3507,9 +3012,7 @@
         console.log(`👩‍🎨 Мастеров: ${allMasters.length}`);
         console.log(`💇 Услуг: ${allServices.length}`);
         console.log(`📝 Постов: ${allBlogPosts.length}`);
-        console.log(`💬 Отзывов: ${allReviews.length}`);
-        console.log('💳 10 дизайнов карт готовы!');
-        console.log('💬 Комментарии в реальном времени!');
+        console.log(`⭐ Отзывов: ${allReviews.length}`);
         console.log('👤 Пользователь авторизован:', !!currentUser);
     </script>
 </body>
