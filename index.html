@@ -1179,54 +1179,54 @@ nav a.active {
     0 30px 60px -15px rgba(0, 0, 0, 0.8),
     0 15px 30px -10px rgba(0, 0, 0, 0.6),
     0 0 0 1px rgba(255, 215, 0, 0.15);
+  transition: box-shadow 0.4s ease;
 }
-.card-flip::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, rgba(201, 169, 110, 0.3), transparent 30%, transparent 70%, rgba(201, 169, 110, 0.2));
-  z-index: -1;
-  filter: blur(6px);
-  opacity: 0.5;
+.card-flip:hover {
+  box-shadow:
+    0 40px 70px -15px rgba(0, 0, 0, 0.9),
+    0 20px 40px -10px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 215, 0, 0.3);
 }
-@keyframes cardAuraPulse {
-  0%, 100% { opacity: 0.4; filter: blur(8px); }
-  50% { opacity: 0.8; filter: blur(12px); }
-}
-.card-flip.flipped { transform: rotateY(180deg); }
 .card-face {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
   width: 100%;
   height: 100%;
   border-radius: 22px;
   overflow: hidden;
   display: none;
 }
-.card-face.active {
-  display: flex;
-  flex-direction: column;
-}
+.card-face.active { display: block; }
 .card-front {
-  position: relative;
-  color: #f0e6c5;
-  background: radial-gradient(ellipse at 30% 20%, #2a2a2a, #0a0a0a);
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  color: #f0e6c5;
+  background: radial-gradient(ellipse at 30% 20%, #2a2a2a, #0a0a0a);
 }
-.card-front::before {
-  content: '';
+.card-front .card-pattern {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 25% 15%, rgba(201, 169, 110, 0.18) 0%, transparent 40%),
-    radial-gradient(circle at 75% 85%, rgba(201, 169, 110, 0.12) 0%, transparent 45%);
-  z-index: 3;
+  z-index: 2;
   pointer-events: none;
+  opacity: 0.4;
+  background-image:
+    radial-gradient(circle at 10% 10%, currentColor 1px, transparent 1.5px),
+    radial-gradient(circle at 90% 20%, currentColor 1px, transparent 1.5px),
+    radial-gradient(circle at 20% 80%, currentColor 1px, transparent 1.5px),
+    radial-gradient(circle at 80% 90%, currentColor 1px, transparent 1.5px);
+  background-size: 60px 60px, 80px 80px, 70px 70px, 90px 90px;
+}
+.card-front .card-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.12;
+  background: repeating-linear-gradient(115deg, currentColor 0 1px, transparent 1px 24px);
 }
 .card-front::after {
   content: '';
@@ -1241,41 +1241,17 @@ nav a.active {
   z-index: 4;
   animation: cardShine 6s ease-in-out infinite;
 }
-@keyframes cardShine {
-  0%, 100% { transform: translateX(-100%) rotate(25deg); opacity: 0; }
-  50% { transform: translateX(0%) rotate(25deg); opacity: 1; }
-}
-.card-front .card-pattern {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.5;
-  background-image:
-    radial-gradient(circle at 10% 10%, currentColor 1px, transparent 1.5px),
-    radial-gradient(circle at 90% 20%, currentColor 1px, transparent 1.5px),
-    radial-gradient(circle at 20% 80%, currentColor 1px, transparent 1.5px),
-    radial-gradient(circle at 80% 90%, currentColor 1px, transparent 1.5px);
-  background-size: 60px 60px, 80px 80px, 70px 70px, 90px 90px;
-}
-.card-front .card-lines {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.15;
-  background:
-    repeating-linear-gradient(115deg, currentColor 0 1px, transparent 1px 24px);
-}
 .front-content {
   position: relative;
   z-index: 6;
   height: 100%;
+  width: 100%;
   padding: 20px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
 }
 .card-header {
   display: flex;
@@ -1321,6 +1297,7 @@ nav a.active {
   border: 1px solid rgba(255, 215, 0, 0.3);
   background: linear-gradient(135deg, #e8d5a8 0%, #c9a96e 45%, #b8974d 55%, #e8d5a8 100%);
   overflow: hidden;
+  flex-shrink: 0;
 }
 .card-chip::before {
   content: '';
@@ -1330,32 +1307,19 @@ nav a.active {
   border-radius: 4px;
   background:
     linear-gradient(90deg, transparent 0 45%, rgba(0, 0, 0, 0.15) 45% 55%, transparent 55%),
-    linear-gradient(0deg, transparent 0 40%, rgba(0, 0, 0, 0.15) 40% 60%, transparent 60%),
-    linear-gradient(90deg, transparent 0 25%, rgba(0, 0, 0, 0.1) 25% 30%, transparent 30% 70%, rgba(0, 0, 0, 0.1) 70% 75%, transparent 75%);
-}
-.card-chip::after {
-  content: '';
-  position: absolute;
-  inset: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 2px;
+    linear-gradient(0deg, transparent 0 40%, rgba(0, 0, 0, 0.15) 40% 60%, transparent 60%);
 }
 .card-balance {
   text-align: center;
   margin: 8px 0 0;
-  position: relative;
 }
 .card-balance .number {
   font-size: clamp(38px, 9vw, 52px);
   font-weight: 900;
   letter-spacing: -1.5px;
   line-height: 1;
-  display: block;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
-}
-.card-balance .number-wrap {
   display: inline-block;
-  position: relative;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
 }
 .card-balance .label {
   font-size: 11px;
@@ -1364,7 +1328,7 @@ nav a.active {
   text-transform: uppercase;
   margin-top: 4px;
   display: block;
-  opacity: 0.75;
+  opacity: 0.8;
 }
 .card-id {
   text-align: center;
@@ -1372,7 +1336,7 @@ nav a.active {
   font-family: 'Courier New', monospace;
   letter-spacing: 3px;
   margin-top: 6px;
-  opacity: 0.55;
+  opacity: 0.6;
   font-weight: 600;
 }
 .card-id-mask {
@@ -1381,21 +1345,20 @@ nav a.active {
   align-items: center;
   justify-content: center;
 }
-.card-id-mask span {
-  display: inline-block;
-}
 .card-footer-details {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-top: 10px;
+  gap: 12px;
 }
 .card-footer-details .valid {
   font-size: 8px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.6;
+  opacity: 0.65;
   line-height: 1;
+  flex-shrink: 0;
 }
 .card-footer-details .valid span {
   display: block;
@@ -1408,12 +1371,13 @@ nav a.active {
 .card-footer-details .holder {
   text-align: right;
   max-width: 55%;
+  min-width: 0;
 }
 .card-footer-details .holder .label {
   font-size: 7px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.6;
+  opacity: 0.65;
   line-height: 1;
 }
 .card-footer-details .holder .name {
@@ -1440,32 +1404,37 @@ nav a.active {
   height: 22px;
   border-radius: 50%;
   border: 2px solid;
-  opacity: 0.7;
+  opacity: 0.75;
 }
-.card-network .ring:first-child {
-  margin-right: -10px;
+.card-network .ring:first-child { margin-right: -10px; }
+.card-serial-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  z-index: 7;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 .card-back {
-  position: relative;
-  color: #f0e6c5;
-  background: linear-gradient(145deg, #2a2a2a, #1a1a1a, #2a2a2a);
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-}
-.card-back::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 80%, rgba(201, 169, 110, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(201, 169, 110, 0.08) 0%, transparent 40%);
-  z-index: 1;
-  pointer-events: none;
+  color: #f0e6c5;
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a, #2a2a2a);
 }
 .card-back .back-content {
   position: relative;
   z-index: 2;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 22px 0 18px;
@@ -1476,16 +1445,14 @@ nav a.active {
   font-size: 8px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  opacity: 0.5;
+  opacity: 0.55;
   margin-bottom: 8px;
 }
 .back-stripe {
   width: 100%;
   height: 44px;
   background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 50%, #1a1a1a 100%);
-  box-shadow:
-    inset 0 2px 6px rgba(0, 0, 0, 0.8),
-    inset 0 -1px 0 rgba(255, 215, 0, 0.1);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), inset 0 -1px 0 rgba(255, 215, 0, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -1510,24 +1477,14 @@ nav a.active {
   font-size: 7px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.5;
+  opacity: 0.55;
   line-height: 1;
+  flex-shrink: 0;
 }
 .back-signature .sig-line {
   flex: 1;
   height: 26px;
   border-bottom: 1px solid;
-  opacity: 0.3;
-  position: relative;
-}
-.back-signature .sig-line::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, currentColor, transparent);
   opacity: 0.4;
 }
 .back-cvv {
@@ -1535,15 +1492,16 @@ nav a.active {
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 3px;
-  opacity: 0.8;
+  opacity: 0.85;
   padding-bottom: 2px;
   border-bottom: 1px solid;
   min-width: 48px;
   text-align: center;
+  flex-shrink: 0;
 }
 .back-bottom {
   margin-top: auto;
-  padding: 0 22px 0;
+  padding: 0 22px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -1557,15 +1515,12 @@ nav a.active {
   align-items: center;
   gap: 6px;
 }
-.back-bottom .back-phone i {
-  opacity: 0.7;
-  font-size: 11px;
-}
+.back-bottom .back-phone i { opacity: 0.7; font-size: 11px; }
 .back-bottom .back-since {
   font-size: 8px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  opacity: 0.5;
+  opacity: 0.55;
   white-space: nowrap;
 }
 .back-brand-strip {
@@ -1588,73 +1543,26 @@ nav a.active {
   background-clip: text;
 }
 .back-brand-strip .b-right {
-  opacity: 0.4;
+  opacity: 0.45;
   font-weight: 400;
   letter-spacing: 1.5px;
 }
-.card-serial-badge {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  padding: 3px 8px;
-  border-radius: 20px;
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-weight: 700;
-  z-index: 7;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
 @media (max-width: 480px) {
-  .front-content {
-    padding: 16px 18px;
-  }
-  .card-balance .number {
-    font-size: 42px;
-  }
-  .card-brand .logo-text {
-    font-size: 13px;
-    letter-spacing: 2px;
-  }
-  .card-brand .logo-mark {
-    width: 30px;
-    height: 30px;
-  }
-  .card-chip {
-    width: 36px;
-    height: 26px;
-  }
-  .card-footer-details .holder .name {
-    font-size: 11px;
-  }
-  .card-id {
-    font-size: 10px;
-    letter-spacing: 2px;
-  }
-  .card-back .back-content {
-    padding: 16px 0 12px;
-  }
-  .back-top-label,
-  .back-signature,
-  .back-bottom {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-  .back-brand-strip {
-    padding-left: 18px;
-    padding-right: 18px;
-    font-size: 7px;
-  }
-  .back-stripe {
-    height: 36px;
-  }
-  .card-serial-badge {
-    top: 10px;
-    right: 10px;
-    font-size: 7px;
-    padding: 2px 6px;
-  }
+  .front-content { padding: 16px 18px; }
+  .card-balance .number { font-size: 40px; }
+  .card-brand .logo-text { font-size: 12px; letter-spacing: 1.8px; }
+  .card-brand .logo-mark { width: 28px; height: 28px; }
+  .card-chip { width: 34px; height: 26px; }
+  .card-footer-details .holder .name { font-size: 11px; }
+  .card-id { font-size: 9px; letter-spacing: 2px; }
+  .card-back .back-content { padding: 16px 0 12px; }
+  .back-top-label, .back-signature, .back-bottom { padding-left: 18px; padding-right: 18px; }
+  .back-brand-strip { padding-left: 18px; padding-right: 18px; font-size: 7px; }
+  .back-stripe { height: 36px; }
+  .card-serial-badge { top: 10px; right: 10px; font-size: 7px; padding: 2px 6px; }
+  .card-network { bottom: 14px; right: 18px; }
+  .card-network .ring { width: 18px; height: 18px; }
+  .card-balance .label { font-size: 10px; letter-spacing: 5px; }
 }
 .contact-grid {
   display: grid;
@@ -3246,9 +3154,9 @@ function renderCabinet() {
       </select>
     </div>
 
-    <div class="card-wrapper" onclick="this.querySelector('.card-flip').classList.toggle('flipped')">
+<div class="card-wrapper" onclick="toggleCard(this)">
       <div class="card-flip">
-        <div class="card-face card-front" style="background:${design.front};color:${design.textColor};">
+<div class="card-face card-front active" style="background:${design.front};color:${design.textColor};">
           <div class="card-pattern" style="color:${design.accent};"></div>
           <div class="card-lines" style="color:${design.accent};"></div>
           <div class="card-serial-badge" style="background:${design.accent}22;color:${design.textColor};border:1px solid ${design.accent}44;">
@@ -3696,6 +3604,18 @@ function formatDate(date) {
       ' ' + d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
   } catch { return ''; }
 }
+  window.toggleCard = function(wrapper) {
+  const front = wrapper.querySelector('.card-front');
+  const back = wrapper.querySelector('.card-back');
+  if (!front || !back) return;
+  if (front.classList.contains('active')) {
+    front.classList.remove('active');
+    back.classList.add('active');
+  } else {
+    back.classList.remove('active');
+    front.classList.add('active');
+  }
+};
 
 function initTheme() {
   const saved = localStorage.getItem('theme');
