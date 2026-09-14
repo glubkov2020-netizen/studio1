@@ -1513,15 +1513,21 @@ window.startScanner = async function() {
     statusEl.className = 'scanner-status scanning';
     statusEl.innerHTML = '📷 Запрос доступа к камере...';
 
-    // Пробуем заднюю камеру, если нет — любую
+    // Пробуем заднюю камеру с высоким разрешением
     let stream;
     try {
       stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: 'environment' } }
+        video: {
+          facingMode: { ideal: 'environment' },
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        }
       });
     } catch (e) {
-      // Fallback на любую камеру
-      stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      // Fallback — любая камера
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { width: { ideal: 1280 }, height: { ideal: 720 } }
+      });
     }
     scannerStream = stream;
     video.srcObject = scannerStream;
@@ -1530,15 +1536,17 @@ window.startScanner = async function() {
     video.setAttribute('muted', 'true');
     await video.play();
     statusEl.className = 'scanner-status scanning';
-    statusEl.innerHTML = '🔍 Сканирование... Наведите на QR-код';
-    // Запускаем сканирование после того, как видео готово
-    video.onloadedmetadata = () => {
-      scanFrame();
+    statusEl.innerHTML = '🔍 Сканирование... Держите QR в центре кадра';
+
+    // Ждём загрузки метаданных и запускаем сканирование
+    const startScan = () => {
+      if (video.videoWidth > 0 && video.videoHeight > 0) {
+        scanFrame();
+      } else {
+        setTimeout(startScan, 200);
+      }
     };
-    // Если metadata уже загружены
-    if (video.readyState >= 2) {
-      scanFrame();
-    }
+    startScan();
   } catch (e) {
     statusEl.className = 'scanner-status error';
     if (e.name === 'NotAllowedError') {
@@ -1550,7 +1558,6 @@ window.startScanner = async function() {
     }
   }
 };
-
 function scanFrame() {
   const video = document.getElementById('scannerVideo');
   const canvas = document.getElementById('scannerCanvas');
