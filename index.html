@@ -2,7 +2,7 @@
 <html lang="ru" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
 <title>Студия №1 — Премиальный салон красоты в Кемерово</title>
 <meta name="description" content="Студия №1 — премиальный салон красоты в Кемерово. Стрижки, окрашивание, маникюр, педикюр, солярий, перманентный макияж." />
 <meta name="robots" content="index, follow" />
@@ -11,9 +11,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-<!-- ✅ НОВАЯ библиотека QR — работает на iPhone -->
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 <script type="importmap">
 {
@@ -80,11 +77,7 @@ body::before {
     radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.08) 0%, transparent 50%);
   animation: floatingGradients 18s ease-in-out infinite alternate;
 }
-@keyframes floatingGradients {
-  0% { transform: scale(1) rotate(0deg); opacity: 0.7; }
-  50% { transform: scale(1.05) rotate(1deg); opacity: 0.9; }
-  100% { transform: scale(1.03) rotate(-1deg); opacity: 0.75; }
-}
+@keyframes floatingGradients { 0% { transform: scale(1) rotate(0deg); opacity: 0.7; } 50% { transform: scale(1.05) rotate(1deg); opacity: 0.9; } 100% { transform: scale(1.03) rotate(-1deg); opacity: 0.75; } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes shimmerLong { 0%, 100% { background-position: 0% center; } 50% { background-position: 200% center; } }
 @keyframes pulseBtn { 0%, 100% { box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3); } 50% { box-shadow: 0 4px 40px rgba(201, 169, 110, 0.5); } }
@@ -96,6 +89,9 @@ body::before {
 @keyframes reviewCardIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes podiumPop { 0% { opacity: 0; transform: translateY(30px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes medalShine { 0%, 100% { transform: scale(1) rotate(0deg); filter: brightness(1); } 50% { transform: scale(1.15) rotate(5deg); filter: brightness(1.3); } }
+@keyframes codeGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(201, 169, 110, 0.4); } 50% { box-shadow: 0 0 0 20px rgba(201, 169, 110, 0); } }
+@keyframes codeFlip { 0% { opacity: 0; transform: scale(0.8) rotateX(90deg); } 100% { opacity: 1; transform: scale(1) rotateX(0); } }
+
 .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
 .glass-card {
   background: var(--bg-card);
@@ -106,20 +102,8 @@ body::before {
   border-radius: var(--radius);
   padding: 24px 20px;
 }
-.glass-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-4px);
-}
-.shimmer-text {
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 300% auto;
-  animation: shimmerLong 6s ease-in-out infinite;
-}
+.glass-card:hover { background: var(--bg-card-hover); border-color: var(--border-hover); box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+.shimmer-text { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-size: 300% auto; animation: shimmerLong 6s ease-in-out infinite; }
 .btn {
   display: inline-flex;
   align-items: center;
@@ -231,15 +215,7 @@ header {
   align-items: center;
 }
 [data-theme="light"] header { background: rgba(252, 249, 245, 0.85); }
-.header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 12px;
-}
+.header-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; gap: 12px; }
 .logo {
   font-size: clamp(20px, 4vw, 26px);
   font-weight: 700;
@@ -357,20 +333,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   border-radius: 2px;
   box-shadow: 0 0 15px rgba(201, 169, 110, 0.3);
 }
-.section-title span {
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 300% auto;
-  animation: shimmerLong 6s ease-in-out infinite;
-}
-.section-subtitle {
-  font-size: clamp(15px, 2vw, 18px);
-  color: var(--text-muted);
-  margin-bottom: 32px;
-  text-align: center;
-}
+.section-title span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-size: 300% auto; animation: shimmerLong 6s ease-in-out infinite; }
+.section-subtitle { font-size: clamp(15px, 2vw, 18px); color: var(--text-muted); margin-bottom: 32px; text-align: center; }
 
 .hero { padding: 40px 0 60px; text-align: center; min-height: 50vh; display: flex; align-items: center; }
 .hero h1 { font-size: clamp(32px, 8vw, 62px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.1; }
@@ -559,52 +523,22 @@ nav a:hover, nav a.active { color: var(--gold); }
   position: relative;
   z-index: 1;
 }
-.rating-hero .big-stars {
-  font-size: 26px;
-  color: #F5B342;
-  letter-spacing: 4px;
-  margin: 6px 0 4px;
-  position: relative;
-  z-index: 1;
-  text-shadow: 0 0 20px rgba(245, 179, 66, 0.5);
-}
+.rating-hero .big-stars { font-size: 26px; color: #F5B342; letter-spacing: 4px; margin: 6px 0 4px; position: relative; z-index: 1; text-shadow: 0 0 20px rgba(245, 179, 66, 0.5); }
 .rating-hero .total { font-size: 14px; color: var(--text-muted); position: relative; z-index: 1; margin-top: 4px; }
 .rating-hero .total strong { color: var(--gold); font-size: 18px; font-weight: 700; }
-.rating-bars {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 12px;
-}
+.rating-bars { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
 .rating-bar-row { display: flex; align-items: center; gap: 12px; font-size: 13px; }
 .rating-bar-row .bar-label { min-width: 60px; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; font-weight: 500; }
 .rating-bar-row .bar-label .num { color: var(--text-primary); font-weight: 600; }
 .rating-bar-row .bar-label i { color: #F5B342; font-size: 11px; }
 .rating-bar-row .bar-track { flex: 1; height: 10px; background: var(--bg-secondary); border-radius: 10px; overflow: hidden; }
-.rating-bar-row .bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #C9A96E, #E8D5A8);
-  border-radius: 10px;
-  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 0 12px rgba(201, 169, 110, 0.5);
-}
+.rating-bar-row .bar-fill { height: 100%; background: linear-gradient(90deg, #C9A96E, #E8D5A8); border-radius: 10px; transition: width 1s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: 0 0 12px rgba(201, 169, 110, 0.5); }
 .rating-bar-row .bar-count { min-width: 32px; text-align: right; color: var(--text-muted); font-size: 12px; font-weight: 600; }
 
 .top-reviews { margin-bottom: 30px; animation: reviewCardIn 0.6s ease; }
 .top-reviews-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
 .top-reviews-header h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.3px; display: flex; align-items: center; gap: 10px; }
-.top-reviews-header .period {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  padding: 4px 12px;
-  border-radius: 20px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-}
+.top-reviews-header .period { font-size: 12.5px; color: var(--text-muted); padding: 4px 12px; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
 .podium { display: grid; grid-template-columns: 1fr; gap: 16px; }
 @media (min-width: 720px) { .podium { grid-template-columns: 1fr 1.15fr 1fr; align-items: end; gap: 16px; } }
 .podium-card {
@@ -624,83 +558,26 @@ nav a:hover, nav a.active { color: var(--gold); }
 .podium-card:nth-child(2) { animation-delay: 0.2s; }
 .podium-card:nth-child(3) { animation-delay: 0.3s; }
 .podium-card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
-.podium-card.gold-medal {
-  border-color: rgba(245, 179, 66, 0.5);
-  background: linear-gradient(145deg, rgba(245, 179, 66, 0.12), rgba(201, 169, 110, 0.04));
-  box-shadow: 0 8px 32px rgba(245, 179, 66, 0.15);
-}
+.podium-card.gold-medal { border-color: rgba(245, 179, 66, 0.5); background: linear-gradient(145deg, rgba(245, 179, 66, 0.12), rgba(201, 169, 110, 0.04)); box-shadow: 0 8px 32px rgba(245, 179, 66, 0.15); }
 .podium-card.silver-medal { border-color: rgba(192, 192, 192, 0.4); background: linear-gradient(145deg, rgba(192, 192, 192, 0.08), rgba(201, 169, 110, 0.02)); }
 .podium-card.bronze-medal { border-color: rgba(205, 127, 50, 0.4); background: linear-gradient(145deg, rgba(205, 127, 50, 0.08), rgba(201, 169, 110, 0.02)); }
-.podium-card .medal {
-  position: absolute;
-  top: -12px;
-  right: -12px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
-}
+.podium-card .medal { position: absolute; top: -12px; right: -12px; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4)); }
 .podium-card.gold-medal .medal { background: linear-gradient(135deg, #FFD700, #FFA500); animation: medalShine 3s ease-in-out infinite; }
 .podium-card.silver-medal .medal { background: linear-gradient(135deg, #E8E8E8, #A8A8A8); }
 .podium-card.bronze-medal .medal { background: linear-gradient(135deg, #E8A87C, #CD7F32); }
-.podium-card .rank-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  background: var(--bg-tertiary);
-  color: var(--text-muted);
-}
+.podium-card .rank-badge { position: absolute; top: 16px; left: 16px; font-size: 11px; font-weight: 800; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; background: var(--bg-tertiary); color: var(--text-muted); }
 .podium-card.gold-medal .rank-badge { background: rgba(245, 179, 66, 0.2); color: #F5B342; }
 .podium-card.silver-medal .rank-badge { background: rgba(192, 192, 192, 0.2); color: #C0C0C0; }
 .podium-card.bronze-medal .rank-badge { background: rgba(205, 127, 50, 0.2); color: #CD7F32; }
 .podium-card .podium-header { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
-.podium-card .podium-avatar {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--gold-gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 800;
-  font-size: 20px;
-  flex-shrink: 0;
-  border: 2px solid var(--border-color);
-}
+.podium-card .podium-avatar { width: 52px; height: 52px; border-radius: 50%; overflow: hidden; background: var(--gold-gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 20px; flex-shrink: 0; border: 2px solid var(--border-color); }
 .podium-card .podium-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .podium-card .podium-meta { min-width: 0; flex: 1; }
 .podium-card .podium-name { font-weight: 700; font-size: 15px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .podium-card .podium-date { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 .podium-card .podium-stars { color: #F5B342; font-size: 18px; letter-spacing: 2px; text-shadow: 0 0 12px rgba(245, 179, 66, 0.4); }
-.podium-card .podium-text {
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--text-secondary);
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  word-wrap: break-word;
-}
-.podium-card .podium-master {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  background: rgba(201, 169, 110, 0.12);
-  color: var(--gold);
-  font-weight: 600;
-  align-self: flex-start;
-}
+.podium-card .podium-text { font-size: 14px; line-height: 1.65; color: var(--text-secondary); display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; word-wrap: break-word; }
+.podium-card .podium-master { font-size: 12px; padding: 4px 10px; border-radius: 20px; background: rgba(201, 169, 110, 0.12); color: var(--gold); font-weight: 600; align-self: flex-start; }
 
 .review-form-new {
   background: linear-gradient(145deg, rgba(201, 169, 110, 0.06), rgba(201, 169, 110, 0.01));
@@ -712,15 +589,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   overflow: hidden;
   animation: reviewCardIn 0.6s ease;
 }
-.review-form-new::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--gold-gradient);
-  background-size: 200% auto;
-  animation: shimmerLong 4s ease-in-out infinite;
-}
+.review-form-new::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold-gradient); background-size: 200% auto; animation: shimmerLong 4s ease-in-out infinite; }
 .review-form-new .form-header { text-align: center; margin-bottom: 24px; }
 .review-form-new .form-header .form-icon { font-size: 38px; color: var(--gold); display: block; margin-bottom: 8px; filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4)); }
 .review-form-new .form-header h3 { font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
@@ -741,27 +610,9 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-family: 'Inter', sans-serif;
   position: relative;
 }
-.rating-picker .star-btn:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-  transform: translateY(-4px) scale(1.08);
-  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.3);
-}
-.rating-picker .star-btn.active {
-  background: var(--gold-gradient);
-  color: #fff;
-  border-color: transparent;
-  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.5);
-  animation: starPop 0.4s ease;
-}
-.rating-picker .star-btn.active::after {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 2px solid rgba(201, 169, 110, 0.4);
-  animation: dotPulse 2s ease-in-out infinite;
-}
+.rating-picker .star-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-4px) scale(1.08); box-shadow: 0 8px 24px rgba(201, 169, 110, 0.3); }
+.rating-picker .star-btn.active { background: var(--gold-gradient); color: #fff; border-color: transparent; box-shadow: 0 8px 24px rgba(201, 169, 110, 0.5); animation: starPop 0.4s ease; }
+.rating-picker .star-btn.active::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid rgba(201, 169, 110, 0.4); animation: dotPulse 2s ease-in-out infinite; }
 .rating-picker-label { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; letter-spacing: 0.5px; }
 .rating-picker-label strong { color: var(--gold); font-size: 15px; font-weight: 700; display: block; margin-top: 2px; min-height: 20px; }
 .master-picker { margin: 16px 0; }
@@ -786,19 +637,7 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .master-pick-btn:hover { border-color: var(--gold); color: var(--gold); }
 .master-pick-btn.active { background: rgba(201, 169, 110, 0.12); border-color: var(--gold); color: var(--text-primary); }
-.master-pick-btn .mp-avatar {
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  background: var(--gold-gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  flex-shrink: 0;
-  overflow: hidden;
-}
+.master-pick-btn .mp-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--gold-gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; overflow: hidden; }
 .master-pick-btn .mp-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .master-pick-btn .mp-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .review-form-new textarea {
@@ -812,7 +651,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-family: 'Inter', sans-serif;
   resize: vertical;
   min-height: 120px;
-  transition: var(--transition-smooth);
   line-height: 1.6;
 }
 .review-form-new textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15); }
@@ -824,14 +662,7 @@ nav a:hover, nav a.active { color: var(--gold); }
 .photo-upload-block { margin-top: 16px; }
 .photo-upload-label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600; }
 .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
-.photo-thumb {
-  position: relative;
-  aspect-ratio: 1;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  border: 2px solid var(--border-color);
-  background: var(--bg-secondary);
-}
+.photo-thumb { position: relative; aspect-ratio: 1; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--border-color); background: var(--bg-secondary); }
 .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .photo-thumb .remove-btn {
   position: absolute;
@@ -848,9 +679,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition-smooth);
 }
-.photo-thumb .remove-btn:hover { background: var(--red); transform: scale(1.1); }
+.photo-thumb .remove-btn:hover { background: var(--red); }
 .photo-add-btn {
   aspect-ratio: 1;
   border-radius: var(--radius-sm);
@@ -864,13 +694,11 @@ nav a:hover, nav a.active { color: var(--gold); }
   align-items: center;
   justify-content: center;
   gap: 4px;
-  transition: var(--transition-smooth);
   font-family: 'Inter', sans-serif;
   padding: 8px;
   text-align: center;
 }
 .photo-add-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201, 169, 110, 0.05); }
-.photo-add-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .photo-add-btn small { font-size: 10px; color: var(--text-muted); font-weight: 500; }
 .photo-add-btn input[type="file"] { display: none; }
 
@@ -880,16 +708,7 @@ nav a:hover, nav a.active { color: var(--gold); }
 
 .reviews-section-title { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin: 32px 0 20px; }
 .reviews-section-title h3 { font-size: 22px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
-.reviews-section-title h3 .count-badge {
-  background: var(--gold-gradient);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 20px;
-  min-width: 32px;
-  text-align: center;
-}
+.reviews-section-title h3 .count-badge { background: var(--gold-gradient); color: #fff; font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 20px; min-width: 32px; text-align: center; }
 .reviews-filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .reviews-filters select, .reviews-filters button {
   padding: 8px 14px;
@@ -901,10 +720,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-weight: 500;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
-  transition: var(--transition-smooth);
 }
 .reviews-filters select:hover, .reviews-filters button:hover { border-color: var(--gold); color: var(--gold); }
-.reviews-filters select:focus { outline: none; border-color: var(--gold); }
 .filter-tab {
   padding: 8px 16px;
   border-radius: 30px;
@@ -914,7 +731,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: var(--transition-smooth);
   font-family: 'Inter', sans-serif;
   white-space: nowrap;
 }
@@ -927,7 +743,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 20px;
-  transition: var(--transition-smooth);
   position: relative;
   overflow: hidden;
   animation: reviewCardIn 0.5s ease;
@@ -935,90 +750,26 @@ nav a:hover, nav a.active { color: var(--gold); }
   flex-direction: column;
   gap: 12px;
 }
-.review-card-new::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--gold-gradient);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
 .review-card-new:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-.review-card-new:hover::before { opacity: 1; }
 .review-card-new .rc-header { display: flex; align-items: center; gap: 12px; }
-.review-card-new .rc-avatar {
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  background: var(--gold-gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 700;
-  font-size: 18px;
-  flex-shrink: 0;
-  overflow: hidden;
-  border: 2px solid rgba(201, 169, 110, 0.3);
-}
+.review-card-new .rc-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--gold-gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; flex-shrink: 0; overflow: hidden; border: 2px solid rgba(201, 169, 110, 0.3); }
 .review-card-new .rc-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .review-card-new .rc-meta { flex: 1; min-width: 0; }
 .review-card-new .rc-name { font-weight: 600; color: var(--text-primary); font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .review-card-new .rc-date { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-.review-card-new .rc-type-badge {
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  background: rgba(201, 169, 110, 0.12);
-  color: var(--gold);
-  font-weight: 600;
-  white-space: nowrap;
-  border: 1px solid rgba(201, 169, 110, 0.2);
-  flex-shrink: 0;
-}
+.review-card-new .rc-type-badge { font-size: 11px; padding: 4px 10px; border-radius: 20px; background: rgba(201, 169, 110, 0.12); color: var(--gold); font-weight: 600; white-space: nowrap; border: 1px solid rgba(201, 169, 110, 0.2); flex-shrink: 0; }
 .review-card-new .rc-type-badge.salon { background: rgba(39, 174, 96, 0.12); color: #27AE60; border-color: rgba(39, 174, 96, 0.2); }
 .review-card-new .rc-stars { color: #F5B342; font-size: 18px; letter-spacing: 3px; text-shadow: 0 0 12px rgba(245, 179, 66, 0.4); }
 .review-card-new .rc-text { color: var(--text-secondary); font-size: 14px; line-height: 1.7; word-wrap: break-word; white-space: pre-wrap; }
 .review-card-new .rc-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; margin-top: 4px; }
-.review-card-new .rc-photos .rc-photo {
-  aspect-ratio: 1;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  cursor: pointer;
-  border: 1px solid var(--border-color);
-  transition: var(--transition-smooth);
-  background: var(--bg-secondary);
-}
-.review-card-new .rc-photos .rc-photo:hover { transform: scale(1.05); border-color: var(--gold); box-shadow: 0 4px 16px rgba(201, 169, 110, 0.3); }
+.review-card-new .rc-photos .rc-photo { aspect-ratio: 1; border-radius: var(--radius-sm); overflow: hidden; cursor: pointer; border: 1px solid var(--border-color); background: var(--bg-secondary); }
+.review-card-new .rc-photos .rc-photo:hover { transform: scale(1.05); border-color: var(--gold); }
 .review-card-new .rc-photos .rc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.review-card-new .rc-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 10px;
-  border-top: 1px solid var(--border-color);
-  font-size: 12px;
-  color: var(--text-muted);
-  flex-wrap: wrap;
-  gap: 6px;
-}
+.review-card-new .rc-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--border-color); font-size: 12px; color: var(--text-muted); flex-wrap: wrap; gap: 6px; }
 .review-card-new .rc-footer .rc-verified { display: inline-flex; align-items: center; gap: 4px; color: #27AE60; font-weight: 600; }
 .review-card-new .rc-footer .rc-verified i { font-size: 11px; }
 .review-card-new.is-mine { border-color: rgba(201, 169, 110, 0.5); background: linear-gradient(145deg, rgba(201, 169, 110, 0.06), transparent); }
-.review-card-new.is-mine::after {
-  content: 'ВАШ ОТЗЫВ';
-  position: absolute;
-  top: 12px;
-  right: -32px;
-  background: var(--gold-gradient);
-  color: #fff;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  padding: 4px 40px;
-  transform: rotate(38deg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
+.review-card-new.is-mine::after { content: 'ВАШ ОТЗЫВ'; position: absolute; top: 12px; right: -32px; background: var(--gold-gradient); color: #fff; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; padding: 4px 40px; transform: rotate(38deg); }
 .reviews-empty { text-align: center; padding: 60px 20px; background: var(--bg-card); border: 2px dashed var(--border-color); border-radius: var(--radius); }
 .reviews-empty .empty-icon { font-size: 64px; color: var(--gold); opacity: 0.4; margin-bottom: 12px; display: block; }
 .reviews-empty h4 { color: var(--text-primary); font-size: 20px; margin-bottom: 6px; }
@@ -1031,275 +782,75 @@ nav a:hover, nav a.active { color: var(--gold); }
   text-align: center;
   margin-bottom: 30px;
 }
-.reviews-login-prompt .lock-icon { font-size: 42px; color: var(--gold); margin-bottom: 12px; display: block; filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4)); }
+.reviews-login-prompt .lock-icon { font-size: 42px; color: var(--gold); margin-bottom: 12px; display: block; }
 .reviews-login-prompt h3 { font-size: 20px; color: var(--text-primary); margin-bottom: 6px; }
 .reviews-login-prompt p { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }
 .my-reviews-block { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-color); }
 .my-reviews-block h3 { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
 
-/* LIGHTBOX */
 .lightbox { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 5000; align-items: center; justify-content: center; padding: 40px 20px; }
 .lightbox.active { display: flex; }
-.lightbox img { max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8); }
-.lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.lightbox img { max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 8px; }
+.lightbox-close { position: absolute; top: 20px; right: 20px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .lightbox-close:hover { background: var(--gold); color: #000; }
-.lightbox-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  font-size: 22px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .lightbox-nav:hover { background: var(--gold); color: #000; }
 .lightbox-nav.prev { left: 20px; }
 .lightbox-nav.next { right: 20px; }
-.lightbox-counter {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 8px 16px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  backdrop-filter: blur(8px);
-}
+.lightbox-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; background: rgba(255, 255, 255, 0.1); color: #fff; font-size: 13px; font-weight: 600; backdrop-filter: blur(8px); }
 
 /* COMMENTS */
 .comments-section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); }
 .comments-section .comments-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
 .comment { margin-bottom: 12px; padding: 12px 14px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 2px solid var(--gold); }
 .comment .comment-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
-.comment .comment-header .avatar {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  background: var(--gold-gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  flex-shrink: 0;
-  overflow: hidden;
-}
+.comment .comment-header .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--gold-gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 14px; flex-shrink: 0; overflow: hidden; }
 .comment .comment-header .avatar img { width: 100%; height: 100%; object-fit: cover; }
 .comment .comment-header .author { font-weight: 600; color: var(--text-primary); font-size: 14px; }
 .comment .comment-header .time { font-size: 12px; color: var(--text-muted); margin-left: auto; }
 .comment .comment-text { color: var(--text-secondary); font-size: 14px; margin: 4px 0 8px; word-wrap: break-word; }
 .comment .comment-text.deleted { font-style: italic; color: var(--text-muted); }
 .comment .comment-actions { display: flex; gap: 14px; align-items: center; font-size: 13px; flex-wrap: wrap; }
-.comment .comment-actions button {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 6px;
-  border-radius: 6px;
-  font-family: 'Inter', sans-serif;
-}
+.comment .comment-actions button { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 4px; padding: 4px 6px; border-radius: 6px; font-family: 'Inter', sans-serif; }
 .comment .comment-actions button:hover { color: var(--gold); background: var(--bg-card); }
 .comment .comment-actions .liked { color: #E74C3C; }
 .comment .comment-actions .liked i { animation: likeAnim 0.3s ease; }
 .comment .replies { margin-left: 36px; margin-top: 8px; padding-left: 12px; border-left: 2px solid var(--border-color); }
 .comment-form { display: flex; gap: 10px; margin-top: 12px; align-items: flex-start; }
-.comment-form textarea {
-  flex: 1;
-  padding: 10px 14px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-size: 14px;
-  font-family: 'Inter', sans-serif;
-  resize: vertical;
-  min-height: 50px;
-}
+.comment-form textarea { flex: 1; padding: 10px 14px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 14px; font-family: 'Inter', sans-serif; resize: vertical; min-height: 50px; }
 .comment-form textarea:focus { outline: none; border-color: var(--gold); }
 .comment-form .btn { padding: 10px 20px; min-height: 50px; flex-shrink: 0; }
 .reply-form { margin-left: 36px; margin-top: 8px; display: none; gap: 10px; align-items: flex-start; flex-wrap: wrap; }
 .reply-form.active { display: flex; }
-.reply-form textarea {
-  flex: 1;
-  min-width: 120px;
-  padding: 8px 12px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  resize: vertical;
-  min-height: 40px;
-}
+.reply-form textarea { flex: 1; min-width: 120px; padding: 8px 12px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 13px; font-family: 'Inter', sans-serif; resize: vertical; min-height: 40px; }
 .reply-form textarea:focus { outline: none; border-color: var(--gold); }
 .reply-form .btn { padding: 8px 16px; min-height: 40px; font-size: 13px; }
-.login-to-comment {
-  padding: 16px;
-  text-align: center;
-  color: var(--text-muted);
-  background: var(--bg-card);
-  border-radius: var(--radius-sm);
-  border: 1px dashed var(--border-color);
-}
+.login-to-comment { padding: 16px; text-align: center; color: var(--text-muted); background: var(--bg-card); border-radius: var(--radius-sm); border: 1px dashed var(--border-color); }
 .login-to-comment .btn { margin-top: 8px; }
 
 /* CARD */
 .card-wrapper { width: 100%; max-width: 440px; margin: 0 auto 30px; perspective: 1400px; cursor: pointer; }
-.card-flip {
-  width: 100%;
-  aspect-ratio: 1.586 / 1;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.9s cubic-bezier(0.4, 0.0, 0.2, 1);
-  border-radius: 22px;
-  will-change: transform;
-}
+.card-flip { width: 100%; aspect-ratio: 1.586 / 1; position: relative; transform-style: preserve-3d; transition: transform 0.9s cubic-bezier(0.4, 0.0, 0.2, 1); border-radius: 22px; will-change: transform; }
 .card-flip.flipped { transform: rotateY(180deg); }
-.card-face {
-  position: absolute;
-  inset: 0;
-  border-radius: 22px;
-  overflow: hidden;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform-style: preserve-3d;
-  will-change: transform;
-  transform: translateZ(0);
-}
-.card-front {
-  transform: rotateY(0deg) translateZ(1px);
-  z-index: 2;
-  color: #F0EBE6;
-  animation: cardGlowPulse 4s ease-in-out infinite;
-}
-.card-back {
-  transform: rotateY(180deg) translateZ(1px);
-  z-index: 1;
-  color: #F0EBE6;
-  overflow: hidden;
-}
-@keyframes cardGlowPulse {
-  0%, 100% { box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(201, 169, 110, 0.15); }
-  50% { box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(201, 169, 110, 0.4), 0 0 50px rgba(201, 169, 110, 0.25); }
-}
-.card-front::after {
-  content: '';
-  position: absolute;
-  top: -50%; left: -50%;
-  width: 200%; height: 200%;
-  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.06) 55%, transparent 70%);
-  transform: rotate(25deg);
-  pointer-events: none;
-  z-index: 4;
-  animation: cardShine 5s ease-in-out infinite;
-}
-@keyframes cardShine {
-  0%, 100% { transform: translateX(-100%) rotate(25deg); }
-  50% { transform: translateX(100%) rotate(25deg); }
-}
-.card-front .card-pattern {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.4;
-  background-image:
-    radial-gradient(circle at 10% 10%, currentColor 1px, transparent 1.5px),
-    radial-gradient(circle at 90% 20%, currentColor 1px, transparent 1.5px),
-    radial-gradient(circle at 20% 80%, currentColor 1px, transparent 1.5px),
-    radial-gradient(circle at 80% 90%, currentColor 1px, transparent 1.5px);
-  background-size: 60px 60px, 80px 80px, 70px 70px, 90px 90px;
-  animation: patternDrift 25s linear infinite;
-}
-@keyframes patternDrift {
-  0% { background-position: 0 0, 0 0, 0 0, 0 0; }
-  100% { background-position: 60px 60px, -80px 80px, 70px -70px, -90px -90px; }
-}
-.card-front .card-lines {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.12;
-  background: repeating-linear-gradient(115deg, currentColor 0 1px, transparent 1px 24px);
-}
-.front-content {
-  position: relative;
-  z-index: 6;
-  height: 100%;
-  width: 100%;
-  padding: 20px 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-  box-sizing: border-box;
-}
+.card-face { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform-style: preserve-3d; will-change: transform; transform: translateZ(0); }
+.card-front { transform: rotateY(0deg) translateZ(1px); z-index: 2; color: #F0EBE6; animation: cardGlowPulse 4s ease-in-out infinite; }
+.card-back { transform: rotateY(180deg) translateZ(1px); z-index: 1; color: #F0EBE6; overflow: hidden; }
+@keyframes cardGlowPulse { 0%, 100% { box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(201, 169, 110, 0.15); } 50% { box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(201, 169, 110, 0.4), 0 0 50px rgba(201, 169, 110, 0.25); } }
+.card-front::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.06) 55%, transparent 70%); transform: rotate(25deg); pointer-events: none; z-index: 4; animation: cardShine 5s ease-in-out infinite; }
+@keyframes cardShine { 0%, 100% { transform: translateX(-100%) rotate(25deg); } 50% { transform: translateX(100%) rotate(25deg); } }
+.card-front .card-pattern { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0.4; background-image: radial-gradient(circle at 10% 10%, currentColor 1px, transparent 1.5px), radial-gradient(circle at 90% 20%, currentColor 1px, transparent 1.5px), radial-gradient(circle at 20% 80%, currentColor 1px, transparent 1.5px), radial-gradient(circle at 80% 90%, currentColor 1px, transparent 1.5px); background-size: 60px 60px, 80px 80px, 70px 70px, 90px 90px; animation: patternDrift 25s linear infinite; }
+@keyframes patternDrift { 0% { background-position: 0 0, 0 0, 0 0, 0 0; } 100% { background-position: 60px 60px, -80px 80px, 70px -70px, -90px -90px; } }
+.card-front .card-lines { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0.12; background: repeating-linear-gradient(115deg, currentColor 0 1px, transparent 1px 24px); }
+.front-content { position: relative; z-index: 6; height: 100%; width: 100%; padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6); box-sizing: border-box; }
 .card-header { display: flex; justify-content: space-between; align-items: flex-start; }
 .card-brand { display: flex; align-items: center; gap: 10px; }
 .card-brand .logo-mark { width: 36px; height: 36px; flex-shrink: 0; filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.5)); }
 .card-brand .logo-text { font-size: 15px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; line-height: 1; }
 .card-brand .logo-text small { font-weight: 300; font-size: 8px; opacity: 0.6; display: block; letter-spacing: 4px; margin-top: 3px; text-transform: uppercase; }
-.card-chip {
-  width: 42px; height: 32px;
-  border-radius: 6px;
-  position: relative;
-  box-shadow: inset 0 0 12px rgba(255, 215, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  background: linear-gradient(135deg, #e8d5a8 0%, #c9a96e 45%, #b8974d 55%, #e8d5a8 100%);
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.card-chip::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  background:
-    linear-gradient(90deg, transparent 0 45%, rgba(0, 0, 0, 0.15) 45% 55%, transparent 55%),
-    linear-gradient(0deg, transparent 0 40%, rgba(0, 0, 0, 0.15) 40% 60%, transparent 60%);
-}
+.card-chip { width: 42px; height: 32px; border-radius: 6px; position: relative; box-shadow: inset 0 0 12px rgba(255, 215, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 215, 0, 0.3); background: linear-gradient(135deg, #e8d5a8 0%, #c9a96e 45%, #b8974d 55%, #e8d5a8 100%); overflow: hidden; flex-shrink: 0; }
+.card-chip::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 4px; background: linear-gradient(90deg, transparent 0 45%, rgba(0, 0, 0, 0.15) 45% 55%, transparent 55%), linear-gradient(0deg, transparent 0 40%, rgba(0, 0, 0, 0.15) 40% 60%, transparent 60%); }
 .card-balance { text-align: center; margin: 8px 0 0; }
-.card-balance .number {
-  font-size: clamp(38px, 9vw, 52px);
-  font-weight: 900;
-  letter-spacing: -1.5px;
-  line-height: 1;
-  display: inline-block;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
-}
+.card-balance .number { font-size: clamp(38px, 9vw, 52px); font-weight: 900; letter-spacing: -1.5px; line-height: 1; display: inline-block; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5)); }
 .card-balance .label { font-size: 11px; font-weight: 400; letter-spacing: 6px; text-transform: uppercase; margin-top: 4px; display: block; opacity: 0.8; }
 .card-id { text-align: center; font-size: 11px; font-family: 'Courier New', monospace; letter-spacing: 3px; margin-top: 6px; opacity: 0.6; font-weight: 600; }
 .card-id-mask { display: inline-flex; gap: 6px; align-items: center; justify-content: center; }
@@ -1312,50 +863,11 @@ nav a:hover, nav a.active { color: var(--gold); }
 .card-network { position: absolute; bottom: 18px; right: 22px; z-index: 7; display: flex; gap: 4px; align-items: center; }
 .card-network .ring { width: 22px; height: 22px; border-radius: 50%; border: 2px solid; opacity: 0.75; }
 .card-network .ring:first-child { margin-right: -10px; }
-.card-serial-badge {
-  position: absolute;
-  top: 14px; right: 14px;
-  padding: 3px 8px;
-  border-radius: 20px;
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-weight: 700;
-  z-index: 7;
-  backdrop-filter: blur(6px);
-}
-.card-back::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(201, 169, 110, 0.35) 0%, transparent 45%),
-    radial-gradient(circle at 80% 70%, rgba(232, 213, 168, 0.25) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(201, 169, 110, 0.08) 0%, transparent 70%);
-  z-index: 1;
-  animation: backGlow 6s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes backGlow {
-  0%, 100% { opacity: 0.7; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.08); }
-}
-.card-back .back-particles {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  overflow: hidden;
-}
-.card-back .back-particles span {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #C9A96E;
-  box-shadow: 0 0 8px #C9A96E, 0 0 16px rgba(201, 169, 110, 0.5);
-  animation: particleFloat 12s linear infinite;
-}
+.card-serial-badge { position: absolute; top: 14px; right: 14px; padding: 3px 8px; border-radius: 20px; font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; z-index: 7; backdrop-filter: blur(6px); }
+.card-back::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(201, 169, 110, 0.35) 0%, transparent 45%), radial-gradient(circle at 80% 70%, rgba(232, 213, 168, 0.25) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(201, 169, 110, 0.08) 0%, transparent 70%); z-index: 1; animation: backGlow 6s ease-in-out infinite; pointer-events: none; }
+@keyframes backGlow { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+.card-back .back-particles { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.card-back .back-particles span { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #C9A96E; box-shadow: 0 0 8px #C9A96E, 0 0 16px rgba(201, 169, 110, 0.5); animation: particleFloat 12s linear infinite; }
 .card-back .back-particles span:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 14s; }
 .card-back .back-particles span:nth-child(2) { left: 25%; animation-delay: 2s; animation-duration: 11s; }
 .card-back .back-particles span:nth-child(3) { left: 40%; animation-delay: 4s; animation-duration: 16s; }
@@ -1364,57 +876,14 @@ nav a:hover, nav a.active { color: var(--gold); }
 .card-back .back-particles span:nth-child(6) { left: 85%; animation-delay: 5s; animation-duration: 12s; }
 .card-back .back-particles span:nth-child(7) { left: 50%; animation-delay: 6s; animation-duration: 17s; }
 .card-back .back-particles span:nth-child(8) { left: 15%; animation-delay: 7s; animation-duration: 10s; }
-@keyframes particleFloat {
-  0% { top: 110%; opacity: 0; transform: translateX(0) scale(0.5); }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { top: -10%; opacity: 0; transform: translateX(30px) scale(1.2); }
-}
-.card-back .back-shine {
-  position: absolute;
-  top: -50%; left: -50%;
-  width: 200%; height: 200%;
-  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.08) 48%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.08) 52%, transparent 60%);
-  transform: rotate(25deg);
-  pointer-events: none;
-  z-index: 3;
-  animation: backShine 7s ease-in-out infinite;
-}
-@keyframes backShine {
-  0%, 100% { transform: translateX(-100%) rotate(25deg); }
-  50% { transform: translateX(100%) rotate(25deg); }
-}
-.card-back .back-content {
-  position: relative;
-  z-index: 5;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 18px 0 16px;
-  box-sizing: border-box;
-}
+@keyframes particleFloat { 0% { top: 110%; opacity: 0; transform: translateX(0) scale(0.5); } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: -10%; opacity: 0; transform: translateX(30px) scale(1.2); } }
+.card-back .back-shine { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.08) 48%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.08) 52%, transparent 60%); transform: rotate(25deg); pointer-events: none; z-index: 3; animation: backShine 7s ease-in-out infinite; }
+@keyframes backShine { 0%, 100% { transform: translateX(-100%) rotate(25deg); } 50% { transform: translateX(100%) rotate(25deg); } }
+.card-back .back-content { position: relative; z-index: 5; height: 100%; width: 100%; display: flex; flex-direction: column; padding: 18px 0 16px; box-sizing: border-box; }
 .back-top-label { padding: 0 22px; font-size: 8px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.75; margin-bottom: 8px; font-weight: 700; }
-.back-stripe {
-  width: 100%;
-  height: 44px;
-  background: linear-gradient(180deg, #1a1a1a 0%, #050505 50%, #1a1a1a 100%);
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9), inset 0 -1px 0 rgba(201, 169, 110, 0.3), 0 4px 12px rgba(0, 0, 0, 0.5);
-  position: relative;
-  overflow: hidden;
-}
-.back-stripe::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.8), transparent);
-  animation: stripeShine 3s ease-in-out infinite;
-}
-@keyframes stripeShine {
-  0%, 100% { opacity: 0.4; transform: translateX(-30%); }
-  50% { opacity: 1; transform: translateX(30%); }
-}
+.back-stripe { width: 100%; height: 44px; background: linear-gradient(180deg, #1a1a1a 0%, #050505 50%, #1a1a1a 100%); box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9), inset 0 -1px 0 rgba(201, 169, 110, 0.3), 0 4px 12px rgba(0, 0, 0, 0.5); position: relative; overflow: hidden; }
+.back-stripe::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.8), transparent); animation: stripeShine 3s ease-in-out infinite; }
+@keyframes stripeShine { 0%, 100% { opacity: 0.4; transform: translateX(-30%); } 50% { opacity: 1; transform: translateX(30%); } }
 .back-signature { padding: 0 22px; margin-top: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .back-signature .sig-label { font-size: 7px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; line-height: 1; flex-shrink: 0; font-weight: 600; }
 .back-signature .sig-line { flex: 1; height: 28px; border-bottom: 1.5px solid; opacity: 0.6; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%); }
@@ -1422,154 +891,43 @@ nav a:hover, nav a.active { color: var(--gold); }
 .back-bottom { margin-top: auto; padding: 0 22px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
 .back-bottom .back-phone { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
 .back-bottom .back-phone i { opacity: 0.9; font-size: 11px; animation: phonePulse 2s ease-in-out infinite; }
-@keyframes phonePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
+@keyframes phonePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 .back-bottom .back-since { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; white-space: nowrap; font-weight: 600; }
 .back-brand-strip { margin-top: 10px; padding: 8px 22px 0; border-top: 1px solid; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; }
-.back-brand-strip .b-left {
-  background: linear-gradient(90deg, #C9A96E, #E8D5A8, #C9A96E);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmerLong 4s ease-in-out infinite;
-}
+.back-brand-strip .b-left { background: linear-gradient(90deg, #C9A96E, #E8D5A8, #C9A96E); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmerLong 4s ease-in-out infinite; }
 .back-brand-strip .b-right { opacity: 0.6; font-weight: 400; letter-spacing: 1.5px; }
 
 .contact-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
 .contact-info-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
-.contact-info-item i {
-  font-size: 20px;
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  width: 24px;
-  margin-top: 3px;
-  flex-shrink: 0;
-}
+.contact-info-item i { font-size: 20px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; width: 24px; margin-top: 3px; flex-shrink: 0; }
 .contact-info-item .label { font-weight: 600; color: var(--text-primary); font-size: 14px; }
 .contact-info-item .value { color: var(--text-secondary); font-size: 14px; }
 .contact-info-item .value a { color: var(--text-secondary); text-decoration: none; }
 .contact-info-item .value a:hover { color: var(--gold); }
-.working-hours {
-  margin: 16px 0 24px;
-  padding: 16px 18px;
-  background: var(--bg-card);
-  border-radius: var(--radius-sm);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-  border: 1px solid var(--border-color);
-}
+.working-hours { margin: 16px 0 24px; padding: 16px 18px; background: var(--bg-card); border-radius: var(--radius-sm); display: flex; flex-wrap: wrap; gap: 12px 24px; border: 1px solid var(--border-color); }
 .working-hours .day { font-weight: 500; color: var(--text-primary); font-size: 14px; }
 .working-hours .time { color: var(--text-muted); font-size: 14px; }
 .socials { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
-.socials a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  transition: var(--transition-smooth);
-  font-size: 18px;
-  text-decoration: none;
-  border: 1px solid var(--border-color);
-}
+.socials a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-card); color: var(--text-secondary); font-size: 18px; text-decoration: none; border: 1px solid var(--border-color); }
 .socials a:hover { background: var(--gold); color: #fff; border-color: var(--gold); transform: translateY(-3px); }
 .map-container { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); height: 240px; border: 1px solid var(--border-color); }
 .map-container iframe { width: 100%; height: 100%; display: block; border: 0; }
 
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(12px);
-  z-index: 2000;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(12px); z-index: 2000; align-items: center; justify-content: center; padding: 16px; }
 .modal-overlay.active { display: flex; }
-.modal {
-  background: var(--bg-primary);
-  backdrop-filter: blur(24px);
-  max-width: 700px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  border-radius: 24px;
-  padding: 28px 20px 24px;
-  position: relative;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
-  animation: modalSlideUp 0.35s ease forwards;
-}
-.modal-close {
-  position: sticky;
-  top: 0;
-  float: right;
-  font-size: 24px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--text-muted);
-  z-index: 10;
-  padding: 8px;
-  min-height: 40px;
-  min-width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.modal { background: var(--bg-primary); backdrop-filter: blur(24px); max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 24px; padding: 28px 20px 24px; position: relative; border: 1px solid var(--border-color); box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4); animation: modalSlideUp 0.35s ease forwards; }
+.modal-close { position: sticky; top: 0; float: right; font-size: 24px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50%; cursor: pointer; color: var(--text-muted); z-index: 10; padding: 8px; min-height: 40px; min-width: 40px; display: flex; align-items: center; justify-content: center; }
 .modal-close:hover { background: var(--gold); color: #fff; }
 .modal h2 { font-size: clamp(22px, 5vw, 28px); margin-bottom: 4px; color: var(--text-primary); padding-right: 48px; }
-.modal .gold-text {
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+.modal .gold-text { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .modal .subtitle { color: var(--text-muted); margin-bottom: 20px; font-size: 14px; }
 .modal form { display: flex; flex-direction: column; gap: 14px; }
 .modal form label { font-weight: 500; font-size: 14px; color: var(--text-secondary); }
-.modal form input, .modal form select, .modal form textarea {
-  padding: 12px 16px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  width: 100%;
-  min-height: var(--touch-target);
-}
-.modal form input:focus, .modal form select:focus, .modal form textarea:focus {
-  outline: none;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
-}
+.modal form input, .modal form select, .modal form textarea { padding: 12px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 16px; font-family: 'Inter', sans-serif; background: var(--bg-secondary); color: var(--text-primary); width: 100%; min-height: var(--touch-target); }
+.modal form input:focus, .modal form select:focus, .modal form textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12); }
 .modal form button { margin-top: 8px; padding: 16px; font-size: 17px; min-height: 50px; width: 100%; }
 .profile-photo-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 16px; }
-.profile-photo-wrapper .photo-preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid var(--gold);
-  background: var(--bg-secondary);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  color: var(--gold);
-  overflow: hidden;
-}
+.profile-photo-wrapper .photo-preview { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: var(--bg-secondary); margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--gold); overflow: hidden; }
 .profile-photo-wrapper .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
 .profile-photo-wrapper .photo-upload-btn { position: relative; cursor: pointer; }
 .profile-photo-wrapper .photo-upload-btn input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
@@ -1579,55 +937,75 @@ nav a:hover, nav a.active { color: var(--gold); }
 .auth-switch a { color: var(--gold); cursor: pointer; font-weight: 600; }
 .auth-switch a:hover { text-decoration: underline; }
 .auth-error { color: #E74C3C; font-size: 14px; text-align: center; margin-top: 8px; display: none; }
-.ya-oauth-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 12px 24px;
-  background: #fff;
-  color: #000;
-  border: 1px solid #ddd;
-  border-radius: 60px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  width: 100%;
-  font-family: 'Inter', sans-serif;
-}
+.ya-oauth-btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 24px; background: #fff; color: #000; border: 1px solid #ddd; border-radius: 60px; font-size: 16px; font-weight: 500; cursor: pointer; width: 100%; font-family: 'Inter', sans-serif; }
 .ya-oauth-btn svg { width: 24px; height: 24px; flex-shrink: 0; }
-.profile-avatar-header {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  overflow: hidden;
+.profile-avatar-header { width: 60px; height: 60px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--gold); flex-shrink: 0; }
+.profile-avatar-header img { width: 100%; height: 100%; object-fit: cover; }
+
+/* CODE DISPLAY */
+.code-display { text-align: center; padding: 10px 0; }
+.code-label { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.code-big {
+  display: inline-flex;
+  gap: 8px;
+  padding: 20px 24px;
+  background: linear-gradient(145deg, rgba(201,169,110,0.12), rgba(201,169,110,0.02));
   border: 2px solid var(--gold);
-  background: var(--bg-secondary);
+  border-radius: 20px;
+  margin: 16px 0;
+  animation: codeGlow 2s ease-in-out infinite;
+}
+.code-big .char {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0;
+  min-width: 44px;
+  text-align: center;
+  text-shadow: 0 0 20px rgba(201, 169, 110, 0.6);
+  animation: codeFlip 0.4s ease backwards;
+}
+.code-big .char:nth-child(1) { animation-delay: 0.0s; }
+.code-big .char:nth-child(2) { animation-delay: 0.05s; }
+.code-big .char:nth-child(3) { animation-delay: 0.1s; }
+.code-big .char:nth-child(4) { animation-delay: 0.15s; }
+.code-big .char:nth-child(5) { animation-delay: 0.2s; }
+.code-big .char:nth-child(6) { animation-delay: 0.25s; }
+
+.code-timer {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.code-timer .timer-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--bg-card);
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 240px;
+  margin: 0 auto;
+}
+.code-timer .timer-fill {
+  height: 100%;
+  background: var(--gold-gradient);
+  border-radius: 2px;
+  transition: width 1s linear;
+}
+.code-timer .timer-text {
+  font-weight: 700;
   color: var(--gold);
-  flex-shrink: 0;
+  min-width: 50px;
+  text-align: center;
+  font-size: 16px;
 }
-.profile-avatar-header img { width: 100%; height: 100%; object-fit: cover; }
-
-/* QR */
-.qr-modal-content { text-align: center; padding: 10px 0; }
-.qr-container {
-  background: #fff;
-  border-radius: 20px;
-  padding: 20px;
-  display: inline-block;
-  margin: 16px 0;
-  box-shadow: 0 8px 32px rgba(201, 169, 110, 0.3);
-}
-.qr-container canvas, .qr-container img { display: block; border-radius: 12px; margin: 0 auto; }
-.qr-timer { margin-top: 12px; font-size: 14px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 8px; }
-.qr-timer .timer-bar { flex: 1; height: 4px; background: var(--bg-card); border-radius: 2px; overflow: hidden; max-width: 200px; margin: 0 auto; }
-.qr-timer .timer-fill { height: 100%; background: var(--gold-gradient); border-radius: 2px; transition: width 1s linear; }
-.qr-timer .timer-text { font-weight: 600; color: var(--gold); min-width: 50px; text-align: center; }
-.qr-balance-preview {
+.code-balance-preview {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
@@ -1639,9 +1017,9 @@ nav a:hover, nav a.active { color: var(--gold); }
   flex-wrap: wrap;
   gap: 8px;
 }
-.qr-balance-preview .label { font-size: 13px; color: var(--text-muted); }
-.qr-balance-preview .value { font-size: 24px; font-weight: 800; color: var(--gold); }
-.qr-instruction {
+.code-balance-preview .label { font-size: 13px; color: var(--text-muted); }
+.code-balance-preview .value { font-size: 24px; font-weight: 800; color: var(--gold); }
+.code-instruction {
   background: rgba(201, 169, 110, 0.08);
   border-left: 3px solid var(--gold);
   border-radius: var(--radius-sm);
@@ -1652,94 +1030,23 @@ nav a:hover, nav a.active { color: var(--gold); }
   margin-top: 16px;
   line-height: 1.6;
 }
-.qr-instruction ol { margin: 8px 0 0 16px; padding: 0; }
-.qr-instruction li { margin-bottom: 4px; }
-.qr-test-hint {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 8px;
-  padding: 8px 12px;
-  background: var(--bg-card);
-  border-radius: 8px;
-  border: 1px dashed var(--border-color);
-}
+.code-instruction ol { margin: 8px 0 0 16px; padding: 0; }
+.code-instruction li { margin-bottom: 4px; }
 
-.sticky-book {
-  position: fixed;
-  bottom: 16px; right: 16px;
-  z-index: 999;
-  background: var(--gold-gradient);
-  color: #fff;
-  border: none;
-  border-radius: 60px;
-  padding: 14px 20px;
-  font-weight: 600;
-  font-size: clamp(14px, 3vw, 16px);
-  box-shadow: 0 8px 32px rgba(201, 169, 110, 0.25);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-height: var(--touch-target);
-  font-family: 'Inter', sans-serif;
-}
+.sticky-book { position: fixed; bottom: 16px; right: 16px; z-index: 999; background: var(--gold-gradient); color: #fff; border: none; border-radius: 60px; padding: 14px 20px; font-weight: 600; font-size: clamp(14px, 3vw, 16px); box-shadow: 0 8px 32px rgba(201, 169, 110, 0.25); cursor: pointer; display: flex; align-items: center; gap: 8px; min-height: var(--touch-target); font-family: 'Inter', sans-serif; }
 .sticky-book:hover { transform: scale(1.05); }
-footer {
-  background: var(--bg-secondary);
-  color: var(--text-muted);
-  padding: 32px 16px;
-  text-align: center;
-  border-top: 1px solid var(--border-color);
-}
+footer { background: var(--bg-secondary); color: var(--text-muted); padding: 32px 16px; text-align: center; border-top: 1px solid var(--border-color); }
 footer p { font-size: clamp(13px, 2vw, 14px); }
-footer span {
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-#scrollTop {
-  position: fixed;
-  bottom: 80px; right: 16px;
-  z-index: 998;
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: var(--gold-gradient);
-  color: #fff;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(201, 169, 110, 0.25);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px);
-  transition: var(--transition-smooth);
-}
+footer span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+#scrollTop { position: fixed; bottom: 80px; right: 16px; z-index: 998; width: 44px; height: 44px; border-radius: 50%; background: var(--gold-gradient); color: #fff; border: none; font-size: 18px; cursor: pointer; box-shadow: 0 4px 20px rgba(201, 169, 110, 0.25); opacity: 0; visibility: hidden; transform: translateY(20px); transition: var(--transition-smooth); }
 #scrollTop.visible { opacity: 1; visibility: visible; transform: translateY(0); }
 .history-list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
-.history-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  background: var(--bg-card);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-color);
-  font-size: 14px;
-}
+.history-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--bg-card); border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 14px; }
 .history-item .spent { color: #E74C3C; font-weight: 600; }
 .history-item .added { color: #27AE60; font-weight: 600; }
 .design-selector { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
 .design-selector label { color: var(--text-muted); font-size: 14px; }
-.design-selector select {
-  padding: 8px 16px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-size: 14px;
-  cursor: pointer;
-  min-width: 150px;
-}
+.design-selector select { padding: 8px 16px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 14px; cursor: pointer; min-width: 150px; }
 
 @media (min-width: 480px) { .services-grid, .masters-grid, .blog-grid { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 600px) {
@@ -1764,20 +1071,7 @@ footer span {
 }
 @media (max-width: 768px) {
   .menu-toggle { display: flex; align-items: center; justify-content: center; }
-  #mainNav {
-    display: none;
-    flex-direction: column;
-    gap: 12px;
-    background: var(--bg-primary);
-    position: absolute;
-    top: var(--header-height);
-    left: 0; right: 0;
-    padding: 20px 24px 28px;
-    box-shadow: var(--shadow-hover);
-    border-bottom: 1px solid var(--border-color);
-    align-items: stretch;
-    backdrop-filter: blur(20px);
-  }
+  #mainNav { display: none; flex-direction: column; gap: 12px; background: var(--bg-primary); position: absolute; top: var(--header-height); left: 0; right: 0; padding: 20px 24px 28px; box-shadow: var(--shadow-hover); border-bottom: 1px solid var(--border-color); align-items: stretch; backdrop-filter: blur(20px); }
   #mainNav.open { display: flex; }
   #mainNav a { padding: 12px 0; font-size: 16px; border-bottom: 1px solid var(--border-color); text-align: center; }
   #mainNav a::after { display: none; }
@@ -1796,6 +1090,8 @@ footer span {
   .lightbox-nav { width: 40px; height: 40px; font-size: 18px; }
   .lightbox-nav.prev { left: 10px; }
   .lightbox-nav.next { right: 10px; }
+  .code-big { padding: 16px 18px; gap: 6px; }
+  .code-big .char { font-size: 36px; min-width: 32px; }
 }
 @media (max-width: 480px) {
   .front-content { padding: 16px 18px; }
@@ -1823,6 +1119,8 @@ footer span {
   .reviews-summary { gap: 14px; }
   .podium-card .medal { width: 44px; height: 44px; font-size: 24px; top: -8px; right: -8px; }
   .podium-card .podium-text { -webkit-line-clamp: 4; font-size: 13.5px; }
+  .code-big { padding: 14px 14px; gap: 4px; }
+  .code-big .char { font-size: 28px; min-width: 26px; }
 }
 @media (max-width: 400px) {
   .hero h1 { font-size: 26px; }
@@ -1834,6 +1132,8 @@ footer span {
   .rating-picker { gap: 6px; }
   .rating-picker .star-btn { width: 40px; height: 40px; font-size: 16px; }
   .photo-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 6px; }
+  .code-big { padding: 12px 10px; gap: 3px; }
+  .code-big .char { font-size: 24px; min-width: 22px; }
 }
 </style>
 </head>
@@ -1928,27 +1228,9 @@ footer span {
     <p class="section-subtitle">Мы всегда рады вам</p>
     <div class="contact-grid">
       <div class="contact-info">
-        <div class="contact-info-item">
-          <i class="fas fa-location-dot"></i>
-          <div>
-            <div class="label">Адрес</div>
-            <div class="value">Пионерский бульвар, 3, 224, Кемерово</div>
-          </div>
-        </div>
-        <div class="contact-info-item">
-          <i class="fas fa-phone"></i>
-          <div>
-            <div class="label">Телефон</div>
-            <div class="value"><a href="tel:+79516062001">+7 (951) 606-20-01</a></div>
-          </div>
-        </div>
-        <div class="contact-info-item">
-          <i class="fas fa-envelope"></i>
-          <div>
-            <div class="label">Email</div>
-            <div class="value"><a href="mailto:studiia1@mail.ru">studiia1@mail.ru</a></div>
-          </div>
-        </div>
+        <div class="contact-info-item"><i class="fas fa-location-dot"></i><div><div class="label">Адрес</div><div class="value">Пионерский бульвар, 3, 224, Кемерово</div></div></div>
+        <div class="contact-info-item"><i class="fas fa-phone"></i><div><div class="label">Телефон</div><div class="value"><a href="tel:+79516062001">+7 (951) 606-20-01</a></div></div></div>
+        <div class="contact-info-item"><i class="fas fa-envelope"></i><div><div class="label">Email</div><div class="value"><a href="mailto:studiia1@mail.ru">studiia1@mail.ru</a></div></div></div>
         <div class="working-hours">
           <div><span class="day">Пн – Вс</span></div>
           <div><span class="time">10:00 – 21:00</span></div>
@@ -2041,9 +1323,7 @@ footer span {
     <h2>Редактировать <span class="gold-text">профиль</span></h2>
     <p class="subtitle">Измените свои данные</p>
     <div class="profile-photo-wrapper">
-      <div class="photo-preview" id="profilePhotoPreview">
-        <i class="fas fa-user"></i>
-      </div>
+      <div class="photo-preview" id="profilePhotoPreview"><i class="fas fa-user"></i></div>
       <div class="photo-upload-btn">
         <button class="btn btn-sm btn-outline">📷 Загрузить фото</button>
         <input type="file" id="profilePhotoInput" accept="image/*" />
@@ -2058,40 +1338,38 @@ footer span {
   </div>
 </div>
 
-<div class="modal-overlay" id="qrModal">
-  <div class="modal" style="max-width:440px;">
-    <button class="modal-close" onclick="closeQRModal()">&times;</button>
-    <div class="qr-modal-content">
-      <div style="font-size:42px;color:var(--gold);margin-bottom:8px;">📱</div>
-      <h2 style="text-align:center;padding-right:0;">QR-код для <span class="gold-text">солярия</span></h2>
+<div class="modal-overlay" id="codeModal">
+  <div class="modal" style="max-width:460px;">
+    <button class="modal-close" onclick="closeCodeModal()">&times;</button>
+    <div class="code-display">
+      <div style="font-size:42px;color:var(--gold);margin-bottom:8px;">🔑</div>
+      <h2 style="text-align:center;padding-right:0;">Ваш <span class="gold-text">код</span></h2>
       <p class="subtitle" style="text-align:center;">Покажите этот код администратору</p>
-      <div class="qr-balance-preview">
+      <div class="code-balance-preview">
         <span class="label">☀️ Ваш баланс:</span>
-        <span class="value" id="qrBalance">0</span>
+        <span class="value" id="codeBalance">0</span>
         <span class="label">минут</span>
       </div>
-      <div class="qr-container" id="qrContainer"></div>
-      <div class="qr-timer">
+      <div class="code-label">Ваш код</div>
+      <div class="code-big" id="codeBigDisplay"></div>
+      <div class="code-timer">
         <span>🔄 Обновление через:</span>
-        <span class="timer-text" id="qrTimerText">2:00</span>
+        <span class="timer-text" id="codeTimerText">1:00</span>
       </div>
-      <div class="qr-timer">
+      <div class="code-timer">
         <div class="timer-bar">
-          <div class="timer-fill" id="qrTimerFill" style="width:100%;"></div>
+          <div class="timer-fill" id="codeTimerFill" style="width:100%;"></div>
         </div>
       </div>
-      <div class="qr-instruction">
+      <div class="code-instruction">
         <strong style="color:var(--gold);">📋 Как использовать:</strong>
         <ol>
           <li>Подойдите к администратору салона</li>
-          <li>Покажите этот QR-код</li>
-          <li>Админ отсканирует (камерой или телефоном) и спишет минуты</li>
-          <li>Если отсканировать камерой iPhone — откроется страница с вашим профилем</li>
-          <li>Код действует <strong>2 минуты</strong>, потом обновится автоматически</li>
+          <li>Покажите этот код (6 символов)</li>
+          <li>Админ введёт код и спишет/пополнит минуты</li>
+          <li>Код действует <strong>1 минуту</strong>, потом обновится автоматически</li>
         </ol>
-      </div>
-      <div class="qr-test-hint">
-        💡 <strong>Проверьте сами:</strong> наведите камеру второго телефона на этот QR — откроется страница с вашей картой
+        <p style="margin-top:8px;font-size:12px;opacity:0.7;">⚠️ Не показывайте код другим людям — его можно использовать только один раз.</p>
       </div>
     </div>
   </div>
@@ -2123,8 +1401,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/* ✅ URL сайта — для генерации QR со ссылкой */
-const SITE_URL = 'https://glubkov2020-netizen.github.io/studio1/';
+/* Секрет должен совпадать с админкой! */
+const CODE_SECRET = 'STUDIO1_KEMEROVO_CODE_V2_X7K9M2P5Q8W3';
+const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const CODE_LENGTH = 6;
+const CODE_LIFETIME = 60;
 
 let currentUser = null;
 let currentUserData = null;
@@ -2144,13 +1425,8 @@ let reviewSort = 'new';
 let reviewPhotos = [];
 let lightboxPhotos = [];
 let lightboxIndex = 0;
-
-const QR_SECRET = 'STUDIO1_KEMEROVO_2026_SECRET_KEY_v1_X9K2M5P8';
-const QR_LIFETIME = 120;
-const MAX_REVIEW_PHOTOS = 3;
-const MAX_PHOTO_SIZE = 200 * 1024;
-let qrTimerInterval = null;
-let qrSecondsLeft = QR_LIFETIME;
+let codeTimerInterval = null;
+let codeSecondsLeft = CODE_LIFETIME;
 
 /* ============================================
    УТИЛИТЫ
@@ -2178,8 +1454,7 @@ function formatDate(date) {
   try {
     const d = date instanceof Date ? date : new Date(date);
     if (isNaN(d.getTime())) return '';
-    return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }) +
-      ' ' + d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+    return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
   } catch { return ''; }
 }
 
@@ -2244,8 +1519,25 @@ function compressImage(file, maxSize = 800, quality = 0.75) {
   });
 }
 
+/* Генерация кода — 1:1 как в админке */
+function getCurrentTimeWindow() {
+  return Math.floor(Date.now() / (CODE_LIFETIME * 1000));
+}
+
+function generateClientCode(userId, timeWindow = null) {
+  const tw = timeWindow !== null ? timeWindow : getCurrentTimeWindow();
+  const data = `${userId}:${tw}`;
+  const hash = CryptoJS.HmacSHA256(data, CODE_SECRET).toString(CryptoJS.enc.Hex);
+  let code = '';
+  for (let i = 0; i < CODE_LENGTH; i++) {
+    const byte = parseInt(hash.substr(i * 2, 2), 16);
+    code += CODE_ALPHABET[byte % CODE_ALPHABET.length];
+  }
+  return code;
+}
+
 /* ============================================
-   ДИЗАЙНЫ КАРТ
+   ДИЗАЙНЫ КАРТ (8 штук)
    ============================================ */
 const CARD_DESIGNS = [
   { id: 'onyx_gold',    name: 'Onyx Gold',    front: 'radial-gradient(ellipse at 30% 20%, #2a2a2a, #0a0a0a)', back: 'linear-gradient(145deg, #2a2a2a, #1a1a1a, #2a2a2a)', accent: '#C9A96E', textColor: '#F0EBE6' },
@@ -2354,8 +1646,6 @@ async function initData() {
     } catch (e) { allBlogPosts = []; }
     await loadReviews();
     renderAll();
-    // ✅ Проверяем URL параметр ?qr= при загрузке
-    checkQRParam();
   } catch (e) { console.error('Ошибка загрузки данных:', e); }
 }
 
@@ -2379,9 +1669,7 @@ function renderAll() {
 function renderCategories() {
   const c = document.getElementById('categoriesFilter');
   if (!c) return;
-  c.innerHTML = CATEGORIES.map(cat =>
-    `<div class="category-tab ${cat.id === currentCategory ? 'active' : ''}" onclick="selectCategory('${cat.id}')">${cat.icon} ${cat.id}</div>`
-  ).join('');
+  c.innerHTML = CATEGORIES.map(cat => `<div class="category-tab ${cat.id === currentCategory ? 'active' : ''}" onclick="selectCategory('${cat.id}')">${cat.icon} ${cat.id}</div>`).join('');
 }
 
 window.selectCategory = function(category) {
@@ -2464,13 +1752,11 @@ function renderReviewsSummary() {
   const avg = total > 0 ? (allReviews.reduce((s, r) => s + (r.rating || 0), 0) / total) : 0;
   const rounded = Math.round(avg);
   const stars = '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
-
   const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
   allReviews.forEach(r => {
     const rating = Math.round(r.rating || 0);
     if (rating >= 1 && rating <= 5) distribution[rating]++;
   });
-
   const barsHtml = [5, 4, 3, 2, 1].map(star => {
     const count = distribution[star];
     const percent = total > 0 ? (count / total) * 100 : 0;
@@ -2482,7 +1768,6 @@ function renderReviewsSummary() {
       </div>
     `;
   }).join('');
-
   return `
     <div class="reviews-summary">
       <div class="rating-hero">
@@ -2502,7 +1787,6 @@ function renderReviewsSummary() {
 function renderTopReviews() {
   const now = Date.now();
   const monthAgo = now - 30 * 24 * 60 * 60 * 1000;
-
   const candidates = allReviews.filter(r => {
     const d = toMillis(r.createdAt);
     if (isNaN(d) || d < monthAgo) return false;
@@ -2510,7 +1794,6 @@ function renderTopReviews() {
     if (r.isPublished === false) return false;
     return true;
   });
-
   const scored = candidates.map(r => {
     const ts = toMillis(r.createdAt);
     const daysOld = (now - ts) / (24 * 60 * 60 * 1000);
@@ -2520,16 +1803,12 @@ function renderTopReviews() {
     const photosBonus = (r.photos || []).length * 15;
     return { review: r, score: ratingBonus + textBonus + freshnessBonus + photosBonus };
   }).sort((a, b) => b.score - a.score).slice(0, 3);
-
   if (scored.length < 3) return '';
-
   const medals = ['🥇', '🥈', '🥉'];
   const classes = ['gold-medal', 'silver-medal', 'bronze-medal'];
   const ranks = ['#1 ОТЗЫВ МЕСЯЦА', '#2', '#3'];
-
   const mobileOrder = [1, 0, 2];
   const periodText = `${formatDateLong(new Date(monthAgo))} — ${formatDateLong(new Date(now))}`;
-
   return `
     <div class="top-reviews">
       <div class="top-reviews-header">
@@ -2545,10 +1824,7 @@ function renderTopReviews() {
           const userName = r.userName || 'Аноним';
           const stars = '★'.repeat(Math.round(r.rating || 0)) + '☆'.repeat(5 - Math.round(r.rating || 0));
           const dateStr = (() => {
-            try {
-              const d = new Date(r.createdAt);
-              return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'short', year: 'numeric' });
-            } catch { return ''; }
+            try { const d = new Date(r.createdAt); return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'short', year: 'numeric' }); } catch { return ''; }
           })();
           const isMasterReview = r.masterId && r.masterId !== '';
           return `
@@ -2556,9 +1832,7 @@ function renderTopReviews() {
               <div class="medal">${medals[i]}</div>
               <div class="rank-badge">${ranks[i]}</div>
               <div class="podium-header">
-                <div class="podium-avatar">
-                  ${r.userPhoto ? `<img src="${escapeHTML(r.userPhoto)}" alt="${escapeHTML(userName)}" />` : userName.charAt(0).toUpperCase()}
-                </div>
+                <div class="podium-avatar">${r.userPhoto ? `<img src="${escapeHTML(r.userPhoto)}" />` : userName.charAt(0).toUpperCase()}</div>
                 <div class="podium-meta">
                   <div class="podium-name">${escapeHTML(userName)}</div>
                   <div class="podium-date">${dateStr}</div>
@@ -2581,18 +1855,15 @@ function renderReviewForm() {
       <div class="reviews-login-prompt">
         <span class="lock-icon">🔒</span>
         <h3>Хотите оставить отзыв?</h3>
-        <p>Войдите в аккаунт, чтобы поделиться впечатлениями о салоне и мастерах</p>
-        <button class="btn btn-pulse" onclick="handleAuthClick()">
-          <i class="fas fa-sign-in-alt"></i> Войти в аккаунт
-        </button>
+        <p>Войдите в аккаунт, чтобы поделиться впечатлениями</p>
+        <button class="btn btn-pulse" onclick="handleAuthClick()"><i class="fas fa-sign-in-alt"></i> Войти в аккаунт</button>
       </div>
     `;
   }
-
   const masterPickButtons = allMasters.map(m => {
     const initials = m.name.split(' ').map(w => w[0]).join('');
     const isActive = selectedMasterId === m.id;
-    const avatarHtml = m.photo ? `<img src="${escapeHTML(m.photo)}" alt="${escapeHTML(m.name)}" />` : initials;
+    const avatarHtml = m.photo ? `<img src="${escapeHTML(m.photo)}" />` : initials;
     return `
       <button type="button" class="master-pick-btn ${isActive ? 'active' : ''}" data-master-id="${m.id}" onclick="selectMasterForReview('${m.id}')">
         <span class="mp-avatar">${avatarHtml}</span>
@@ -2600,18 +1871,14 @@ function renderReviewForm() {
       </button>
     `;
   }).join('');
-
   const ratingLabels = ['', 'Ужасно', 'Плохо', 'Нормально', 'Хорошо', 'Отлично'];
-
   const photosHtml = reviewPhotos.map((photo, idx) => `
     <div class="photo-thumb">
       <img src="${photo}" alt="Фото ${idx + 1}" />
       <button type="button" class="remove-btn" onclick="removeReviewPhoto(${idx})"><i class="fas fa-times"></i></button>
     </div>
   `).join('');
-
-  const canAddMore = reviewPhotos.length < MAX_REVIEW_PHOTOS;
-
+  const canAddMore = reviewPhotos.length < 3;
   return `
     <div class="review-form-new">
       <div class="form-header">
@@ -2619,7 +1886,6 @@ function renderReviewForm() {
         <h3>Оставить отзыв</h3>
         <p>Ваше мнение помогает нам становиться лучше</p>
       </div>
-
       <div class="rating-picker-label">Оцените салон</div>
       <div class="rating-picker" id="salonRatingPicker">
         ${[1,2,3,4,5].map(n => `<button type="button" class="star-btn ${selectedReviewStar >= n ? 'active' : ''}" onclick="setSalonRating(${n})"><i class="fas fa-star"></i></button>`).join('')}
@@ -2627,41 +1893,34 @@ function renderReviewForm() {
       <div class="rating-picker-label" id="salonRatingLabel">
         <strong>${selectedReviewStar > 0 ? ratingLabels[selectedReviewStar] : 'Выберите оценку'}</strong>
       </div>
-
       <div class="master-picker">
         <label>👤 Оцените мастера (необязательно)</label>
         <div class="master-picker-grid" id="masterPickerGrid">${masterPickButtons}</div>
       </div>
-
       <div class="rating-picker" id="masterRatingPicker" style="display:none;">
         ${[1,2,3,4,5].map(n => `<button type="button" class="star-btn ${selectedMasterStar >= n ? 'active' : ''}" onclick="setMasterRating(${n})"><i class="fas fa-star"></i></button>`).join('')}
       </div>
-
       <div style="margin-top:16px;">
         <label style="display:block;font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">💬 Расскажите о вашем опыте</label>
-        <textarea id="reviewText" placeholder="Что вам понравилось? Что можно улучшить?" maxlength="1000" rows="5" oninput="updateCharCounter(this)"></textarea>
+        <textarea id="reviewText" placeholder="Что вам понравилось?" maxlength="1000" rows="5" oninput="updateCharCounter(this)"></textarea>
         <div class="char-counter" id="charCounter">0 / 1000</div>
       </div>
-
       <div class="photo-upload-block">
-        <label class="photo-upload-label">📸 Добавьте фото (до ${MAX_REVIEW_PHOTOS} шт, до 200 КБ)</label>
+        <label class="photo-upload-label">📸 Добавьте фото (до 3 шт)</label>
         <div class="photo-grid" id="photoGrid">
           ${photosHtml}
           ${canAddMore ? `
             <label class="photo-add-btn">
               <i class="fas fa-plus"></i>
-              <small>${reviewPhotos.length}/${MAX_REVIEW_PHOTOS}</small>
+              <small>${reviewPhotos.length}/3</small>
               <input type="file" id="reviewPhotoInput" accept="image/*" onchange="handleReviewPhotoSelect(event)" />
             </label>
           ` : ''}
         </div>
       </div>
-
       <div class="submit-row">
-        <button class="btn btn-pulse" onclick="submitReview()">
-          <i class="fas fa-paper-plane"></i> Отправить отзыв
-        </button>
-        <div class="hint"><i class="fas fa-shield-alt"></i> Ваш отзыв появится сразу после отправки</div>
+        <button class="btn btn-pulse" onclick="submitReview()"><i class="fas fa-paper-plane"></i> Отправить отзыв</button>
+        <div class="hint"><i class="fas fa-shield-alt"></i> Ваш отзыв появится сразу</div>
       </div>
     </div>
   `;
@@ -2671,7 +1930,6 @@ function renderReviewsToolbar() {
   const total = allReviews.length;
   const mineCount = currentUser ? allReviews.filter(r => r.userId === currentUser.uid).length : 0;
   const withPhotos = allReviews.filter(r => (r.photos || []).length > 0).length;
-
   return `
     <div class="reviews-section-title">
       <h3>📝 Все отзывы <span class="count-badge">${total}</span></h3>
@@ -2681,7 +1939,7 @@ function renderReviewsToolbar() {
         <button class="filter-tab ${reviewFilter === 'master' ? 'active' : ''}" onclick="setReviewFilter('master')">👤 О мастерах</button>
         ${withPhotos > 0 ? `<button class="filter-tab ${reviewFilter === 'photos' ? 'active' : ''}" onclick="setReviewFilter('photos')">📸 С фото (${withPhotos})</button>` : ''}
         ${currentUser ? `<button class="filter-tab ${reviewFilter === 'mine' ? 'active' : ''}" onclick="setReviewFilter('mine')">✏️ Мои (${mineCount})</button>` : ''}
-        <select id="reviewSortSelect" onchange="setReviewSort(this.value)">
+        <select onchange="setReviewSort(this.value)">
           <option value="new" ${reviewSort === 'new' ? 'selected' : ''}>🆕 Сначала новые</option>
           <option value="old" ${reviewSort === 'old' ? 'selected' : ''}>📜 Сначала старые</option>
           <option value="high" ${reviewSort === 'high' ? 'selected' : ''}>⭐ С высоким рейтингом</option>
@@ -2694,28 +1952,18 @@ function renderReviewsToolbar() {
 
 function renderReviewList() {
   let reviews = allReviews.filter(r => r.isPublished !== false);
-
   if (reviewFilter === 'salon') reviews = reviews.filter(r => !r.masterId || r.masterId === '');
   else if (reviewFilter === 'master') reviews = reviews.filter(r => r.masterId && r.masterId !== '');
   else if (reviewFilter === 'photos') reviews = reviews.filter(r => (r.photos || []).length > 0);
   else if (reviewFilter === 'mine' && currentUser) reviews = reviews.filter(r => r.userId === currentUser.uid);
-
   const getTime = (r) => toMillis(r.createdAt);
   if (reviewSort === 'new') reviews.sort((a, b) => getTime(b) - getTime(a));
   else if (reviewSort === 'old') reviews.sort((a, b) => getTime(a) - getTime(b));
   else if (reviewSort === 'high') reviews.sort((a, b) => (b.rating || 0) - (a.rating || 0));
   else if (reviewSort === 'low') reviews.sort((a, b) => (a.rating || 0) - (b.rating || 0));
-
   if (!reviews.length) {
-    return `
-      <div class="reviews-empty">
-        <span class="empty-icon">💬</span>
-        <h4>${reviewFilter === 'mine' ? 'У вас пока нет отзывов' : 'Пока нет отзывов'}</h4>
-        <p>${reviewFilter === 'mine' ? 'Оставьте первый отзыв о нашем салоне!' : 'Станьте первым, кто поделится впечатлениями!'}</p>
-      </div>
-    `;
+    return `<div class="reviews-empty"><span class="empty-icon">💬</span><h4>${reviewFilter === 'mine' ? 'У вас пока нет отзывов' : 'Пока нет отзывов'}</h4><p>${reviewFilter === 'mine' ? 'Оставьте первый отзыв!' : 'Станьте первым!'}</p></div>`;
   }
-
   return `<div class="reviews-list">${reviews.map(r => renderReviewCard(r)).join('')}</div>`;
 }
 
@@ -2727,31 +1975,15 @@ function renderReviewCard(r) {
   const initial = userName.charAt(0).toUpperCase();
   const isMine = currentUser && r.userId === currentUser.uid;
   const isMasterReview = r.masterId && r.masterId !== '';
-
   const dateStr = (() => {
-    try {
-      const d = new Date(r.createdAt);
-      if (isNaN(d.getTime())) return '';
-      return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' });
-    } catch { return ''; }
+    try { const d = new Date(r.createdAt); if (isNaN(d.getTime())) return ''; return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' }); } catch { return ''; }
   })();
-
-  const typeBadge = isMasterReview
-    ? `<span class="rc-type-badge">👤 ${escapeHTML(master?.name || 'Мастер')}</span>`
-    : `<span class="rc-type-badge salon">🏢 О салоне</span>`;
-
-  const photosHtml = (r.photos || []).length > 0
-    ? `<div class="rc-photos">${r.photos.map((p, i) => `
-        <div class="rc-photo" onclick="openLightbox('${r.id}', ${i})">
-          <img src="${p}" alt="Фото отзыва" loading="lazy" />
-        </div>
-      `).join('')}</div>`
-    : '';
-
+  const typeBadge = isMasterReview ? `<span class="rc-type-badge">👤 ${escapeHTML(master?.name || 'Мастер')}</span>` : `<span class="rc-type-badge salon">🏢 О салоне</span>`;
+  const photosHtml = (r.photos || []).length > 0 ? `<div class="rc-photos">${r.photos.map((p, i) => `<div class="rc-photo" onclick="openLightbox('${r.id}', ${i})"><img src="${p}" loading="lazy" /></div>`).join('')}</div>` : '';
   return `
     <div class="review-card-new ${isMine ? 'is-mine' : ''}">
       <div class="rc-header">
-        <div class="rc-avatar">${r.userPhoto ? `<img src="${escapeHTML(r.userPhoto)}" alt="${escapeHTML(userName)}" />` : initial}</div>
+        <div class="rc-avatar">${r.userPhoto ? `<img src="${escapeHTML(r.userPhoto)}" />` : initial}</div>
         <div class="rc-meta">
           <div class="rc-name">${escapeHTML(userName)}</div>
           <div class="rc-date">${dateStr}</div>
@@ -2773,50 +2005,33 @@ function renderMyReviewsBlock() {
   if (!currentUser) return '';
   const mine = allReviews.filter(r => r.userId === currentUser.uid);
   if (!mine.length) return '';
-  return `
-    <div class="my-reviews-block">
-      <h3>✏️ Ваши отзывы <span class="count-badge" style="background:var(--gold-gradient);color:#fff;font-size:13px;font-weight:700;padding:3px 10px;border-radius:20px;min-width:32px;text-align:center;">${mine.length}</span></h3>
-      <div class="reviews-list">${mine.map(r => renderReviewCard(r)).join('')}</div>
-    </div>
-  `;
+  return `<div class="my-reviews-block"><h3>✏️ Ваши отзывы <span class="count-badge" style="background:var(--gold-gradient);color:#fff;font-size:13px;font-weight:700;padding:3px 10px;border-radius:20px;">${mine.length}</span></h3><div class="reviews-list">${mine.map(r => renderReviewCard(r)).join('')}</div></div>`;
 }
 
 const RATING_LABELS = ['', 'Ужасно', 'Плохо', 'Нормально', 'Хорошо', 'Отлично'];
-
 window.setSalonRating = function(n) {
   selectedReviewStar = n;
   document.querySelectorAll('#salonRatingPicker .star-btn').forEach((el, i) => el.classList.toggle('active', i < n));
   const label = document.getElementById('salonRatingLabel');
   if (label) label.innerHTML = `<strong>${RATING_LABELS[n] || 'Выберите оценку'}</strong>`;
 };
-
 window.selectMasterForReview = function(masterId) {
-  if (selectedMasterId === masterId) {
-    selectedMasterId = '';
-    selectedMasterStar = 0;
-  } else {
-    selectedMasterId = masterId;
-  }
-  document.querySelectorAll('#masterPickerGrid .master-pick-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.masterId === selectedMasterId);
-  });
+  if (selectedMasterId === masterId) { selectedMasterId = ''; selectedMasterStar = 0; }
+  else { selectedMasterId = masterId; }
+  document.querySelectorAll('#masterPickerGrid .master-pick-btn').forEach(btn => { btn.classList.toggle('active', btn.dataset.masterId === selectedMasterId); });
   const picker = document.getElementById('masterRatingPicker');
   if (picker) picker.style.display = selectedMasterId ? 'flex' : 'none';
   if (!selectedMasterId) {
     selectedMasterStar = 0;
     document.querySelectorAll('#masterRatingPicker .star-btn').forEach(el => el.classList.remove('active'));
   } else {
-    document.querySelectorAll('#masterRatingPicker .star-btn').forEach((el, i) => {
-      el.classList.toggle('active', i < selectedMasterStar);
-    });
+    document.querySelectorAll('#masterRatingPicker .star-btn').forEach((el, i) => { el.classList.toggle('active', i < selectedMasterStar); });
   }
 };
-
 window.setMasterRating = function(n) {
   selectedMasterStar = n;
   document.querySelectorAll('#masterRatingPicker .star-btn').forEach((el, i) => el.classList.toggle('active', i < n));
 };
-
 window.updateCharCounter = function(textarea) {
   const counter = document.getElementById('charCounter');
   if (!counter) return;
@@ -2826,40 +2041,30 @@ window.updateCharCounter = function(textarea) {
   if (len > 1000) counter.classList.add('over');
   else if (len > 850) counter.classList.add('warn');
 };
-
 window.handleReviewPhotoSelect = async function(event) {
   const file = event.target.files[0];
   if (!file) return;
-  if (reviewPhotos.length >= MAX_REVIEW_PHOTOS) { showToast(`Максимум ${MAX_REVIEW_PHOTOS} фото`, 'error'); return; }
+  if (reviewPhotos.length >= 3) { showToast('Максимум 3 фото', 'error'); return; }
   if (!file.type.startsWith('image/')) { showToast('Только изображения', 'error'); return; }
-  if (file.size > 800 * 1024) { showToast('Файл слишком большой (макс. 800 КБ)', 'error'); return; }
+  if (file.size > 800 * 1024) { showToast('Файл > 800 КБ', 'error'); return; }
   try {
     const compressed = await compressImage(file, 800, 0.75);
     reviewPhotos.push(compressed);
     renderReviews();
-    showToast(`Фото добавлено (${reviewPhotos.length}/${MAX_REVIEW_PHOTOS})`, 'success', 2000);
-  } catch (e) { showToast('Ошибка загрузки фото', 'error'); }
+  } catch (e) { showToast('Ошибка загрузки', 'error'); }
 };
-
-window.removeReviewPhoto = function(idx) {
-  reviewPhotos.splice(idx, 1);
-  renderReviews();
-};
-
+window.removeReviewPhoto = function(idx) { reviewPhotos.splice(idx, 1); renderReviews(); };
 window.setReviewFilter = function(filter) { reviewFilter = filter; renderReviews(); };
 window.setReviewSort = function(sort) { reviewSort = sort; renderReviews(); };
 
 window.submitReview = async function() {
   if (!currentUser) { showToast('Войдите в аккаунт', 'error'); return; }
-  if (selectedReviewStar === 0) { showToast('Поставьте оценку салона ⭐', 'error'); return; }
+  if (selectedReviewStar === 0) { showToast('Поставьте оценку', 'error'); return; }
   const text = document.getElementById('reviewText').value.trim();
-  if (!text) { showToast('Напишите текст отзыва ✍️', 'error'); return; }
-  if (text.length < 5) { showToast('Отзыв слишком короткий', 'error'); return; }
-
+  if (!text) { showToast('Напишите текст', 'error'); return; }
   const hasMaster = selectedMasterId && selectedMasterStar > 0;
   const finalRating = hasMaster ? selectedMasterStar : selectedReviewStar;
   const finalMasterId = hasMaster ? selectedMasterId : '';
-
   try {
     await addDoc(collection(db, 'reviews'), {
       userId: currentUser.uid,
@@ -2870,15 +2075,15 @@ window.submitReview = async function() {
       rating: finalRating,
       salonRating: selectedReviewStar,
       masterRating: selectedMasterStar,
-      text: text,
-      photos: reviewPhotos.slice(0, MAX_REVIEW_PHOTOS),
+      text,
+      photos: reviewPhotos.slice(0, 3),
       masterId: finalMasterId,
       masterName: finalMasterId ? (allMasters.find(m => m.id === finalMasterId)?.name || '') : '',
       createdAt: new Date().toISOString(),
       isModerated: false,
       isPublished: true
     });
-    showToast('Спасибо за отзыв! 🎉', 'success', 5000);
+    showToast('Спасибо за отзыв! 🎉', 'success');
     selectedReviewStar = 0;
     selectedMasterId = '';
     selectedMasterStar = 0;
@@ -2897,7 +2102,6 @@ window.openLightbox = function(reviewId, photoIndex) {
   document.getElementById('lightbox').classList.add('active');
   document.body.style.overflow = 'hidden';
 };
-
 function updateLightbox() {
   const img = document.getElementById('lightboxImg');
   const counter = document.getElementById('lightboxCounter');
@@ -2909,21 +2113,14 @@ function updateLightbox() {
   if (prev) prev.style.display = lightboxPhotos.length > 1 ? 'flex' : 'none';
   if (next) next.style.display = lightboxPhotos.length > 1 ? 'flex' : 'none';
 }
-
 window.closeLightbox = function() {
   document.getElementById('lightbox').classList.remove('active');
   document.body.style.overflow = '';
   lightboxPhotos = [];
   lightboxIndex = 0;
 };
-
-window.lightboxNext = function() {
-  if (lightboxIndex < lightboxPhotos.length - 1) { lightboxIndex++; updateLightbox(); }
-};
-window.lightboxPrev = function() {
-  if (lightboxIndex > 0) { lightboxIndex--; updateLightbox(); }
-};
-
+window.lightboxNext = function() { if (lightboxIndex < lightboxPhotos.length - 1) { lightboxIndex++; updateLightbox(); } };
+window.lightboxPrev = function() { if (lightboxIndex > 0) { lightboxIndex--; updateLightbox(); } };
 document.addEventListener('keydown', (e) => {
   const lb = document.getElementById('lightbox');
   if (!lb || !lb.classList.contains('active')) return;
@@ -2944,7 +2141,7 @@ function renderBlog() {
   }
   c.innerHTML = allBlogPosts.filter(p => p.status !== 'draft').map(p => `
     <div class="blog-card" id="post_${p.id}">
-      ${p.image ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.title)}" loading="lazy" />` : ''}
+      ${p.image ? `<img src="${escapeHTML(p.image)}" loading="lazy" />` : ''}
       <div class="date">📅 ${formatDate(p.date)}</div>
       <h3>${escapeHTML(p.title)}</h3>
       <p>${escapeHTML(p.content)}</p>
@@ -2973,9 +2170,6 @@ function loadComments(postId) {
     snapshot.forEach(doc => { comments[doc.id] = { id: doc.id, ...doc.data() }; });
     allComments[postId] = comments;
     renderComments(postId);
-  }, (error) => {
-    const container = document.getElementById(`comments_${postId}`);
-    if (container) container.innerHTML = '<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">⚠️ Ошибка загрузки</div>';
   });
 }
 
@@ -2984,10 +2178,7 @@ function renderComments(postId) {
   if (!container) { setTimeout(() => renderComments(postId), 200); return; }
   const comments = allComments[postId] || {};
   const list = Object.values(comments);
-  if (!list.length) {
-    container.innerHTML = '<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">Пока нет комментариев</div>';
-    return;
-  }
+  if (!list.length) { container.innerHTML = '<div style="color:var(--text-muted);font-size:14px;padding:8px 0;">Пока нет комментариев</div>'; return; }
   const tree = {}; const roots = [];
   list.forEach(c => {
     if (c.parentId && comments[c.parentId]) { if (!tree[c.parentId]) tree[c.parentId] = []; tree[c.parentId].push(c); }
@@ -3050,15 +2241,8 @@ window.addComment = async function(postId, parentId = null) {
     showToast('Комментарий добавлен ✅', 'success');
   } catch (e) { showToast('Ошибка: ' + e.message, 'error'); }
 };
-
-window.showReplyForm = function(id) {
-  const f = document.getElementById(`replyForm_${id}`);
-  if (f) { f.style.display = 'flex'; f.querySelector('textarea')?.focus(); }
-};
-window.hideReplyForm = function(id) {
-  const f = document.getElementById(`replyForm_${id}`);
-  if (f) { f.style.display = 'none'; const ta = f.querySelector('textarea'); if (ta) ta.value = ''; }
-};
+window.showReplyForm = function(id) { const f = document.getElementById(`replyForm_${id}`); if (f) { f.style.display = 'flex'; f.querySelector('textarea')?.focus(); } };
+window.hideReplyForm = function(id) { const f = document.getElementById(`replyForm_${id}`); if (f) { f.style.display = 'none'; const ta = f.querySelector('textarea'); if (ta) ta.value = ''; } };
 window.toggleLike = async function(id) {
   if (!currentUser) { showToast('Войдите', 'error'); return; }
   const ref = doc(db, 'comments', id);
@@ -3084,10 +2268,7 @@ window.deleteComment = async function(id) {
    ============================================ */
 function getCvvForUser(uid) {
   let hash = 0;
-  for (let i = 0; i < uid.length; i++) {
-    hash = ((hash << 5) - hash) + uid.charCodeAt(i);
-    hash |= 0;
-  }
+  for (let i = 0; i < uid.length; i++) { hash = ((hash << 5) - hash) + uid.charCodeAt(i); hash |= 0; }
   return String(Math.abs(hash) % 900 + 100);
 }
 
@@ -3106,14 +2287,10 @@ function renderCabinet() {
   const designId = currentUserData?.cardDesign || 'onyx_gold';
   const design = CARD_DESIGNS.find(d => d.id === designId) || CARD_DESIGNS[0];
   const cvv = getCvvForUser(currentUser.uid);
-
   const idParts = cardId.split('-');
   const idMasked = idParts.map((p, i) => i === 0 ? p : '••••').join(' ');
   const nameParts = userName.split(' ');
-  const displayName = nameParts.length > 1
-    ? nameParts[0] + ' ' + nameParts[1].charAt(0).toUpperCase() + '.'
-    : userName;
-
+  const displayName = nameParts.length > 1 ? nameParts[0] + ' ' + nameParts[1].charAt(0).toUpperCase() + '.' : userName;
   const historyHtml = history.length ? `
     <h4 style="margin-top:24px;margin-bottom:12px;color:var(--text-primary);">📜 История операций</h4>
     <div class="history-list">
@@ -3125,33 +2302,23 @@ function renderCabinet() {
       `).join('')}
     </div>
   ` : '';
-
-  const designOptions = CARD_DESIGNS.map(d =>
-    `<option value="${d.id}" ${d.id === designId ? 'selected' : ''}>${d.name}</option>`
-  ).join('');
-
+  const designOptions = CARD_DESIGNS.map(d => `<option value="${d.id}" ${d.id === designId ? 'selected' : ''}>${d.name}</option>`).join('');
   container.innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
       <div style="display:flex;align-items:center;gap:16px;">
-        <div class="profile-avatar-header">
-          ${userPhoto ? `<img src="${userPhoto}" />` : '<i class="fas fa-user"></i>'}
-        </div>
+        <div class="profile-avatar-header">${userPhoto ? `<img src="${userPhoto}" />` : '<i class="fas fa-user"></i>'}</div>
         <div>
           <div style="font-size:18px;font-weight:600;color:var(--text-primary);">${escapeHTML(userName)}</div>
           <div style="font-size:13px;color:var(--text-muted);">${escapeHTML(currentUser.email)}</div>
           <div style="font-size:13px;color:var(--text-muted);">${escapeHTML(currentUserData?.phone || 'Телефон не указан')}</div>
         </div>
       </div>
-      <button class="btn btn-sm btn-outline" onclick="openEditProfile()">
-        <i class="fas fa-pen"></i> Редактировать
-      </button>
+      <button class="btn btn-sm btn-outline" onclick="openEditProfile()"><i class="fas fa-pen"></i> Редактировать</button>
     </div>
-
     <div class="design-selector">
       <label>🎨 Дизайн карты:</label>
       <select id="cardDesignSelect" onchange="changeCardDesign(this.value)">${designOptions}</select>
     </div>
-
     <div class="card-wrapper" onclick="toggleCard(this)">
       <div class="card-flip">
         <div class="card-face card-front" style="background:${design.front};color:${design.textColor};">
@@ -3216,17 +2383,14 @@ function renderCabinet() {
         </div>
       </div>
     </div>
-
     <div style="text-align:center;font-size:12px;color:var(--text-muted);margin-bottom:20px;opacity:0.6;">
       <i class="fas fa-hand-pointer"></i> Нажмите на карту, чтобы перевернуть
     </div>
-
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
-      <button class="btn btn-pulse" onclick="showQRCode()" style="padding:14px 28px;">
-        <i class="fas fa-qrcode"></i> Показать QR для солярия
+      <button class="btn btn-pulse" onclick="showCode()" style="padding:14px 28px;">
+        <i class="fas fa-key"></i> Показать код для солярия
       </button>
     </div>
-
     ${historyHtml}
     ${!history.length ? `<p style="text-align:center;color:var(--text-muted);margin-top:16px;">История операций пуста</p>` : ''}
   `;
@@ -3248,230 +2412,59 @@ window.changeCardDesign = async function(id) {
 };
 
 /* ============================================
-   ✅ НОВЫЙ QR — работает на iPhone
+   КОД (вместо QR)
    ============================================ */
-function generateHMAC(data, secret) {
-  return CryptoJS.HmacSHA256(data, secret).toString(CryptoJS.enc.Hex);
-}
-
-function generateQRToken(userId) {
-  const ts = Math.floor(Date.now() / 1000);
-  const data = `${userId}:${ts}`;
-  const hmac = generateHMAC(data, QR_SECRET);
-  return `ST1:${userId}:${ts}:${hmac}`;
-}
-
-window.showQRCode = function() {
+window.showCode = function() {
   if (!currentUser) { showToast('Войдите в аккаунт', 'error'); return; }
-  const modal = document.getElementById('qrModal');
+  const modal = document.getElementById('codeModal');
   if (!modal) return;
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
-  document.getElementById('qrBalance').textContent = currentUserData?.minutes || 0;
-  generateAndRenderQR();
-  startQRTimer();
+  document.getElementById('codeBalance').textContent = currentUserData?.minutes || 0;
+  generateAndRenderCode();
+  startCodeTimer();
 };
 
-async function generateAndRenderQR() {
-  try {
-    const token = generateQRToken(currentUser.uid);
-    // ✅ КЛЮЧЕВОЕ: QR содержит URL со ссылкой, чтобы камера iPhone открыла сайт
-    const qrUrl = `${SITE_URL}?qr=${encodeURIComponent(token)}`;
-
-    const container = document.getElementById('qrContainer');
-    if (!container) return;
-    container.innerHTML = '';
-
-    // ✅ Используем библиотеку qrcode (Soldair) — работает на iPhone
-    if (typeof QRCode === 'undefined') {
-      console.error('❌ Библиотека qrcode не загружена');
-      showToast('Библиотека QR не загружена. Обновите страницу.', 'error');
-      return;
-    }
-
-    const canvas = document.createElement('canvas');
-    canvas.style.width = '320px';
-    canvas.style.height = '320px';
-    canvas.style.display = 'block';
-    canvas.style.borderRadius = '12px';
-    container.appendChild(canvas);
-
-    // ✅ Генерируем QR с ПРАВИЛЬНЫМИ настройками для iPhone:
-    // - width: 400 (не 320!) — крупные модули лучше распознаются
-    // - margin: 4 (тихий zone по стандарту)
-    // - errorCorrectionLevel: 'M' (не 'H'!) — iPhone лучше читает M
-    // - color: { dark: '#000', light: '#fff' } — максимальный контраст
-    await QRCode.toCanvas(canvas, qrUrl, {
-      width: 400,
-      margin: 4,
-      errorCorrectionLevel: 'M',
-      color: { dark: '#000000FF', light: '#FFFFFFFF' }
-    });
-
-    // Масштабируем для отображения
-    canvas.style.width = '320px';
-    canvas.style.height = '320px';
-    canvas.style.imageRendering = 'pixelated';
-
-    console.log('✅ QR-код (URL):', qrUrl);
-    qrSecondsLeft = QR_LIFETIME;
-    updateQRTimerDisplay();
-  } catch (e) {
-    console.error('Ошибка QR:', e);
-    showToast('Ошибка генерации QR: ' + e.message, 'error');
+function generateAndRenderCode() {
+  const code = generateClientCode(currentUser.uid);
+  const display = document.getElementById('codeBigDisplay');
+  if (display) {
+    display.innerHTML = code.split('').map((ch, i) => `<span class="char" style="animation-delay:${i * 0.05}s">${ch}</span>`).join('');
   }
+  codeSecondsLeft = CODE_LIFETIME;
+  updateCodeTimerDisplay();
 }
 
-function startQRTimer() {
-  stopQRTimer();
-  qrSecondsLeft = QR_LIFETIME;
-  updateQRTimerDisplay();
-  qrTimerInterval = setInterval(() => {
-    qrSecondsLeft--;
-    updateQRTimerDisplay();
-    if (qrSecondsLeft <= 0) generateAndRenderQR();
+function startCodeTimer() {
+  stopCodeTimer();
+  codeSecondsLeft = CODE_LIFETIME;
+  updateCodeTimerDisplay();
+  codeTimerInterval = setInterval(() => {
+    codeSecondsLeft--;
+    updateCodeTimerDisplay();
+    if (codeSecondsLeft <= 0) generateAndRenderCode();
   }, 1000);
 }
 
-function stopQRTimer() {
-  if (qrTimerInterval) { clearInterval(qrTimerInterval); qrTimerInterval = null; }
+function stopCodeTimer() {
+  if (codeTimerInterval) { clearInterval(codeTimerInterval); codeTimerInterval = null; }
 }
 
-function updateQRTimerDisplay() {
-  const m = Math.floor(qrSecondsLeft / 60);
-  const s = qrSecondsLeft % 60;
-  const t = document.getElementById('qrTimerText');
-  const f = document.getElementById('qrTimerFill');
+function updateCodeTimerDisplay() {
+  const m = Math.floor(codeSecondsLeft / 60);
+  const s = codeSecondsLeft % 60;
+  const t = document.getElementById('codeTimerText');
+  const f = document.getElementById('codeTimerFill');
   if (t) t.textContent = `${m}:${String(s).padStart(2, '0')}`;
-  if (f) f.style.width = (qrSecondsLeft / QR_LIFETIME) * 100 + '%';
+  if (f) f.style.width = (codeSecondsLeft / CODE_LIFETIME) * 100 + '%';
 }
 
-window.closeQRModal = function() {
-  const modal = document.getElementById('qrModal');
+window.closeCodeModal = function() {
+  const modal = document.getElementById('codeModal');
   if (modal) modal.classList.remove('active');
   document.body.style.overflow = '';
-  stopQRTimer();
+  stopCodeTimer();
 };
-
-/* ✅ Проверка ?qr= в URL — для перехода с камеры iPhone */
-async function checkQRParam() {
-  const params = new URLSearchParams(window.location.search);
-  const qrToken = params.get('qr');
-  if (!qrToken) return;
-
-  // Очищаем URL, чтобы не мозолил глаза
-  try {
-    window.history.replaceState({}, document.title, window.location.pathname);
-  } catch (e) {}
-
-  showToast('📱 QR-код распознан. Проверяем...', 'info', 3000);
-
-  // Разбираем токен
-  const parts = qrToken.split(':');
-  if (parts.length !== 4 || parts[0] !== 'ST1') {
-    showToast('❌ Неверный формат QR-кода', 'error', 5000);
-    return;
-  }
-  const [, userId, timestampStr, hmac] = parts;
-  const timestamp = parseInt(timestampStr);
-  const now = Math.floor(Date.now() / 1000);
-  const age = now - timestamp;
-
-  if (age > QR_LIFETIME) {
-    showToast(`❌ QR-код истёк (${age} сек назад)`, 'error', 6000);
-    return;
-  }
-
-  const data = `${userId}:${timestamp}`;
-  const expectedHmac = CryptoJS.HmacSHA256(data, QR_SECRET).toString(CryptoJS.enc.Hex);
-  if (expectedHmac !== hmac) {
-    showToast('❌ Подпись QR-кода недействительна', 'error', 6000);
-    return;
-  }
-
-  // Ищем пользователя
-  try {
-    const userDoc = await getDoc(doc(db, 'users', userId));
-    if (!userDoc.exists()) {
-      showToast('❌ Пользователь не найден', 'error', 5000);
-      return;
-    }
-    const userData = userDoc.data();
-
-    // Если это сам пользователь — открываем кабинет
-    if (currentUser && currentUser.uid === userId) {
-      navigateTo('cabinet');
-      showToast(`✅ Добро пожаловать, ${userData.name}!`, 'success', 4000);
-      return;
-    }
-
-    // Иначе — показываем публичный профиль клиента
-    showPublicProfile(userData, userId);
-  } catch (e) {
-    console.error(e);
-    showToast('Ошибка загрузки профиля: ' + e.message, 'error');
-  }
-}
-
-/* Публичный профиль (для админа, сканирующего QR) */
-function showPublicProfile(userData, userId) {
-  // Создаём модалку динамически
-  let modal = document.getElementById('publicProfileModal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.className = 'modal-overlay';
-    modal.id = 'publicProfileModal';
-    modal.innerHTML = `
-      <div class="modal" style="max-width:440px;">
-        <button class="modal-close" onclick="document.getElementById('publicProfileModal').classList.remove('active');document.body.style.overflow='';">&times;</button>
-        <div id="publicProfileContent"></div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-    modal.addEventListener('click', function(e) {
-      if (e.target === this) {
-        this.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    });
-  }
-
-  const photo = userData.photoURL || '';
-  const initial = (userData.name || '?').charAt(0).toUpperCase();
-
-  document.getElementById('publicProfileContent').innerHTML = `
-    <div style="text-align:center;padding:12px 0;">
-      <div style="font-size:38px;color:var(--gold);margin-bottom:8px;">📱</div>
-      <h2 style="padding-right:0;text-align:center;">Карта <span class="gold-text">клиента</span></h2>
-      <p class="subtitle" style="text-align:center;">QR-код успешно распознан</p>
-    </div>
-
-    <div style="text-align:center;margin:20px 0;">
-      <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;border:3px solid var(--gold);background:var(--gold-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:36px;font-weight:800;margin:0 auto;">
-        ${photo ? `<img src="${photo}" style="width:100%;height:100%;object-fit:cover;">` : initial}
-      </div>
-      <div style="font-size:20px;font-weight:700;margin-top:12px;">${escapeHTML(userData.name || 'Без имени')}</div>
-      <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">${escapeHTML(userData.cardId || '')}</div>
-    </div>
-
-    <div style="background:linear-gradient(145deg, rgba(201,169,110,0.15), rgba(201,169,110,0.03));border:1px solid var(--border-color);border-radius:16px;padding:20px;text-align:center;margin:16px 0;">
-      <div style="font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;">☀️ Баланс</div>
-      <div style="font-size:48px;font-weight:900;color:var(--gold);line-height:1;margin:6px 0;">${userData.minutes || 0}</div>
-      <div style="font-size:12px;color:var(--text-muted);">минут</div>
-    </div>
-
-    <div style="background:rgba(39,174,96,0.1);border:1px solid rgba(39,174,96,0.3);border-radius:12px;padding:14px;text-align:center;font-size:13px;color:#27AE60;font-weight:600;">
-      ✅ QR-код валиден и действителен
-    </div>
-
-    <div style="margin-top:20px;text-align:center;font-size:12px;color:var(--text-muted);">
-      Покажите этот экран администратору салона для списания минут
-    </div>
-  `;
-
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
 
 /* ============================================
    ПРОФИЛЬ
@@ -3491,7 +2484,7 @@ window.openEditProfile = function() {
   document.getElementById('profilePhotoInput').onchange = function(e) {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 500 * 1024) { showToast('Файл слишком большой (макс. 500 КБ)', 'error'); return; }
+      if (file.size > 500 * 1024) { showToast('Файл слишком большой', 'error'); return; }
       const reader = new FileReader();
       reader.onload = (ev) => {
         document.getElementById('profilePhotoPreview').innerHTML = `<img src="${ev.target.result}" />`;
@@ -3552,7 +2545,7 @@ async function updateUserContent(userId, updates) {
 }
 
 /* ============================================
-   НАВИГАЦИЯ / AUTH
+   НАВИГАЦИЯ
    ============================================ */
 window.navigateTo = function(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -3563,7 +2556,6 @@ window.navigateTo = function(page) {
   if (nav) nav.classList.remove('open');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
-
 window.openBooking = function() {
   const m = document.getElementById('bookingModal');
   if (m) { m.classList.add('active'); document.body.style.overflow = 'hidden'; }
@@ -3577,6 +2569,9 @@ window.goToCabinet = function() {
   else openAuthModal();
 };
 
+/* ============================================
+   AUTH
+   ============================================ */
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUser = user;
@@ -3615,7 +2610,7 @@ function updateUIForUser() {
     const name = currentUserData?.name || currentUser.displayName || currentUser.email?.split('@')[0] || 'Пользователь';
     const photo = currentUserData?.photoURL || currentUser.photoURL;
     if (photo) {
-      btn.innerHTML = `<img src="${photo}" class="avatar" alt="${escapeHTML(name)}" /><span>${escapeHTML(name)}</span>`;
+      btn.innerHTML = `<img src="${photo}" class="avatar" /><span>${escapeHTML(name)}</span>`;
     } else {
       const initial = name.charAt(0).toUpperCase();
       btn.innerHTML = `<span style="width:24px;height:24px;border-radius:50%;background:var(--gold-gradient);display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">${initial}</span><span>${escapeHTML(name)}</span>`;
@@ -3682,7 +2677,7 @@ window.registerUser = async function(e) {
   }
 };
 window.loginWithYandex = function() {
-  showToast('Вход через Яндекс временно недоступен. Используйте email.', 'info');
+  showToast('Вход через Яндекс временно недоступен', 'info');
 };
 
 function initTheme() {
@@ -3740,11 +2735,11 @@ initTheme();
 await initData();
 
 console.log('🚀 Студия №1 запущена!');
+console.log('🔑 Система кодов активна');
 console.log('👩‍🎨 Мастеров:', allMasters.length);
 console.log('💇 Услуг:', allServices.length);
 console.log('📝 Постов:', allBlogPosts.length);
 console.log('⭐ Отзывов:', allReviews.length);
-console.log('✅ QR теперь содержит URL: камера iPhone откроет сайт');
 </script>
 </body>
 </html>
