@@ -24,7 +24,7 @@
 </script>
 <style>
 /* ============================================
-   ПЕРЕМЕННЫЕ И БАЗА
+   БАЗА
    ============================================ */
 :root {
   --bg-primary: #0D0D0D;
@@ -124,13 +124,15 @@ body::before {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
-  position: relative;
-  z-index: 1;
+@keyframes podiumPop {
+  0% { opacity: 0; transform: translateY(30px) scale(0.9); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
+@keyframes medalShine {
+  0%, 100% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+  50% { transform: scale(1.15) rotate(5deg); filter: brightness(1.3); }
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
 .glass-card {
   background: var(--bg-card);
   backdrop-filter: blur(12px);
@@ -182,6 +184,7 @@ body::before {
   background-position: right center;
 }
 .btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .btn-outline {
   background: transparent;
   color: var(--gold);
@@ -447,12 +450,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   max-width: 580px;
   margin: 0 auto 28px;
 }
-.hero-buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+.hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 .hero-buttons .btn { flex: 1; min-width: 140px; max-width: 280px; }
 .hero-badge {
   display: inline-block;
@@ -622,10 +620,8 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 
 /* ============================================
-   ⭐ ОТЗЫВЫ — УЛУЧШЕННЫЙ БЛОК
+   ⭐ ОТЗЫВЫ — ГЛАВНЫЙ БЛОК
    ============================================ */
-
-/* --- Сводка (большая карточка) --- */
 .reviews-summary {
   display: grid;
   grid-template-columns: 1fr;
@@ -634,10 +630,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   animation: reviewCardIn 0.6s ease;
 }
 @media (min-width: 720px) {
-  .reviews-summary {
-    grid-template-columns: 320px 1fr;
-    align-items: stretch;
-  }
+  .reviews-summary { grid-template-columns: 320px 1fr; align-items: stretch; }
 }
 .rating-hero {
   background: linear-gradient(145deg, rgba(201, 169, 110, 0.12), rgba(201, 169, 110, 0.02));
@@ -690,13 +683,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   z-index: 1;
   margin-top: 4px;
 }
-.rating-hero .total strong {
-  color: var(--gold);
-  font-size: 18px;
-  font-weight: 700;
-}
-
-/* --- Прогресс-бары распределения оценок --- */
+.rating-hero .total strong { color: var(--gold); font-size: 18px; font-weight: 700; }
 .rating-bars {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -707,12 +694,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   justify-content: center;
   gap: 12px;
 }
-.rating-bar-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 13px;
-}
+.rating-bar-row { display: flex; align-items: center; gap: 12px; font-size: 13px; }
 .rating-bar-row .bar-label {
   min-width: 60px;
   color: var(--text-secondary);
@@ -721,21 +703,14 @@ nav a:hover, nav a.active { color: var(--gold); }
   gap: 4px;
   font-weight: 500;
 }
-.rating-bar-row .bar-label .num {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-.rating-bar-row .bar-label i {
-  color: #F5B342;
-  font-size: 11px;
-}
+.rating-bar-row .bar-label .num { color: var(--text-primary); font-weight: 600; }
+.rating-bar-row .bar-label i { color: #F5B342; font-size: 11px; }
 .rating-bar-row .bar-track {
   flex: 1;
   height: 10px;
   background: var(--bg-secondary);
   border-radius: 10px;
   overflow: hidden;
-  position: relative;
 }
 .rating-bar-row .bar-fill {
   height: 100%;
@@ -752,106 +727,179 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-weight: 600;
 }
 
-/* --- Сетка карточек мастеров с рейтингом --- */
-.masters-rating-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
+/* --- ТОП-3 ОТЗЫВА МЕСЯЦА --- */
+.top-reviews {
   margin-bottom: 30px;
+  animation: reviewCardIn 0.6s ease;
 }
-@media (min-width: 600px) {
-  .masters-rating-grid { grid-template-columns: 1fr 1fr; }
-}
-@media (min-width: 900px) {
-  .masters-rating-grid { grid-template-columns: 1fr 1fr 1fr; }
-}
-.master-rating-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 16px;
+.top-reviews-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  transition: var(--transition-smooth);
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.top-reviews-header h3 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.top-reviews-header .period {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+.podium {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 720px) {
+  .podium {
+    grid-template-columns: 1fr 1.15fr 1fr;
+    align-items: end;
+    gap: 16px;
+  }
+}
+.podium-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 22px 18px;
   position: relative;
   overflow: hidden;
+  transition: var(--transition-smooth);
+  animation: podiumPop 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.master-rating-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(201, 169, 110, 0.08), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-.master-rating-card:hover {
+.podium-card:nth-child(1) { animation-delay: 0.1s; }
+.podium-card:nth-child(2) { animation-delay: 0.2s; }
+.podium-card:nth-child(3) { animation-delay: 0.3s; }
+.podium-card:hover {
+  transform: translateY(-6px);
   border-color: var(--gold);
-  transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
 }
-.master-rating-card:hover::before { opacity: 1; }
-.master-rating-card .m-avatar {
-  width: 52px; height: 52px;
+.podium-card.gold-medal {
+  border-color: rgba(245, 179, 66, 0.5);
+  background: linear-gradient(145deg, rgba(245, 179, 66, 0.12), rgba(201, 169, 110, 0.04));
+  box-shadow: 0 8px 32px rgba(245, 179, 66, 0.15);
+}
+.podium-card.silver-medal {
+  border-color: rgba(192, 192, 192, 0.4);
+  background: linear-gradient(145deg, rgba(192, 192, 192, 0.08), rgba(201, 169, 110, 0.02));
+}
+.podium-card.bronze-medal {
+  border-color: rgba(205, 127, 50, 0.4);
+  background: linear-gradient(145deg, rgba(205, 127, 50, 0.08), rgba(201, 169, 110, 0.02));
+}
+.podium-card .medal {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+.podium-card.gold-medal .medal {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  animation: medalShine 3s ease-in-out infinite;
+}
+.podium-card.silver-medal .medal {
+  background: linear-gradient(135deg, #E8E8E8, #A8A8A8);
+}
+.podium-card.bronze-medal .medal {
+  background: linear-gradient(135deg, #E8A87C, #CD7F32);
+}
+.podium-card .rank-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+}
+.podium-card.gold-medal .rank-badge { background: rgba(245, 179, 66, 0.2); color: #F5B342; }
+.podium-card.silver-medal .rank-badge { background: rgba(192, 192, 192, 0.2); color: #C0C0C0; }
+.podium-card.bronze-medal .rank-badge { background: rgba(205, 127, 50, 0.2); color: #CD7F32; }
+.podium-card .podium-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+.podium-card .podium-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
   background: var(--gold-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 20px;
   flex-shrink: 0;
-  overflow: hidden;
-  border: 2px solid rgba(201, 169, 110, 0.4);
-  position: relative;
-  z-index: 1;
+  border: 2px solid var(--border-color);
 }
-.master-rating-card .m-avatar img {
-  width: 100%; height: 100%; object-fit: cover;
-}
-.master-rating-card .m-info {
-  flex: 1;
-  min-width: 0;
-  position: relative;
-  z-index: 1;
-}
-.master-rating-card .m-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 3px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.master-rating-card .m-specialty {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.master-rating-card .m-rating {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-}
-.master-rating-card .m-rating .stars {
-  color: #F5B342;
-  letter-spacing: 1px;
-  font-size: 13px;
-}
-.master-rating-card .m-rating .score {
+.podium-card .podium-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.podium-card .podium-meta { min-width: 0; flex: 1; }
+.podium-card .podium-name {
   font-weight: 700;
-  color: var(--gold);
+  font-size: 15px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.master-rating-card .m-rating .count {
-  color: var(--text-muted);
+.podium-card .podium-date {
   font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.podium-card .podium-stars {
+  color: #F5B342;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 12px rgba(245, 179, 66, 0.4);
+}
+.podium-card .podium-text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+.podium-card .podium-master {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(201, 169, 110, 0.12);
+  color: var(--gold);
+  font-weight: 600;
+  align-self: flex-start;
 }
 
 /* --- Форма отзыва --- */
@@ -874,10 +922,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   background-size: 200% auto;
   animation: shimmerLong 4s ease-in-out infinite;
 }
-.review-form-new .form-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
+.review-form-new .form-header { text-align: center; margin-bottom: 24px; }
 .review-form-new .form-header .form-icon {
   font-size: 38px;
   color: var(--gold);
@@ -891,12 +936,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   color: var(--text-primary);
   margin-bottom: 4px;
 }
-.review-form-new .form-header p {
-  color: var(--text-muted);
-  font-size: 14px;
-}
-
-/* --- Выбор оценки — большие кнопки --- */
+.review-form-new .form-header p { color: var(--text-muted); font-size: 14px; }
 .rating-picker {
   display: flex;
   justify-content: center;
@@ -957,11 +997,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   margin-top: 2px;
   min-height: 20px;
 }
-
-/* --- Выбор мастера в форме --- */
-.master-picker {
-  margin: 16px 0;
-}
+.master-picker { margin: 16px 0; }
 .master-picker label {
   display: block;
   font-size: 13px;
@@ -993,10 +1029,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   text-align: left;
   font-family: 'Inter', sans-serif;
 }
-.master-pick-btn:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
+.master-pick-btn:hover { border-color: var(--gold); color: var(--gold); }
 .master-pick-btn.active {
   background: rgba(201, 169, 110, 0.12);
   border-color: var(--gold);
@@ -1013,14 +1046,14 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-size: 12px;
   font-weight: 700;
   flex-shrink: 0;
+  overflow: hidden;
 }
+.master-pick-btn .mp-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .master-pick-btn .mp-name {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-/* --- Поля формы --- */
 .review-form-new textarea {
   width: 100%;
   padding: 14px 16px;
@@ -1050,6 +1083,93 @@ nav a:hover, nav a.active { color: var(--gold); }
 .review-form-new .char-counter.warn { color: #F5B342; }
 .review-form-new .char-counter.over { color: #E74C3C; }
 
+/* --- Загрузка фото --- */
+.photo-upload-block {
+  margin-top: 16px;
+}
+.photo-upload-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+}
+.photo-thumb {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+  background: var(--bg-secondary);
+  transition: var(--transition-smooth);
+}
+.photo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-thumb .remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+.photo-thumb .remove-btn:hover {
+  background: var(--red);
+  transform: scale(1.1);
+}
+.photo-add-btn {
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  border: 2px dashed var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: var(--transition-smooth);
+  font-family: 'Inter', sans-serif;
+  padding: 8px;
+  text-align: center;
+}
+.photo-add-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(201, 169, 110, 0.05);
+}
+.photo-add-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.photo-add-btn small {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.photo-add-btn input[type="file"] {
+  display: none;
+}
+
 .review-form-new .submit-row {
   display: flex;
   gap: 10px;
@@ -1057,10 +1177,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   flex-wrap: wrap;
   align-items: center;
 }
-.review-form-new .submit-row .btn {
-  flex: 1;
-  min-width: 200px;
-}
+.review-form-new .submit-row .btn { flex: 1; min-width: 200px; }
 .review-form-new .submit-row .hint {
   flex-basis: 100%;
   text-align: center;
@@ -1069,7 +1186,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   margin-top: 4px;
 }
 
-/* --- Заголовок секции отзывов --- */
+/* --- Тулбар + список --- */
 .reviews-section-title {
   display: flex;
   align-items: center;
@@ -1096,8 +1213,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   min-width: 32px;
   text-align: center;
 }
-
-/* --- Фильтры отзывов --- */
 .reviews-filters {
   display: flex;
   gap: 8px;
@@ -1118,10 +1233,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   transition: var(--transition-smooth);
 }
 .reviews-filters select:hover,
-.reviews-filters button:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
+.reviews-filters button:hover { border-color: var(--gold); color: var(--gold); }
 .reviews-filters select:focus { outline: none; border-color: var(--gold); }
 .filter-tab {
   padding: 8px 16px;
@@ -1142,8 +1254,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   color: #fff;
   border-color: transparent;
 }
-
-/* --- Карточка отзыва --- */
 .reviews-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -1180,11 +1290,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   box-shadow: var(--shadow-hover);
 }
 .review-card-new:hover::before { opacity: 1; }
-.review-card-new .rc-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.review-card-new .rc-header { display: flex; align-items: center; gap: 12px; }
 .review-card-new .rc-avatar {
   width: 48px; height: 48px;
   border-radius: 50%;
@@ -1199,13 +1305,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   overflow: hidden;
   border: 2px solid rgba(201, 169, 110, 0.3);
 }
-.review-card-new .rc-avatar img {
-  width: 100%; height: 100%; object-fit: cover;
-}
-.review-card-new .rc-meta {
-  flex: 1;
-  min-width: 0;
-}
+.review-card-new .rc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.review-card-new .rc-meta { flex: 1; min-width: 0; }
 .review-card-new .rc-name {
   font-weight: 600;
   color: var(--text-primary);
@@ -1214,11 +1315,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.review-card-new .rc-date {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
+.review-card-new .rc-date { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 .review-card-new .rc-type-badge {
   font-size: 11px;
   padding: 4px 10px;
@@ -1248,6 +1345,32 @@ nav a:hover, nav a.active { color: var(--gold); }
   word-wrap: break-word;
   white-space: pre-wrap;
 }
+.review-card-new .rc-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 8px;
+  margin-top: 4px;
+}
+.review-card-new .rc-photos .rc-photo {
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  transition: var(--transition-smooth);
+  background: var(--bg-secondary);
+}
+.review-card-new .rc-photos .rc-photo:hover {
+  transform: scale(1.05);
+  border-color: var(--gold);
+  box-shadow: 0 4px 16px rgba(201, 169, 110, 0.3);
+}
+.review-card-new .rc-photos .rc-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .review-card-new .rc-footer {
   display: flex;
   justify-content: space-between;
@@ -1267,8 +1390,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-weight: 600;
 }
 .review-card-new .rc-footer .rc-verified i { font-size: 11px; }
-
-/* Свой отзыв */
 .review-card-new.is-mine {
   border-color: rgba(201, 169, 110, 0.5);
   background: linear-gradient(145deg, rgba(201, 169, 110, 0.06), transparent);
@@ -1287,8 +1408,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   transform: rotate(38deg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
-
-/* Пустое состояние */
 .reviews-empty {
   text-align: center;
   padding: 60px 20px;
@@ -1303,19 +1422,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   margin-bottom: 12px;
   display: block;
 }
-.reviews-empty h4 {
-  color: var(--text-primary);
-  font-size: 20px;
-  margin-bottom: 6px;
-}
-.reviews-empty p {
-  color: var(--text-muted);
-  font-size: 14px;
-  max-width: 400px;
-  margin: 0 auto 16px;
-}
-
-/* Промпт "войдите" */
+.reviews-empty h4 { color: var(--text-primary); font-size: 20px; margin-bottom: 6px; }
+.reviews-empty p { color: var(--text-muted); font-size: 14px; max-width: 400px; margin: 0 auto 16px; }
 .reviews-login-prompt {
   background: linear-gradient(145deg, rgba(201, 169, 110, 0.08), rgba(201, 169, 110, 0.02));
   border: 2px dashed rgba(201, 169, 110, 0.3);
@@ -1331,18 +1439,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   display: block;
   filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4));
 }
-.reviews-login-prompt h3 {
-  font-size: 20px;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-}
-.reviews-login-prompt p {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin-bottom: 16px;
-}
-
-/* Мои отзывы — секция */
+.reviews-login-prompt h3 { font-size: 20px; color: var(--text-primary); margin-bottom: 6px; }
+.reviews-login-prompt p { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }
 .my-reviews-block {
   margin-top: 40px;
   padding-top: 24px;
@@ -1358,18 +1456,82 @@ nav a:hover, nav a.active { color: var(--gold); }
   gap: 10px;
 }
 
-/* --- COMMENTS (сохранено) --- */
-.comments-section {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-color);
+/* ============================================
+   ЛАЙТБОКС
+   ============================================ */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 5000;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
 }
-.comments-section .comments-title {
-  font-size: 16px;
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+.lightbox-close:hover { background: var(--gold); color: #000; }
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+.lightbox-nav:hover { background: var(--gold); color: #000; }
+.lightbox-nav.prev { left: 20px; }
+.lightbox-nav.next { right: 20px; }
+.lightbox-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 12px;
+  backdrop-filter: blur(8px);
 }
+
+/* COMMENTS */
+.comments-section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); }
+.comments-section .comments-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
 .comment {
   margin-bottom: 12px;
   padding: 12px 14px;
@@ -1377,13 +1539,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   border-radius: var(--radius-sm);
   border-left: 2px solid var(--gold);
 }
-.comment .comment-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 4px;
-  flex-wrap: wrap;
-}
+.comment .comment-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
 .comment .comment-header .avatar {
   width: 32px; height: 32px;
   border-radius: 50%;
@@ -1402,13 +1558,7 @@ nav a:hover, nav a.active { color: var(--gold); }
 .comment .comment-header .time { font-size: 12px; color: var(--text-muted); margin-left: auto; }
 .comment .comment-text { color: var(--text-secondary); font-size: 14px; margin: 4px 0 8px; word-wrap: break-word; }
 .comment .comment-text.deleted { font-style: italic; color: var(--text-muted); }
-.comment .comment-actions {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  font-size: 13px;
-  flex-wrap: wrap;
-}
+.comment .comment-actions { display: flex; gap: 14px; align-items: center; font-size: 13px; flex-wrap: wrap; }
 .comment .comment-actions button {
   background: none;
   border: none;
@@ -1425,18 +1575,8 @@ nav a:hover, nav a.active { color: var(--gold); }
 .comment .comment-actions button:hover { color: var(--gold); background: var(--bg-card); }
 .comment .comment-actions .liked { color: #E74C3C; }
 .comment .comment-actions .liked i { animation: likeAnim 0.3s ease; }
-.comment .replies {
-  margin-left: 36px;
-  margin-top: 8px;
-  padding-left: 12px;
-  border-left: 2px solid var(--border-color);
-}
-.comment-form {
-  display: flex;
-  gap: 10px;
-  margin-top: 12px;
-  align-items: flex-start;
-}
+.comment .replies { margin-left: 36px; margin-top: 8px; padding-left: 12px; border-left: 2px solid var(--border-color); }
+.comment-form { display: flex; gap: 10px; margin-top: 12px; align-items: flex-start; }
 .comment-form textarea {
   flex: 1;
   padding: 10px 14px;
@@ -1486,7 +1626,7 @@ nav a:hover, nav a.active { color: var(--gold); }
 .login-to-comment .btn { margin-top: 8px; }
 
 /* ============================================
-   КАРТА МИНУТ — 3D-ПЕРЕВОРОТ (FIXED)
+   КАРТА МИНУТ
    ============================================ */
 .card-wrapper {
   width: 100%;
@@ -1503,14 +1643,10 @@ nav a:hover, nav a.active { color: var(--gold); }
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   transition: transform 0.9s cubic-bezier(0.4, 0.0, 0.2, 1);
-  -webkit-transition: -webkit-transform 0.9s cubic-bezier(0.4, 0.0, 0.2, 1);
   border-radius: 22px;
   will-change: transform;
 }
-.card-flip.flipped {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-}
+.card-flip.flipped { transform: rotateY(180deg); }
 .card-face {
   position: absolute;
   inset: 0;
@@ -1519,21 +1655,17 @@ nav a:hover, nav a.active { color: var(--gold); }
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
   will-change: transform;
   transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 .card-front {
   transform: rotateY(0deg) translateZ(1px);
-  -webkit-transform: rotateY(0deg) translateZ(1px);
   z-index: 2;
   color: #F0EBE6;
   animation: cardGlowPulse 4s ease-in-out infinite;
 }
 .card-back {
   transform: rotateY(180deg) translateZ(1px);
-  -webkit-transform: rotateY(180deg) translateZ(1px);
   z-index: 1;
   color: #F0EBE6;
   overflow: hidden;
@@ -1652,10 +1784,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-weight: 700;
   z-index: 7;
   backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
 }
-
-/* Задняя сторона */
 .card-back::before {
   content: '';
   position: absolute;
@@ -1748,8 +1877,8 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .back-signature { padding: 0 22px; margin-top: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .back-signature .sig-label { font-size: 7px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; line-height: 1; flex-shrink: 0; font-weight: 600; }
-.back-signature .sig-line { flex: 1; height: 28px; border-bottom: 1.5px solid; opacity: 0.6; position: relative; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%); }
-.back-cvv { font-family: 'Courier New', monospace; font-size: 15px; font-weight: 700; letter-spacing: 3px; padding: 2px 8px 2px 8px; border-bottom: 1.5px solid; min-width: 52px; text-align: center; flex-shrink: 0; background: rgba(255,255,255,0.03); border-radius: 4px 4px 0 0; }
+.back-signature .sig-line { flex: 1; height: 28px; border-bottom: 1.5px solid; opacity: 0.6; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%); }
+.back-cvv { font-family: 'Courier New', monospace; font-size: 15px; font-weight: 700; letter-spacing: 3px; padding: 2px 8px; border-bottom: 1.5px solid; min-width: 52px; text-align: center; flex-shrink: 0; background: rgba(255,255,255,0.03); border-radius: 4px 4px 0 0; }
 .back-bottom { margin-top: auto; padding: 0 22px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
 .back-bottom .back-phone { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
 .back-bottom .back-phone i { opacity: 0.9; font-size: 11px; animation: phonePulse 2s ease-in-out infinite; }
@@ -1822,7 +1951,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   z-index: 2000;
   align-items: center;
   justify-content: center;
@@ -2123,6 +2251,9 @@ footer span {
   .master-picker-grid { grid-template-columns: 1fr; }
   .reviews-section-title { flex-direction: column; align-items: stretch; }
   .reviews-filters { justify-content: center; }
+  .lightbox-nav { width: 40px; height: 40px; font-size: 18px; }
+  .lightbox-nav.prev { left: 10px; }
+  .lightbox-nav.next { right: 10px; }
 }
 @media (max-width: 480px) {
   .front-content { padding: 16px 18px; }
@@ -2148,6 +2279,8 @@ footer span {
   .rating-picker .star-btn { width: 44px; height: 44px; font-size: 18px; }
   .review-form-new { padding: 20px 16px; }
   .reviews-summary { gap: 14px; }
+  .podium-card .medal { width: 44px; height: 44px; font-size: 24px; top: -8px; right: -8px; }
+  .podium-card .podium-text { -webkit-line-clamp: 4; font-size: 13.5px; }
 }
 @media (max-width: 400px) {
   .hero h1 { font-size: 26px; }
@@ -2158,6 +2291,7 @@ footer span {
   .logo { font-size: 18px; }
   .rating-picker { gap: 6px; }
   .rating-picker .star-btn { width: 40px; height: 40px; font-size: 16px; }
+  .photo-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 6px; }
 }
 </style>
 </head>
@@ -2306,6 +2440,7 @@ footer span {
 <button class="sticky-book btn-pulse" onclick="openBooking()"><i class="fas fa-calendar-plus"></i> Записаться</button>
 <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-up"></i></button>
 
+<!-- Модалка авторизации -->
 <div class="modal-overlay" id="authModal">
   <div class="modal">
     <button class="modal-close" onclick="closeAuthModal()">&times;</button>
@@ -2344,6 +2479,7 @@ footer span {
   </div>
 </div>
 
+<!-- Модалка записи -->
 <div class="modal-overlay" id="bookingModal">
   <div class="modal" style="max-width:500px;">
     <button class="modal-close" onclick="closeBooking()">&times;</button>
@@ -2359,6 +2495,7 @@ footer span {
   </div>
 </div>
 
+<!-- Модалка редактирования профиля -->
 <div class="modal-overlay" id="editProfileModal">
   <div class="modal">
     <button class="modal-close" onclick="closeEditProfile()">&times;</button>
@@ -2382,6 +2519,7 @@ footer span {
   </div>
 </div>
 
+<!-- Модалка QR -->
 <div class="modal-overlay" id="qrModal">
   <div class="modal" style="max-width:440px;">
     <button class="modal-close" onclick="closeQRModal()">&times;</button>
@@ -2389,15 +2527,12 @@ footer span {
       <div style="font-size:42px;color:var(--gold);margin-bottom:8px;">📱</div>
       <h2 style="text-align:center;padding-right:0;">QR-код для <span class="gold-text">солярия</span></h2>
       <p class="subtitle" style="text-align:center;">Покажите этот код администратору</p>
-
       <div class="qr-balance-preview">
         <span class="label">☀️ Ваш баланс:</span>
         <span class="value" id="qrBalance">0</span>
         <span class="label">минут</span>
       </div>
-
       <div class="qr-container" id="qrContainer"></div>
-
       <div class="qr-timer">
         <span>🔄 Обновление через:</span>
         <span class="timer-text" id="qrTimerText">2:00</span>
@@ -2407,7 +2542,6 @@ footer span {
           <div class="timer-fill" id="qrTimerFill" style="width:100%;"></div>
         </div>
       </div>
-
       <div class="qr-instruction">
         <strong style="color:var(--gold);">📋 Как использовать:</strong>
         <ol>
@@ -2420,6 +2554,15 @@ footer span {
       </div>
     </div>
   </div>
+</div>
+
+<!-- Лайтбокс для фото -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+  <button class="lightbox-nav prev" onclick="lightboxPrev()"><i class="fas fa-chevron-left"></i></button>
+  <img id="lightboxImg" src="" alt="Просмотр" />
+  <button class="lightbox-nav next" onclick="lightboxNext()"><i class="fas fa-chevron-right"></i></button>
+  <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
 </div>
 
 <script type="module">
@@ -2450,14 +2593,19 @@ let allReviews = [];
 let currentCategory = 'Все';
 let commentListeners = {};
 let selectedReviewStar = 0;
-let selectedMasterId = '';           // выбранный мастер в форме
-let selectedMasterStar = 0;          // оценка мастера в форме
+let selectedMasterId = '';
+let selectedMasterStar = 0;
 let tempPhotoData = null;
-let reviewFilter = 'all';            // all | salon | master | mine
-let reviewSort = 'new';              // new | old | high | low
+let reviewFilter = 'all';
+let reviewSort = 'new';
+let reviewPhotos = []; // массив base64 для текущей формы
+let lightboxPhotos = [];
+let lightboxIndex = 0;
 
 const QR_SECRET = 'STUDIO1_KEMEROVO_2026_SECRET_KEY_v1_X9K2M5P8';
 const QR_LIFETIME = 120;
+const MAX_REVIEW_PHOTOS = 3;
+const MAX_PHOTO_SIZE = 200 * 1024; // 200 КБ
 let qrTimerInterval = null;
 let qrSecondsLeft = QR_LIFETIME;
 
@@ -2492,6 +2640,15 @@ function formatDate(date) {
   } catch { return ''; }
 }
 
+function formatDateLong(date) {
+  if (!date) return '';
+  try {
+    const d = date instanceof Date ? date : new Date(date);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' });
+  } catch { return ''; }
+}
+
 function pluralize(n, one, few, many) {
   const mod10 = n % 10;
   const mod100 = n % 100;
@@ -2508,6 +2665,39 @@ function getRatingLabel(rating) {
   if (rating >= 2.0) return 'Так себе';
   if (rating > 0) return 'Плохо';
   return 'Нет оценок';
+}
+
+/* Сжатие изображения на клиенте */
+function compressImage(file, maxSize = 800, quality = 0.75) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxSize || height > maxSize) {
+          if (width > height) {
+            height = Math.round(height * (maxSize / width));
+            width = maxSize;
+          } else {
+            width = Math.round(width * (maxSize / height));
+            height = maxSize;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve(dataUrl);
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 /* ============================================
@@ -2549,8 +2739,7 @@ const DEFAULT_MASTERS = [
     description: 'Колорист, мастер по стрижкам',
     education: 'Академия Sointera Academy',
     photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EНМ%3C/text%3E%3C/svg%3E',
-    rating: 4.9,
-    reviews: 55,
+    rating: 4.9, reviews: 55,
     services: [
       { name: 'Стрижка женская', category: 'Стрижки', price: 2500, duration: '1 ч 30 м' },
       { name: 'Стойкое окрашивание', category: 'Окрашивание', price: 3500, duration: '2 ч 30 м' },
@@ -2573,16 +2762,15 @@ const DEFAULT_MASTERS = [
     description: 'Специалист по перманентному макияжу',
     education: 'Сертифицированный мастер',
     photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EВС%3C/text%3E%3C/svg%3E',
-    rating: 0,
-    reviews: 0,
+    rating: 0, reviews: 0,
     services: [
       { name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000, duration: '2 ч 30 м' },
-      { name: 'Перманентный макияж век (межресничка)', category: 'Перманент', price: 7500, duration: '45 м' },
+      { name: 'Перманентный макияж век', category: 'Перманент', price: 7500, duration: '45 м' },
       { name: 'Перманентный макияж губ', category: 'Перманент', price: 9000, duration: '3 ч' },
       { name: 'Комбо: брови + межресничка', category: 'Перманент', price: 12000, duration: '3 ч 30 м' },
       { name: 'Коррекция перманентного макияжа', category: 'Перманент', price: 5000, duration: '2 ч' },
       { name: 'Камуфляж темных кругов', category: 'Перманент', price: 6000, duration: '1 ч 30 м' },
-      { name: 'Удаление татуажа ремувером', category: 'Перманент', price: 2500, duration: '1 ч' }
+      { name: 'Удаление татуажа', category: 'Перманент', price: 2500, duration: '1 ч' }
     ]
   },
   {
@@ -2592,14 +2780,13 @@ const DEFAULT_MASTERS = [
     description: 'Администратор и специалист',
     education: 'Премиальные лампы Rubino+Collatan',
     photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EТТ%3C/text%3E%3C/svg%3E',
-    rating: 4.7,
-    reviews: 24,
+    rating: 4.7, reviews: 24,
     services: [
-      { name: 'Загар премиум (1 минута)', category: 'Солярий', price: 33, duration: '20 м' },
+      { name: 'Загар премиум (1 мин)', category: 'Солярий', price: 33, duration: '20 м' },
       { name: 'Первый визит "Сияние"', category: 'Солярий', price: 299, duration: '20 м' },
-      { name: 'Абонемент "VIP Сияние" (200 мин)', category: 'Солярий', price: 4900, duration: '20 м' },
-      { name: 'Абонемент "Идеальный загар" (100 мин)', category: 'Солярий', price: 3000, duration: '1 ч 40 м' },
-      { name: 'Абонемент "START Сияние" (50 мин)', category: 'Солярий', price: 1600, duration: '50 м' }
+      { name: 'Абонемент "VIP Сияние"', category: 'Солярий', price: 4900, duration: '20 м' },
+      { name: 'Абонемент "Идеальный загар"', category: 'Солярий', price: 3000, duration: '1 ч 40 м' },
+      { name: 'Абонемент "START Сияние"', category: 'Солярий', price: 1600, duration: '50 м' }
     ]
   },
   {
@@ -2609,8 +2796,7 @@ const DEFAULT_MASTERS = [
     description: 'Специалист по педикюру',
     education: 'Сертифицированный мастер',
     photo: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3EЮС%3C/text%3E%3C/svg%3E',
-    rating: 5.0,
-    reviews: 3,
+    rating: 5.0, reviews: 3,
     services: [
       { name: 'Педикюр Smart', category: 'Педикюр', price: 1900, duration: '45 м' },
       { name: 'Smart Педикюр с покрытием', category: 'Педикюр', price: 2500, duration: '1 ч 30 м' },
@@ -2668,7 +2854,7 @@ function renderAll() {
 }
 
 /* ============================================
-   УСЛУГИ
+   УСЛУГИ / МАСТЕРА
    ============================================ */
 function renderCategories() {
   const c = document.getElementById('categoriesFilter');
@@ -2703,9 +2889,6 @@ function renderServices() {
   `).join('');
 }
 
-/* ============================================
-   МАСТЕРА
-   ============================================ */
 function renderMasters() {
   const container = document.getElementById('mastersContainer');
   if (!container) return;
@@ -2741,15 +2924,14 @@ window.toggleMasterServices = function(id) {
 };
 
 /* ============================================
-   ⭐ ОТЗЫВЫ — ПОЛНОСТЬЮ ПЕРЕРАБОТАНО
+   ⭐ ОТЗЫВЫ — ГЛАВНЫЙ РЕНДЕР
    ============================================ */
 function renderReviews() {
   const container = document.getElementById('reviewsContainer');
   if (!container) return;
-
   container.innerHTML = `
     ${renderReviewsSummary()}
-    ${renderMastersRatingCards()}
+    ${renderTopReviews()}
     ${renderReviewForm()}
     ${renderReviewsToolbar()}
     ${renderReviewList()}
@@ -2757,14 +2939,13 @@ function renderReviews() {
   `;
 }
 
-/* --- 1. Сводка (большая карточка + прогресс-бары) --- */
+/* --- 1. Сводка --- */
 function renderReviewsSummary() {
   const total = allReviews.length;
   const avg = total > 0 ? (allReviews.reduce((s, r) => s + (r.rating || 0), 0) / total) : 0;
   const rounded = Math.round(avg);
   const stars = '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
 
-  // Распределение по звёздам
   const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
   allReviews.forEach(r => {
     const rating = Math.round(r.rating || 0);
@@ -2776,12 +2957,8 @@ function renderReviewsSummary() {
     const percent = total > 0 ? (count / total) * 100 : 0;
     return `
       <div class="rating-bar-row">
-        <div class="bar-label">
-          <span class="num">${star}</span> <i class="fas fa-star"></i>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" style="width: ${percent}%;"></div>
-        </div>
+        <div class="bar-label"><span class="num">${star}</span> <i class="fas fa-star"></i></div>
+        <div class="bar-track"><div class="bar-fill" style="width: ${percent}%;"></div></div>
         <div class="bar-count">${count}</div>
       </div>
     `;
@@ -2792,59 +2969,102 @@ function renderReviewsSummary() {
       <div class="rating-hero">
         <div class="big-number">${avg.toFixed(1)}</div>
         <div class="big-stars">${stars}</div>
-        <div class="total">
-          <strong>${total}</strong> ${pluralize(total, 'отзыв', 'отзыва', 'отзывов')}
-        </div>
-        <div style="margin-top:10px;font-size:13px;color:var(--text-muted);position:relative;z-index:1;">
-          ${getRatingLabel(avg)}
-        </div>
+        <div class="total"><strong>${total}</strong> ${pluralize(total, 'отзыв', 'отзыва', 'отзывов')}</div>
+        <div style="margin-top:10px;font-size:13px;color:var(--text-muted);position:relative;z-index:1;">${getRatingLabel(avg)}</div>
       </div>
       <div class="rating-bars">
-        <div style="font-size:13px;color:var(--text-muted);font-weight:600;margin-bottom:4px;">
-          Распределение оценок
-        </div>
+        <div style="font-size:13px;color:var(--text-muted);font-weight:600;margin-bottom:4px;">Распределение оценок</div>
         ${barsHtml}
       </div>
     </div>
   `;
 }
 
-/* --- 2. Карточки мастеров с рейтингом --- */
-function renderMastersRatingCards() {
-  if (!allMasters.length) return '';
-  const cards = allMasters.map(m => {
-    const mReviews = allReviews.filter(r => r.masterId === m.id && r.rating > 0);
-    const avg = mReviews.length > 0 ? (mReviews.reduce((s, r) => s + r.rating, 0) / mReviews.length) : 0;
-    const rounded = Math.round(avg);
-    const stars = '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
-    const initials = m.name.split(' ').map(w => w[0]).join('');
-    return `
-      <div class="master-rating-card">
-        <div class="m-avatar">
-          ${m.photo ? `<img src="${escapeHTML(m.photo)}" alt="${escapeHTML(m.name)}" />` : initials}
-        </div>
-        <div class="m-info">
-          <div class="m-name">${escapeHTML(m.name)}</div>
-          <div class="m-specialty">${escapeHTML(m.specialty || '')}</div>
-          <div class="m-rating">
-            <span class="stars">${stars}</span>
-            <span class="score">${avg > 0 ? avg.toFixed(1) : '—'}</span>
-            <span class="count">(${mReviews.length})</span>
-          </div>
-        </div>
-      </div>
-    `;
-  }).join('');
+/* --- 2. 🏆 ТОП-3 ОТЗЫВА МЕСЯЦА --- */
+function renderTopReviews() {
+  const now = Date.now();
+  const monthAgo = now - 30 * 24 * 60 * 60 * 1000;
+
+  // Фильтруем отзывы за последние 30 дней с высоким рейтингом
+  const candidates = allReviews.filter(r => {
+    const d = r.createdAt?.toMillis ? r.createdAt.toMillis() : new Date(r.createdAt).getTime();
+    if (isNaN(d) || d < monthAgo) return false;
+    if ((r.rating || 0) < 4) return false;
+    if (r.isPublished === false) return false;
+    return true;
+  });
+
+  // Формула оценки: rating × 100 + min(длина_текста, 500) / 5 + свежесть
+  // Свежесть: чем ближе к сегодня, тем больше балл (макс 20)
+  const scored = candidates.map(r => {
+    const ts = r.createdAt?.toMillis ? r.createdAt.toMillis() : new Date(r.createdAt).getTime();
+    const daysOld = (now - ts) / (24 * 60 * 60 * 1000);
+    const freshnessBonus = Math.max(0, 20 - daysOld * 0.66); // макс 20 баллов за свежесть
+    const textBonus = Math.min((r.text || '').length, 500) / 5; // макс 100 баллов за длину
+    const ratingBonus = (r.rating || 0) * 100; // 400-500 баллов за рейтинг
+    const photosBonus = (r.photos || []).length * 15; // до 45 баллов за фото
+    return { review: r, score: ratingBonus + textBonus + freshnessBonus + photosBonus };
+  }).sort((a, b) => b.score - a.score).slice(0, 3);
+
+  // Если меньше 3 отзывов — не показываем секцию (никакого рандома!)
+  if (scored.length < 3) return '';
+
+  const medals = ['🥇', '🥈', '🥉'];
+  const classes = ['gold-medal', 'silver-medal', 'bronze-medal'];
+  const ranks = ['#1 ОТЗЫВ МЕСЯЦА', '#2', '#3'];
+
+  // На мобильных порядок: 2, 1, 3 (победитель в центре)
+  const mobileOrder = [1, 0, 2];
+  const desktopOrder = [0, 1, 2];
+
+  const periodText = `${formatDateLong(new Date(monthAgo))} — ${formatDateLong(new Date(now))}`;
 
   return `
-    <div class="reviews-section-title">
-      <h3>👩‍🎨 Рейтинг мастеров</h3>
+    <div class="top-reviews">
+      <div class="top-reviews-header">
+        <h3>🏆 Топ-3 отзыва месяца</h3>
+        <span class="period">${periodText}</span>
+      </div>
+      <div class="podium">
+        ${mobileOrder.map((i, idx) => {
+          const item = scored[i];
+          if (!item) return '';
+          const r = item.review;
+          const master = allMasters.find(m => m.id === r.masterId);
+          const userName = r.userName || 'Аноним';
+          const stars = '★'.repeat(Math.round(r.rating || 0)) + '☆'.repeat(5 - Math.round(r.rating || 0));
+          const dateStr = (() => {
+            try {
+              const d = r.createdAt?.toDate ? r.createdAt.toDate() : new Date(r.createdAt);
+              return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'short', year: 'numeric' });
+            } catch { return ''; }
+          })();
+          const isMasterReview = r.masterId && r.masterId !== '';
+          return `
+            <div class="podium-card ${classes[i]}" style="order:${idx};">
+              <div class="medal">${medals[i]}</div>
+              <div class="rank-badge">${ranks[i]}</div>
+              <div class="podium-header">
+                <div class="podium-avatar">
+                  ${r.userPhoto ? `<img src="${escapeHTML(r.userPhoto)}" alt="${escapeHTML(userName)}" />` : userName.charAt(0).toUpperCase()}
+                </div>
+                <div class="podium-meta">
+                  <div class="podium-name">${escapeHTML(userName)}</div>
+                  <div class="podium-date">${dateStr}</div>
+                </div>
+              </div>
+              <div class="podium-stars">${stars}</div>
+              ${isMasterReview && master ? `<div class="podium-master">👤 ${escapeHTML(master.name)}</div>` : ''}
+              <div class="podium-text">${escapeHTML(r.text || '')}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
     </div>
-    <div class="masters-rating-grid">${cards}</div>
   `;
 }
 
-/* --- 3. Форма отзыва --- */
+/* --- 3. Форма отзыва с фото --- */
 function renderReviewForm() {
   if (!currentUser) {
     return `
@@ -2862,18 +3082,32 @@ function renderReviewForm() {
   const masterPickButtons = allMasters.map(m => {
     const initials = m.name.split(' ').map(w => w[0]).join('');
     const isActive = selectedMasterId === m.id;
+    const avatarHtml = m.photo
+      ? `<img src="${escapeHTML(m.photo)}" alt="${escapeHTML(m.name)}" />`
+      : initials;
     return `
       <button type="button"
               class="master-pick-btn ${isActive ? 'active' : ''}"
               data-master-id="${m.id}"
               onclick="selectMasterForReview('${m.id}')">
-        <span class="mp-avatar">${initials}</span>
+        <span class="mp-avatar">${avatarHtml}</span>
         <span class="mp-name">${escapeHTML(m.name)}</span>
       </button>
     `;
   }).join('');
 
   const ratingLabels = ['', 'Ужасно', 'Плохо', 'Нормально', 'Хорошо', 'Отлично'];
+
+  const photosHtml = reviewPhotos.map((photo, idx) => `
+    <div class="photo-thumb">
+      <img src="${photo}" alt="Фото ${idx + 1}" />
+      <button type="button" class="remove-btn" onclick="removeReviewPhoto(${idx})">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  `).join('');
+
+  const canAddMore = reviewPhotos.length < MAX_REVIEW_PHOTOS;
 
   return `
     <div class="review-form-new">
@@ -2883,15 +3117,10 @@ function renderReviewForm() {
         <p>Ваше мнение помогает нам становиться лучше</p>
       </div>
 
-      <!-- ОЦЕНКА САЛОНА -->
       <div class="rating-picker-label">Оцените салон</div>
       <div class="rating-picker" id="salonRatingPicker">
         ${[1,2,3,4,5].map(n => `
-          <button type="button"
-                  class="star-btn ${selectedReviewStar >= n ? 'active' : ''}"
-                  data-rating="${n}"
-                  onclick="setSalonRating(${n})"
-                  aria-label="Оценка ${n}">
+          <button type="button" class="star-btn ${selectedReviewStar >= n ? 'active' : ''}" data-rating="${n}" onclick="setSalonRating(${n})" aria-label="Оценка ${n}">
             <i class="fas fa-star"></i>
           </button>
         `).join('')}
@@ -2900,37 +3129,40 @@ function renderReviewForm() {
         <strong>${selectedReviewStar > 0 ? ratingLabels[selectedReviewStar] : 'Выберите оценку'}</strong>
       </div>
 
-      <!-- ОЦЕНКА МАСТЕРА (опционально) -->
       <div class="master-picker">
         <label>👤 Оцените мастера (необязательно)</label>
-        <div class="master-picker-grid" id="masterPickerGrid">
-          ${masterPickButtons}
-        </div>
+        <div class="master-picker-grid" id="masterPickerGrid">${masterPickButtons}</div>
       </div>
 
       <div class="rating-picker" id="masterRatingPicker" style="display:none;">
         ${[1,2,3,4,5].map(n => `
-          <button type="button"
-                  class="star-btn ${selectedMasterStar >= n ? 'active' : ''}"
-                  data-rating="${n}"
-                  onclick="setMasterRating(${n})"
-                  aria-label="Оценка мастера ${n}">
+          <button type="button" class="star-btn ${selectedMasterStar >= n ? 'active' : ''}" data-rating="${n}" onclick="setMasterRating(${n})" aria-label="Оценка мастера ${n}">
             <i class="fas fa-star"></i>
           </button>
         `).join('')}
       </div>
 
-      <!-- ТЕКСТ ОТЗЫВА -->
       <div style="margin-top:16px;">
         <label style="display:block;font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">
           💬 Расскажите о вашем опыте
         </label>
-        <textarea id="reviewText"
-                  placeholder="Что вам понравилось? Что можно улучшить? Ваш отзыв поможет другим клиентам..."
-                  maxlength="1000"
-                  rows="5"
-                  oninput="updateCharCounter(this)"></textarea>
+        <textarea id="reviewText" placeholder="Что вам понравилось? Что можно улучшить? Ваш отзыв поможет другим клиентам..." maxlength="1000" rows="5" oninput="updateCharCounter(this)"></textarea>
         <div class="char-counter" id="charCounter">0 / 1000</div>
+      </div>
+
+      <!-- ФОТО -->
+      <div class="photo-upload-block">
+        <label class="photo-upload-label">📸 Добавьте фото (до ${MAX_REVIEW_PHOTOS} шт, до 200 КБ каждое)</label>
+        <div class="photo-grid" id="photoGrid">
+          ${photosHtml}
+          ${canAddMore ? `
+            <label class="photo-add-btn">
+              <i class="fas fa-plus"></i>
+              <small>${reviewPhotos.length}/${MAX_REVIEW_PHOTOS}</small>
+              <input type="file" id="reviewPhotoInput" accept="image/*" onchange="handleReviewPhotoSelect(event)" />
+            </label>
+          ` : ''}
+        </div>
       </div>
 
       <div class="submit-row">
@@ -2945,32 +3177,21 @@ function renderReviewForm() {
   `;
 }
 
-/* --- 4. Тулбар с фильтрами и сортировкой --- */
+/* --- 4. Тулбар --- */
 function renderReviewsToolbar() {
   const total = allReviews.length;
   const mineCount = currentUser ? allReviews.filter(r => r.userId === currentUser.uid).length : 0;
+  const withPhotos = allReviews.filter(r => (r.photos || []).length > 0).length;
 
   return `
     <div class="reviews-section-title">
-      <h3>
-        📝 Все отзывы
-        <span class="count-badge">${total}</span>
-      </h3>
+      <h3>📝 Все отзывы <span class="count-badge">${total}</span></h3>
       <div class="reviews-filters">
-        <button class="filter-tab ${reviewFilter === 'all' ? 'active' : ''}" onclick="setReviewFilter('all')">
-          Все
-        </button>
-        <button class="filter-tab ${reviewFilter === 'salon' ? 'active' : ''}" onclick="setReviewFilter('salon')">
-          🏢 О салоне
-        </button>
-        <button class="filter-tab ${reviewFilter === 'master' ? 'active' : ''}" onclick="setReviewFilter('master')">
-          👤 О мастерах
-        </button>
-        ${currentUser ? `
-          <button class="filter-tab ${reviewFilter === 'mine' ? 'active' : ''}" onclick="setReviewFilter('mine')">
-            ✏️ Мои (${mineCount})
-          </button>
-        ` : ''}
+        <button class="filter-tab ${reviewFilter === 'all' ? 'active' : ''}" onclick="setReviewFilter('all')">Все</button>
+        <button class="filter-tab ${reviewFilter === 'salon' ? 'active' : ''}" onclick="setReviewFilter('salon')">🏢 О салоне</button>
+        <button class="filter-tab ${reviewFilter === 'master' ? 'active' : ''}" onclick="setReviewFilter('master')">👤 О мастерах</button>
+        ${withPhotos > 0 ? `<button class="filter-tab ${reviewFilter === 'photos' ? 'active' : ''}" onclick="setReviewFilter('photos')">📸 С фото (${withPhotos})</button>` : ''}
+        ${currentUser ? `<button class="filter-tab ${reviewFilter === 'mine' ? 'active' : ''}" onclick="setReviewFilter('mine')">✏️ Мои (${mineCount})</button>` : ''}
         <select id="reviewSortSelect" onchange="setReviewSort(this.value)">
           <option value="new" ${reviewSort === 'new' ? 'selected' : ''}>🆕 Сначала новые</option>
           <option value="old" ${reviewSort === 'old' ? 'selected' : ''}>📜 Сначала старые</option>
@@ -2986,16 +3207,11 @@ function renderReviewsToolbar() {
 function renderReviewList() {
   let reviews = allReviews.filter(r => r.isPublished !== false);
 
-  // Фильтр
-  if (reviewFilter === 'salon') {
-    reviews = reviews.filter(r => !r.masterId || r.masterId === '');
-  } else if (reviewFilter === 'master') {
-    reviews = reviews.filter(r => r.masterId && r.masterId !== '');
-  } else if (reviewFilter === 'mine' && currentUser) {
-    reviews = reviews.filter(r => r.userId === currentUser.uid);
-  }
+  if (reviewFilter === 'salon') reviews = reviews.filter(r => !r.masterId || r.masterId === '');
+  else if (reviewFilter === 'master') reviews = reviews.filter(r => r.masterId && r.masterId !== '');
+  else if (reviewFilter === 'photos') reviews = reviews.filter(r => (r.photos || []).length > 0);
+  else if (reviewFilter === 'mine' && currentUser) reviews = reviews.filter(r => r.userId === currentUser.uid);
 
-  // Сортировка
   const getTime = (r) => {
     if (r.createdAt?.toMillis) return r.createdAt.toMillis();
     if (r.createdAt?.seconds) return r.createdAt.seconds * 1000;
@@ -3016,11 +3232,7 @@ function renderReviewList() {
     `;
   }
 
-  return `
-    <div class="reviews-list">
-      ${reviews.map(r => renderReviewCard(r)).join('')}
-    </div>
-  `;
+  return `<div class="reviews-list">${reviews.map(r => renderReviewCard(r)).join('')}</div>`;
 }
 
 function renderReviewCard(r) {
@@ -3044,12 +3256,18 @@ function renderReviewCard(r) {
     ? `<span class="rc-type-badge">👤 ${escapeHTML(master?.name || 'Мастер')}</span>`
     : `<span class="rc-type-badge salon">🏢 О салоне</span>`;
 
+  const photosHtml = (r.photos || []).length > 0
+    ? `<div class="rc-photos">${r.photos.map((p, i) => `
+        <div class="rc-photo" onclick="openLightbox('${r.id}', ${i})">
+          <img src="${p}" alt="Фото отзыва" loading="lazy" />
+        </div>
+      `).join('')}</div>`
+    : '';
+
   return `
     <div class="review-card-new ${isMine ? 'is-mine' : ''}">
       <div class="rc-header">
-        <div class="rc-avatar">
-          ${r.userPhoto ? `<img src="${escapeHTML(r.userPhoto)}" alt="${escapeHTML(userName)}" />` : initial}
-        </div>
+        <div class="rc-avatar">${r.userPhoto ? `<img src="${escapeHTML(r.userPhoto)}" alt="${escapeHTML(userName)}" />` : initial}</div>
         <div class="rc-meta">
           <div class="rc-name">${escapeHTML(userName)}</div>
           <div class="rc-date">${dateStr}</div>
@@ -3058,67 +3276,56 @@ function renderReviewCard(r) {
       </div>
       <div class="rc-stars">${stars}</div>
       <div class="rc-text">${escapeHTML(r.text || '')}</div>
+      ${photosHtml}
       <div class="rc-footer">
-        <span class="rc-verified">
-          <i class="fas fa-check-circle"></i> Проверенный клиент
-        </span>
+        <span class="rc-verified"><i class="fas fa-check-circle"></i> Проверенный клиент</span>
         <span>${isMine ? '✏️ Ваш отзыв' : ''}</span>
       </div>
     </div>
   `;
 }
 
-/* --- 6. Мои отзывы (отдельный блок) --- */
+/* --- 6. Мои отзывы --- */
 function renderMyReviewsBlock() {
   if (!currentUser) return '';
   const mine = allReviews.filter(r => r.userId === currentUser.uid);
   if (!mine.length) return '';
   return `
     <div class="my-reviews-block">
-      <h3>
-        ✏️ Ваши отзывы
-        <span class="count-badge" style="background:var(--gold-gradient);color:#fff;font-size:13px;font-weight:700;padding:3px 10px;border-radius:20px;min-width:32px;text-align:center;">${mine.length}</span>
-      </h3>
-      <div class="reviews-list">
-        ${mine.map(r => renderReviewCard(r)).join('')}
-      </div>
+      <h3>✏️ Ваши отзывы <span class="count-badge" style="background:var(--gold-gradient);color:#fff;font-size:13px;font-weight:700;padding:3px 10px;border-radius:20px;min-width:32px;text-align:center;">${mine.length}</span></h3>
+      <div class="reviews-list">${mine.map(r => renderReviewCard(r)).join('')}</div>
     </div>
   `;
 }
 
-/* --- Обработчики формы --- */
+/* ============================================
+   ОБРАБОТЧИКИ ФОРМЫ
+   ============================================ */
 const RATING_LABELS = ['', 'Ужасно', 'Плохо', 'Нормально', 'Хорошо', 'Отлично'];
 
 window.setSalonRating = function(n) {
   selectedReviewStar = n;
-  document.querySelectorAll('#salonRatingPicker .star-btn').forEach((el, i) => {
-    el.classList.toggle('active', i < n);
-  });
+  document.querySelectorAll('#salonRatingPicker .star-btn').forEach((el, i) => el.classList.toggle('active', i < n));
   const label = document.getElementById('salonRatingLabel');
   if (label) label.innerHTML = `<strong>${RATING_LABELS[n] || 'Выберите оценку'}</strong>`;
 };
 
 window.selectMasterForReview = function(masterId) {
   if (selectedMasterId === masterId) {
-    // отмена выбора
     selectedMasterId = '';
     selectedMasterStar = 0;
   } else {
     selectedMasterId = masterId;
   }
-  // обновляем кнопки
   document.querySelectorAll('#masterPickerGrid .master-pick-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.masterId === selectedMasterId);
   });
-  // показываем/скрываем звёзды для мастера
   const picker = document.getElementById('masterRatingPicker');
   if (picker) picker.style.display = selectedMasterId ? 'flex' : 'none';
-  // если убрали мастера — сбрасываем его рейтинг
   if (!selectedMasterId) {
     selectedMasterStar = 0;
     document.querySelectorAll('#masterRatingPicker .star-btn').forEach(el => el.classList.remove('active'));
   } else {
-    // восстанавливаем отображение рейтинга
     document.querySelectorAll('#masterRatingPicker .star-btn').forEach((el, i) => {
       el.classList.toggle('active', i < selectedMasterStar);
     });
@@ -3127,20 +3334,48 @@ window.selectMasterForReview = function(masterId) {
 
 window.setMasterRating = function(n) {
   selectedMasterStar = n;
-  document.querySelectorAll('#masterRatingPicker .star-btn').forEach((el, i) => {
-    el.classList.toggle('active', i < n);
-  });
+  document.querySelectorAll('#masterRatingPicker .star-btn').forEach((el, i) => el.classList.toggle('active', i < n));
 };
 
 window.updateCharCounter = function(textarea) {
   const counter = document.getElementById('charCounter');
   if (!counter) return;
   const len = textarea.value.length;
-  const max = 1000;
-  counter.textContent = `${len} / ${max}`;
+  counter.textContent = `${len} / 1000`;
   counter.classList.remove('warn', 'over');
-  if (len > max) counter.classList.add('over');
-  else if (len > max * 0.85) counter.classList.add('warn');
+  if (len > 1000) counter.classList.add('over');
+  else if (len > 850) counter.classList.add('warn');
+};
+
+/* --- Фото --- */
+window.handleReviewPhotoSelect = async function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (reviewPhotos.length >= MAX_REVIEW_PHOTOS) {
+    showToast(`Максимум ${MAX_REVIEW_PHOTOS} фото`, 'error');
+    return;
+  }
+  if (!file.type.startsWith('image/')) {
+    showToast('Только изображения', 'error');
+    return;
+  }
+  if (file.size > MAX_PHOTO_SIZE * 4) { // допускаем до 800 КБ, сожмём
+    showToast('Файл слишком большой (макс. 800 КБ)', 'error');
+    return;
+  }
+  try {
+    const compressed = await compressImage(file, 800, 0.75);
+    reviewPhotos.push(compressed);
+    renderReviews();
+    showToast(`Фото добавлено (${reviewPhotos.length}/${MAX_REVIEW_PHOTOS})`, 'success', 2000);
+  } catch (e) {
+    showToast('Ошибка загрузки фото', 'error');
+  }
+};
+
+window.removeReviewPhoto = function(idx) {
+  reviewPhotos.splice(idx, 1);
+  renderReviews();
 };
 
 window.setReviewFilter = function(filter) {
@@ -3155,21 +3390,11 @@ window.setReviewSort = function(sort) {
 
 window.submitReview = async function() {
   if (!currentUser) { showToast('Войдите в аккаунт', 'error'); return; }
-  if (selectedReviewStar === 0) {
-    showToast('Поставьте оценку салона ⭐', 'error');
-    return;
-  }
+  if (selectedReviewStar === 0) { showToast('Поставьте оценку салона ⭐', 'error'); return; }
   const text = document.getElementById('reviewText').value.trim();
-  if (!text) {
-    showToast('Напишите текст отзыва ✍️', 'error');
-    return;
-  }
-  if (text.length < 5) {
-    showToast('Отзыв слишком короткий', 'error');
-    return;
-  }
+  if (!text) { showToast('Напишите текст отзыва ✍️', 'error'); return; }
+  if (text.length < 5) { showToast('Отзыв слишком короткий', 'error'); return; }
 
-  // Определяем, что сохранять
   const hasMaster = selectedMasterId && selectedMasterStar > 0;
   const finalRating = hasMaster ? selectedMasterStar : selectedReviewStar;
   const finalMasterId = hasMaster ? selectedMasterId : '';
@@ -3185,6 +3410,7 @@ window.submitReview = async function() {
       salonRating: selectedReviewStar,
       masterRating: selectedMasterStar,
       text: text,
+      photos: reviewPhotos.slice(0, MAX_REVIEW_PHOTOS), // до 3 фото
       masterId: finalMasterId,
       masterName: finalMasterId ? (allMasters.find(m => m.id === finalMasterId)?.name || '') : '',
       createdAt: new Date().toISOString(),
@@ -3193,17 +3419,71 @@ window.submitReview = async function() {
     });
 
     showToast('Спасибо за отзыв! 🎉', 'success', 5000);
-
-    // Сброс формы
     selectedReviewStar = 0;
     selectedMasterId = '';
     selectedMasterStar = 0;
+    reviewPhotos = [];
     await loadReviews();
     renderReviews();
   } catch (e) {
     showToast('Ошибка: ' + e.message, 'error');
   }
 };
+
+/* ============================================
+   ЛАЙТБОКС
+   ============================================ */
+window.openLightbox = function(reviewId, photoIndex) {
+  const review = allReviews.find(r => r.id === reviewId);
+  if (!review || !review.photos || !review.photos.length) return;
+  lightboxPhotos = review.photos;
+  lightboxIndex = photoIndex;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+};
+
+function updateLightbox() {
+  const img = document.getElementById('lightboxImg');
+  const counter = document.getElementById('lightboxCounter');
+  if (lightboxPhotos.length === 0) return;
+  img.src = lightboxPhotos[lightboxIndex];
+  counter.textContent = `${lightboxIndex + 1} / ${lightboxPhotos.length}`;
+  const prev = document.querySelector('.lightbox-nav.prev');
+  const next = document.querySelector('.lightbox-nav.next');
+  if (prev) prev.style.display = lightboxPhotos.length > 1 ? 'flex' : 'none';
+  if (next) next.style.display = lightboxPhotos.length > 1 ? 'flex' : 'none';
+}
+
+window.closeLightbox = function() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+  lightboxPhotos = [];
+  lightboxIndex = 0;
+};
+
+window.lightboxNext = function() {
+  if (lightboxIndex < lightboxPhotos.length - 1) {
+    lightboxIndex++;
+    updateLightbox();
+  }
+};
+
+window.lightboxPrev = function() {
+  if (lightboxIndex > 0) {
+    lightboxIndex--;
+    updateLightbox();
+  }
+};
+
+// Клавиатура для лайтбокса
+document.addEventListener('keydown', (e) => {
+  const lb = document.getElementById('lightbox');
+  if (!lb || !lb.classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') lightboxNext();
+  if (e.key === 'ArrowLeft') lightboxPrev();
+});
 
 /* ============================================
    БЛОГ
@@ -3310,17 +3590,13 @@ window.addComment = async function(postId, parentId = null) {
   if (!text) { showToast('Напишите комментарий', 'error'); return; }
   try {
     await addDoc(collection(db, 'comments'), {
-      postId: postId,
-      parentId: parentId || null,
+      postId, parentId: parentId || null,
       userId: currentUser.uid,
       userName: currentUserData?.name || currentUser.displayName || 'Пользователь',
       userEmail: currentUser.email,
       userPhoto: currentUserData?.photoURL || '',
-      text: text,
-      likes: 0,
-      likedBy: [],
-      createdAt: new Date(),
-      isDeleted: false
+      text, likes: 0, likedBy: [],
+      createdAt: new Date(), isDeleted: false
     });
     document.getElementById(id).value = '';
     if (parentId) hideReplyForm(parentId);
@@ -3332,12 +3608,10 @@ window.showReplyForm = function(id) {
   const f = document.getElementById(`replyForm_${id}`);
   if (f) { f.style.display = 'flex'; f.querySelector('textarea')?.focus(); }
 };
-
 window.hideReplyForm = function(id) {
   const f = document.getElementById(`replyForm_${id}`);
   if (f) { f.style.display = 'none'; const ta = f.querySelector('textarea'); if (ta) ta.value = ''; }
 };
-
 window.toggleLike = async function(id) {
   if (!currentUser) { showToast('Войдите', 'error'); return; }
   const ref = doc(db, 'comments', id);
@@ -3350,7 +3624,6 @@ window.toggleLike = async function(id) {
     else await updateDoc(ref, { likes: increment(1), likedBy: arrayUnion(currentUser.uid) });
   } catch (e) { console.error(e); }
 };
-
 window.deleteComment = async function(id) {
   if (!confirm('Удалить?')) return;
   try {
@@ -3360,7 +3633,7 @@ window.deleteComment = async function(id) {
 };
 
 /* ============================================
-   КАБИНЕТ
+   КАБИНЕТ (карта)
    ============================================ */
 function getCvvForUser(uid) {
   let hash = 0;
@@ -3429,9 +3702,7 @@ function renderCabinet() {
 
     <div class="design-selector">
       <label>🎨 Дизайн карты:</label>
-      <select id="cardDesignSelect" onchange="changeCardDesign(this.value)">
-        ${designOptions}
-      </select>
+      <select id="cardDesignSelect" onchange="changeCardDesign(this.value)">${designOptions}</select>
     </div>
 
     <div class="card-wrapper" onclick="toggleCard(this)">
@@ -3439,13 +3710,11 @@ function renderCabinet() {
         <div class="card-face card-front" style="background:${design.front};color:${design.textColor};">
           <div class="card-pattern" style="color:${design.accent};"></div>
           <div class="card-lines" style="color:${design.accent};"></div>
-          <div class="card-serial-badge" style="background:${design.accent}22;color:${design.textColor};border:1px solid ${design.accent}44;">
-            PREMIUM
-          </div>
+          <div class="card-serial-badge" style="background:${design.accent}22;color:${design.textColor};border:1px solid ${design.accent}44;">PREMIUM</div>
           <div class="front-content">
             <div class="card-header">
               <div class="card-brand">
-                <svg class="logo-mark" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="logo-mark" viewBox="0 0 44 44" fill="none">
                   <circle cx="22" cy="22" r="20" stroke="${design.accent}" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.7"/>
                   <circle cx="22" cy="22" r="14" stroke="${design.accent}" stroke-width="0.8" opacity="0.5"/>
                   <path d="M22 6 L25 16 L36 16 L27 22 L31 32 L22 26 L13 32 L17 22 L8 16 L19 16 L22 6Z" fill="${design.accent}" opacity="0.9"/>
@@ -3458,21 +3727,14 @@ function renderCabinet() {
               <div class="card-chip"></div>
             </div>
             <div class="card-balance">
-              <span class="number-wrap">
-                <span class="number" style="background:linear-gradient(180deg, ${design.textColor} 0%, ${design.accent} 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">${minutes}</span>
-              </span>
+              <span class="number" style="background:linear-gradient(180deg, ${design.textColor} 0%, ${design.accent} 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">${minutes}</span>
               <span class="label" style="color:${design.accent};">минут</span>
             </div>
             <div class="card-id" style="color:${design.accent};">
-              <div class="card-id-mask">
-                ${idMasked.split(' ').map(part => `<span>${escapeHTML(part)}</span>`).join('')}
-              </div>
+              <div class="card-id-mask">${idMasked.split(' ').map(p => `<span>${escapeHTML(p)}</span>`).join('')}</div>
             </div>
             <div class="card-footer-details">
-              <div class="valid" style="color:${design.accent};">
-                VALID THRU
-                <span style="color:${design.textColor};">12/26</span>
-              </div>
+              <div class="valid" style="color:${design.accent};">VALID THRU <span style="color:${design.textColor};">12/26</span></div>
               <div class="holder">
                 <div class="label" style="color:${design.accent};">CARDHOLDER</div>
                 <div class="name" style="color:${design.textColor};">${escapeHTML(displayName)}</div>
@@ -3485,10 +3747,7 @@ function renderCabinet() {
           </div>
         </div>
         <div class="card-face card-back" style="background:${design.back};color:${design.textColor};">
-          <div class="back-particles">
-            <span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span>
-          </div>
+          <div class="back-particles"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
           <div class="back-shine"></div>
           <div class="back-content">
             <div class="back-top-label" style="color:${design.accent};">AUTHORIZED SIGNATURE</div>
@@ -3499,9 +3758,7 @@ function renderCabinet() {
               <div class="back-cvv" style="color:${design.textColor};border-color:${design.accent};">${cvv}</div>
             </div>
             <div class="back-bottom">
-              <div class="back-phone" style="color:${design.accent};">
-                <i class="fas fa-phone"></i> +7 (951) 606-20-01
-              </div>
+              <div class="back-phone" style="color:${design.accent};"><i class="fas fa-phone"></i> +7 (951) 606-20-01</div>
               <div class="back-since" style="color:${design.accent};">SINCE 2013</div>
             </div>
             <div class="back-brand-strip" style="border-color:${design.accent}55;">
@@ -3549,7 +3806,6 @@ window.changeCardDesign = async function(id) {
 function generateHMAC(data, secret) {
   return CryptoJS.HmacSHA256(data, secret).toString(CryptoJS.enc.Hex);
 }
-
 function generateQRToken(userId) {
   const ts = Math.floor(Date.now() / 1000);
   const data = `${userId}:${ts}`;
@@ -3574,29 +3830,21 @@ async function generateAndRenderQR() {
     const container = document.getElementById('qrContainer');
     if (!container) return;
     container.innerHTML = '';
-
     if (typeof QRCode === 'undefined') {
-      console.error('QRCode библиотека не загружена');
-      showToast('Библиотека QR не загружена. Обновите страницу.', 'error');
+      showToast('Библиотека QR не загружена', 'error');
       return;
     }
-
     const qrDiv = document.createElement('div');
     qrDiv.style.padding = '12px';
     qrDiv.style.background = '#fff';
     qrDiv.style.borderRadius = '12px';
     qrDiv.style.display = 'inline-block';
     container.appendChild(qrDiv);
-
     new QRCode(qrDiv, {
-      text: token,
-      width: 320,
-      height: 320,
-      colorDark: '#000000',
-      colorLight: '#FFFFFF',
+      text: token, width: 320, height: 320,
+      colorDark: '#000000', colorLight: '#FFFFFF',
       correctLevel: QRCode.CorrectLevel.H
     });
-
     await new Promise(r => setTimeout(r, 100));
     const canvas = qrDiv.querySelector('canvas');
     if (canvas) {
@@ -3606,10 +3854,7 @@ async function generateAndRenderQR() {
     }
     qrSecondsLeft = QR_LIFETIME;
     updateQRTimerDisplay();
-  } catch (e) {
-    console.error('Ошибка QR:', e);
-    showToast('Ошибка генерации QR: ' + e.message, 'error');
-  }
+  } catch (e) { showToast('Ошибка QR: ' + e.message, 'error'); }
 }
 
 function startQRTimer() {
@@ -3622,11 +3867,9 @@ function startQRTimer() {
     if (qrSecondsLeft <= 0) generateAndRenderQR();
   }, 1000);
 }
-
 function stopQRTimer() {
   if (qrTimerInterval) { clearInterval(qrTimerInterval); qrTimerInterval = null; }
 }
-
 function updateQRTimerDisplay() {
   const m = Math.floor(qrSecondsLeft / 60);
   const s = qrSecondsLeft % 60;
@@ -3635,7 +3878,6 @@ function updateQRTimerDisplay() {
   if (t) t.textContent = `${m}:${String(s).padStart(2, '0')}`;
   if (f) f.style.width = (qrSecondsLeft / QR_LIFETIME) * 100 + '%';
 }
-
 window.closeQRModal = function() {
   const modal = document.getElementById('qrModal');
   if (modal) modal.classList.remove('active');
@@ -3661,7 +3903,7 @@ window.openEditProfile = function() {
   document.getElementById('profilePhotoInput').onchange = function(e) {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 500 * 1024) { showToast('Файл слишком большой (макс. 500KB)', 'error'); return; }
+      if (file.size > 500 * 1024) { showToast('Файл слишком большой (макс. 500 КБ)', 'error'); return; }
       const reader = new FileReader();
       reader.onload = (ev) => {
         document.getElementById('profilePhotoPreview').innerHTML = `<img src="${ev.target.result}" />`;
@@ -3722,7 +3964,7 @@ async function updateUserContent(userId, updates) {
 }
 
 /* ============================================
-   НАВИГАЦИЯ
+   НАВИГАЦИЯ / AUTH
    ============================================ */
 window.navigateTo = function(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -3738,20 +3980,15 @@ window.openBooking = function() {
   const m = document.getElementById('bookingModal');
   if (m) { m.classList.add('active'); document.body.style.overflow = 'hidden'; }
 };
-
 window.closeBooking = function() {
   const m = document.getElementById('bookingModal');
   if (m) { m.classList.remove('active'); document.body.style.overflow = ''; }
 };
-
 window.goToCabinet = function() {
   if (currentUser) navigateTo('cabinet');
   else openAuthModal();
 };
 
-/* ============================================
-   AUTH
-   ============================================ */
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUser = user;
@@ -3765,11 +4002,8 @@ onAuthStateChanged(auth, async (user) => {
           email: user.email,
           phone: user.phoneNumber || '',
           photoURL: user.photoURL || '',
-          minutes: 0,
-          cardId: cardId,
-          cardDesign: 'onyx_gold',
-          history: [],
-          createdAt: new Date().toISOString()
+          minutes: 0, cardId, cardDesign: 'onyx_gold',
+          history: [], createdAt: new Date().toISOString()
         };
         await setDoc(doc(db, 'users', user.uid), newUser);
         currentUserData = newUser;
@@ -3814,22 +4048,18 @@ function openAuthModal() {
   const m = document.getElementById('authModal');
   if (m) { m.classList.add('active'); document.body.style.overflow = 'hidden'; showLogin(); }
 }
-
 window.closeAuthModal = function() {
   const m = document.getElementById('authModal');
   if (m) { m.classList.remove('active'); document.body.style.overflow = ''; }
 };
-
 window.showLogin = function() {
   document.getElementById('authContent').style.display = 'block';
   document.getElementById('registerContent').style.display = 'none';
 };
-
 window.showRegister = function() {
   document.getElementById('authContent').style.display = 'none';
   document.getElementById('registerContent').style.display = 'block';
 };
-
 window.loginWithEmail = async function(e) {
   e.preventDefault();
   try {
@@ -3839,10 +4069,8 @@ window.loginWithEmail = async function(e) {
   } catch (error) {
     document.getElementById('loginError').textContent = error.message;
     document.getElementById('loginError').style.display = 'block';
-    showToast('Ошибка входа: ' + error.message, 'error');
   }
 };
-
 window.registerUser = async function(e) {
   e.preventDefault();
   const name = document.getElementById('registerName').value;
@@ -3853,15 +4081,9 @@ window.registerUser = async function(e) {
     const cred = await createUserWithEmailAndPassword(auth, email, password);
     const cardId = 'ST-' + String(Math.floor(Math.random() * 900) + 100) + '-' + new Date().getFullYear();
     await setDoc(doc(db, 'users', cred.user.uid), {
-      name: name,
-      email: email,
-      phone: phone || '',
-      photoURL: '',
-      minutes: 0,
-      cardId: cardId,
-      cardDesign: 'onyx_gold',
-      history: [],
-      createdAt: new Date().toISOString()
+      name, email, phone: phone || '', photoURL: '',
+      minutes: 0, cardId, cardDesign: 'onyx_gold',
+      history: [], createdAt: new Date().toISOString()
     });
     await updateProfile(cred.user, { displayName: name });
     closeAuthModal();
@@ -3869,17 +4091,13 @@ window.registerUser = async function(e) {
   } catch (error) {
     document.getElementById('registerError').textContent = error.message;
     document.getElementById('registerError').style.display = 'block';
-    showToast('Ошибка: ' + error.message, 'error');
   }
 };
-
 window.loginWithYandex = function() {
   showToast('Вход через Яндекс временно недоступен. Используйте email.', 'info');
 };
 
-/* ============================================
-   ТЕМА
-   ============================================ */
+/* Тема */
 function initTheme() {
   const saved = localStorage.getItem('theme');
   if (saved === 'light') {
@@ -3888,7 +4106,6 @@ function initTheme() {
     if (icon) icon.className = 'fas fa-moon';
   }
 }
-
 window.toggleTheme = function() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   const icon = document.getElementById('themeIcon');
@@ -3903,9 +4120,7 @@ window.toggleTheme = function() {
   }
 };
 
-/* ============================================
-   СОБЫТИЯ
-   ============================================ */
+/* События */
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('scrollTop');
   if (btn) btn.classList.toggle('visible', window.pageYOffset > 400);
@@ -3935,9 +4150,7 @@ document.querySelectorAll('.modal-overlay').forEach(modal => {
   });
 });
 
-/* ============================================
-   СТАРТ
-   ============================================ */
+/* Старт */
 initTheme();
 await initData();
 
