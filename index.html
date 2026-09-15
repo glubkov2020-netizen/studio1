@@ -115,6 +115,15 @@ body::before {
   50% { transform: scale(1.4); }
   100% { transform: scale(1); }
 }
+@keyframes starPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35) rotate(8deg); }
+  100% { transform: scale(1); }
+}
+@keyframes reviewCardIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -612,25 +621,572 @@ nav a:hover, nav a.active { color: var(--gold); }
   margin-bottom: 12px;
 }
 
-/* REVIEWS */
-.reviews-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-.review-card {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  padding: 20px;
-  border: 1px solid var(--border-color);
-  transition: var(--transition-smooth);
+/* ============================================
+   ⭐ ОТЗЫВЫ — УЛУЧШЕННЫЙ БЛОК
+   ============================================ */
+
+/* --- Сводка (большая карточка) --- */
+.reviews-summary {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+  animation: reviewCardIn 0.6s ease;
 }
-.review-card:hover { border-color: var(--gold); transform: translateY(-4px); }
-.review-card .review-header {
+@media (min-width: 720px) {
+  .reviews-summary {
+    grid-template-columns: 320px 1fr;
+    align-items: stretch;
+  }
+}
+.rating-hero {
+  background: linear-gradient(145deg, rgba(201, 169, 110, 0.12), rgba(201, 169, 110, 0.02));
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.rating-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.15) 0%, transparent 60%);
+  animation: floatingGradients 12s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.rating-hero .big-number {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  background: var(--gold-gradient);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmerLong 5s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+.rating-hero .big-stars {
+  font-size: 26px;
+  color: #F5B342;
+  letter-spacing: 4px;
+  margin: 6px 0 4px;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 20px rgba(245, 179, 66, 0.5);
+}
+.rating-hero .total {
+  font-size: 14px;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 1;
+  margin-top: 4px;
+}
+.rating-hero .total strong {
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* --- Прогресс-бары распределения оценок --- */
+.rating-bars {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+.rating-bar-row {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 10px;
+  font-size: 13px;
+}
+.rating-bar-row .bar-label {
+  min-width: 60px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+.rating-bar-row .bar-label .num {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.rating-bar-row .bar-label i {
+  color: #F5B342;
+  font-size: 11px;
+}
+.rating-bar-row .bar-track {
+  flex: 1;
+  height: 10px;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.rating-bar-row .bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #C9A96E, #E8D5A8);
+  border-radius: 10px;
+  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 12px rgba(201, 169, 110, 0.5);
+}
+.rating-bar-row .bar-count {
+  min-width: 32px;
+  text-align: right;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* --- Сетка карточек мастеров с рейтингом --- */
+.masters-rating-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+@media (min-width: 600px) {
+  .masters-rating-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 900px) {
+  .masters-rating-grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+.master-rating-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+.master-rating-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.08), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.master-rating-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+.master-rating-card:hover::before { opacity: 1; }
+.master-rating-card .m-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 2px solid rgba(201, 169, 110, 0.4);
+  position: relative;
+  z-index: 1;
+}
+.master-rating-card .m-avatar img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.master-rating-card .m-info {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+.master-rating-card .m-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.master-rating-card .m-specialty {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.master-rating-card .m-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+.master-rating-card .m-rating .stars {
+  color: #F5B342;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+.master-rating-card .m-rating .score {
+  font-weight: 700;
+  color: var(--gold);
+}
+.master-rating-card .m-rating .count {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* --- Форма отзыва --- */
+.review-form-new {
+  background: linear-gradient(145deg, rgba(201, 169, 110, 0.06), rgba(201, 169, 110, 0.01));
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+  animation: reviewCardIn 0.6s ease;
+}
+.review-form-new::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold-gradient);
+  background-size: 200% auto;
+  animation: shimmerLong 4s ease-in-out infinite;
+}
+.review-form-new .form-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.review-form-new .form-header .form-icon {
+  font-size: 38px;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4));
+}
+.review-form-new .form-header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.review-form-new .form-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* --- Выбор оценки — большие кнопки --- */
+.rating-picker {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 16px 0 8px;
   flex-wrap: wrap;
 }
-.review-card .review-header .avatar {
-  width: 44px; height: 44px;
+.rating-picker .star-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+.rating-picker .star-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.3);
+}
+.rating-picker .star-btn.active {
+  background: var(--gold-gradient);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.5);
+  animation: starPop 0.4s ease;
+}
+.rating-picker .star-btn.active::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(201, 169, 110, 0.4);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+.rating-picker-label {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.rating-picker-label strong {
+  color: var(--gold);
+  font-size: 15px;
+  font-weight: 700;
+  display: block;
+  margin-top: 2px;
+  min-height: 20px;
+}
+
+/* --- Выбор мастера в форме --- */
+.master-picker {
+  margin: 16px 0;
+}
+.master-picker label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.master-picker-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+@media (min-width: 600px) {
+  .master-picker-grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+.master-pick-btn {
+  padding: 12px 10px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+}
+.master-pick-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.master-pick-btn.active {
+  background: rgba(201, 169, 110, 0.12);
+  border-color: var(--gold);
+  color: var(--text-primary);
+}
+.master-pick-btn .mp-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.master-pick-btn .mp-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Поля формы --- */
+.review-form-new textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  resize: vertical;
+  min-height: 120px;
+  transition: var(--transition-smooth);
+  line-height: 1.6;
+}
+.review-form-new textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+}
+.review-form-new textarea::placeholder { color: var(--text-muted); }
+.review-form-new .char-counter {
+  text-align: right;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.review-form-new .char-counter.warn { color: #F5B342; }
+.review-form-new .char-counter.over { color: #E74C3C; }
+
+.review-form-new .submit-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.review-form-new .submit-row .btn {
+  flex: 1;
+  min-width: 200px;
+}
+.review-form-new .submit-row .hint {
+  flex-basis: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* --- Заголовок секции отзывов --- */
+.reviews-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 32px 0 20px;
+}
+.reviews-section-title h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.reviews-section-title h3 .count-badge {
+  background: var(--gold-gradient);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  min-width: 32px;
+  text-align: center;
+}
+
+/* --- Фильтры отзывов --- */
+.reviews-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.reviews-filters select,
+.reviews-filters button {
+  padding: 8px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: var(--transition-smooth);
+}
+.reviews-filters select:hover,
+.reviews-filters button:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.reviews-filters select:focus { outline: none; border-color: var(--gold); }
+.filter-tab {
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+}
+.filter-tab:hover { border-color: var(--gold); color: var(--gold); }
+.filter-tab.active {
+  background: var(--gold-gradient);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* --- Карточка отзыва --- */
+.reviews-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 720px) {
+  .reviews-list { grid-template-columns: 1fr 1fr; }
+}
+.review-card-new {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  animation: reviewCardIn 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.review-card-new::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.review-card-new:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+.review-card-new:hover::before { opacity: 1; }
+.review-card-new .rc-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.review-card-new .rc-avatar {
+  width: 48px; height: 48px;
   border-radius: 50%;
   background: var(--gold-gradient);
   display: flex;
@@ -641,98 +1197,168 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-size: 18px;
   flex-shrink: 0;
   overflow: hidden;
+  border: 2px solid rgba(201, 169, 110, 0.3);
 }
-.review-card .review-header .avatar img { width: 100%; height: 100%; object-fit: cover; }
-.review-card .review-header .review-name { font-weight: 600; color: var(--text-primary); }
-.review-card .review-header .review-date { font-size: 12px; color: var(--text-muted); margin-left: auto; }
-.review-card .review-stars { color: #F5B342; font-size: 18px; margin-bottom: 6px; letter-spacing: 2px; }
-.review-card .review-text { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
-.review-card .review-type { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
-.review-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 30px; }
-.stat-box {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  padding: 20px;
-  border: 1px solid var(--border-color);
-  text-align: center;
-  transition: var(--transition-smooth);
+.review-card-new .rc-avatar img {
+  width: 100%; height: 100%; object-fit: cover;
 }
-.stat-box:hover { border-color: var(--gold); transform: translateY(-3px); }
-.stat-box .stat-number { font-size: 32px; font-weight: 800; color: var(--gold); }
-.stat-box .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-.stat-box .stat-stars { color: #F5B342; font-size: 20px; letter-spacing: 2px; margin-top: 4px; }
-.master-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
-.master-stat-item {
-  background: var(--bg-card);
-  border-radius: var(--radius-sm);
-  padding: 12px 16px;
-  border: 1px solid var(--border-color);
+.review-card-new .rc-meta {
+  flex: 1;
+  min-width: 0;
+}
+.review-card-new .rc-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.review-card-new .rc-date {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.review-card-new .rc-type-badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(201, 169, 110, 0.12);
+  color: var(--gold);
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  flex-shrink: 0;
+}
+.review-card-new .rc-type-badge.salon {
+  background: rgba(39, 174, 96, 0.12);
+  color: #27AE60;
+  border-color: rgba(39, 174, 96, 0.2);
+}
+.review-card-new .rc-stars {
+  color: #F5B342;
+  font-size: 18px;
+  letter-spacing: 3px;
+  text-shadow: 0 0 12px rgba(245, 179, 66, 0.4);
+}
+.review-card-new .rc-text {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+.review-card-new .rc-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 6px;
 }
-.master-stat-item .name { font-size: 13px; color: var(--text-secondary); }
-.master-stat-item .rating { font-size: 14px; font-weight: 600; color: var(--gold); }
-.master-stat-item .rating i { color: #F5B342; font-size: 12px; }
-.review-form {
+.review-card-new .rc-footer .rc-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #27AE60;
+  font-weight: 600;
+}
+.review-card-new .rc-footer .rc-verified i { font-size: 11px; }
+
+/* Свой отзыв */
+.review-card-new.is-mine {
+  border-color: rgba(201, 169, 110, 0.5);
+  background: linear-gradient(145deg, rgba(201, 169, 110, 0.06), transparent);
+}
+.review-card-new.is-mine::after {
+  content: 'ВАШ ОТЗЫВ';
+  position: absolute;
+  top: 12px;
+  right: -32px;
+  background: var(--gold-gradient);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 4px 40px;
+  transform: rotate(38deg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Пустое состояние */
+.reviews-empty {
+  text-align: center;
+  padding: 60px 20px;
   background: var(--bg-card);
+  border: 2px dashed var(--border-color);
   border-radius: var(--radius);
-  padding: 24px;
-  border: 1px solid var(--border-color);
-  margin-bottom: 30px;
 }
-.review-form .star-rating {
-  display: flex;
-  gap: 8px;
-  font-size: 32px;
-  cursor: pointer;
-  margin: 10px 0 16px;
-  justify-content: center;
-}
-.review-form .star-rating .star {
-  color: var(--text-muted);
-  transition: var(--transition-smooth);
-  cursor: pointer;
-}
-.review-form .star-rating .star.active { color: #F5B342; }
-.review-form .star-rating .star:hover { transform: scale(1.2); color: #F5B342; }
-.review-form textarea {
-  width: 100%;
-  padding: 12px 16px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-size: 14px;
-  font-family: 'Inter', sans-serif;
-  resize: vertical;
-  min-height: 100px;
-}
-.review-form textarea:focus { outline: none; border-color: var(--gold); }
-.review-form select {
-  padding: 10px 16px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-size: 14px;
-  width: 100%;
-  margin: 10px 0;
-}
-.review-form .review-type-label {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin: 8px 0 4px;
+.reviews-empty .empty-icon {
+  font-size: 64px;
+  color: var(--gold);
+  opacity: 0.4;
+  margin-bottom: 12px;
   display: block;
 }
-.my-reviews-section {
-  margin-top: 30px;
-  padding-top: 20px;
+.reviews-empty h4 {
+  color: var(--text-primary);
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+.reviews-empty p {
+  color: var(--text-muted);
+  font-size: 14px;
+  max-width: 400px;
+  margin: 0 auto 16px;
+}
+
+/* Промпт "войдите" */
+.reviews-login-prompt {
+  background: linear-gradient(145deg, rgba(201, 169, 110, 0.08), rgba(201, 169, 110, 0.02));
+  border: 2px dashed rgba(201, 169, 110, 0.3);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.reviews-login-prompt .lock-icon {
+  font-size: 42px;
+  color: var(--gold);
+  margin-bottom: 12px;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4));
+}
+.reviews-login-prompt h3 {
+  font-size: 20px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.reviews-login-prompt p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* Мои отзывы — секция */
+.my-reviews-block {
+  margin-top: 40px;
+  padding-top: 24px;
   border-top: 1px solid var(--border-color);
 }
-.my-reviews-section h4 { color: var(--text-primary); margin-bottom: 16px; }
+.my-reviews-block h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-/* COMMENTS */
+/* --- COMMENTS (сохранено) --- */
 .comments-section {
   margin-top: 20px;
   padding-top: 16px;
@@ -870,7 +1496,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   -webkit-perspective: 1400px;
   cursor: pointer;
 }
-
 .card-flip {
   width: 100%;
   aspect-ratio: 1.586 / 1;
@@ -882,12 +1507,10 @@ nav a:hover, nav a.active { color: var(--gold); }
   border-radius: 22px;
   will-change: transform;
 }
-
 .card-flip.flipped {
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
 }
-
 .card-face {
   position: absolute;
   inset: 0;
@@ -898,72 +1521,42 @@ nav a:hover, nav a.active { color: var(--gold); }
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   will-change: transform;
-  /* КРИТИЧНО для мобильных: жёстко задаём translateZ */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
 }
-
 .card-front {
   transform: rotateY(0deg) translateZ(1px);
   -webkit-transform: rotateY(0deg) translateZ(1px);
   z-index: 2;
+  color: #F0EBE6;
+  animation: cardGlowPulse 4s ease-in-out infinite;
 }
-
 .card-back {
   transform: rotateY(180deg) translateZ(1px);
   -webkit-transform: rotateY(180deg) translateZ(1px);
   z-index: 1;
-}
-
-/* ============================================
-   ЛИЦЕВАЯ СТОРОНА
-   ============================================ */
-.card-front {
   color: #F0EBE6;
-  animation: cardGlowPulse 4s ease-in-out infinite;
+  overflow: hidden;
 }
-
 @keyframes cardGlowPulse {
-  0%, 100% {
-    box-shadow:
-      0 30px 60px -15px rgba(0, 0, 0, 0.8),
-      0 0 0 1px rgba(201, 169, 110, 0.15);
-  }
-  50% {
-    box-shadow:
-      0 30px 60px -15px rgba(0, 0, 0, 0.8),
-      0 0 0 1px rgba(201, 169, 110, 0.4),
-      0 0 50px rgba(201, 169, 110, 0.25);
-  }
+  0%, 100% { box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(201, 169, 110, 0.15); }
+  50% { box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(201, 169, 110, 0.4), 0 0 50px rgba(201, 169, 110, 0.25); }
 }
-
-/* Блик, проходящий по карте */
 .card-front::after {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    115deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.06) 45%,
-    rgba(255, 255, 255, 0.18) 50%,
-    rgba(255, 255, 255, 0.06) 55%,
-    transparent 70%
-  );
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.06) 55%, transparent 70%);
   transform: rotate(25deg);
   pointer-events: none;
   z-index: 4;
   animation: cardShine 5s ease-in-out infinite;
 }
-
 @keyframes cardShine {
   0%, 100% { transform: translateX(-100%) rotate(25deg); }
   50% { transform: translateX(100%) rotate(25deg); }
 }
-
 .card-front .card-pattern {
   position: absolute;
   inset: 0;
@@ -978,12 +1571,10 @@ nav a:hover, nav a.active { color: var(--gold); }
   background-size: 60px 60px, 80px 80px, 70px 70px, 90px 90px;
   animation: patternDrift 25s linear infinite;
 }
-
 @keyframes patternDrift {
   0% { background-position: 0 0, 0 0, 0 0, 0 0; }
   100% { background-position: 60px 60px, -80px 80px, 70px -70px, -90px -90px; }
 }
-
 .card-front .card-lines {
   position: absolute;
   inset: 0;
@@ -992,7 +1583,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   opacity: 0.12;
   background: repeating-linear-gradient(115deg, currentColor 0 1px, transparent 1px 24px);
 }
-
 .front-content {
   position: relative;
   z-index: 6;
@@ -1005,55 +1595,21 @@ nav a:hover, nav a.active { color: var(--gold); }
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
 }
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; }
 .card-brand { display: flex; align-items: center; gap: 10px; }
-
-.card-brand .logo-mark {
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
-  filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.5));
-}
-
-.card-brand .logo-text {
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-.card-brand .logo-text small {
-  font-weight: 300;
-  font-size: 8px;
-  opacity: 0.6;
-  display: block;
-  letter-spacing: 4px;
-  margin-top: 3px;
-  text-transform: uppercase;
-}
-
+.card-brand .logo-mark { width: 36px; height: 36px; flex-shrink: 0; filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.5)); }
+.card-brand .logo-text { font-size: 15px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; line-height: 1; }
+.card-brand .logo-text small { font-weight: 300; font-size: 8px; opacity: 0.6; display: block; letter-spacing: 4px; margin-top: 3px; text-transform: uppercase; }
 .card-chip {
-  width: 42px;
-  height: 32px;
+  width: 42px; height: 32px;
   border-radius: 6px;
   position: relative;
-  box-shadow:
-    inset 0 0 12px rgba(255, 215, 0, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.3),
-    0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 12px rgba(255, 215, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 215, 0, 0.3);
   background: linear-gradient(135deg, #e8d5a8 0%, #c9a96e 45%, #b8974d 55%, #e8d5a8 100%);
   overflow: hidden;
   flex-shrink: 0;
 }
-
 .card-chip::before {
   content: '';
   position: absolute;
@@ -1064,9 +1620,7 @@ nav a:hover, nav a.active { color: var(--gold); }
     linear-gradient(90deg, transparent 0 45%, rgba(0, 0, 0, 0.15) 45% 55%, transparent 55%),
     linear-gradient(0deg, transparent 0 40%, rgba(0, 0, 0, 0.15) 40% 60%, transparent 60%);
 }
-
 .card-balance { text-align: center; margin: 8px 0 0; }
-
 .card-balance .number {
   font-size: clamp(38px, 9vw, 52px);
   font-weight: 900;
@@ -1075,105 +1629,21 @@ nav a:hover, nav a.active { color: var(--gold); }
   display: inline-block;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
 }
-
-.card-balance .label {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  margin-top: 4px;
-  display: block;
-  opacity: 0.8;
-}
-
-.card-id {
-  text-align: center;
-  font-size: 11px;
-  font-family: 'Courier New', monospace;
-  letter-spacing: 3px;
-  margin-top: 6px;
-  opacity: 0.6;
-  font-weight: 600;
-}
-
-.card-id-mask {
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-footer-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-top: 10px;
-  gap: 12px;
-}
-
-.card-footer-details .valid {
-  font-size: 8px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: 0.65;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.card-footer-details .valid span {
-  display: block;
-  font-size: 14px;
-  letter-spacing: 2px;
-  font-weight: 700;
-  margin-top: 3px;
-  font-family: 'Courier New', monospace;
-}
-
+.card-balance .label { font-size: 11px; font-weight: 400; letter-spacing: 6px; text-transform: uppercase; margin-top: 4px; display: block; opacity: 0.8; }
+.card-id { text-align: center; font-size: 11px; font-family: 'Courier New', monospace; letter-spacing: 3px; margin-top: 6px; opacity: 0.6; font-weight: 600; }
+.card-id-mask { display: inline-flex; gap: 6px; align-items: center; justify-content: center; }
+.card-footer-details { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px; gap: 12px; }
+.card-footer-details .valid { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.65; line-height: 1; flex-shrink: 0; }
+.card-footer-details .valid span { display: block; font-size: 14px; letter-spacing: 2px; font-weight: 700; margin-top: 3px; font-family: 'Courier New', monospace; }
 .card-footer-details .holder { text-align: right; max-width: 55%; min-width: 0; }
-
-.card-footer-details .holder .label {
-  font-size: 7px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: 0.65;
-  line-height: 1;
-}
-
-.card-footer-details .holder .name {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-top: 3px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card-network {
-  position: absolute;
-  bottom: 18px;
-  right: 22px;
-  z-index: 7;
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.card-network .ring {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 2px solid;
-  opacity: 0.75;
-}
-
+.card-footer-details .holder .label { font-size: 7px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.65; line-height: 1; }
+.card-footer-details .holder .name { font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-network { position: absolute; bottom: 18px; right: 22px; z-index: 7; display: flex; gap: 4px; align-items: center; }
+.card-network .ring { width: 22px; height: 22px; border-radius: 50%; border: 2px solid; opacity: 0.75; }
 .card-network .ring:first-child { margin-right: -10px; }
-
 .card-serial-badge {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 14px; right: 14px;
   padding: 3px 8px;
   border-radius: 20px;
   font-size: 8px;
@@ -1185,15 +1655,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   -webkit-backdrop-filter: blur(6px);
 }
 
-/* ============================================
-   ЗАДНЯЯ СТОРОНА — НОВАЯ, СВЕТЛАЯ, ЯРКАЯ
-   ============================================ */
-.card-back {
-  color: #F0EBE6;
-  overflow: hidden;
-}
-
-/* Светящийся градиент на фоне */
+/* Задняя сторона */
 .card-back::before {
   content: '';
   position: absolute;
@@ -1206,13 +1668,10 @@ nav a:hover, nav a.active { color: var(--gold); }
   animation: backGlow 6s ease-in-out infinite;
   pointer-events: none;
 }
-
 @keyframes backGlow {
   0%, 100% { opacity: 0.7; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.08); }
 }
-
-/* Плавающие частицы */
 .card-back .back-particles {
   position: absolute;
   inset: 0;
@@ -1220,17 +1679,14 @@ nav a:hover, nav a.active { color: var(--gold); }
   pointer-events: none;
   overflow: hidden;
 }
-
 .card-back .back-particles span {
   position: absolute;
-  width: 3px;
-  height: 3px;
+  width: 3px; height: 3px;
   border-radius: 50%;
   background: #C9A96E;
   box-shadow: 0 0 8px #C9A96E, 0 0 16px rgba(201, 169, 110, 0.5);
   animation: particleFloat 12s linear infinite;
 }
-
 .card-back .back-particles span:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 14s; }
 .card-back .back-particles span:nth-child(2) { left: 25%; animation-delay: 2s; animation-duration: 11s; }
 .card-back .back-particles span:nth-child(3) { left: 40%; animation-delay: 4s; animation-duration: 16s; }
@@ -1239,48 +1695,26 @@ nav a:hover, nav a.active { color: var(--gold); }
 .card-back .back-particles span:nth-child(6) { left: 85%; animation-delay: 5s; animation-duration: 12s; }
 .card-back .back-particles span:nth-child(7) { left: 50%; animation-delay: 6s; animation-duration: 17s; }
 .card-back .back-particles span:nth-child(8) { left: 15%; animation-delay: 7s; animation-duration: 10s; }
-
 @keyframes particleFloat {
-  0% {
-    top: 110%;
-    opacity: 0;
-    transform: translateX(0) scale(0.5);
-  }
+  0% { top: 110%; opacity: 0; transform: translateX(0) scale(0.5); }
   10% { opacity: 1; }
   90% { opacity: 1; }
-  100% {
-    top: -10%;
-    opacity: 0;
-    transform: translateX(30px) scale(1.2);
-  }
+  100% { top: -10%; opacity: 0; transform: translateX(30px) scale(1.2); }
 }
-
-/* Блик на задней стороне */
 .card-back .back-shine {
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    115deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.08) 48%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.08) 52%,
-    transparent 60%
-  );
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.08) 48%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.08) 52%, transparent 60%);
   transform: rotate(25deg);
   pointer-events: none;
   z-index: 3;
   animation: backShine 7s ease-in-out infinite;
 }
-
 @keyframes backShine {
   0%, 100% { transform: translateX(-100%) rotate(25deg); }
   50% { transform: translateX(100%) rotate(25deg); }
 }
-
 .card-back .back-content {
   position: relative;
   z-index: 5;
@@ -1291,140 +1725,40 @@ nav a:hover, nav a.active { color: var(--gold); }
   padding: 18px 0 16px;
   box-sizing: border-box;
 }
-
-.back-top-label {
-  padding: 0 22px;
-  font-size: 8px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  opacity: 0.75;
-  margin-bottom: 8px;
-  font-weight: 700;
-}
-
-/* Магнитная полоса — яркая, с бликом */
+.back-top-label { padding: 0 22px; font-size: 8px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.75; margin-bottom: 8px; font-weight: 700; }
 .back-stripe {
   width: 100%;
   height: 44px;
   background: linear-gradient(180deg, #1a1a1a 0%, #050505 50%, #1a1a1a 100%);
-  box-shadow:
-    inset 0 2px 6px rgba(0, 0, 0, 0.9),
-    inset 0 -1px 0 rgba(201, 169, 110, 0.3),
-    0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9), inset 0 -1px 0 rgba(201, 169, 110, 0.3), 0 4px 12px rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
 }
-
 .back-stripe::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 3px;
   background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.8), transparent);
   animation: stripeShine 3s ease-in-out infinite;
 }
-
 @keyframes stripeShine {
   0%, 100% { opacity: 0.4; transform: translateX(-30%); }
   50% { opacity: 1; transform: translateX(30%); }
 }
-
-.back-signature {
-  padding: 0 22px;
-  margin-top: 14px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.back-signature .sig-label {
-  font-size: 7px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: 0.7;
-  line-height: 1;
-  flex-shrink: 0;
-  font-weight: 600;
-}
-
-.back-signature .sig-line {
-  flex: 1;
-  height: 28px;
-  border-bottom: 1.5px solid;
-  opacity: 0.6;
-  position: relative;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
-}
-
-.back-cvv {
-  font-family: 'Courier New', monospace;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  padding: 2px 8px 2px 8px;
-  border-bottom: 1.5px solid;
-  min-width: 52px;
-  text-align: center;
-  flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 4px 4px 0 0;
-}
-
-.back-bottom {
-  margin-top: auto;
-  padding: 0 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 12px;
-}
-
-.back-bottom .back-phone {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.back-bottom .back-phone i {
-  opacity: 0.9;
-  font-size: 11px;
-  animation: phonePulse 2s ease-in-out infinite;
-}
-
+.back-signature { padding: 0 22px; margin-top: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.back-signature .sig-label { font-size: 7px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; line-height: 1; flex-shrink: 0; font-weight: 600; }
+.back-signature .sig-line { flex: 1; height: 28px; border-bottom: 1.5px solid; opacity: 0.6; position: relative; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%); }
+.back-cvv { font-family: 'Courier New', monospace; font-size: 15px; font-weight: 700; letter-spacing: 3px; padding: 2px 8px 2px 8px; border-bottom: 1.5px solid; min-width: 52px; text-align: center; flex-shrink: 0; background: rgba(255,255,255,0.03); border-radius: 4px 4px 0 0; }
+.back-bottom { margin-top: auto; padding: 0 22px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
+.back-bottom .back-phone { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
+.back-bottom .back-phone i { opacity: 0.9; font-size: 11px; animation: phonePulse 2s ease-in-out infinite; }
 @keyframes phonePulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.15); }
 }
-
-.back-bottom .back-since {
-  font-size: 8px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  opacity: 0.7;
-  white-space: nowrap;
-  font-weight: 600;
-}
-
-.back-brand-strip {
-  margin-top: 10px;
-  padding: 8px 22px 0;
-  border-top: 1px solid;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  font-size: 8px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
+.back-bottom .back-since { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; white-space: nowrap; font-weight: 600; }
+.back-brand-strip { margin-top: 10px; padding: 8px 22px 0; border-top: 1px solid; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; }
 .back-brand-strip .b-left {
   background: linear-gradient(90deg, #C9A96E, #E8D5A8, #C9A96E);
   background-size: 200% auto;
@@ -1433,42 +1767,11 @@ nav a:hover, nav a.active { color: var(--gold); }
   background-clip: text;
   animation: shimmerLong 4s ease-in-out infinite;
 }
-
-.back-brand-strip .b-right {
-  opacity: 0.6;
-  font-weight: 400;
-  letter-spacing: 1.5px;
-}
-
-@media (max-width: 480px) {
-  .front-content { padding: 16px 18px; }
-  .card-balance .number { font-size: 40px; }
-  .card-brand .logo-text { font-size: 12px; letter-spacing: 1.8px; }
-  .card-brand .logo-mark { width: 28px; height: 28px; }
-  .card-chip { width: 34px; height: 26px; }
-  .card-footer-details .holder .name { font-size: 11px; }
-  .card-id { font-size: 9px; letter-spacing: 2px; }
-  .card-back .back-content { padding: 12px 0 10px; }
-  .back-top-label, .back-signature, .back-bottom { padding-left: 16px; padding-right: 16px; }
-  .back-brand-strip { padding-left: 16px; padding-right: 16px; font-size: 7px; }
-  .back-stripe { height: 34px; }
-  .card-serial-badge { top: 10px; right: 10px; font-size: 7px; padding: 2px 6px; }
-  .card-network { bottom: 14px; right: 18px; }
-  .card-network .ring { width: 18px; height: 18px; }
-  .card-balance .label { font-size: 10px; letter-spacing: 5px; }
-  .back-signature { margin-top: 8px; }
-  .back-signature .sig-line { height: 22px; }
-  .back-cvv { font-size: 13px; min-width: 44px; }
-}
+.back-brand-strip .b-right { opacity: 0.6; font-weight: 400; letter-spacing: 1.5px; }
 
 /* CONTACTS */
 .contact-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
-.contact-info-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 16px;
-}
+.contact-info-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
 .contact-info-item i {
   font-size: 20px;
   background: var(--gold-gradient);
@@ -1508,19 +1811,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   text-decoration: none;
   border: 1px solid var(--border-color);
 }
-.socials a:hover {
-  background: var(--gold);
-  color: #fff;
-  border-color: var(--gold);
-  transform: translateY(-3px);
-}
-.map-container {
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  height: 240px;
-  border: 1px solid var(--border-color);
-}
+.socials a:hover { background: var(--gold); color: #fff; border-color: var(--gold); transform: translateY(-3px); }
+.map-container { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); height: 240px; border: 1px solid var(--border-color); }
 .map-container iframe { width: 100%; height: 100%; display: block; border: 0; }
 
 /* MODALS */
@@ -1570,12 +1862,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   justify-content: center;
 }
 .modal-close:hover { background: var(--gold); color: #fff; }
-.modal h2 {
-  font-size: clamp(22px, 5vw, 28px);
-  margin-bottom: 4px;
-  color: var(--text-primary);
-  padding-right: 48px;
-}
+.modal h2 { font-size: clamp(22px, 5vw, 28px); margin-bottom: 4px; color: var(--text-primary); padding-right: 48px; }
 .modal .gold-text {
   background: var(--gold-gradient);
   -webkit-background-clip: text;
@@ -1621,26 +1908,9 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .profile-photo-wrapper .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
 .profile-photo-wrapper .photo-upload-btn { position: relative; cursor: pointer; }
-.profile-photo-wrapper .photo-upload-btn input[type="file"] {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-.auth-divider {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  color: var(--text-muted);
-  font-size: 13px;
-  margin: 8px 0;
-}
-.auth-divider::before, .auth-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border-color);
-}
+.profile-photo-wrapper .photo-upload-btn input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.auth-divider { display: flex; align-items: center; gap: 16px; color: var(--text-muted); font-size: 13px; margin: 8px 0; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
 .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-muted); }
 .auth-switch a { color: var(--gold); cursor: pointer; font-weight: 600; }
 .auth-switch a:hover { text-decoration: underline; }
@@ -1688,30 +1958,9 @@ nav a:hover, nav a.active { color: var(--gold); }
   box-shadow: 0 8px 32px rgba(201, 169, 110, 0.3);
 }
 .qr-container canvas, .qr-container img { display: block; border-radius: 12px; }
-.qr-timer {
-  margin-top: 12px;
-  font-size: 14px;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.qr-timer .timer-bar {
-  flex: 1;
-  height: 4px;
-  background: var(--bg-card);
-  border-radius: 2px;
-  overflow: hidden;
-  max-width: 200px;
-  margin: 0 auto;
-}
-.qr-timer .timer-fill {
-  height: 100%;
-  background: var(--gold-gradient);
-  border-radius: 2px;
-  transition: width 1s linear;
-}
+.qr-timer { margin-top: 12px; font-size: 14px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 8px; }
+.qr-timer .timer-bar { flex: 1; height: 4px; background: var(--bg-card); border-radius: 2px; overflow: hidden; max-width: 200px; margin: 0 auto; }
+.qr-timer .timer-fill { height: 100%; background: var(--gold-gradient); border-radius: 2px; transition: width 1s linear; }
 .qr-timer .timer-text { font-weight: 600; color: var(--gold); min-width: 50px; text-align: center; }
 .qr-balance-preview {
   background: var(--bg-card);
@@ -1806,14 +2055,7 @@ footer span {
 }
 .history-item .spent { color: #E74C3C; font-weight: 600; }
 .history-item .added { color: #27AE60; font-weight: 600; }
-.design-selector {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 20px;
-}
+.design-selector { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
 .design-selector label { color: var(--text-muted); font-size: 14px; }
 .design-selector select {
   padding: 8px 16px;
@@ -1828,8 +2070,7 @@ footer span {
 
 /* MEDIA */
 @media (min-width: 480px) {
-  .services-grid, .masters-grid, .blog-grid, .reviews-grid { grid-template-columns: 1fr 1fr; }
-  .review-stats { grid-template-columns: 1fr 1fr 1fr; }
+  .services-grid, .masters-grid, .blog-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (min-width: 600px) {
   .contact-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -1842,7 +2083,7 @@ footer span {
 }
 @media (min-width: 768px) {
   .services-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-  .masters-grid, .blog-grid, .reviews-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .masters-grid, .blog-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 }
 @media (min-width: 1024px) {
   .container { padding: 0 32px; }
@@ -1850,7 +2091,6 @@ footer span {
   .hero { padding: 80px 0 100px; min-height: 70vh; }
   .modal { padding: 40px 32px; }
   .sticky-book { bottom: 28px; right: 28px; padding: 18px 32px; }
-  .review-stats { grid-template-columns: 1fr 1fr 1fr 1fr; }
 }
 @media (max-width: 768px) {
   .menu-toggle { display: flex; align-items: center; justify-content: center; }
@@ -1869,12 +2109,7 @@ footer span {
     backdrop-filter: blur(20px);
   }
   #mainNav.open { display: flex; }
-  #mainNav a {
-    padding: 12px 0;
-    font-size: 16px;
-    border-bottom: 1px solid var(--border-color);
-    text-align: center;
-  }
+  #mainNav a { padding: 12px 0; font-size: 16px; border-bottom: 1px solid var(--border-color); text-align: center; }
   #mainNav a::after { display: none; }
   #mainNav .nav-book-btn { justify-content: center; margin: 4px 0; padding: 12px; font-size: 16px; }
   #mainNav .auth-btn { justify-content: center; margin-top: 4px; padding: 12px; font-size: 16px; }
@@ -1884,10 +2119,35 @@ footer span {
   .reply-form .btn { width: 100%; }
   .comment-form { flex-direction: column; }
   .comment-form .btn { width: 100%; }
-  .review-form .star-rating { font-size: 28px; }
-  .review-stats { grid-template-columns: 1fr 1fr; }
-  .master-stats-grid { grid-template-columns: 1fr 1fr; }
-  .card-btn-main { font-size: 17px; padding: 14px 28px; min-height: 52px; }
+  .rating-picker .star-btn { width: 48px; height: 48px; font-size: 20px; }
+  .master-picker-grid { grid-template-columns: 1fr; }
+  .reviews-section-title { flex-direction: column; align-items: stretch; }
+  .reviews-filters { justify-content: center; }
+}
+@media (max-width: 480px) {
+  .front-content { padding: 16px 18px; }
+  .card-balance .number { font-size: 40px; }
+  .card-brand .logo-text { font-size: 12px; letter-spacing: 1.8px; }
+  .card-brand .logo-mark { width: 28px; height: 28px; }
+  .card-chip { width: 34px; height: 26px; }
+  .card-footer-details .holder .name { font-size: 11px; }
+  .card-id { font-size: 9px; letter-spacing: 2px; }
+  .card-back .back-content { padding: 12px 0 10px; }
+  .back-top-label, .back-signature, .back-bottom { padding-left: 16px; padding-right: 16px; }
+  .back-brand-strip { padding-left: 16px; padding-right: 16px; font-size: 7px; }
+  .back-stripe { height: 34px; }
+  .card-serial-badge { top: 10px; right: 10px; font-size: 7px; padding: 2px 6px; }
+  .card-network { bottom: 14px; right: 18px; }
+  .card-network .ring { width: 18px; height: 18px; }
+  .card-balance .label { font-size: 10px; letter-spacing: 5px; }
+  .back-signature { margin-top: 8px; }
+  .back-signature .sig-line { height: 22px; }
+  .back-cvv { font-size: 13px; min-width: 44px; }
+  .rating-hero .big-number { font-size: 56px; }
+  .rating-hero .big-stars { font-size: 22px; }
+  .rating-picker .star-btn { width: 44px; height: 44px; font-size: 18px; }
+  .review-form-new { padding: 20px 16px; }
+  .reviews-summary { gap: 14px; }
 }
 @media (max-width: 400px) {
   .hero h1 { font-size: 26px; }
@@ -1896,6 +2156,8 @@ footer span {
   .modal { padding: 20px 14px; }
   .sticky-book { padding: 12px 16px; font-size: 13px; bottom: 12px; right: 12px; }
   .logo { font-size: 18px; }
+  .rating-picker { gap: 6px; }
+  .rating-picker .star-btn { width: 40px; height: 40px; font-size: 16px; }
 }
 </style>
 </head>
@@ -1964,11 +2226,7 @@ footer span {
   <div class="container">
     <h2 class="section-title">Отзывы <span>клиентов</span></h2>
     <p class="section-subtitle">Ваше мнение важно для нас</p>
-    <div id="reviewStats"></div>
-    <div id="masterStats"></div>
-    <div id="reviewFormContainer"></div>
-    <div class="reviews-grid" id="reviewsContainer"></div>
-    <div id="myReviewsContainer"></div>
+    <div id="reviewsContainer"></div>
   </div>
 </div>
 
@@ -2192,8 +2450,11 @@ let allReviews = [];
 let currentCategory = 'Все';
 let commentListeners = {};
 let selectedReviewStar = 0;
-let selectedMasterReviewStar = 0;
+let selectedMasterId = '';           // выбранный мастер в форме
+let selectedMasterStar = 0;          // оценка мастера в форме
 let tempPhotoData = null;
+let reviewFilter = 'all';            // all | salon | master | mine
+let reviewSort = 'new';              // new | old | high | low
 
 const QR_SECRET = 'STUDIO1_KEMEROVO_2026_SECRET_KEY_v1_X9K2M5P8';
 const QR_LIFETIME = 120;
@@ -2231,8 +2492,26 @@ function formatDate(date) {
   } catch { return ''; }
 }
 
+function pluralize(n, one, few, many) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return one;
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return few;
+  return many;
+}
+
+function getRatingLabel(rating) {
+  if (rating >= 4.5) return 'Превосходно';
+  if (rating >= 4.0) return 'Отлично';
+  if (rating >= 3.5) return 'Хорошо';
+  if (rating >= 3.0) return 'Нормально';
+  if (rating >= 2.0) return 'Так себе';
+  if (rating > 0) return 'Плохо';
+  return 'Нет оценок';
+}
+
 /* ============================================
-   ДИЗАЙНЫ КАРТ — 8 штук
+   ДИЗАЙНЫ КАРТ
    ============================================ */
 const CARD_DESIGNS = [
   { id: 'onyx_gold',    name: 'Onyx Gold',    front: 'radial-gradient(ellipse at 30% 20%, #2a2a2a, #0a0a0a)', back: 'linear-gradient(145deg, #2a2a2a, #1a1a1a, #2a2a2a)', accent: '#C9A96E', textColor: '#F0EBE6' },
@@ -2389,7 +2668,7 @@ function renderAll() {
 }
 
 /* ============================================
-   РЕНДЕР: УСЛУГИ
+   УСЛУГИ
    ============================================ */
 function renderCategories() {
   const c = document.getElementById('categoriesFilter');
@@ -2425,7 +2704,7 @@ function renderServices() {
 }
 
 /* ============================================
-   РЕНДЕР: МАСТЕРА
+   МАСТЕРА
    ============================================ */
 function renderMasters() {
   const container = document.getElementById('mastersContainer');
@@ -2462,153 +2741,439 @@ window.toggleMasterServices = function(id) {
 };
 
 /* ============================================
-   РЕНДЕР: ОТЗЫВЫ
+   ⭐ ОТЗЫВЫ — ПОЛНОСТЬЮ ПЕРЕРАБОТАНО
    ============================================ */
 function renderReviews() {
-  renderReviewStats();
-  renderMasterStats();
-  renderReviewForm();
-  renderReviewList();
-  renderMyReviews();
+  const container = document.getElementById('reviewsContainer');
+  if (!container) return;
+
+  container.innerHTML = `
+    ${renderReviewsSummary()}
+    ${renderMastersRatingCards()}
+    ${renderReviewForm()}
+    ${renderReviewsToolbar()}
+    ${renderReviewList()}
+    ${renderMyReviewsBlock()}
+  `;
 }
 
-function renderReviewStats() {
-  const c = document.getElementById('reviewStats');
-  if (!c) return;
+/* --- 1. Сводка (большая карточка + прогресс-бары) --- */
+function renderReviewsSummary() {
   const total = allReviews.length;
-  const avgRating = total > 0 ? (allReviews.reduce((s, r) => s + (r.rating || 0), 0) / total) : 0;
-  const salonReviews = allReviews.filter(r => !r.masterId || r.masterId === '');
-  const salonAvg = salonReviews.length > 0 ? (salonReviews.reduce((s, r) => s + (r.rating || 0), 0) / salonReviews.length) : 0;
-  c.innerHTML = `
-    <div class="review-stats">
-      <div class="stat-box">
-        <div class="stat-number">${total}</div>
-        <div class="stat-label">Всего отзывов</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">${avgRating.toFixed(1)}</div>
-        <div class="stat-stars">${'★'.repeat(Math.round(avgRating)) + '☆'.repeat(5 - Math.round(avgRating))}</div>
-        <div class="stat-label">Средний рейтинг</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">${salonAvg.toFixed(1)}</div>
-        <div class="stat-stars">${'★'.repeat(Math.round(salonAvg)) + '☆'.repeat(5 - Math.round(salonAvg))}</div>
-        <div class="stat-label">Рейтинг салона</div>
-      </div>
-    </div>
-  `;
-}
+  const avg = total > 0 ? (allReviews.reduce((s, r) => s + (r.rating || 0), 0) / total) : 0;
+  const rounded = Math.round(avg);
+  const stars = '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
 
-function renderMasterStats() {
-  const c = document.getElementById('masterStats');
-  if (!c) return;
-  const mastersWithReviews = allMasters.filter(m => allReviews.filter(r => r.masterId === m.id && r.rating > 0).length > 0);
-  if (!mastersWithReviews.length) { c.innerHTML = ''; return; }
-  c.innerHTML = `<div class="master-stats-grid">${mastersWithReviews.map(m => {
-    const reviews = allReviews.filter(r => r.masterId === m.id && r.rating > 0);
-    const avg = reviews.length > 0 ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length) : 0;
-    return `<div class="master-stat-item"><span class="name">${escapeHTML(m.name)}</span><span class="rating"><i class="fas fa-star"></i> ${avg.toFixed(1)} (${reviews.length})</span></div>`;
-  }).join('')}</div>`;
-}
+  // Распределение по звёздам
+  const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+  allReviews.forEach(r => {
+    const rating = Math.round(r.rating || 0);
+    if (rating >= 1 && rating <= 5) distribution[rating]++;
+  });
 
-function renderReviewForm() {
-  const c = document.getElementById('reviewFormContainer');
-  if (!c) return;
-  if (!currentUser) {
-    c.innerHTML = `<div class="login-to-comment" style="margin-bottom:30px;"><p><i class="fas fa-lock"></i> Войдите, чтобы оставить отзыв</p><button class="btn btn-sm btn-outline" onclick="handleAuthClick()">Войти</button></div>`;
-    return;
-  }
-  c.innerHTML = `
-    <div class="review-form glass-card">
-      <h3 style="margin-bottom:8px;font-size:20px;color:var(--text-primary);">✍️ Оставить отзыв</h3>
-      <p style="color:var(--text-muted);margin-bottom:16px;">Оцените наш салон и мастеров</p>
-      <span class="review-type-label">⭐ Оценка салона (общая)</span>
-      <div class="star-rating" id="reviewStars">
-        ${[1,2,3,4,5].map(n => `<span class="star" data-value="${n}" onclick="setReviewStar(${n})">★</span>`).join('')}
-      </div>
-      <span class="review-type-label">👤 Оценка конкретного мастера (опционально)</span>
-      <div class="star-rating" id="masterReviewStars">
-        ${[1,2,3,4,5].map(n => `<span class="star" data-value="${n}" onclick="setMasterReviewStar(${n})">★</span>`).join('')}
-      </div>
-      <select id="reviewMasterSelect">
-        <option value="">Выберите мастера (опционально)</option>
-        ${allMasters.map(m => `<option value="${m.id}">${escapeHTML(m.name)}</option>`).join('')}
-      </select>
-      <textarea id="reviewText" placeholder="Расскажите о вашем опыте..." rows="3"></textarea>
-      <button class="btn" onclick="submitReview()"><i class="fas fa-paper-plane"></i> Отправить отзыв</button>
-    </div>
-  `;
-}
-
-function renderReviewList() {
-  const c = document.getElementById('reviewsContainer');
-  if (!c) return;
-  const published = allReviews.filter(r => r.isPublished !== false);
-  if (!published.length) {
-    c.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Пока нет отзывов</div>';
-    return;
-  }
-  c.innerHTML = published.map(r => {
-    const master = allMasters.find(m => m.id === r.masterId);
-    const ratingStars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-    const userName = r.userName || 'Аноним';
-    const isMasterReview = r.masterId && r.masterId !== '';
-    const reviewType = isMasterReview ? `👤 Мастер: ${escapeHTML(master?.name || '')}` : '🏢 Общая оценка';
+  const barsHtml = [5, 4, 3, 2, 1].map(star => {
+    const count = distribution[star];
+    const percent = total > 0 ? (count / total) * 100 : 0;
     return `
-      <div class="review-card">
-        <div class="review-header">
-          <div class="avatar">${r.userPhoto ? `<img src="${r.userPhoto}" />` : userName.charAt(0).toUpperCase()}</div>
-          <div>
-            <div class="review-name">${escapeHTML(userName)}</div>
-            <div style="font-size:12px;color:var(--text-muted);">${formatDate(r.createdAt)}</div>
-          </div>
-          <div class="review-date"><span class="review-type">${reviewType}</span></div>
+      <div class="rating-bar-row">
+        <div class="bar-label">
+          <span class="num">${star}</span> <i class="fas fa-star"></i>
         </div>
-        <div class="review-stars">${ratingStars}</div>
-        <div class="review-text">${escapeHTML(r.text)}</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: ${percent}%;"></div>
+        </div>
+        <div class="bar-count">${count}</div>
       </div>
     `;
   }).join('');
+
+  return `
+    <div class="reviews-summary">
+      <div class="rating-hero">
+        <div class="big-number">${avg.toFixed(1)}</div>
+        <div class="big-stars">${stars}</div>
+        <div class="total">
+          <strong>${total}</strong> ${pluralize(total, 'отзыв', 'отзыва', 'отзывов')}
+        </div>
+        <div style="margin-top:10px;font-size:13px;color:var(--text-muted);position:relative;z-index:1;">
+          ${getRatingLabel(avg)}
+        </div>
+      </div>
+      <div class="rating-bars">
+        <div style="font-size:13px;color:var(--text-muted);font-weight:600;margin-bottom:4px;">
+          Распределение оценок
+        </div>
+        ${barsHtml}
+      </div>
+    </div>
+  `;
 }
 
-function renderMyReviews() {
-  const c = document.getElementById('myReviewsContainer');
-  if (!c) return;
-  if (!currentUser) { c.innerHTML = ''; return; }
-  const myReviews = allReviews.filter(r => r.userId === currentUser.uid);
-  if (!myReviews.length) {
-    c.innerHTML = '<div class="my-reviews-section"><h4>📝 Мои отзывы</h4><p style="color:var(--text-muted);font-size:14px;">Вы ещё не оставляли отзывов</p></div>';
-    return;
+/* --- 2. Карточки мастеров с рейтингом --- */
+function renderMastersRatingCards() {
+  if (!allMasters.length) return '';
+  const cards = allMasters.map(m => {
+    const mReviews = allReviews.filter(r => r.masterId === m.id && r.rating > 0);
+    const avg = mReviews.length > 0 ? (mReviews.reduce((s, r) => s + r.rating, 0) / mReviews.length) : 0;
+    const rounded = Math.round(avg);
+    const stars = '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
+    const initials = m.name.split(' ').map(w => w[0]).join('');
+    return `
+      <div class="master-rating-card">
+        <div class="m-avatar">
+          ${m.photo ? `<img src="${escapeHTML(m.photo)}" alt="${escapeHTML(m.name)}" />` : initials}
+        </div>
+        <div class="m-info">
+          <div class="m-name">${escapeHTML(m.name)}</div>
+          <div class="m-specialty">${escapeHTML(m.specialty || '')}</div>
+          <div class="m-rating">
+            <span class="stars">${stars}</span>
+            <span class="score">${avg > 0 ? avg.toFixed(1) : '—'}</span>
+            <span class="count">(${mReviews.length})</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <div class="reviews-section-title">
+      <h3>👩‍🎨 Рейтинг мастеров</h3>
+    </div>
+    <div class="masters-rating-grid">${cards}</div>
+  `;
+}
+
+/* --- 3. Форма отзыва --- */
+function renderReviewForm() {
+  if (!currentUser) {
+    return `
+      <div class="reviews-login-prompt">
+        <span class="lock-icon">🔒</span>
+        <h3>Хотите оставить отзыв?</h3>
+        <p>Войдите в аккаунт, чтобы поделиться впечатлениями о салоне и мастерах</p>
+        <button class="btn btn-pulse" onclick="handleAuthClick()">
+          <i class="fas fa-sign-in-alt"></i> Войти в аккаунт
+        </button>
+      </div>
+    `;
   }
-  c.innerHTML = `<div class="my-reviews-section"><h4>📝 Мои отзывы (${myReviews.length})</h4><div class="reviews-grid">${myReviews.map(r => {
-    const master = allMasters.find(m => m.id === r.masterId);
-    const ratingStars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-    const isMasterReview = r.masterId && r.masterId !== '';
-    const reviewType = isMasterReview ? `👤 ${escapeHTML(master?.name || '')}` : '🏢 О салоне';
-    return `<div class="review-card" style="border-color:var(--gold);"><div class="review-header"><div style="font-size:14px;color:var(--gold);font-weight:600;"><i class="fas fa-pen"></i> Ваш отзыв</div><div class="review-date"><span class="review-type">${reviewType}</span></div></div><div class="review-stars">${ratingStars}</div><div class="review-text">${escapeHTML(r.text)}</div><div style="margin-top:10px;font-size:12px;color:var(--text-muted);">${formatDate(r.createdAt)}</div></div>`;
-  }).join('')}</div></div>`;
+
+  const masterPickButtons = allMasters.map(m => {
+    const initials = m.name.split(' ').map(w => w[0]).join('');
+    const isActive = selectedMasterId === m.id;
+    return `
+      <button type="button"
+              class="master-pick-btn ${isActive ? 'active' : ''}"
+              data-master-id="${m.id}"
+              onclick="selectMasterForReview('${m.id}')">
+        <span class="mp-avatar">${initials}</span>
+        <span class="mp-name">${escapeHTML(m.name)}</span>
+      </button>
+    `;
+  }).join('');
+
+  const ratingLabels = ['', 'Ужасно', 'Плохо', 'Нормально', 'Хорошо', 'Отлично'];
+
+  return `
+    <div class="review-form-new">
+      <div class="form-header">
+        <span class="form-icon">✍️</span>
+        <h3>Оставить отзыв</h3>
+        <p>Ваше мнение помогает нам становиться лучше</p>
+      </div>
+
+      <!-- ОЦЕНКА САЛОНА -->
+      <div class="rating-picker-label">Оцените салон</div>
+      <div class="rating-picker" id="salonRatingPicker">
+        ${[1,2,3,4,5].map(n => `
+          <button type="button"
+                  class="star-btn ${selectedReviewStar >= n ? 'active' : ''}"
+                  data-rating="${n}"
+                  onclick="setSalonRating(${n})"
+                  aria-label="Оценка ${n}">
+            <i class="fas fa-star"></i>
+          </button>
+        `).join('')}
+      </div>
+      <div class="rating-picker-label" id="salonRatingLabel">
+        <strong>${selectedReviewStar > 0 ? ratingLabels[selectedReviewStar] : 'Выберите оценку'}</strong>
+      </div>
+
+      <!-- ОЦЕНКА МАСТЕРА (опционально) -->
+      <div class="master-picker">
+        <label>👤 Оцените мастера (необязательно)</label>
+        <div class="master-picker-grid" id="masterPickerGrid">
+          ${masterPickButtons}
+        </div>
+      </div>
+
+      <div class="rating-picker" id="masterRatingPicker" style="display:none;">
+        ${[1,2,3,4,5].map(n => `
+          <button type="button"
+                  class="star-btn ${selectedMasterStar >= n ? 'active' : ''}"
+                  data-rating="${n}"
+                  onclick="setMasterRating(${n})"
+                  aria-label="Оценка мастера ${n}">
+            <i class="fas fa-star"></i>
+          </button>
+        `).join('')}
+      </div>
+
+      <!-- ТЕКСТ ОТЗЫВА -->
+      <div style="margin-top:16px;">
+        <label style="display:block;font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">
+          💬 Расскажите о вашем опыте
+        </label>
+        <textarea id="reviewText"
+                  placeholder="Что вам понравилось? Что можно улучшить? Ваш отзыв поможет другим клиентам..."
+                  maxlength="1000"
+                  rows="5"
+                  oninput="updateCharCounter(this)"></textarea>
+        <div class="char-counter" id="charCounter">0 / 1000</div>
+      </div>
+
+      <div class="submit-row">
+        <button class="btn btn-pulse" onclick="submitReview()">
+          <i class="fas fa-paper-plane"></i> Отправить отзыв
+        </button>
+        <div class="hint">
+          <i class="fas fa-shield-alt"></i> Ваш отзыв появится сразу после отправки
+        </div>
+      </div>
+    </div>
+  `;
 }
 
-window.setReviewStar = function(v) {
-  selectedReviewStar = v;
-  document.querySelectorAll('#reviewStars .star').forEach((el, i) => el.classList.toggle('active', i < v));
+/* --- 4. Тулбар с фильтрами и сортировкой --- */
+function renderReviewsToolbar() {
+  const total = allReviews.length;
+  const mineCount = currentUser ? allReviews.filter(r => r.userId === currentUser.uid).length : 0;
+
+  return `
+    <div class="reviews-section-title">
+      <h3>
+        📝 Все отзывы
+        <span class="count-badge">${total}</span>
+      </h3>
+      <div class="reviews-filters">
+        <button class="filter-tab ${reviewFilter === 'all' ? 'active' : ''}" onclick="setReviewFilter('all')">
+          Все
+        </button>
+        <button class="filter-tab ${reviewFilter === 'salon' ? 'active' : ''}" onclick="setReviewFilter('salon')">
+          🏢 О салоне
+        </button>
+        <button class="filter-tab ${reviewFilter === 'master' ? 'active' : ''}" onclick="setReviewFilter('master')">
+          👤 О мастерах
+        </button>
+        ${currentUser ? `
+          <button class="filter-tab ${reviewFilter === 'mine' ? 'active' : ''}" onclick="setReviewFilter('mine')">
+            ✏️ Мои (${mineCount})
+          </button>
+        ` : ''}
+        <select id="reviewSortSelect" onchange="setReviewSort(this.value)">
+          <option value="new" ${reviewSort === 'new' ? 'selected' : ''}>🆕 Сначала новые</option>
+          <option value="old" ${reviewSort === 'old' ? 'selected' : ''}>📜 Сначала старые</option>
+          <option value="high" ${reviewSort === 'high' ? 'selected' : ''}>⭐ С высоким рейтингом</option>
+          <option value="low" ${reviewSort === 'low' ? 'selected' : ''}>📉 С низким рейтингом</option>
+        </select>
+      </div>
+    </div>
+  `;
+}
+
+/* --- 5. Список отзывов --- */
+function renderReviewList() {
+  let reviews = allReviews.filter(r => r.isPublished !== false);
+
+  // Фильтр
+  if (reviewFilter === 'salon') {
+    reviews = reviews.filter(r => !r.masterId || r.masterId === '');
+  } else if (reviewFilter === 'master') {
+    reviews = reviews.filter(r => r.masterId && r.masterId !== '');
+  } else if (reviewFilter === 'mine' && currentUser) {
+    reviews = reviews.filter(r => r.userId === currentUser.uid);
+  }
+
+  // Сортировка
+  const getTime = (r) => {
+    if (r.createdAt?.toMillis) return r.createdAt.toMillis();
+    if (r.createdAt?.seconds) return r.createdAt.seconds * 1000;
+    return new Date(r.createdAt).getTime() || 0;
+  };
+  if (reviewSort === 'new') reviews.sort((a, b) => getTime(b) - getTime(a));
+  else if (reviewSort === 'old') reviews.sort((a, b) => getTime(a) - getTime(b));
+  else if (reviewSort === 'high') reviews.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+  else if (reviewSort === 'low') reviews.sort((a, b) => (a.rating || 0) - (b.rating || 0));
+
+  if (!reviews.length) {
+    return `
+      <div class="reviews-empty">
+        <span class="empty-icon">💬</span>
+        <h4>${reviewFilter === 'mine' ? 'У вас пока нет отзывов' : 'Пока нет отзывов'}</h4>
+        <p>${reviewFilter === 'mine' ? 'Оставьте первый отзыв о нашем салоне!' : 'Станьте первым, кто поделится впечатлениями!'}</p>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="reviews-list">
+      ${reviews.map(r => renderReviewCard(r)).join('')}
+    </div>
+  `;
+}
+
+function renderReviewCard(r) {
+  const master = allMasters.find(m => m.id === r.masterId);
+  const rating = Math.round(r.rating || 0);
+  const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+  const userName = r.userName || 'Аноним';
+  const initial = userName.charAt(0).toUpperCase();
+  const isMine = currentUser && r.userId === currentUser.uid;
+  const isMasterReview = r.masterId && r.masterId !== '';
+
+  const dateStr = (() => {
+    try {
+      const d = r.createdAt?.toDate ? r.createdAt.toDate() : new Date(r.createdAt);
+      if (isNaN(d.getTime())) return '';
+      return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' });
+    } catch { return ''; }
+  })();
+
+  const typeBadge = isMasterReview
+    ? `<span class="rc-type-badge">👤 ${escapeHTML(master?.name || 'Мастер')}</span>`
+    : `<span class="rc-type-badge salon">🏢 О салоне</span>`;
+
+  return `
+    <div class="review-card-new ${isMine ? 'is-mine' : ''}">
+      <div class="rc-header">
+        <div class="rc-avatar">
+          ${r.userPhoto ? `<img src="${escapeHTML(r.userPhoto)}" alt="${escapeHTML(userName)}" />` : initial}
+        </div>
+        <div class="rc-meta">
+          <div class="rc-name">${escapeHTML(userName)}</div>
+          <div class="rc-date">${dateStr}</div>
+        </div>
+        ${typeBadge}
+      </div>
+      <div class="rc-stars">${stars}</div>
+      <div class="rc-text">${escapeHTML(r.text || '')}</div>
+      <div class="rc-footer">
+        <span class="rc-verified">
+          <i class="fas fa-check-circle"></i> Проверенный клиент
+        </span>
+        <span>${isMine ? '✏️ Ваш отзыв' : ''}</span>
+      </div>
+    </div>
+  `;
+}
+
+/* --- 6. Мои отзывы (отдельный блок) --- */
+function renderMyReviewsBlock() {
+  if (!currentUser) return '';
+  const mine = allReviews.filter(r => r.userId === currentUser.uid);
+  if (!mine.length) return '';
+  return `
+    <div class="my-reviews-block">
+      <h3>
+        ✏️ Ваши отзывы
+        <span class="count-badge" style="background:var(--gold-gradient);color:#fff;font-size:13px;font-weight:700;padding:3px 10px;border-radius:20px;min-width:32px;text-align:center;">${mine.length}</span>
+      </h3>
+      <div class="reviews-list">
+        ${mine.map(r => renderReviewCard(r)).join('')}
+      </div>
+    </div>
+  `;
+}
+
+/* --- Обработчики формы --- */
+const RATING_LABELS = ['', 'Ужасно', 'Плохо', 'Нормально', 'Хорошо', 'Отлично'];
+
+window.setSalonRating = function(n) {
+  selectedReviewStar = n;
+  document.querySelectorAll('#salonRatingPicker .star-btn').forEach((el, i) => {
+    el.classList.toggle('active', i < n);
+  });
+  const label = document.getElementById('salonRatingLabel');
+  if (label) label.innerHTML = `<strong>${RATING_LABELS[n] || 'Выберите оценку'}</strong>`;
 };
 
-window.setMasterReviewStar = function(v) {
-  selectedMasterReviewStar = v;
-  document.querySelectorAll('#masterReviewStars .star').forEach((el, i) => el.classList.toggle('active', i < v));
+window.selectMasterForReview = function(masterId) {
+  if (selectedMasterId === masterId) {
+    // отмена выбора
+    selectedMasterId = '';
+    selectedMasterStar = 0;
+  } else {
+    selectedMasterId = masterId;
+  }
+  // обновляем кнопки
+  document.querySelectorAll('#masterPickerGrid .master-pick-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.masterId === selectedMasterId);
+  });
+  // показываем/скрываем звёзды для мастера
+  const picker = document.getElementById('masterRatingPicker');
+  if (picker) picker.style.display = selectedMasterId ? 'flex' : 'none';
+  // если убрали мастера — сбрасываем его рейтинг
+  if (!selectedMasterId) {
+    selectedMasterStar = 0;
+    document.querySelectorAll('#masterRatingPicker .star-btn').forEach(el => el.classList.remove('active'));
+  } else {
+    // восстанавливаем отображение рейтинга
+    document.querySelectorAll('#masterRatingPicker .star-btn').forEach((el, i) => {
+      el.classList.toggle('active', i < selectedMasterStar);
+    });
+  }
+};
+
+window.setMasterRating = function(n) {
+  selectedMasterStar = n;
+  document.querySelectorAll('#masterRatingPicker .star-btn').forEach((el, i) => {
+    el.classList.toggle('active', i < n);
+  });
+};
+
+window.updateCharCounter = function(textarea) {
+  const counter = document.getElementById('charCounter');
+  if (!counter) return;
+  const len = textarea.value.length;
+  const max = 1000;
+  counter.textContent = `${len} / ${max}`;
+  counter.classList.remove('warn', 'over');
+  if (len > max) counter.classList.add('over');
+  else if (len > max * 0.85) counter.classList.add('warn');
+};
+
+window.setReviewFilter = function(filter) {
+  reviewFilter = filter;
+  renderReviews();
+};
+
+window.setReviewSort = function(sort) {
+  reviewSort = sort;
+  renderReviews();
 };
 
 window.submitReview = async function() {
   if (!currentUser) { showToast('Войдите в аккаунт', 'error'); return; }
-  const salonRating = selectedReviewStar;
-  const masterRating = selectedMasterReviewStar;
+  if (selectedReviewStar === 0) {
+    showToast('Поставьте оценку салона ⭐', 'error');
+    return;
+  }
   const text = document.getElementById('reviewText').value.trim();
-  const masterId = document.getElementById('reviewMasterSelect').value;
-  if (salonRating === 0) { showToast('Поставьте оценку салону', 'error'); return; }
-  if (!text) { showToast('Напишите текст', 'error'); return; }
-  const finalRating = masterId && masterRating > 0 ? masterRating : salonRating;
-  const finalMasterId = masterId && masterRating > 0 ? masterId : '';
+  if (!text) {
+    showToast('Напишите текст отзыва ✍️', 'error');
+    return;
+  }
+  if (text.length < 5) {
+    showToast('Отзыв слишком короткий', 'error');
+    return;
+  }
+
+  // Определяем, что сохранять
+  const hasMaster = selectedMasterId && selectedMasterStar > 0;
+  const finalRating = hasMaster ? selectedMasterStar : selectedReviewStar;
+  const finalMasterId = hasMaster ? selectedMasterId : '';
+
   try {
     await addDoc(collection(db, 'reviews'), {
       userId: currentUser.uid,
@@ -2617,28 +3182,31 @@ window.submitReview = async function() {
       userPhone: currentUserData?.phone || '',
       userPhoto: currentUserData?.photoURL || '',
       rating: finalRating,
-      salonRating: salonRating,
-      masterRating: masterRating,
+      salonRating: selectedReviewStar,
+      masterRating: selectedMasterStar,
       text: text,
       masterId: finalMasterId,
-      masterName: finalMasterId ? allMasters.find(m => m.id === finalMasterId)?.name || '' : '',
+      masterName: finalMasterId ? (allMasters.find(m => m.id === finalMasterId)?.name || '') : '',
       createdAt: new Date().toISOString(),
       isModerated: false,
       isPublished: true
     });
-    showToast('Спасибо за отзыв! 🎉', 'success');
+
+    showToast('Спасибо за отзыв! 🎉', 'success', 5000);
+
+    // Сброс формы
     selectedReviewStar = 0;
-    selectedMasterReviewStar = 0;
-    document.querySelectorAll('#reviewStars .star, #masterReviewStars .star').forEach(el => el.classList.remove('active'));
-    document.getElementById('reviewText').value = '';
-    document.getElementById('reviewMasterSelect').value = '';
+    selectedMasterId = '';
+    selectedMasterStar = 0;
     await loadReviews();
     renderReviews();
-  } catch (e) { showToast('Ошибка: ' + e.message, 'error'); }
+  } catch (e) {
+    showToast('Ошибка: ' + e.message, 'error');
+  }
 };
 
 /* ============================================
-   РЕНДЕР: БЛОГ
+   БЛОГ
    ============================================ */
 function renderBlog() {
   const c = document.getElementById('blogContainer');
@@ -2792,17 +3360,15 @@ window.deleteComment = async function(id) {
 };
 
 /* ============================================
-   РЕНДЕР: КАБИНЕТ С КАРТОЙ
+   КАБИНЕТ
    ============================================ */
 function getCvvForUser(uid) {
-  // Детерминированный CVV из UID — не меняется при перерисовке
   let hash = 0;
   for (let i = 0; i < uid.length; i++) {
     hash = ((hash << 5) - hash) + uid.charCodeAt(i);
     hash |= 0;
   }
-  const num = Math.abs(hash) % 900 + 100;
-  return String(num);
+  return String(Math.abs(hash) % 900 + 100);
 }
 
 function renderCabinet() {
@@ -2870,14 +3436,12 @@ function renderCabinet() {
 
     <div class="card-wrapper" onclick="toggleCard(this)">
       <div class="card-flip">
-        <!-- ЛИЦЕВАЯ СТОРОНА -->
         <div class="card-face card-front" style="background:${design.front};color:${design.textColor};">
           <div class="card-pattern" style="color:${design.accent};"></div>
           <div class="card-lines" style="color:${design.accent};"></div>
           <div class="card-serial-badge" style="background:${design.accent}22;color:${design.textColor};border:1px solid ${design.accent}44;">
             PREMIUM
           </div>
-
           <div class="front-content">
             <div class="card-header">
               <div class="card-brand">
@@ -2893,20 +3457,17 @@ function renderCabinet() {
               </div>
               <div class="card-chip"></div>
             </div>
-
             <div class="card-balance">
               <span class="number-wrap">
                 <span class="number" style="background:linear-gradient(180deg, ${design.textColor} 0%, ${design.accent} 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">${minutes}</span>
               </span>
               <span class="label" style="color:${design.accent};">минут</span>
             </div>
-
             <div class="card-id" style="color:${design.accent};">
               <div class="card-id-mask">
                 ${idMasked.split(' ').map(part => `<span>${escapeHTML(part)}</span>`).join('')}
               </div>
             </div>
-
             <div class="card-footer-details">
               <div class="valid" style="color:${design.accent};">
                 VALID THRU
@@ -2918,14 +3479,11 @@ function renderCabinet() {
               </div>
             </div>
           </div>
-
           <div class="card-network">
             <div class="ring" style="border-color:${design.accent};"></div>
             <div class="ring" style="border-color:${design.textColor};"></div>
           </div>
         </div>
-
-        <!-- ОБРАТНАЯ СТОРОНА — СВЕТЛАЯ, ЯРКАЯ, С АНИМАЦИЯМИ -->
         <div class="card-face card-back" style="background:${design.back};color:${design.textColor};">
           <div class="back-particles">
             <span></span><span></span><span></span><span></span>
@@ -2934,22 +3492,18 @@ function renderCabinet() {
           <div class="back-shine"></div>
           <div class="back-content">
             <div class="back-top-label" style="color:${design.accent};">AUTHORIZED SIGNATURE</div>
-
             <div class="back-stripe"></div>
-
             <div class="back-signature">
               <div class="sig-label" style="color:${design.accent};">SIGNATURE</div>
               <div class="sig-line" style="border-color:${design.accent};"></div>
               <div class="back-cvv" style="color:${design.textColor};border-color:${design.accent};">${cvv}</div>
             </div>
-
             <div class="back-bottom">
               <div class="back-phone" style="color:${design.accent};">
                 <i class="fas fa-phone"></i> +7 (951) 606-20-01
               </div>
               <div class="back-since" style="color:${design.accent};">SINCE 2013</div>
             </div>
-
             <div class="back-brand-strip" style="border-color:${design.accent}55;">
               <span class="b-left">✦ STUDIO №1</span>
               <span class="b-right" style="color:${design.accent};">PREMIUM • 2026</span>
@@ -3019,8 +3573,6 @@ async function generateAndRenderQR() {
     const token = generateQRToken(currentUser.uid);
     const container = document.getElementById('qrContainer');
     if (!container) return;
-
-    // Очищаем старый QR
     container.innerHTML = '';
 
     if (typeof QRCode === 'undefined') {
@@ -3029,7 +3581,6 @@ async function generateAndRenderQR() {
       return;
     }
 
-    // Создаём div для QR
     const qrDiv = document.createElement('div');
     qrDiv.style.padding = '12px';
     qrDiv.style.background = '#fff';
@@ -3037,30 +3588,22 @@ async function generateAndRenderQR() {
     qrDiv.style.display = 'inline-block';
     container.appendChild(qrDiv);
 
-    // Генерируем QR — увеличили до 320px, максимальная коррекция H
-    // QR-библиотека qrcodejs создаёт canvas нужного размера
     new QRCode(qrDiv, {
       text: token,
       width: 320,
       height: 320,
-      colorDark: '#000000',      // ЧИСТЫЙ чёрный — лучше для сканера
-      colorLight: '#FFFFFF',     // ЧИСТЫЙ белый
-      correctLevel: QRCode.CorrectLevel.H  // Максимальная коррекция (30%)
+      colorDark: '#000000',
+      colorLight: '#FFFFFF',
+      correctLevel: QRCode.CorrectLevel.H
     });
 
-    // Ждём немного, чтобы canvas отрисовался
     await new Promise(r => setTimeout(r, 100));
-
-    // Дополнительно: конвертируем в <img> с высоким DPI
     const canvas = qrDiv.querySelector('canvas');
     if (canvas) {
-      // Увеличиваем разрешение через image-rendering
       canvas.style.width = '320px';
       canvas.style.height = '320px';
       canvas.style.imageRendering = 'pixelated';
     }
-
-    console.log('✅ QR-код сгенерирован:', token);
     qrSecondsLeft = QR_LIFETIME;
     updateQRTimerDisplay();
   } catch (e) {
