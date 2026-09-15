@@ -2,12 +2,12 @@
 <html lang="ru" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
 <title>Админка — Студия №1</title>
 <meta name="robots" content="noindex, nofollow" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsqr/1.4.0/jsQR.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
@@ -23,7 +23,7 @@
 </script>
 <style>
 /* ============================================
-   ПЕРЕМЕННЫЕ И БАЗА
+   ПЕРЕМЕННЫЕ
    ============================================ */
 :root {
   --bg-primary: #0A0A0B;
@@ -42,10 +42,8 @@
   --border-strong: rgba(201, 169, 110, 0.5);
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
   --shadow-hover: 0 12px 48px rgba(201, 169, 110, 0.12);
-  --shadow-glow: 0 0 40px rgba(201, 169, 110, 0.15);
   --gold: #C9A96E;
   --gold-light: #E8D5A8;
-  --gold-dark: #A88B54;
   --gold-gradient: linear-gradient(135deg, #C9A96E 0%, #E8D5A8 50%, #C9A96E 100%);
   --gold-soft: rgba(201, 169, 110, 0.1);
   --green: #27AE60;
@@ -77,11 +75,10 @@ body {
   background: var(--bg-primary);
   font-feature-settings: 'tnum' on, 'lnum' on;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* ============================================
-   ЛОГИН
-   ============================================ */
+/* LOGIN */
 .login-page {
   display: flex;
   align-items: center;
@@ -89,7 +86,6 @@ body {
   min-height: 100vh;
   padding: 20px;
   position: relative;
-  overflow: hidden;
 }
 .login-page::before {
   content: '';
@@ -122,29 +118,22 @@ body {
   0%, 100% { background-position: 0% center; }
   50% { background-position: 200% center; }
 }
-@keyframes pulseGold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 169, 110, 0.4); }
-  50% { box-shadow: 0 0 0 12px rgba(201, 169, 110, 0); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 @keyframes scanLine {
   0%, 100% { top: 15%; opacity: 0.4; }
   50% { top: 85%; opacity: 1; }
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-@keyframes barGrow {
-  from { width: 0; }
 }
 @keyframes countUp {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
+@keyframes sidebarSlideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
 .login-box {
   background: rgba(18, 18, 20, 0.85);
   backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   max-width: 420px;
@@ -166,25 +155,15 @@ body {
   animation: shimmer 4s ease-in-out infinite;
   display: block;
   margin-bottom: 14px;
-  filter: drop-shadow(0 8px 24px rgba(201, 169, 110, 0.4));
 }
-.login-box h2 {
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 6px;
-  letter-spacing: -0.5px;
-}
+.login-box h2 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
 .login-box .gold-text {
   background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.login-box .subtitle {
-  color: var(--text-muted);
-  margin-bottom: 28px;
-  font-size: 14px;
-}
+.login-box .subtitle { color: var(--text-muted); margin-bottom: 28px; font-size: 14px; }
 .login-box input {
   display: block;
   width: 100%;
@@ -212,18 +191,11 @@ body {
   color: var(--text-muted);
   font-size: 13px;
   text-decoration: none;
-  transition: var(--transition);
 }
 .login-box .back-link:hover { color: var(--gold); }
-.login-box .shield-note {
-  margin-top: 18px;
-  font-size: 12px;
-  color: var(--text-faint);
-}
+.login-box .shield-note { margin-top: 18px; font-size: 12px; color: var(--text-faint); }
 
-/* ============================================
-   КНОПКИ
-   ============================================ */
+/* BTN */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -242,7 +214,6 @@ body {
   transition: var(--transition);
   font-family: 'Inter', sans-serif;
   white-space: nowrap;
-  letter-spacing: 0.01em;
 }
 .btn:hover {
   transform: translateY(-1px);
@@ -257,10 +228,7 @@ body {
   border: 1.5px solid var(--border-strong);
   box-shadow: none;
 }
-.btn-outline:hover {
-  background: var(--gold-soft);
-  border-color: var(--gold);
-}
+.btn-outline:hover { background: var(--gold-soft); border-color: var(--gold); }
 .btn-ghost {
   background: var(--bg-card);
   color: var(--text-secondary);
@@ -276,44 +244,19 @@ body {
   background: linear-gradient(135deg, #E74C3C, #C0392B);
   color: #fff;
 }
-.btn-danger:hover {
-  box-shadow: 0 8px 24px rgba(231, 76, 60, 0.4);
-}
+.btn-danger:hover { box-shadow: 0 8px 24px rgba(231, 76, 60, 0.4); }
 .btn-success {
   background: linear-gradient(135deg, #27AE60, #1E8449);
   color: #fff;
 }
-.btn-success:hover {
-  box-shadow: 0 8px 24px rgba(39, 174, 96, 0.4);
-}
-.btn-sm {
-  padding: 6px 12px;
-  font-size: 12px;
-  min-height: 30px;
-  border-radius: 8px;
-}
-.btn-xs {
-  padding: 4px 8px;
-  font-size: 11px;
-  min-height: 26px;
-  border-radius: 6px;
-  gap: 4px;
-}
-.btn-icon {
-  padding: 8px;
-  width: 36px;
-  height: 36px;
-  min-height: 36px;
-}
+.btn-success:hover { box-shadow: 0 8px 24px rgba(39, 174, 96, 0.4); }
+.btn-sm { padding: 6px 12px; font-size: 12px; min-height: 30px; border-radius: 8px; }
+.btn-xs { padding: 4px 8px; font-size: 11px; min-height: 26px; border-radius: 6px; gap: 4px; }
+.btn-icon { padding: 8px; width: 36px; height: 36px; min-height: 36px; }
 .btn-icon.btn-sm { width: 30px; height: 30px; min-height: 30px; padding: 0; }
 
-/* ============================================
-   LAYOUT АДМИНКИ — SIDEBAR + MAIN
-   ============================================ */
-.admin-layout {
-  display: none;
-  min-height: 100vh;
-}
+/* LAYOUT */
+.admin-layout { display: none; min-height: 100vh; }
 .admin-layout.active { display: flex; }
 
 .sidebar {
@@ -326,7 +269,7 @@ body {
   left: 0;
   bottom: 0;
   overflow-y: auto;
-  z-index: 100;
+  z-index: 200;
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -342,7 +285,6 @@ body {
   gap: 10px;
   font-size: 18px;
   font-weight: 800;
-  letter-spacing: -0.3px;
 }
 .sidebar-logo .logo-mark {
   width: 34px;
@@ -357,7 +299,6 @@ body {
   font-size: 16px;
   font-weight: 900;
   animation: shimmer 5s ease-in-out infinite;
-  box-shadow: 0 4px 16px rgba(201, 169, 110, 0.3);
 }
 .sidebar-logo .logo-text {
   background: var(--gold-gradient);
@@ -376,12 +317,7 @@ body {
   text-transform: uppercase;
   font-weight: 600;
 }
-.sidebar-nav {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
+.sidebar-nav { flex: 1; display: flex; flex-direction: column; gap: 2px; }
 .nav-section-title {
   font-size: 10px;
   color: var(--text-faint);
@@ -404,10 +340,7 @@ body {
   position: relative;
   user-select: none;
 }
-.nav-item:hover {
-  background: var(--bg-card);
-  color: var(--text-primary);
-}
+.nav-item:hover { background: var(--bg-card); color: var(--text-primary); }
 .nav-item.active {
   background: var(--gold-soft);
   color: var(--gold);
@@ -424,12 +357,7 @@ body {
   background: var(--gold-gradient);
   border-radius: 0 3px 3px 0;
 }
-.nav-item .nav-icon {
-  width: 20px;
-  text-align: center;
-  font-size: 15px;
-  flex-shrink: 0;
-}
+.nav-item .nav-icon { width: 20px; text-align: center; font-size: 15px; flex-shrink: 0; }
 .nav-item .nav-badge {
   margin-left: auto;
   font-size: 10px;
@@ -468,7 +396,6 @@ body {
   font-size: 13px;
   flex-shrink: 0;
 }
-.sidebar-user .user-info { min-width: 0; }
 .sidebar-user .user-name {
   font-weight: 600;
   color: var(--text-primary);
@@ -477,10 +404,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.sidebar-user .user-role {
-  font-size: 11px;
-  color: var(--text-muted);
-}
+.sidebar-user .user-role { font-size: 11px; color: var(--text-muted); }
 
 .main-content {
   flex: 1;
@@ -489,9 +413,7 @@ body {
   min-width: 0;
 }
 
-/* ============================================
-   ВЕРХНЯЯ ПАНЕЛЬ
-   ============================================ */
+/* TOP BAR */
 .top-bar {
   display: flex;
   align-items: center;
@@ -508,36 +430,37 @@ body {
   align-items: center;
   gap: 12px;
 }
-.page-title .title-emoji {
-  font-size: 28px;
-  filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4));
-}
-.page-subtitle {
-  color: var(--text-muted);
-  font-size: 13.5px;
-  margin-top: 2px;
-}
-.top-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: center;
-}
+.page-title .title-emoji { font-size: 28px; }
+.page-subtitle { color: var(--text-muted); font-size: 13.5px; margin-top: 2px; }
+.top-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .mobile-menu-btn {
   display: none;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 10px;
   cursor: pointer;
   font-size: 18px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
+.mobile-menu-btn:hover { background: var(--bg-card-hover); }
 
-/* ============================================
-   КАРТОЧКИ
-   ============================================ */
+/* MOBILE SIDEBAR OVERLAY */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 150;
+  backdrop-filter: blur(4px);
+}
+.sidebar-overlay.active { display: block; }
+
+/* CARDS */
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -559,15 +482,9 @@ body {
   align-items: center;
   gap: 8px;
 }
-.card-subtitle {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-}
+.card-subtitle { font-size: 12.5px; color: var(--text-muted); margin-bottom: 16px; }
 
-/* ============================================
-   КАРТОЧКИ KPI
-   ============================================ */
+/* KPI */
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -586,9 +503,7 @@ body {
 .kpi-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 3px;
   background: var(--gold-gradient);
   opacity: 0;
@@ -643,11 +558,7 @@ body {
   color: var(--text-primary);
   animation: countUp 0.5s ease;
 }
-.kpi-card .kpi-label {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
+.kpi-card .kpi-label { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
 .kpi-card .kpi-hint {
   font-size: 11px;
   color: var(--text-faint);
@@ -656,34 +567,14 @@ body {
   border-top: 1px dashed var(--border-color);
 }
 
-/* ============================================
-   GRID для аналитики
-   ============================================ */
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
-}
-.grid-2-1 {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
-}
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
 @media (max-width: 900px) {
-  .grid-2, .grid-3, .grid-2-1 { grid-template-columns: 1fr; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
 }
 
-/* ============================================
-   ТАБЛИЦЫ
-   ============================================ */
+/* TABLE */
 .table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -708,8 +599,6 @@ table.data-table thead th {
   letter-spacing: 0.5px;
   white-space: nowrap;
   background: rgba(201, 169, 110, 0.03);
-  position: sticky;
-  top: 0;
 }
 table.data-table tbody td {
   padding: 12px 14px;
@@ -720,7 +609,6 @@ table.data-table tbody td {
 table.data-table tbody tr:last-child td { border-bottom: none; }
 table.data-table tbody tr { transition: background 0.15s ease; }
 table.data-table tbody tr:hover td { background: var(--bg-card-hover); }
-table.data-table tbody tr:hover td:first-child { box-shadow: inset 3px 0 0 var(--gold); }
 table.data-table input,
 table.data-table select {
   background: var(--bg-input);
@@ -740,19 +628,13 @@ table.data-table select:focus {
   border-color: var(--gold);
   background: rgba(201, 169, 110, 0.05);
 }
-.cell-mono {
-  font-family: 'Courier New', monospace;
-  color: var(--gold);
-  font-size: 12px;
-}
+.cell-mono { font-family: 'Courier New', monospace; color: var(--gold); font-size: 12px; }
 .cell-strong { color: var(--text-primary); font-weight: 600; }
 .cell-muted { color: var(--text-muted); font-size: 12px; }
 .cell-actions { display: flex; gap: 4px; flex-wrap: wrap; }
 
-/* Аватар в таблице */
 .avatar-sm {
-  width: 34px;
-  height: 34px;
+  width: 34px; height: 34px;
   border-radius: 50%;
   overflow: hidden;
   background: var(--gold-gradient);
@@ -767,8 +649,7 @@ table.data-table select:focus {
 }
 .avatar-sm img { width: 100%; height: 100%; object-fit: cover; }
 .avatar-md {
-  width: 48px;
-  height: 48px;
+  width: 48px; height: 48px;
   border-radius: 50%;
   overflow: hidden;
   background: var(--gold-gradient);
@@ -783,8 +664,7 @@ table.data-table select:focus {
 }
 .avatar-md img { width: 100%; height: 100%; object-fit: cover; }
 .avatar-lg {
-  width: 80px;
-  height: 80px;
+  width: 100px; height: 100px;
   border-radius: 50%;
   overflow: hidden;
   background: var(--gold-gradient);
@@ -793,19 +673,14 @@ table.data-table select:focus {
   justify-content: center;
   color: #1A1410;
   font-weight: 800;
-  font-size: 28px;
+  font-size: 36px;
   flex-shrink: 0;
   border: 3px solid var(--border-color);
 }
 .avatar-lg img { width: 100%; height: 100%; object-fit: cover; }
 
-.user-cell {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.user-cell { display: flex; align-items: center; gap: 10px; }
 
-/* Бейджи */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -820,57 +695,18 @@ table.data-table select:focus {
 .badge.green { background: var(--green-soft); color: var(--green); }
 .badge.red { background: var(--red-soft); color: var(--red); }
 .badge.blue { background: var(--blue-soft); color: var(--blue); }
+.badge.purple { background: var(--purple-soft); color: var(--purple); }
 .badge.muted { background: var(--bg-tertiary); color: var(--text-muted); }
 
-.stars-inline {
-  color: #F5B342;
-  letter-spacing: 1px;
-  font-size: 13px;
-}
+.stars-inline { color: #F5B342; letter-spacing: 1px; font-size: 13px; }
 
-/* ============================================
-   ФОРМА ДОБАВЛЕНИЯ
-   ============================================ */
-.add-form {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-  padding: 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-}
-.add-form input,
-.add-form textarea,
-.add-form select {
-  flex: 1;
-  min-width: 150px;
-  padding: 10px 14px;
-  background: var(--bg-input);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  color: var(--text-primary);
-  font-size: 13.5px;
-  font-family: 'Inter', sans-serif;
-  transition: var(--transition-fast);
-}
-.add-form input:focus,
-.add-form textarea:focus,
-.add-form select:focus {
-  outline: none;
-  border-color: var(--gold);
-  background: rgba(201, 169, 110, 0.05);
-}
-.add-form textarea { min-height: 80px; width: 100%; resize: vertical; }
-.add-form .btn { flex-shrink: 0; }
-
-/* Поиск */
+/* SEARCH */
 .search-box {
   display: flex;
   gap: 10px;
   margin-bottom: 16px;
   flex-wrap: wrap;
+  align-items: center;
 }
 .search-box input {
   flex: 1;
@@ -890,23 +726,19 @@ table.data-table select:focus {
   background: rgba(201, 169, 110, 0.05);
 }
 
-/* ============================================
-   МОДАЛКИ
-   ============================================ */
+/* MODAL */
 .modal-overlay {
   display: none;
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   z-index: 2000;
   align-items: center;
   justify-content: center;
   padding: 16px;
-  animation: fadeIn 0.2s ease;
+  animation: scaleIn 0.2s ease;
 }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .modal-overlay.active { display: flex; }
 .modal {
   background: var(--bg-secondary);
@@ -947,25 +779,15 @@ table.data-table select:focus {
   border-color: var(--red);
   transform: rotate(90deg);
 }
-.modal h2 {
-  font-size: 22px;
-  font-weight: 800;
-  margin-bottom: 4px;
-  padding-right: 44px;
-}
+.modal h2 { font-size: 22px; font-weight: 800; margin-bottom: 4px; padding-right: 44px; }
 .modal .gold-text {
   background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.modal .subtitle {
-  color: var(--text-muted);
-  margin-bottom: 20px;
-  font-size: 13.5px;
-}
+.modal .subtitle { color: var(--text-muted); margin-bottom: 20px; font-size: 13.5px; }
 
-/* Инфо-строки в модалке */
 .info-row {
   display: flex;
   justify-content: space-between;
@@ -976,15 +798,10 @@ table.data-table select:focus {
   align-items: center;
 }
 .info-row:last-child { border-bottom: none; }
-.info-row .label { color: var(--text-muted); font-weight: 500; }
-.info-row .value { color: var(--text-primary); font-weight: 600; text-align: right; word-break: break-word; }
+.info-row .label { color: var(--text-muted); font-weight: 500; flex-shrink: 0; }
+.info-row .value { color: var(--text-primary); font-weight: 600; text-align: right; word-break: break-word; min-width: 0; }
 
-/* History */
-.history-list {
-  max-height: 320px;
-  overflow-y: auto;
-  margin-top: 10px;
-}
+.history-list { max-height: 320px; overflow-y: auto; margin-top: 10px; }
 .history-item {
   display: flex;
   justify-content: space-between;
@@ -1000,9 +817,7 @@ table.data-table select:focus {
 .history-item .spent { color: var(--red); font-weight: 600; }
 .history-item .added { color: var(--green); font-weight: 600; }
 
-/* ============================================
-   QR-СКАНЕР
-   ============================================ */
+/* SCANNER */
 .scanner-container {
   display: flex;
   flex-direction: column;
@@ -1027,19 +842,9 @@ table.data-table select:focus {
   height: 100%;
   object-fit: cover;
   filter: contrast(1.15) brightness(1.05);
-  -webkit-filter: contrast(1.15) brightness(1.05);
 }
-.scanner-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.scanner-corner {
-  position: absolute;
-  width: 44px;
-  height: 44px;
-  border: 4px solid var(--gold);
-}
+.scanner-overlay { position: absolute; inset: 0; pointer-events: none; }
+.scanner-corner { position: absolute; width: 44px; height: 44px; border: 4px solid var(--gold); }
 .scanner-corner.tl { top: 20px; left: 20px; border-right: none; border-bottom: none; border-radius: 10px 0 0 0; }
 .scanner-corner.tr { top: 20px; right: 20px; border-left: none; border-bottom: none; border-radius: 0 10px 0 0; }
 .scanner-corner.bl { bottom: 20px; left: 20px; border-right: none; border-top: none; border-radius: 0 0 0 10px; }
@@ -1169,45 +974,12 @@ table.data-table select:focus {
 .qr-log-item .log-action.spent { color: var(--red); }
 .qr-log-item .log-action.added { color: var(--green); }
 
-/* ============================================
-   ГРАФИКИ (аналитика)
-   ============================================ */
-.chart-container {
-  position: relative;
-  width: 100%;
-  height: 280px;
-}
-.chart-container.chart-sm { height: 200px; }
+/* CHART */
+.chart-container { position: relative; width: 100%; height: 280px; }
 .chart-container.chart-lg { height: 340px; }
 
-/* Легенда */
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 12px;
-  font-size: 12.5px;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text-secondary);
-}
-.legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-  flex-shrink: 0;
-}
-
-/* ============================================
-   АНАЛИТИКА — СПЕЦИФИЧНЫЕ БЛОКИ
-   ============================================ */
-.analytics-block {
-  margin-bottom: 24px;
-  animation: fadeInUp 0.5s ease;
-}
+/* ANALYTICS */
+.analytics-block { margin-bottom: 24px; animation: fadeInUp 0.5s ease; }
 .analytics-block-header {
   display: flex;
   align-items: center;
@@ -1237,8 +1009,6 @@ table.data-table select:focus {
   font-weight: 900;
   flex-shrink: 0;
 }
-
-/* Формула-блок */
 .formula {
   background: var(--bg-tertiary);
   border: 1px solid var(--border-color);
@@ -1251,7 +1021,6 @@ table.data-table select:focus {
   margin: 12px 0;
   overflow-x: auto;
   line-height: 1.7;
-  letter-spacing: 0.02em;
 }
 .formula .formula-note {
   display: block;
@@ -1259,11 +1028,8 @@ table.data-table select:focus {
   color: var(--text-muted);
   font-size: 11.5px;
   margin-top: 8px;
-  letter-spacing: 0;
   line-height: 1.5;
 }
-
-/* Инструкция */
 .instructions {
   background: var(--blue-soft);
   border: 1px solid rgba(52, 152, 219, 0.25);
@@ -1305,8 +1071,6 @@ table.data-table select:focus {
   font-size: 12.5px;
   color: var(--text-secondary);
 }
-
-/* Метрика-мини */
 .metric-mini {
   display: flex;
   justify-content: space-between;
@@ -1318,8 +1082,6 @@ table.data-table select:focus {
 .metric-mini:last-child { border-bottom: none; }
 .metric-mini .mm-label { color: var(--text-muted); }
 .metric-mini .mm-value { color: var(--text-primary); font-weight: 700; }
-
-/* Прогресс-бар в аналитике */
 .progress-bar {
   width: 100%;
   height: 8px;
@@ -1333,13 +1095,14 @@ table.data-table select:focus {
   background: var(--gold-gradient);
   background-size: 200% auto;
   border-radius: 10px;
-  animation: barGrow 1s cubic-bezier(0.22, 1, 0.36, 1), shimmer 4s ease-in-out infinite;
+  animation: shimmer 4s ease-in-out infinite;
 }
 .progress-bar.green .progress-fill { background: linear-gradient(90deg, #27AE60, #58D68D); }
 .progress-bar.red .progress-fill { background: linear-gradient(90deg, #E74C3C, #EC7063); }
 .progress-bar.blue .progress-fill { background: linear-gradient(90deg, #3498DB, #5DADE2); }
+.progress-bar.purple .progress-fill { background: linear-gradient(90deg, #9B59B6, #BB8FCE); }
+.progress-bar.orange .progress-fill { background: linear-gradient(90deg, #E67E22, #F39C12); }
 
-/* Пустое состояние аналитики */
 .empty-analytics {
   text-align: center;
   padding: 60px 24px;
@@ -1354,17 +1117,8 @@ table.data-table select:focus {
   margin-bottom: 12px;
   display: block;
 }
-.empty-analytics h3 {
-  font-size: 18px;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-}
-.empty-analytics p {
-  color: var(--text-muted);
-  font-size: 13.5px;
-  max-width: 440px;
-  margin: 0 auto 6px;
-}
+.empty-analytics h3 { font-size: 18px; color: var(--text-primary); margin-bottom: 6px; }
+.empty-analytics p { color: var(--text-muted); font-size: 13.5px; max-width: 440px; margin: 0 auto 6px; }
 .empty-analytics .hint {
   font-size: 12px;
   color: var(--text-faint);
@@ -1372,9 +1126,7 @@ table.data-table select:focus {
   font-style: italic;
 }
 
-/* ============================================
-   ФОТО МАСТЕРА — ЗАГРУЗКА
-   ============================================ */
+/* PHOTO UPLOAD */
 .photo-upload-area {
   display: flex;
   flex-direction: column;
@@ -1388,15 +1140,7 @@ table.data-table select:focus {
   cursor: pointer;
   position: relative;
 }
-.photo-upload-area:hover {
-  border-color: var(--gold);
-  background: var(--gold-soft);
-}
-.photo-upload-area.dragover {
-  border-color: var(--gold);
-  background: var(--gold-soft);
-  transform: scale(1.02);
-}
+.photo-upload-area:hover { border-color: var(--gold); background: var(--gold-soft); }
 .photo-upload-area input[type="file"] {
   position: absolute;
   inset: 0;
@@ -1417,21 +1161,11 @@ table.data-table select:focus {
   border: 3px solid var(--border-color);
   transition: var(--transition);
 }
-.photo-preview-lg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.photo-upload-hint {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  text-align: center;
-}
+.photo-preview-lg img { width: 100%; height: 100%; object-fit: cover; }
+.photo-upload-hint { font-size: 12.5px; color: var(--text-muted); text-align: center; }
 .photo-upload-hint strong { color: var(--gold); }
 
-/* ============================================
-   СПИННЕР / LOADING
-   ============================================ */
+/* LOADING */
 .loading-overlay {
   position: fixed;
   inset: 0;
@@ -1455,9 +1189,7 @@ table.data-table select:focus {
 }
 .loading-text { color: var(--text-muted); font-size: 13.5px; }
 
-/* ============================================
-   TOAST
-   ============================================ */
+/* TOAST */
 .toast-container {
   position: fixed;
   top: 20px;
@@ -1500,21 +1232,23 @@ table.data-table select:focus {
 }
 .toast.hide { opacity: 0; transform: translateX(50px); transition: all 0.3s ease; }
 
-/* ============================================
-   АДАПТИВНОСТЬ
-   ============================================ */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
   .kpi-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
   .main-content { padding: 20px 20px 60px; }
 }
+
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
   }
-  .sidebar.open { transform: translateX(0); }
+  .sidebar.open {
+    transform: translateX(0);
+    animation: sidebarSlideIn 0.3s ease;
+  }
   .main-content { margin-left: 0; padding: 16px 14px 80px; }
-  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+  .mobile-menu-btn { display: flex; }
   .page-title { font-size: 20px; }
   .page-title .title-emoji { font-size: 22px; }
   .kpi-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -1523,49 +1257,28 @@ table.data-table select:focus {
   .kpi-card .kpi-icon { width: 34px; height: 34px; font-size: 15px; }
   .kpi-card .kpi-label { font-size: 11px; }
   .kpi-card .kpi-hint { font-size: 10px; }
-  .grid-2, .grid-3, .grid-2-1 { gap: 12px; }
+  .grid-2, .grid-3 { gap: 12px; }
   .card { padding: 16px; }
   .chart-container { height: 220px; }
-  .chart-container.chart-lg { height: 260px; }
   .modal { padding: 20px 16px; border-radius: 16px; }
   .modal h2 { font-size: 18px; }
-  .top-actions .btn:not(.btn-icon) { padding: 8px 14px; font-size: 12.5px; }
   .top-bar { gap: 10px; margin-bottom: 16px; }
-  .sidebar-mobile-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 99;
-    backdrop-filter: blur(4px);
-  }
-  .sidebar-mobile-overlay.active { display: block; }
-}
-@media (max-width: 480px) {
-  .kpi-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .kpi-card { padding: 12px; border-radius: 12px; }
-  .kpi-card .kpi-value { font-size: 20px; }
-  .kpi-card .kpi-icon { width: 30px; height: 30px; font-size: 13px; }
-  .kpi-card .kpi-header { margin-bottom: 8px; }
-  .kpi-card .kpi-hint { display: none; }
-  .main-content { padding: 12px 10px 80px; }
-  .avatar-lg { width: 64px; height: 64px; font-size: 22px; }
-  .photo-preview-lg { width: 100px; height: 100px; font-size: 32px; }
-}
-@media (min-width: 1600px) {
-  :root { --sidebar-w: 280px; }
-  .main-content { padding: 32px 40px 80px; }
+  .avatar-lg { width: 80px; height: 80px; font-size: 28px; }
 }
 
-/* Скрыть сайдбар-оверлей на десктопе */
-.sidebar-mobile-overlay { display: none; }
+@media (max-width: 480px) {
+  .kpi-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .kpi-card { padding: 12px; }
+  .kpi-card .kpi-value { font-size: 20px; }
+  .kpi-card .kpi-hint { display: none; }
+  .main-content { padding: 12px 10px 80px; }
+  .photo-preview-lg { width: 100px; height: 100px; font-size: 32px; }
+}
 </style>
 </head>
 <body>
 
-<!-- ============================================
-     ЛОГИН
-     ============================================ -->
+<!-- LOGIN -->
 <div class="login-page" id="loginPage">
   <div class="login-box">
     <i class="fas fa-crown icon"></i>
@@ -1585,12 +1298,9 @@ table.data-table select:focus {
   </div>
 </div>
 
-<!-- ============================================
-     АДМИНКА
-     ============================================ -->
+<!-- ADMIN -->
 <div class="admin-layout" id="adminLayout">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">
@@ -1661,13 +1371,12 @@ table.data-table select:focus {
     </div>
   </aside>
 
-  <div class="sidebar-mobile-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-  <!-- MAIN -->
   <main class="main-content">
     <div class="top-bar">
       <div style="display:flex;align-items:center;gap:12px;">
-        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleSidebar(event)">
           <i class="fas fa-bars"></i>
         </button>
         <div>
@@ -1685,16 +1394,13 @@ table.data-table select:focus {
   </main>
 </div>
 
-<!-- Loading -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
   <div class="loading-text" id="loadingText">Загрузка данных...</div>
 </div>
 
-<!-- Toast -->
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- Modal: Client -->
 <div class="modal-overlay" id="clientModal">
   <div class="modal modal-lg">
     <button class="modal-close" onclick="closeClientModal()">&times;</button>
@@ -1702,7 +1408,6 @@ table.data-table select:focus {
   </div>
 </div>
 
-<!-- Modal: Master photo -->
 <div class="modal-overlay" id="masterPhotoModal">
   <div class="modal modal-sm">
     <button class="modal-close" onclick="closeMasterPhotoModal()">&times;</button>
@@ -1747,6 +1452,7 @@ const db = getFirestore(app);
 
 const QR_SECRET = 'STUDIO1_KEMEROVO_2026_SECRET_KEY_v1_X9K2M5P8';
 const QR_LIFETIME = 120;
+const SITE_URL = 'https://glubkov2020-netizen.github.io/studio1/';
 
 const ADMIN_CREDENTIALS = {
   login: 'Studio1Admin',
@@ -1782,11 +1488,6 @@ function formatDateShort(date) {
   } catch { return '—'; }
 }
 
-function formatMoney(n) {
-  if (typeof n !== 'number' || isNaN(n)) return '—';
-  return n.toLocaleString('ru-RU') + ' ₽';
-}
-
 function formatNumber(n) {
   if (typeof n !== 'number' || isNaN(n)) return '—';
   return n.toLocaleString('ru-RU');
@@ -1818,6 +1519,16 @@ function hideLoading() {
   document.getElementById('loadingOverlay').classList.remove('active');
 }
 
+/* Приведение даты из Firestore к миллисекундам */
+function toMillis(date) {
+  if (!date) return 0;
+  if (typeof date === 'number') return date;
+  if (date.toMillis) return date.toMillis();
+  if (date.seconds) return date.seconds * 1000;
+  const t = new Date(date).getTime();
+  return isNaN(t) ? 0 : t;
+}
+
 /* ============================================
    АВТОРИЗАЦИЯ
    ============================================ */
@@ -1826,24 +1537,18 @@ const MAX_ATTEMPTS = 5;
 const BLOCK_TIME = 5 * 60 * 1000;
 let blockUntil = null;
 
-function isBlocked() {
-  if (!blockUntil) return false;
-  if (Date.now() > blockUntil) {
-    blockUntil = null;
-    loginAttempts = 0;
-    return false;
-  }
-  return true;
-}
-
 window.adminLogin = function(e) {
   e.preventDefault();
-  if (isBlocked()) {
-    const left = Math.max(0, Math.ceil((blockUntil - Date.now()) / 1000));
+  if (blockUntil && Date.now() < blockUntil) {
+    const left = Math.ceil((blockUntil - Date.now()) / 1000);
     const attemptsEl = document.getElementById('adminLoginAttempts');
     attemptsEl.textContent = `⛔ Доступ заблокирован. Попробуйте через ${Math.floor(left / 60)} мин ${left % 60} сек.`;
     attemptsEl.style.display = 'block';
     return;
+  }
+  if (blockUntil && Date.now() >= blockUntil) {
+    blockUntil = null;
+    loginAttempts = 0;
   }
   const login = document.getElementById('adminLoginInput').value.trim();
   const password = document.getElementById('adminPasswordInput').value.trim();
@@ -1853,7 +1558,7 @@ window.adminLogin = function(e) {
   if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
     loginAttempts = 0;
     blockUntil = null;
-    sessionStorage.setItem('admin_session_v3', btoa(JSON.stringify({
+    sessionStorage.setItem('admin_session_v4', btoa(JSON.stringify({
       login: ADMIN_CREDENTIALS.login,
       timestamp: Date.now()
     })));
@@ -1884,7 +1589,7 @@ window.adminLogin = function(e) {
 };
 
 function checkSession() {
-  const sessionData = sessionStorage.getItem('admin_session_v3');
+  const sessionData = sessionStorage.getItem('admin_session_v4');
   if (!sessionData) return false;
   try {
     const parsed = JSON.parse(atob(sessionData));
@@ -1893,18 +1598,18 @@ function checkSession() {
       return true;
     }
   } catch (e) {}
-  sessionStorage.removeItem('admin_session_v3');
+  sessionStorage.removeItem('admin_session_v4');
   return false;
 }
 
 window.adminLogout = function() {
   if (!confirm('Выйти из админки?')) return;
-  sessionStorage.removeItem('admin_session_v3');
+  sessionStorage.removeItem('admin_session_v4');
   location.reload();
 };
 
 /* ============================================
-   ГЛОБАЛЬНОЕ СОСТОЯНИЕ
+   СОСТОЯНИЕ
    ============================================ */
 let allMasters = [];
 let allBlogPosts = [];
@@ -1915,7 +1620,6 @@ let allTokens = [];
 let currentTab = 'dashboard';
 let clientSearch = '';
 let commentsFilter = 'all';
-let reviewsFilter = 'all';
 let isDataLoaded = false;
 let commentListeners = [];
 let scannerStream = null;
@@ -1925,6 +1629,7 @@ let qrLogs = [];
 let charts = {};
 let currentPhotoMasterId = null;
 let currentPhotoData = null;
+let clientSearchDebounce = null;
 
 /* ============================================
    ЗАГРУЗКА ДАННЫХ
@@ -1933,45 +1638,43 @@ async function loadAllData() {
   if (isDataLoaded) return;
   showLoading('Загрузка данных...');
   try {
-    // Мастера
     const mastersSnap = await getDocs(collection(db, 'masters'));
     allMasters = [];
     mastersSnap.forEach(d => allMasters.push({ id: d.id, ...d.data() }));
 
-    // Блог
     try {
       const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
       allBlogPosts = [];
       blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
     } catch (e) { allBlogPosts = []; }
 
-    // Пользователи
     const usersSnap = await getDocs(collection(db, 'users'));
     allUsers = [];
     usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
 
-    // Отзывы
     try {
       const reviewsSnap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
       allReviews = [];
       reviewsSnap.forEach(d => allReviews.push({ id: d.id, ...d.data() }));
     } catch (e) { allReviews = []; }
 
-    // Использованные токены
     try {
       const tokensSnap = await getDocs(collection(db, 'usedTokens'));
       allTokens = [];
       tokensSnap.forEach(d => allTokens.push({ id: d.id, ...d.data() }));
     } catch (e) { allTokens = []; }
 
-    // Комментарии (realtime)
     loadComments();
-
-    // QR логи
     await loadQrLogs();
 
     isDataLoaded = true;
-    console.log('✅ Данные загружены');
+    console.log('✅ Данные загружены:', {
+      users: allUsers.length,
+      masters: allMasters.length,
+      reviews: allReviews.length,
+      posts: allBlogPosts.length,
+      tokens: allTokens.length
+    });
   } catch (e) {
     console.error('Ошибка загрузки:', e);
     showToast('Ошибка загрузки данных: ' + e.message, 'error');
@@ -2011,7 +1714,7 @@ async function loadQrLogs() {
         }
       });
     });
-    logs.sort((a, b) => new Date(b.date) - new Date(a.date));
+    logs.sort((a, b) => toMillis(b.date) - toMillis(a.date));
     qrLogs = logs;
   } catch (e) { qrLogs = []; }
 }
@@ -2085,14 +1788,29 @@ window.switchTab = function(tab) {
   closeSidebar();
 };
 
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('active');
-}
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('active');
-}
+window.toggleSidebar = function(e) {
+  if (e) e.stopPropagation();
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const isOpen = sidebar.classList.contains('open');
+  if (isOpen) {
+    closeSidebar();
+  } else {
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+};
+
+window.closeSidebar = function() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  sidebar.classList.remove('open');
+  overlay.classList.remove('active');
+  if (window.innerWidth <= 768) {
+    document.body.style.overflow = '';
+  }
+};
 
 function renderContent(tab) {
   const container = document.getElementById('adminContent');
@@ -2107,17 +1825,11 @@ function renderContent(tab) {
     case 'analytics':
       container.innerHTML = renderAnalytics();
       topActions.innerHTML = `
-        <select id="analyticsPeriod" onchange="renderAnalyticsPeriod(this.value)" style="padding:8px 12px;background:var(--bg-input);border:1px solid var(--border-color);border-radius:10px;color:var(--text-primary);font-size:13px;font-family:Inter,sans-serif;">
-          <option value="all">Всё время</option>
-          <option value="30">30 дней</option>
-          <option value="7">7 дней</option>
-        </select>
-        <button class="btn btn-ghost btn-sm" onclick="refreshAll()"><i class="fas fa-sync-alt"></i></button>
+        <button class="btn btn-ghost btn-sm" onclick="refreshAll()"><i class="fas fa-sync-alt"></i> Обновить</button>
       `;
       break;
     case 'scanner':
       container.innerHTML = renderScanner();
-      topActions.innerHTML = '';
       renderQrLogs();
       break;
     case 'clients':
@@ -2130,7 +1842,6 @@ function renderContent(tab) {
       break;
     case 'blog':
       container.innerHTML = renderBlogAdmin();
-      topActions.innerHTML = '';
       setTimeout(attachBlogHandlers, 100);
       break;
     case 'reviews':
@@ -2156,7 +1867,6 @@ window.refreshAll = async function() {
    ДАШБОРД
    ============================================ */
 function renderDashboard() {
-  // Реальные метрики (только из данных!)
   const totalUsers = allUsers.length;
   const totalMinutes = allUsers.reduce((s, u) => s + (u.minutes || 0), 0);
   const totalMasters = allMasters.length;
@@ -2168,89 +1878,66 @@ function renderDashboard() {
   const publishedPosts = allBlogPosts.filter(p => p.status !== 'draft').length;
   const activeComments = allComments.filter(c => !c.isDeleted).length;
 
-  // Сегодня
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const todayTs = today.getTime();
-  const todayReviews = allReviews.filter(r => {
-    const d = new Date(r.createdAt);
-    return !isNaN(d) && d.getTime() >= todayTs;
-  }).length;
-  const todayComments = allComments.filter(c => {
-    const d = c.createdAt?.toDate ? c.createdAt.toDate() : new Date(c.createdAt);
-    return !isNaN(d) && d.getTime() >= todayTs;
-  }).length;
+  // СЕГОДНЯ — точное вычисление через локальное время
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  const todayStartMs = todayStart.getTime();
 
-  // Последние 5 операций QR
+  const todayReviews = allReviews.filter(r => toMillis(r.createdAt) >= todayStartMs).length;
+  const todayComments = allComments.filter(c => toMillis(c.createdAt) >= todayStartMs).length;
+
+  // Общее количество записей в БД — все документы во всех коллекциях
+  const totalRecords = totalUsers + totalMasters + totalReviews + allBlogPosts.length + allComments.length + allTokens.length;
+
   const recentQR = qrLogs.slice(0, 5);
-
-  // Топ клиентов по минутам
-  const topClients = [...allUsers]
-    .sort((a, b) => (b.minutes || 0) - (a.minutes || 0))
-    .slice(0, 5);
+  const topClients = [...allUsers].sort((a, b) => (b.minutes || 0) - (a.minutes || 0)).slice(0, 5);
 
   return `
     <div class="kpi-grid">
       <div class="kpi-card">
-        <div class="kpi-header">
-          <div class="kpi-icon gold">👤</div>
-        </div>
+        <div class="kpi-header"><div class="kpi-icon gold">👤</div></div>
         <div class="kpi-value">${formatNumber(totalUsers)}</div>
         <div class="kpi-label">Клиентов в базе</div>
         <div class="kpi-hint">Всего аккаунтов</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-header">
-          <div class="kpi-icon orange">☀️</div>
-        </div>
+        <div class="kpi-header"><div class="kpi-icon orange">☀️</div></div>
         <div class="kpi-value">${formatNumber(totalMinutes)}</div>
         <div class="kpi-label">Минут на балансах</div>
         <div class="kpi-hint">Сумма по всем клиентам</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-header">
-          <div class="kpi-icon blue">👩‍🎨</div>
-        </div>
+        <div class="kpi-header"><div class="kpi-icon blue">👩‍🎨</div></div>
         <div class="kpi-value">${formatNumber(totalMasters)}</div>
         <div class="kpi-label">Мастеров</div>
         <div class="kpi-hint">${totalServices} ${pluralize(totalServices, 'услуга', 'услуги', 'услуг')}</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-header">
-          <div class="kpi-icon purple">⭐</div>
-        </div>
+        <div class="kpi-header"><div class="kpi-icon purple">⭐</div></div>
         <div class="kpi-value">${avgRating}</div>
         <div class="kpi-label">Средний рейтинг</div>
         <div class="kpi-hint">${totalReviews} ${pluralize(totalReviews, 'отзыв', 'отзыва', 'отзывов')}</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-header">
-          <div class="kpi-icon green">📝</div>
-        </div>
+        <div class="kpi-header"><div class="kpi-icon green">📝</div></div>
         <div class="kpi-value">${formatNumber(publishedPosts)}</div>
         <div class="kpi-label">Постов в блоге</div>
         <div class="kpi-hint">Опубликовано</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-header">
-          <div class="kpi-icon yellow">💬</div>
-        </div>
+        <div class="kpi-header"><div class="kpi-icon yellow">💬</div></div>
         <div class="kpi-value">${formatNumber(activeComments)}</div>
         <div class="kpi-label">Комментариев</div>
         <div class="kpi-hint">Активных</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-header">
-          <div class="kpi-icon green">🆕</div>
-        </div>
+        <div class="kpi-header"><div class="kpi-icon green">🆕</div></div>
         <div class="kpi-value">${formatNumber(todayReviews)}</div>
         <div class="kpi-label">Отзывов сегодня</div>
         <div class="kpi-hint">За текущий день</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-header">
-          <div class="kpi-icon blue">💬</div>
-        </div>
+        <div class="kpi-header"><div class="kpi-icon blue">💬</div></div>
         <div class="kpi-value">${formatNumber(todayComments)}</div>
         <div class="kpi-label">Комментариев сегодня</div>
         <div class="kpi-hint">За текущий день</div>
@@ -2258,7 +1945,6 @@ function renderDashboard() {
     </div>
 
     <div class="grid-2">
-      <!-- Последние операции -->
       <div class="card">
         <div class="card-title"><i class="fas fa-history" style="color:var(--gold);"></i> Последние QR-операции</div>
         <div class="card-subtitle">Списание и пополнение минут</div>
@@ -2285,10 +1971,9 @@ function renderDashboard() {
         `}
       </div>
 
-      <!-- Топ клиентов -->
       <div class="card">
         <div class="card-title"><i class="fas fa-trophy" style="color:var(--gold);"></i> Топ-5 клиентов по балансу</div>
-        <div class="card-subtitle">Активные клиенты салона</div>
+        <div class="card-subtitle">Нажмите на клиента, чтобы посмотреть данные</div>
         ${topClients.length === 0 ? `
           <div class="empty-analytics" style="padding:30px 16px;">
             <span class="empty-icon" style="font-size:36px;">👥</span>
@@ -2297,8 +1982,9 @@ function renderDashboard() {
         ` : `
           <div class="history-list">
             ${topClients.map((u, i) => `
-              <div class="history-item">
+              <div class="history-item" style="cursor:pointer;transition:background 0.2s;" onclick="showClient('${u.id}')" onmouseover="this.style.background='var(--bg-card-hover)'" onmouseout="this.style.background=''">
                 <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;">
+                  <div style="width:24px;text-align:center;font-weight:800;color:var(--gold);font-size:16px;">${i + 1}</div>
                   <div class="avatar-sm">${u.photoURL ? `<img src="${u.photoURL}">` : (u.name || '?').charAt(0).toUpperCase()}</div>
                   <div style="min-width:0;">
                     <div style="font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHTML(u.name || 'Без имени')}</div>
@@ -2321,29 +2007,31 @@ function renderDashboard() {
       <div class="card-subtitle">Все данные хранятся в защищённой базе Firestore</div>
       <div class="grid-3" style="margin:0;gap:12px;">
         <div class="metric-mini">
-          <span class="mm-label">📊 Всего записей:</span>
-          <span class="mm-value">${totalUsers + totalMasters + totalReviews + allBlogPosts.length + allComments.length}</span>
+          <span class="mm-label" title="Всего документов во всех коллекциях Firestore">📦 Всего записей в БД:</span>
+          <span class="mm-value">${formatNumber(totalRecords)}</span>
         </div>
         <div class="metric-mini">
-          <span class="mm-label">🔐 QR-токенов:</span>
-          <span class="mm-value">${allTokens.length}</span>
+          <span class="mm-label">🔐 Использованных QR-токенов:</span>
+          <span class="mm-value">${formatNumber(allTokens.length)}</span>
         </div>
         <div class="metric-mini">
-          <span class="mm-label">📅 Обновлено:</span>
+          <span class="mm-label">🕒 Обновлено:</span>
           <span class="mm-value">${new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'})}</span>
         </div>
+      </div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--border-color);font-size:11.5px;color:var(--text-faint);line-height:1.7;">
+        <strong>«Всего записей в БД»</strong> — это сумма всех документов в коллекциях Firestore:<br>
+        👤 Клиенты (${totalUsers}) + 👩‍🎨 Мастера (${totalMasters}) + ⭐ Отзывы (${totalReviews}) + 📝 Посты (${allBlogPosts.length}) + 💬 Комментарии (${allComments.length}) + 🔐 Токены (${allTokens.length})
       </div>
     </div>
   `;
 }
 
 /* ============================================
-   АНАЛИТИКА — БОЛЬШОЙ БЛОК
+   АНАЛИТИКА
    ============================================ */
 function renderAnalytics() {
-  // --- ПРОВЕРКА ДАННЫХ ---
   const totalUsers = allUsers.length;
-  const totalMinutes = allUsers.reduce((s, u) => s + (u.minutes || 0), 0);
   const totalReviews = allReviews.length;
   const totalQR = qrLogs.length;
 
@@ -2366,78 +2054,44 @@ function renderAnalytics() {
   `;
 }
 
-/* --- 1. KPI-карточки аналитики --- */
 function renderAnalyticsKPIs() {
-  // === РАСЧЁТЫ НА РЕАЛЬНЫХ ДАННЫХ ===
-
   const totalUsers = allUsers.length;
   const totalMinutes = allUsers.reduce((s, u) => s + (u.minutes || 0), 0);
-
-  // Средний баланс
   const avgBalance = totalUsers > 0 ? totalMinutes / totalUsers : 0;
 
-  // Активные клиенты (у кого есть история операций)
   const activeUsers = allUsers.filter(u => (u.history || []).length > 0).length;
   const activePercent = totalUsers > 0 ? (activeUsers / totalUsers) * 100 : 0;
 
-  // Всего списано минут (из истории)
-  let totalSpent = 0;
-  let totalAdded = 0;
+  let totalSpent = 0, totalAdded = 0, addCount = 0;
   allUsers.forEach(u => {
     (u.history || []).forEach(h => {
-      if (h.spent) totalSpent += h.spent;
+      if (h.spent) { totalSpent += h.spent; addCount++; }
       if (h.added) totalAdded += h.added;
     });
   });
 
-  // Средний чек пополнения (если есть история пополнений)
-  let addCount = 0;
-  allUsers.forEach(u => {
-    (u.history || []).forEach(h => {
-      if (h.added) addCount++;
-    });
-  });
   const avgTopUp = addCount > 0 ? totalAdded / addCount : 0;
-
-  // Утилизация: списано / пополнено
   const utilization = totalAdded > 0 ? (totalSpent / totalAdded) * 100 : 0;
 
-  // Средний рейтинг
   const avgRating = allReviews.length > 0
     ? allReviews.reduce((s, r) => s + (r.rating || 0), 0) / allReviews.length
     : 0;
 
-  // Отзывы за 30 дней
   const monthAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
-  const reviewsLast30 = allReviews.filter(r => {
-    const d = new Date(r.createdAt).getTime();
-    return !isNaN(d) && d >= monthAgo;
-  }).length;
+  const reviewsLast30 = allReviews.filter(r => toMillis(r.createdAt) >= monthAgo).length;
 
-  // Динамика регистраций (последние 30 дней vs предыдущие 30)
   const prev30 = Date.now() - 60 * 24 * 60 * 60 * 1000;
-  const usersLast30 = allUsers.filter(u => {
-    const d = new Date(u.createdAt).getTime();
-    return !isNaN(d) && d >= monthAgo;
-  }).length;
+  const usersLast30 = allUsers.filter(u => toMillis(u.createdAt) >= monthAgo).length;
   const usersPrev30 = allUsers.filter(u => {
-    const d = new Date(u.createdAt).getTime();
-    return !isNaN(d) && d >= prev30 && d < monthAgo;
+    const t = toMillis(u.createdAt);
+    return t >= prev30 && t < monthAgo;
   }).length;
   const userTrend = usersPrev30 > 0
     ? ((usersLast30 - usersPrev30) / usersPrev30) * 100
     : (usersLast30 > 0 ? 100 : 0);
 
-  // Конверсия: клиенты с отзывами / всего клиентов
   const usersWithReviews = new Set(allReviews.map(r => r.userId)).size;
   const reviewConversion = totalUsers > 0 ? (usersWithReviews / totalUsers) * 100 : 0;
-
-  // Средние минуты на активного клиента
-  const avgPerActive = activeUsers > 0 ? totalMinutes / activeUsers : 0;
-
-  // LTV (Lifetime Value) — на основе среднего пополнения × кол-во операций
-  // Для простоты: сколько в среднем клиент "тратит" минут за всё время
-  const avgLTV = totalUsers > 0 ? totalSpent / totalUsers : 0;
 
   return `
     <div class="analytics-block">
@@ -2466,45 +2120,35 @@ function renderAnalyticsKPIs() {
         </div>
 
         <div class="kpi-card">
-          <div class="kpi-header">
-            <div class="kpi-icon orange">☀️</div>
-          </div>
+          <div class="kpi-header"><div class="kpi-icon orange">☀️</div></div>
           <div class="kpi-value">${formatNumber(totalMinutes)}</div>
           <div class="kpi-label">Суммарный баланс минут</div>
           <div class="kpi-hint">Средний на клиента: ${avgBalance.toFixed(0)} мин</div>
         </div>
 
         <div class="kpi-card">
-          <div class="kpi-header">
-            <div class="kpi-icon green">🎯</div>
-          </div>
+          <div class="kpi-header"><div class="kpi-icon green">🎯</div></div>
           <div class="kpi-value">${activePercent.toFixed(0)}%</div>
           <div class="kpi-label">Активные клиенты</div>
           <div class="kpi-hint">${activeUsers} из ${totalUsers} имеют операции</div>
         </div>
 
         <div class="kpi-card">
-          <div class="kpi-header">
-            <div class="kpi-icon blue">📊</div>
-          </div>
+          <div class="kpi-header"><div class="kpi-icon blue">📊</div></div>
           <div class="kpi-value">${formatNumber(totalSpent)}</div>
           <div class="kpi-label">Списано минут</div>
           <div class="kpi-hint">Из ${formatNumber(totalAdded)} пополненных</div>
         </div>
 
         <div class="kpi-card">
-          <div class="kpi-header">
-            <div class="kpi-icon purple">💎</div>
-          </div>
+          <div class="kpi-header"><div class="kpi-icon purple">💎</div></div>
           <div class="kpi-value">${avgRating > 0 ? avgRating.toFixed(2) : '—'}</div>
           <div class="kpi-label">Средний рейтинг</div>
           <div class="kpi-hint">${reviewsLast30} ${pluralize(reviewsLast30, 'отзыв', 'отзыва', 'отзывов')} за 30 дней</div>
         </div>
 
         <div class="kpi-card">
-          <div class="kpi-header">
-            <div class="kpi-icon yellow">🎫</div>
-          </div>
+          <div class="kpi-header"><div class="kpi-icon yellow">🎫</div></div>
           <div class="kpi-value">${avgTopUp > 0 ? formatNumber(Math.round(avgTopUp)) : '—'}</div>
           <div class="kpi-label">Среднее пополнение</div>
           <div class="kpi-hint">По ${addCount} ${pluralize(addCount, 'операции', 'операциям', 'операциям')}</div>
@@ -2523,9 +2167,7 @@ function renderAnalyticsKPIs() {
         </div>
 
         <div class="kpi-card">
-          <div class="kpi-header">
-            <div class="kpi-icon green">✍️</div>
-          </div>
+          <div class="kpi-header"><div class="kpi-icon green">✍️</div></div>
           <div class="kpi-value">${reviewConversion.toFixed(1)}%</div>
           <div class="kpi-label">Конверсия в отзыв</div>
           <div class="kpi-hint">${usersWithReviews} из ${totalUsers} клиентов</div>
@@ -2535,7 +2177,6 @@ function renderAnalyticsKPIs() {
   `;
 }
 
-/* --- 2. Графики --- */
 function renderAnalyticsChartsHTML() {
   return `
     <div class="analytics-block">
@@ -2577,16 +2218,13 @@ function renderAnalyticsChartsHTML() {
   `;
 }
 
-/* --- 3. Таблицы аналитики --- */
 function renderAnalyticsTables() {
-  // Воронка клиентов
   const totalUsers = allUsers.length;
   const usersWithCard = allUsers.filter(u => u.cardId).length;
   const usersWithMinutes = allUsers.filter(u => (u.minutes || 0) > 0).length;
   const usersWithHistory = allUsers.filter(u => (u.history || []).length > 0).length;
   const usersWithReviews = new Set(allReviews.map(r => r.userId)).size;
 
-  // Когорты по месяцам
   const cohorts = {};
   allUsers.forEach(u => {
     const d = new Date(u.createdAt);
@@ -2597,7 +2235,6 @@ function renderAnalyticsTables() {
     if ((u.minutes || 0) > 0) cohorts[key].withMinutes++;
     if ((u.history || []).length > 0) cohorts[key].withHistory++;
   });
-  // Отзывы по когортам
   allReviews.forEach(r => {
     const user = allUsers.find(u => u.id === r.userId);
     if (!user) return;
@@ -2609,17 +2246,12 @@ function renderAnalyticsTables() {
 
   const cohortList = Object.values(cohorts).sort((a, b) => b.month.localeCompare(a.month));
 
-  // Топ мастеров по рейтингу
   const masterStats = allMasters.map(m => {
     const mReviews = allReviews.filter(r => r.masterId === m.id);
     const avg = mReviews.length > 0
       ? mReviews.reduce((s, r) => s + (r.rating || 0), 0) / mReviews.length
       : 0;
-    return {
-      name: m.name,
-      reviews: mReviews.length,
-      avg: avg
-    };
+    return { name: m.name, reviews: mReviews.length, avg: avg };
   }).filter(m => m.reviews > 0).sort((a, b) => b.avg - a.avg);
 
   return `
@@ -2633,11 +2265,8 @@ function renderAnalyticsTables() {
       </div>
       <div class="card">
         <div class="card-subtitle" style="margin-bottom:20px;">Показывает, сколько клиентов доходит до каждого этапа взаимодействия с салоном</div>
-
         ${totalUsers === 0 ? `
-          <div class="empty-analytics" style="padding:30px;">
-            <p>Нет данных для построения воронки</p>
-          </div>
+          <div class="empty-analytics" style="padding:30px;"><p>Нет данных для построения воронки</p></div>
         ` : `
           ${renderFunnelStage('📝 Зарегистрировались', totalUsers, totalUsers, 'gold')}
           ${renderFunnelStage('🎫 Получили карту', usersWithCard, totalUsers, 'blue')}
@@ -2661,9 +2290,7 @@ function renderAnalyticsTables() {
           Показывает, как клиенты, зарегистрированные в разные месяцы, вовлекаются в жизнь салона
         </div>
         ${cohortList.length === 0 ? `
-          <div class="empty-analytics" style="padding:30px;">
-            <p>Нет данных о регистрациях</p>
-          </div>
+          <div class="empty-analytics" style="padding:30px;"><p>Нет данных о регистрациях</p></div>
         ` : `
           <div class="table-wrap">
             <table class="data-table">
@@ -2718,20 +2345,12 @@ function renderAnalyticsTables() {
       </div>
       <div class="card">
         ${masterStats.length === 0 ? `
-          <div class="empty-analytics" style="padding:30px;">
-            <p>Пока нет отзывов о мастерах</p>
-          </div>
+          <div class="empty-analytics" style="padding:30px;"><p>Пока нет отзывов о мастерах</p></div>
         ` : `
           <div class="table-wrap">
             <table class="data-table">
               <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Мастер</th>
-                  <th>Отзывов</th>
-                  <th>Средний балл</th>
-                  <th>Оценка</th>
-                </tr>
+                <tr><th>#</th><th>Мастер</th><th>Отзывов</th><th>Средний балл</th><th>Оценка</th></tr>
               </thead>
               <tbody>
                 ${masterStats.map((m, i) => {
@@ -2773,7 +2392,6 @@ function renderFunnelStage(label, value, total, color) {
   `;
 }
 
-/* --- 4. Инструкции по расчётам --- */
 function renderAnalyticsInstructions() {
   return `
     <div class="analytics-block">
@@ -2792,9 +2410,9 @@ function renderAnalyticsInstructions() {
           <h4><i class="fas fa-users"></i> Клиенты и активность</h4>
           <ul>
             <li><strong>Всего клиентов</strong> — количество аккаунтов в базе <code>users</code>.</li>
-            <li><strong>Активные клиенты</strong> — те, у кого в истории (<code>history[]</code>) есть хотя бы одна операция (пополнение или списание минут).</li>
+            <li><strong>Активные клиенты</strong> — те, у кого в истории есть хотя бы одна операция (пополнение или списание минут).</li>
             <li><strong>Процент активных</strong> = <code>(Активные / Всего) × 100%</code>.</li>
-            <li><strong>Тренд регистраций</strong> = <code>((Новые за 30 дней − Новые за предыдущие 30) / Предыдущие 30) × 100%</code>. Если раньше не было клиентов, а сейчас есть — показывается +100%.</li>
+            <li><strong>Тренд регистраций</strong> = <code>((Новые за 30д − Новые за пред. 30д) / Пред. 30д) × 100%</code>. Если раньше не было — показывается +100%.</li>
           </ul>
         </div>
 
@@ -2802,7 +2420,7 @@ function renderAnalyticsInstructions() {
           <h4><i class="fas fa-coins"></i> Минуты и баланс</h4>
           <ul>
             <li><strong>Суммарный баланс</strong> — сумма поля <code>minutes</code> по всем клиентам.</li>
-            <li><strong>Средний баланс на клиента</strong> = <code>Суммарный баланс / Всего клиентов</code>.</li>
+            <li><strong>Средний баланс</strong> = <code>Суммарный баланс / Всего клиентов</code>.</li>
             <li><strong>Списано минут</strong> — сумма всех <code>spent</code> в истории операций.</li>
             <li><strong>Пополнено минут</strong> — сумма всех <code>added</code> в истории операций.</li>
             <li><strong>Среднее пополнение</strong> = <code>Всего пополнено / Количество операций пополнения</code>.</li>
@@ -2817,7 +2435,7 @@ function renderAnalyticsInstructions() {
               Показывает, насколько эффективно клиенты используют купленные минуты.<br>
               🟢 ≥ 70% — отлично (клиенты активно ходят в солярий)<br>
               🟡 40–70% — нормально (есть запас минут у клиентов)<br>
-              🔴 < 40% — клиенты накопили минуты, но не ходят
+              🔴 &lt; 40% — клиенты накопили минуты, но не ходят
             </span>
           </div>
         </div>
@@ -2825,9 +2443,9 @@ function renderAnalyticsInstructions() {
         <div class="instructions">
           <h4><i class="fas fa-star"></i> Отзывы и рейтинг</h4>
           <ul>
-            <li><strong>Средний рейтинг</strong> = <code>Сумма всех оценок / Количество отзывов</code>. Округляется до 2 знаков.</li>
-            <li><strong>Конверсия в отзыв</strong> = <code>(Клиенты с отзывом / Всего клиентов) × 100%</code>. Показывает, какая доля клиентов оставляет отзывы.</li>
-            <li><strong>Рейтинг мастера</strong> — средняя оценка по всем отзывам, где указан <code>masterId</code> этого мастера.</li>
+            <li><strong>Средний рейтинг</strong> = <code>Сумма всех оценок / Количество отзывов</code>.</li>
+            <li><strong>Конверсия в отзыв</strong> = <code>(Клиенты с отзывом / Всего клиентов) × 100%</code>.</li>
+            <li><strong>Рейтинг мастера</strong> — средняя оценка по отзывам, где указан <code>masterId</code>.</li>
           </ul>
         </div>
 
@@ -2841,26 +2459,6 @@ function renderAnalyticsInstructions() {
             <li><strong>Использовали QR</strong> — у кого есть операции в <code>history[]</code></li>
             <li><strong>Оставили отзыв</strong> — у кого есть записи в <code>reviews</code></li>
           </ol>
-          <div class="callout">
-            💡 <strong>Совет:</strong> если на каком-то этапе большой отвал (например, между «получили карту» и «пополнили минуты»), значит клиенты не понимают ценность карты — стоит добавить объяснение или акцию.
-          </div>
-        </div>
-
-        <div class="instructions">
-          <h4><i class="fas fa-layer-group"></i> Когортный анализ</h4>
-          <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;">
-            Клиенты группируются по месяцу регистрации. Для каждой группы считаем:
-          </p>
-          <ul>
-            <li><strong>Новых</strong> — сколько зарегистрировалось в этом месяце</li>
-            <li><strong>С балансом</strong> — у кого сейчас <code>minutes > 0</code></li>
-            <li><strong>С операциями</strong> — у кого есть история</li>
-            <li><strong>С отзывами</strong> — сколько человек из этой когорты оставили отзыв</li>
-            <li><strong>Вовлечённость</strong> = <code>((С операциями + С отзывами) / (Новых × 2)) × 100%</code></li>
-          </ul>
-          <div class="callout">
-            💡 <strong>Как читать:</strong> если у когорты за январь вовлечённость 80%, а за март — 30%, значит старые клиенты активнее новых. Стоит разобраться, что изменилось.
-          </div>
         </div>
 
         <div class="instructions">
@@ -2880,13 +2478,11 @@ function renderAnalyticsInstructions() {
   `;
 }
 
-/* --- 5. Отрисовка графиков Chart.js --- */
+/* Графики Chart.js */
 function renderAnalyticsCharts() {
-  // Уничтожаем старые графики
   Object.values(charts).forEach(c => { try { c.destroy(); } catch(e){} });
   charts = {};
 
-  const isDark = true;
   const textColor = '#C8C2BB';
   const gridColor = 'rgba(201, 169, 110, 0.08)';
   const goldColor = '#C9A96E';
@@ -2895,9 +2491,7 @@ function renderAnalyticsCharts() {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        labels: { color: textColor, font: { family: 'Inter', size: 12 } }
-      },
+      legend: { labels: { color: textColor, font: { family: 'Inter', size: 12 } } },
       tooltip: {
         backgroundColor: '#1E1E22',
         titleColor: '#F5F1EC',
@@ -2922,14 +2516,18 @@ function renderAnalyticsCharts() {
     }
   };
 
-  // === 1. Регистрации по месяцам ===
+  // === 1. Регистрации по месяцам (автообновление 26-го) ===
   const regsByMonth = {};
+  const now = new Date();
+  const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
   allUsers.forEach(u => {
     const d = new Date(u.createdAt);
     if (isNaN(d)) return;
     const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
     regsByMonth[key] = (regsByMonth[key] || 0) + 1;
   });
+
   const sortedMonths = Object.keys(regsByMonth).sort();
   const regLabels = sortedMonths.map(m => {
     const [y, mo] = m.split('-');
@@ -2958,19 +2556,13 @@ function renderAnalyticsCharts() {
           fill: true
         }]
       },
-      options: {
-        ...commonOptions,
-        plugins: {
-          ...commonOptions.plugins,
-          legend: { display: false }
-        }
-      }
+      options: { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { display: false } } }
     });
   } else if (regCanvas) {
     regCanvas.parentElement.innerHTML = '<div class="empty-analytics" style="padding:20px;"><p style="font-size:13px;">Нет данных о регистрациях</p></div>';
   }
 
-  // === 2. Распределение отзывов по оценкам ===
+  // === 2. Распределение отзывов ===
   const ratingDist = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
   allReviews.forEach(r => {
     const rating = Math.round(r.rating || 0);
@@ -2992,26 +2584,18 @@ function renderAnalyticsCharts() {
             'rgba(52, 152, 219, 0.7)',
             'rgba(39, 174, 96, 0.7)'
           ],
-          borderColor: [
-            '#E74C3C', '#E67E22', '#F1C40F', '#3498DB', '#27AE60'
-          ],
+          borderColor: ['#E74C3C', '#E67E22', '#F1C40F', '#3498DB', '#27AE60'],
           borderWidth: 2,
           borderRadius: 8
         }]
       },
-      options: {
-        ...commonOptions,
-        plugins: {
-          ...commonOptions.plugins,
-          legend: { display: false }
-        }
-      }
+      options: { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { display: false } } }
     });
   } else if (ratingCanvas) {
     ratingCanvas.parentElement.innerHTML = '<div class="empty-analytics" style="padding:20px;"><p style="font-size:13px;">Нет отзывов</p></div>';
   }
 
-  // === 3. Топ мастеров по отзывам ===
+  // === 3. Топ мастеров ===
   const masterReviewCounts = allMasters.map(m => ({
     name: m.name.split(' ')[0] + ' ' + (m.name.split(' ')[1]?.[0] || '') + '.',
     count: allReviews.filter(r => r.masterId === m.id).length
@@ -3107,11 +2691,6 @@ function renderAnalyticsCharts() {
   }
 }
 
-window.renderAnalyticsPeriod = function(value) {
-  // Для простоты перерисовываем, фильтр можно добавить позже
-  renderContent('analytics');
-};
-
 /* ============================================
    QR-СКАНЕР
    ============================================ */
@@ -3121,7 +2700,18 @@ function verifyHMAC(data, hmac, secret) {
 }
 
 function parseQRToken(token) {
-  const parts = token.split(':');
+  let cleanToken = token;
+  // Поддержка URL: если QR содержит ссылку с токеном
+  if (token.startsWith('http')) {
+    try {
+      const url = new URL(token);
+      const tokenParam = url.searchParams.get('token') || url.searchParams.get('t');
+      if (tokenParam) cleanToken = tokenParam;
+    } catch (e) {
+      return { valid: false, error: 'Неверный URL в QR-коде' };
+    }
+  }
+  const parts = cleanToken.split(':');
   if (parts.length !== 4 || parts[0] !== 'ST1') {
     return { valid: false, error: 'Неверный формат QR-кода' };
   }
@@ -3209,17 +2799,14 @@ function showScannedUserCard(user, token) {
       </div>
       <div class="qr-action-row">
         <input type="number" id="scannedMinutesInput" value="20" min="1" max="200" />
-        <button class="btn btn-danger" onclick="scannedSpendMinutes()">
-          <i class="fas fa-minus"></i> Списать
-        </button>
-        <button class="btn btn-success" onclick="scannedAddMinutes()">
-          <i class="fas fa-plus"></i> Пополнить
-        </button>
+        <button class="btn btn-danger" onclick="scannedSpendMinutes()"><i class="fas fa-minus"></i> Списать</button>
+        <button class="btn btn-success" onclick="scannedAddMinutes()"><i class="fas fa-plus"></i> Пополнить</button>
       </div>
-      <div style="text-align:center;margin-top:12px;">
-        <button class="btn btn-ghost btn-sm" onclick="cancelScannedUser()">
-          <i class="fas fa-times"></i> Отмена
+      <div style="text-align:center;margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-ghost btn-sm" onclick="closeClientModal();showClient('${user.id}')">
+          <i class="fas fa-user"></i> Полный профиль
         </button>
+        <button class="btn btn-ghost btn-sm" onclick="cancelScannedUser()"><i class="fas fa-times"></i> Отмена</button>
       </div>
     </div>
   `;
@@ -3230,7 +2817,7 @@ window.scannedSpendMinutes = async function() {
   const { user, token } = currentScannedUser;
   const minutes = parseInt(document.getElementById('scannedMinutesInput').value);
   if (isNaN(minutes) || minutes <= 0) { alert('Введите число > 0'); return; }
-  if (minutes > (user.minutes || 0)) { alert(`❌ Недостаточно минут. Доступно: ${user.minutes || 0}`); return; }
+  if (minutes > (user.minutes || 0)) { alert(`❌ Недостаточно. Доступно: ${user.minutes || 0}`); return; }
   if (!confirm(`Списать ${minutes} мин у "${user.name}"?`)) return;
   try {
     const userRef = doc(db, 'users', user.id);
@@ -3241,17 +2828,14 @@ window.scannedSpendMinutes = async function() {
     history.push({
       date: new Date().toISOString(),
       action: `Списание ${minutes} мин (солярий, QR)`,
-      spent: minutes,
-      remaining: newBalance
+      spent: minutes, remaining: newBalance
     });
     await updateDoc(userRef, { minutes: newBalance, history });
     await markTokenUsed(token, user.id, 'spent', minutes);
     qrLogs.unshift({
       date: new Date().toISOString(),
-      userName: user.name,
-      userId: user.id,
-      action: 'spent',
-      minutes, remaining: newBalance
+      userName: user.name, userId: user.id,
+      action: 'spent', minutes, remaining: newBalance
     });
     showToast(`✅ Списано ${minutes} мин. Баланс: ${newBalance}`, 'success');
     await reloadUsers();
@@ -3281,10 +2865,8 @@ window.scannedAddMinutes = async function() {
     await markTokenUsed(token, user.id, 'added', minutes);
     qrLogs.unshift({
       date: new Date().toISOString(),
-      userName: user.name,
-      userId: user.id,
-      action: 'added',
-      minutes, remaining: newBalance
+      userName: user.name, userId: user.id,
+      action: 'added', minutes, remaining: newBalance
     });
     showToast(`✅ Добавлено ${minutes} мин. Баланс: ${newBalance}`, 'success');
     await reloadUsers();
@@ -3316,10 +2898,14 @@ window.startScanner = async function() {
     let stream;
     try {
       stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } }
+        video: {
+          facingMode: { ideal: 'environment' },
+          width: { ideal: 1920 },
+          height: { ideal: 1080 }
+        }
       });
     } catch (e) {
-      stream = await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 720 } } });
+      stream = await navigator.mediaDevices.getUserMedia({ video: true });
     }
     scannerStream = stream;
     video.srcObject = scannerStream;
@@ -3348,7 +2934,8 @@ function scanFrame() {
   const canvas = document.getElementById('scannerCanvas');
   if (!video || !canvas || !scannerStream) return;
   if (video.readyState === video.HAVE_ENOUGH_DATA && video.videoWidth > 0 && video.videoHeight > 0) {
-    const MAX_WIDTH = 640;
+    // Для iPhone используем БОЛЬШЕЕ разрешение — мелкие QR читаются лучше
+    const MAX_WIDTH = 1280;
     let w = video.videoWidth, h = video.videoHeight;
     if (w > MAX_WIDTH) { h = Math.round(h * (MAX_WIDTH / w)); w = MAX_WIDTH; }
     canvas.width = w; canvas.height = h;
@@ -3357,10 +2944,12 @@ function scanFrame() {
       ctx.drawImage(video, 0, 0, w, h);
       try {
         const imageData = ctx.getImageData(0, 0, w, h);
+        // attemptBoth — на iPhone часто нужно инвертировать, чтобы поймать QR
         const code = jsQR(imageData.data, imageData.width, imageData.height, {
-          inversionAttempts: 'dontInvert'
+          inversionAttempts: 'attemptBoth'
         });
         if (code && code.data) {
+          console.log('✅ QR найден:', code.data);
           stopScanner();
           handleScannedQR(code.data);
           return;
@@ -3431,18 +3020,16 @@ function renderScanner() {
         <button class="btn btn-ghost" onclick="stopScanner()"><i class="fas fa-stop"></i> Остановить</button>
       </div>
       <div class="qr-manual-input">
-        <label>Или введите код вручную:</label>
+        <label>Или вставьте ссылку/токен из QR:</label>
         <div style="display:flex;gap:8px;">
-          <input type="text" id="manualTokenInput" placeholder="ST1:userId:timestamp:hmac" />
+          <input type="text" id="manualTokenInput" placeholder="https://... или ST1:userId:timestamp:hmac" />
           <button class="btn btn-sm" onclick="handleManualToken()"><i class="fas fa-check"></i></button>
         </div>
       </div>
       <div id="scannerResult" style="width:100%;"></div>
       <div style="width:100%;margin-top:24px;">
         <h4 style="margin-bottom:12px;">📜 История QR-операций (последние 20)</h4>
-        <div class="qr-log-list" id="qrLogs">
-          <p style="color:var(--text-muted);text-align:center;font-size:13px;">Операций пока не было</p>
-        </div>
+        <div class="qr-log-list" id="qrLogs"></div>
       </div>
     </div>
   `;
@@ -3452,16 +3039,18 @@ function renderScanner() {
    КЛИЕНТЫ
    ============================================ */
 function renderClients() {
-  const filtered = allUsers.filter(u =>
-    (u.name || '').toLowerCase().includes(clientSearch.toLowerCase()) ||
-    (u.phone || '').includes(clientSearch) ||
-    (u.email || '').toLowerCase().includes(clientSearch.toLowerCase()) ||
-    (u.cardId || '').toLowerCase().includes(clientSearch.toLowerCase())
-  ).sort((a, b) => (b.minutes || 0) - (a.minutes || 0));
+  const searchLower = (clientSearch || '').toLowerCase().trim();
+  const filtered = allUsers.filter(u => {
+    if (!searchLower) return true;
+    return (u.name || '').toLowerCase().includes(searchLower) ||
+           (u.phone || '').includes(clientSearch) ||
+           (u.email || '').toLowerCase().includes(searchLower) ||
+           (u.cardId || '').toLowerCase().includes(searchLower);
+  }).sort((a, b) => (b.minutes || 0) - (a.minutes || 0));
 
   return `
     <div class="search-box">
-      <input type="text" placeholder="🔍 Поиск по имени, телефону, email, ID карты..." value="${escapeHTML(clientSearch)}" oninput="updateClientSearch(this.value)" />
+      <input type="text" id="clientSearchInput" placeholder="🔍 Поиск по имени, телефону, email, ID карты..." value="${escapeHTML(clientSearch)}" oninput="updateClientSearch(this.value)" autocomplete="off" />
       <span class="badge gold" style="align-self:center;">${filtered.length} ${pluralize(filtered.length, 'клиент', 'клиента', 'клиентов')}</span>
     </div>
     <div class="table-wrap">
@@ -3484,9 +3073,9 @@ function renderClients() {
           ` : filtered.map(u => `
             <tr>
               <td>
-                <div class="avatar-sm">${u.photoURL ? `<img src="${u.photoURL}" />` : (u.name || '?').charAt(0).toUpperCase()}</div>
+                <div class="avatar-sm" style="cursor:pointer;" onclick="showClient('${u.id}')">${u.photoURL ? `<img src="${u.photoURL}" />` : (u.name || '?').charAt(0).toUpperCase()}</div>
               </td>
-              <td>
+              <td style="cursor:pointer;" onclick="showClient('${u.id}')">
                 <div class="cell-strong">${escapeHTML(u.name || 'Без имени')}</div>
                 <div class="cell-muted">${escapeHTML(u.email || '—')}</div>
               </td>
@@ -3497,7 +3086,7 @@ function renderClients() {
               </td>
               <td>
                 <div class="cell-actions">
-                  <button class="btn btn-ghost btn-xs" onclick="showClient('${u.id}')" title="Инфо"><i class="fas fa-info-circle"></i></button>
+                  <button class="btn btn-ghost btn-xs" onclick="showClient('${u.id}')" title="Полный профиль"><i class="fas fa-user"></i></button>
                   <button class="btn btn-success btn-xs" onclick="addMinutes('${u.id}')" title="Пополнить"><i class="fas fa-plus"></i></button>
                   <button class="btn btn-danger btn-xs" onclick="spendMinutes('${u.id}')" title="Списать"><i class="fas fa-minus"></i></button>
                 </div>
@@ -3510,9 +3099,68 @@ function renderClients() {
   `;
 }
 
+/* ✅ ИСПРАВЛЕНО: поиск теперь с debounce и не сбрасывает фокус */
 window.updateClientSearch = function(v) {
   clientSearch = v;
-  renderContent('clients');
+  if (clientSearchDebounce) clearTimeout(clientSearchDebounce);
+  clientSearchDebounce = setTimeout(() => {
+    // Перерисовываем ТОЛЬКО таблицу, а не всю страницу
+    const tableWrap = document.querySelector('#adminContent .table-wrap');
+    if (!tableWrap) return;
+    const searchLower = (clientSearch || '').toLowerCase().trim();
+    const filtered = allUsers.filter(u => {
+      if (!searchLower) return true;
+      return (u.name || '').toLowerCase().includes(searchLower) ||
+             (u.phone || '').includes(clientSearch) ||
+             (u.email || '').toLowerCase().includes(searchLower) ||
+             (u.cardId || '').toLowerCase().includes(searchLower);
+    }).sort((a, b) => (b.minutes || 0) - (a.minutes || 0));
+
+    // Обновляем бейдж
+    const badge = document.querySelector('#adminContent .search-box .badge');
+    if (badge) badge.textContent = `${filtered.length} ${pluralize(filtered.length, 'клиент', 'клиента', 'клиентов')}`;
+
+    // Обновляем таблицу
+    tableWrap.innerHTML = `
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width:50px;"></th>
+            <th>Клиент</th>
+            <th>Телефон</th>
+            <th>ID карты</th>
+            <th style="text-align:right;">Минуты</th>
+            <th style="width:200px;">Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${filtered.length === 0 ? `
+            <tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">
+              ${clientSearch ? 'Ничего не найдено' : 'Клиентов пока нет'}
+            </td></tr>
+          ` : filtered.map(u => `
+            <tr>
+              <td><div class="avatar-sm" style="cursor:pointer;" onclick="showClient('${u.id}')">${u.photoURL ? `<img src="${u.photoURL}" />` : (u.name || '?').charAt(0).toUpperCase()}</div></td>
+              <td style="cursor:pointer;" onclick="showClient('${u.id}')">
+                <div class="cell-strong">${escapeHTML(u.name || 'Без имени')}</div>
+                <div class="cell-muted">${escapeHTML(u.email || '—')}</div>
+              </td>
+              <td>${escapeHTML(u.phone || '—')}</td>
+              <td><code class="cell-mono">${escapeHTML(u.cardId || '—')}</code></td>
+              <td style="text-align:right;"><strong style="color:var(--gold);font-size:16px;">${u.minutes || 0}</strong></td>
+              <td>
+                <div class="cell-actions">
+                  <button class="btn btn-ghost btn-xs" onclick="showClient('${u.id}')" title="Полный профиль"><i class="fas fa-user"></i></button>
+                  <button class="btn btn-success btn-xs" onclick="addMinutes('${u.id}')" title="Пополнить"><i class="fas fa-plus"></i></button>
+                  <button class="btn btn-danger btn-xs" onclick="spendMinutes('${u.id}')" title="Списать"><i class="fas fa-minus"></i></button>
+                </div>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  }, 250);
 };
 
 window.addClient = async function() {
@@ -3532,13 +3180,44 @@ window.addClient = async function() {
   showToast(`Клиент "${name}" добавлен`, 'success');
 };
 
+/* ✅ РАСШИРЕННАЯ КАРТОЧКА КЛИЕНТА */
 window.showClient = async function(userId) {
   const user = allUsers.find(u => u.id === userId);
   if (!user) { showToast('Клиент не найден', 'error'); return; }
+
   const history = user.history || [];
   const userComments = allComments.filter(c => c.userId === userId && !c.isDeleted);
   const userReviews = allReviews.filter(r => r.userId === userId);
   const photo = user.photoURL || '';
+
+  // Статистика
+  const totalSpent = history.reduce((s, h) => s + (h.spent || 0), 0);
+  const totalAdded = history.reduce((s, h) => s + (h.added || 0), 0);
+  const qrOperations = history.filter(h => (h.action || '').includes('QR')).length;
+  const avgRating = userReviews.length > 0
+    ? (userReviews.reduce((s, r) => s + (r.rating || 0), 0) / userReviews.length).toFixed(1)
+    : '—';
+  const lastActivity = history.length > 0
+    ? history[history.length - 1].date
+    : null;
+  const registrationDate = user.createdAt;
+  const daysSinceReg = registrationDate
+    ? Math.floor((Date.now() - toMillis(registrationDate)) / (24 * 60 * 60 * 1000))
+    : 0;
+
+  // Вычисляем предпочтения (какие категории чаще списывал)
+  const categoryCount = {};
+  history.forEach(h => {
+    if (h.spent && h.action) {
+      const match = h.action.match(/\(([^)]+)\)/);
+      if (match) {
+        const cat = match[1].split(',')[0].trim();
+        categoryCount[cat] = (categoryCount[cat] || 0) + 1;
+      }
+    }
+  });
+  const topCategory = Object.entries(categoryCount).sort((a, b) => b[1] - a[1])[0];
+
   const content = document.getElementById('clientModalContent');
 
   content.innerHTML = `
@@ -3549,17 +3228,86 @@ window.showClient = async function(userId) {
       <div class="avatar-lg" style="margin:0 auto;">
         ${photo ? `<img src="${photo}" />` : (user.name || '?').charAt(0).toUpperCase()}
       </div>
+      ${user.cardId ? `<div style="margin-top:8px;"><code class="cell-mono" style="font-size:14px;">${escapeHTML(user.cardId)}</code></div>` : ''}
     </div>
 
-    <div class="info-row"><span class="label">📇 ID карты</span><span class="value"><code class="cell-mono">${escapeHTML(user.cardId || '—')}</code></span></div>
-    <div class="info-row"><span class="label">📞 Телефон</span><span class="value">${escapeHTML(user.phone || '—')}</span></div>
-    <div class="info-row"><span class="label">✉️ Email</span><span class="value">${escapeHTML(user.email || '—')}</span></div>
-    <div class="info-row"><span class="label">☀️ Баланс минут</span><span class="value" style="font-size:24px;color:var(--gold);font-weight:900;">${user.minutes || 0}</span></div>
-    <div class="info-row"><span class="label">💬 Комментариев</span><span class="value">${userComments.length}</span></div>
-    <div class="info-row"><span class="label">⭐ Отзывов</span><span class="value">${userReviews.length}</span></div>
-    <div class="info-row"><span class="label">📅 В базе с</span><span class="value">${formatDate(user.createdAt)}</span></div>
+    <!-- БАЛАНС — большая карточка -->
+    <div style="background:linear-gradient(145deg, rgba(201,169,110,0.15), rgba(201,169,110,0.03));border:1px solid var(--border-color);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:20px;">
+      <div style="font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;">☀️ Баланс минут</div>
+      <div style="font-size:48px;font-weight:900;color:var(--gold);line-height:1;margin:6px 0;">${user.minutes || 0}</div>
+      <div style="font-size:12px;color:var(--text-muted);">минут на счету</div>
+    </div>
 
-    <h4 style="margin-top:24px;margin-bottom:8px;">📜 История операций (${history.length})</h4>
+    <!-- ОСНОВНЫЕ ДАННЫЕ -->
+    <div style="display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:20px;">
+      <div class="info-row"><span class="label">📞 Телефон</span><span class="value">${escapeHTML(user.phone || '—')}</span></div>
+      <div class="info-row"><span class="label">✉️ Email</span><span class="value">${escapeHTML(user.email || '—')}</span></div>
+      <div class="info-row"><span class="label">🎨 Дизайн карты</span><span class="value">${escapeHTML(user.cardDesign || 'onyx_gold')}</span></div>
+      <div class="info-row"><span class="label">📅 Дата регистрации</span><span class="value">${formatDate(registrationDate)}</span></div>
+      <div class="info-row"><span class="label">⏱️ В базе дней</span><span class="value">${daysSinceReg}</span></div>
+      <div class="info-row"><span class="label">🕒 Последняя активность</span><span class="value">${lastActivity ? formatDate(lastActivity) : '—'}</span></div>
+      <div class="info-row"><span class="label">🆔 User ID</span><span class="value"><code class="cell-mono" style="font-size:11px;">${escapeHTML(user.id)}</code></span></div>
+    </div>
+
+    <!-- СТАТИСТИКА -->
+    <h4 style="margin-top:24px;margin-bottom:12px;color:var(--text-primary);font-size:15px;">📊 Статистика</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+      <div class="card" style="padding:14px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--gold);">${history.length}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Всего операций</div>
+      </div>
+      <div class="card" style="padding:14px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--red);">${totalSpent}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Списано минут</div>
+      </div>
+      <div class="card" style="padding:14px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--green);">${totalAdded}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Пополнено минут</div>
+      </div>
+      <div class="card" style="padding:14px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--blue);">${qrOperations}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Через QR</div>
+      </div>
+      <div class="card" style="padding:14px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--purple);">${userComments.length}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Комментариев</div>
+      </div>
+      <div class="card" style="padding:14px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--gold);">${userReviews.length}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Отзывов (${avgRating})</div>
+      </div>
+    </div>
+
+    ${topCategory ? `
+      <div class="info-row" style="background:var(--gold-soft);padding:10px 14px;border-radius:8px;border:none;">
+        <span class="label">🎯 Любимая категория</span>
+        <span class="value" style="color:var(--gold);">${escapeHTML(topCategory[0])} (${topCategory[1]} раз)</span>
+      </div>
+    ` : ''}
+
+    <!-- ОТЗЫВЫ КЛИЕНТА -->
+    ${userReviews.length > 0 ? `
+      <h4 style="margin-top:24px;margin-bottom:12px;color:var(--text-primary);font-size:15px;">⭐ Отзывы клиента (${userReviews.length})</h4>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;max-height:280px;overflow-y:auto;">
+        ${userReviews.map(r => {
+          const stars = '★'.repeat(Math.round(r.rating || 0)) + '☆'.repeat(5 - Math.round(r.rating || 0));
+          const master = allMasters.find(m => m.id === r.masterId);
+          return `
+            <div style="padding:12px 14px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-color);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <span class="stars-inline">${stars}</span>
+                <span style="font-size:11px;color:var(--text-muted);">${formatDateShort(r.createdAt)}</span>
+              </div>
+              ${master ? `<div style="font-size:11px;color:var(--gold);margin-bottom:4px;">👤 ${escapeHTML(master.name)}</div>` : '<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">🏢 О салоне</div>'}
+              <div style="font-size:12.5px;color:var(--text-secondary);line-height:1.5;">${escapeHTML((r.text || '').slice(0, 200))}${(r.text || '').length > 200 ? '…' : ''}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    ` : ''}
+
+    <!-- ИСТОРИЯ ОПЕРАЦИЙ -->
+    <h4 style="margin-top:24px;margin-bottom:8px;color:var(--text-primary);font-size:15px;">📜 История операций (${history.length})</h4>
     <div class="history-list">
       ${history.length === 0 ? '<p style="color:var(--text-muted);font-size:13px;">История пуста</p>' : history.slice().reverse().map(h => `
         <div class="history-item">
@@ -3567,11 +3315,15 @@ window.showClient = async function(userId) {
             <div class="h-action">${escapeHTML(h.action)}</div>
             <div class="h-date">${formatDate(h.date)}</div>
           </div>
-          <div class="${h.spent ? 'spent' : 'added'}">${h.spent ? '−' : '+'}${Math.abs(h.spent || h.added || 0)} мин</div>
+          <div style="text-align:right;">
+            <div class="${h.spent ? 'spent' : 'added'}">${h.spent ? '−' : '+'}${Math.abs(h.spent || h.added || 0)} мин</div>
+            ${h.remaining !== undefined ? `<div style="font-size:10px;color:var(--text-muted);">остаток: ${h.remaining}</div>` : ''}
+          </div>
         </div>
       `).join('')}
     </div>
 
+    <!-- ДЕЙСТВИЯ -->
     <div style="margin-top:24px;display:flex;gap:8px;flex-wrap:wrap;">
       <button class="btn btn-success" onclick="closeClientModal();addMinutes('${user.id}')"><i class="fas fa-plus"></i> Пополнить</button>
       <button class="btn btn-danger" onclick="closeClientModal();spendMinutes('${user.id}')"><i class="fas fa-minus"></i> Списать</button>
@@ -3579,10 +3331,12 @@ window.showClient = async function(userId) {
     </div>
   `;
   document.getElementById('clientModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
 };
 
 window.closeClientModal = function() {
   document.getElementById('clientModal').classList.remove('active');
+  document.body.style.overflow = '';
 };
 
 window.addMinutes = async function(userId) {
@@ -3631,7 +3385,7 @@ window.spendMinutes = async function(userId) {
 };
 
 /* ============================================
-   МАСТЕРА (с загрузкой фото)
+   МАСТЕРА (с фото)
    ============================================ */
 function renderMasters() {
   return `
@@ -3674,29 +3428,18 @@ function renderMasters() {
                     ${escapeHTML((m.description || '').slice(0, 80))}${(m.description || '').length > 80 ? '…' : ''}
                   </div>
                 </td>
-                <td>
-                  <strong style="color:var(--gold);">${(m.services || []).length}</strong>
-                  <div style="font-size:11px;color:var(--text-muted);">услуг</div>
-                </td>
+                <td><strong style="color:var(--gold);">${(m.services || []).length}</strong></td>
                 <td>
                   ${mReviews.length > 0 ? `
                     <span class="stars-inline">${'★'.repeat(Math.round(avg))}</span>
                     <div style="font-size:11px;color:var(--text-muted);">${avg} (${mReviews.length})</div>
-                  ` : `
-                    <span style="color:var(--text-muted);font-size:12px;">—</span>
-                  `}
+                  ` : `<span style="color:var(--text-muted);font-size:12px;">—</span>`}
                 </td>
                 <td>
                   <div class="cell-actions">
-                    <button class="btn btn-ghost btn-xs" onclick="openMasterPhotoModal('${m.id}')" title="Фото">
-                      <i class="fas fa-camera"></i>
-                    </button>
-                    <button class="btn btn-ghost btn-xs" onclick="editMasterServices('${m.id}')" title="Услуги">
-                      <i class="fas fa-list"></i>
-                    </button>
-                    <button class="btn btn-danger btn-xs" onclick="deleteMaster('${m.id}')" title="Удалить">
-                      <i class="fas fa-trash"></i>
-                    </button>
+                    <button class="btn btn-ghost btn-xs" onclick="openMasterPhotoModal('${m.id}')" title="Фото"><i class="fas fa-camera"></i></button>
+                    <button class="btn btn-ghost btn-xs" onclick="editMasterServices('${m.id}')" title="Услуги"><i class="fas fa-list"></i></button>
+                    <button class="btn btn-danger btn-xs" onclick="deleteMaster('${m.id}')" title="Удалить"><i class="fas fa-trash"></i></button>
                   </div>
                 </td>
               </tr>
@@ -3715,8 +3458,7 @@ window.addMaster = async function() {
   const id = 'master_' + Date.now();
   const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2);
   const newMaster = {
-    name, specialty,
-    description: '', education: '',
+    name, specialty, description: '', education: '',
     photo: `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23C9A96E"/%3E%3Ctext x="100" y="120" font-size="60" fill="white" text-anchor="middle" font-family="Arial"%3E${initials}%3C/text%3E%3C/svg%3E`,
     rating: 0, reviews: 0, services: []
   };
@@ -3732,7 +3474,7 @@ window.updateMaster = async function(id, field, value) {
 };
 
 window.deleteMaster = async function(id) {
-  if (!confirm('Удалить мастера? Все его данные будут потеряны.')) return;
+  if (!confirm('Удалить мастера?')) return;
   await deleteDoc(doc(db, 'masters', id));
   await reloadMasters();
   renderContent('masters');
@@ -3764,9 +3506,6 @@ window.editMasterServices = async function(masterId) {
   showToast(`Услуги обновлены (${services.length})`, 'success');
 };
 
-/* ============================================
-   МОДАЛКА ФОТО МАСТЕРА
-   ============================================ */
 window.openMasterPhotoModal = function(masterId) {
   const m = allMasters.find(x => x.id === masterId);
   if (!m) return;
@@ -3779,20 +3518,11 @@ window.openMasterPhotoModal = function(masterId) {
 
   const fileInput = document.getElementById('masterPhotoInput');
   fileInput.value = '';
-
-  // Обработчик изменения файла
   fileInput.onchange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    if (file.size > 200 * 1024) {
-      showToast('Файл слишком большой (макс. 200 КБ)', 'error');
-      fileInput.value = '';
-      return;
-    }
-    if (!file.type.startsWith('image/')) {
-      showToast('Только изображения', 'error');
-      return;
-    }
+    if (file.size > 200 * 1024) { showToast('Файл слишком большой (макс. 200 КБ)', 'error'); fileInput.value = ''; return; }
+    if (!file.type.startsWith('image/')) { showToast('Только изображения', 'error'); return; }
     const reader = new FileReader();
     reader.onload = (ev) => {
       currentPhotoData = ev.target.result;
@@ -3812,19 +3542,14 @@ window.closeMasterPhotoModal = function() {
 
 window.saveMasterPhoto = async function() {
   if (!currentPhotoMasterId) return;
-  if (!currentPhotoData) {
-    showToast('Сначала выберите фото', 'error');
-    return;
-  }
+  if (!currentPhotoData) { showToast('Сначала выберите фото', 'error'); return; }
   try {
     await updateDoc(doc(db, 'masters', currentPhotoMasterId), { photo: currentPhotoData });
     await reloadMasters();
     closeMasterPhotoModal();
     renderContent('masters');
     showToast('Фото обновлено ✅', 'success');
-  } catch (e) {
-    showToast('Ошибка: ' + e.message, 'error');
-  }
+  } catch (e) { showToast('Ошибка: ' + e.message, 'error'); }
 };
 
 /* ============================================
@@ -3836,7 +3561,6 @@ function renderBlogAdmin() {
     postsHtml = `<p style="color:var(--text-muted);text-align:center;padding:40px;grid-column:1/-1;">Нет постов. Создайте первый!</p>`;
   } else {
     postsHtml = allBlogPosts.map(p => {
-      const statusClass = p.status === 'draft' ? 'draft' : 'published';
       const statusLabel = p.status === 'draft' ? '📝 Черновик' : '✅ Опубликовано';
       const badgeColor = p.status === 'draft' ? 'red' : 'green';
       return `
@@ -3857,9 +3581,7 @@ function renderBlogAdmin() {
               <i class="fas fa-${p.status === 'draft' ? 'check' : 'edit'}"></i>
               ${p.status === 'draft' ? 'Опубликовать' : 'В черновик'}
             </button>
-            <button class="btn btn-danger btn-sm" onclick="deletePost('${p.id}')">
-              <i class="fas fa-trash"></i>
-            </button>
+            <button class="btn btn-danger btn-sm" onclick="deletePost('${p.id}')"><i class="fas fa-trash"></i></button>
           </div>
         </div>
       `;
@@ -3883,13 +3605,10 @@ function renderBlogAdmin() {
           </select>
           <button class="btn" id="publishBlogBtn"><i class="fas fa-plus"></i> Опубликовать</button>
         </div>
-        <div id="blogPreview"></div>
       </div>
     </div>
     <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;">📰 Все посты (${allBlogPosts.length})</h3>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
-      ${postsHtml}
-    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">${postsHtml}</div>
   `;
 }
 
@@ -3901,12 +3620,7 @@ function attachBlogHandlers() {
       const file = this.files[0];
       const span = document.getElementById('blogFileName');
       if (file) {
-        if (file.size > 300 * 1024) {
-          showToast('Файл > 300 КБ', 'error');
-          this.value = '';
-          span.textContent = 'Файл не выбран';
-          return;
-        }
+        if (file.size > 300 * 1024) { showToast('Файл > 300 КБ', 'error'); this.value = ''; span.textContent = 'Файл не выбран'; return; }
         span.textContent = `${file.name} (${(file.size/1024).toFixed(0)} КБ)`;
       } else {
         span.textContent = 'Файл не выбран';
@@ -3930,10 +3644,7 @@ window.addBlog = async function() {
       reader.readAsDataURL(fileInput.files[0]);
     });
   }
-  await addDoc(collection(db, 'blog'), {
-    title, content, image: imageData, status,
-    date: new Date().toISOString()
-  });
+  await addDoc(collection(db, 'blog'), { title, content, image: imageData, status, date: new Date().toISOString() });
   await reloadBlog();
   renderContent('blog');
   showToast('Пост опубликован ✅', 'success');
@@ -3957,7 +3668,7 @@ window.deletePost = async function(id) {
 };
 
 /* ============================================
-   ОТЗЫВЫ (админ)
+   ОТЗЫВЫ / КОММЕНТАРИИ (админ)
    ============================================ */
 function renderReviewsAdmin() {
   const total = allReviews.length;
@@ -3967,44 +3678,18 @@ function renderReviewsAdmin() {
 
   return `
     <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-header"><div class="kpi-icon gold">⭐</div></div>
-        <div class="kpi-value">${total}</div>
-        <div class="kpi-label">Всего отзывов</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-header"><div class="kpi-icon green">📊</div></div>
-        <div class="kpi-value">${avg}</div>
-        <div class="kpi-label">Средний рейтинг</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-header"><div class="kpi-icon blue">✅</div></div>
-        <div class="kpi-value">${published}</div>
-        <div class="kpi-label">Опубликовано</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-header"><div class="kpi-icon purple">👤</div></div>
-        <div class="kpi-value">${withMaster}</div>
-        <div class="kpi-label">О мастерах</div>
-      </div>
+      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon gold">⭐</div></div><div class="kpi-value">${total}</div><div class="kpi-label">Всего отзывов</div></div>
+      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon green">📊</div></div><div class="kpi-value">${avg}</div><div class="kpi-label">Средний рейтинг</div></div>
+      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon blue">✅</div></div><div class="kpi-value">${published}</div><div class="kpi-label">Опубликовано</div></div>
+      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon purple">👤</div></div><div class="kpi-value">${withMaster}</div><div class="kpi-label">О мастерах</div></div>
     </div>
     <div class="table-wrap">
       <table class="data-table">
         <thead>
-          <tr>
-            <th style="width:50px;"></th>
-            <th>Автор</th>
-            <th>Оценка</th>
-            <th>Текст</th>
-            <th>Тип</th>
-            <th>Дата</th>
-            <th style="width:100px;">Действия</th>
-          </tr>
+          <tr><th style="width:50px;"></th><th>Автор</th><th>Оценка</th><th>Текст</th><th>Тип</th><th>Дата</th><th style="width:100px;">Действия</th></tr>
         </thead>
         <tbody>
-          ${allReviews.length === 0 ? `
-            <tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted);">Нет отзывов</td></tr>
-          ` : allReviews.map(r => {
+          ${allReviews.length === 0 ? `<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted);">Нет отзывов</td></tr>` : allReviews.map(r => {
             const stars = '★'.repeat(Math.round(r.rating || 0)) + '☆'.repeat(5 - Math.round(r.rating || 0));
             const type = r.masterId ? `👤 ${escapeHTML(r.masterName || 'Мастер')}` : '🏢 О салоне';
             return `
@@ -4015,9 +3700,7 @@ function renderReviewsAdmin() {
                   <div class="cell-muted">${escapeHTML(r.userEmail || '')}</div>
                 </td>
                 <td><span class="stars-inline">${stars}</span></td>
-                <td style="max-width:240px;">
-                  <div style="font-size:12.5px;line-height:1.5;color:var(--text-secondary);">${escapeHTML((r.text || '').slice(0, 100))}${(r.text || '').length > 100 ? '…' : ''}</div>
-                </td>
+                <td style="max-width:240px;"><div style="font-size:12.5px;line-height:1.5;">${escapeHTML((r.text || '').slice(0, 100))}${(r.text || '').length > 100 ? '…' : ''}</div></td>
                 <td><span class="badge ${r.masterId ? 'purple' : 'blue'}">${type}</span></td>
                 <td class="cell-muted">${formatDateShort(r.createdAt)}</td>
                 <td>
@@ -4043,9 +3726,6 @@ window.deleteReview = async function(id) {
   showToast('Отзыв удалён', 'info');
 };
 
-/* ============================================
-   КОММЕНТАРИИ
-   ============================================ */
 function renderCommentsAdmin() {
   let filtered = allComments;
   if (commentsFilter === 'active') filtered = allComments.filter(c => !c.isDeleted);
@@ -4057,21 +3737,9 @@ function renderCommentsAdmin() {
 
   return `
     <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-header"><div class="kpi-icon gold">💬</div></div>
-        <div class="kpi-value">${total}</div>
-        <div class="kpi-label">Всего</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-header"><div class="kpi-icon green">✅</div></div>
-        <div class="kpi-value">${active}</div>
-        <div class="kpi-label">Активных</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-header"><div class="kpi-icon red">🗑️</div></div>
-        <div class="kpi-value">${deleted}</div>
-        <div class="kpi-label">Удалённых</div>
-      </div>
+      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon gold">💬</div></div><div class="kpi-value">${total}</div><div class="kpi-label">Всего</div></div>
+      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon green">✅</div></div><div class="kpi-value">${active}</div><div class="kpi-label">Активных</div></div>
+      <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon red">🗑️</div></div><div class="kpi-value">${deleted}</div><div class="kpi-label">Удалённых</div></div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
       <button class="btn ${commentsFilter === 'all' ? '' : 'btn-ghost'} btn-sm" onclick="setCommentsFilter('all')">📋 Все (${total})</button>
@@ -4080,19 +3748,9 @@ function renderCommentsAdmin() {
     </div>
     <div class="table-wrap">
       <table class="data-table">
-        <thead>
-          <tr>
-            <th>Автор</th>
-            <th>Текст</th>
-            <th>Дата</th>
-            <th>Статус</th>
-            <th style="width:120px;">Действия</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Автор</th><th>Текст</th><th>Дата</th><th>Статус</th><th style="width:120px;">Действия</th></tr></thead>
         <tbody>
-          ${filtered.length === 0 ? `
-            <tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted);">Нет комментариев</td></tr>
-          ` : filtered.map(c => {
+          ${filtered.length === 0 ? `<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted);">Нет комментариев</td></tr>` : filtered.map(c => {
             const isDeleted = c.isDeleted === true;
             return `
               <tr>
@@ -4105,24 +3763,12 @@ function renderCommentsAdmin() {
                     </div>
                   </div>
                 </td>
-                <td style="max-width:300px;">
-                  <div style="font-size:12.5px;color:var(--text-secondary);line-height:1.5;">
-                    ${isDeleted ? '<em>Удалён</em>' : escapeHTML((c.text || '').slice(0, 120)) + ((c.text || '').length > 120 ? '…' : '')}
-                  </div>
-                </td>
+                <td style="max-width:300px;"><div style="font-size:12.5px;line-height:1.5;">${isDeleted ? '<em>Удалён</em>' : escapeHTML((c.text || '').slice(0, 120)) + ((c.text || '').length > 120 ? '…' : '')}</div></td>
                 <td class="cell-muted">${formatDate(c.createdAt?.toDate?.() || new Date())}</td>
-                <td>
-                  <span class="badge ${isDeleted ? 'red' : 'green'}">
-                    ${isDeleted ? '🗑️ Удалён' : '✅ Активен'}
-                  </span>
-                </td>
+                <td><span class="badge ${isDeleted ? 'red' : 'green'}">${isDeleted ? '🗑️ Удалён' : '✅ Активен'}</span></td>
                 <td>
                   <div class="cell-actions">
-                    ${!isDeleted ? `
-                      <button class="btn btn-danger btn-xs" onclick="deleteCommentAdmin('${c.id}')" title="Удалить"><i class="fas fa-trash"></i></button>
-                    ` : `
-                      <button class="btn btn-success btn-xs" onclick="restoreCommentAdmin('${c.id}')" title="Восстановить"><i class="fas fa-undo"></i></button>
-                    `}
+                    ${!isDeleted ? `<button class="btn btn-danger btn-xs" onclick="deleteCommentAdmin('${c.id}')"><i class="fas fa-trash"></i></button>` : `<button class="btn btn-success btn-xs" onclick="restoreCommentAdmin('${c.id}')"><i class="fas fa-undo"></i></button>`}
                   </div>
                 </td>
               </tr>
@@ -4134,17 +3780,12 @@ function renderCommentsAdmin() {
   `;
 }
 
-window.setCommentsFilter = function(f) {
-  commentsFilter = f;
-  renderContent('comments');
-};
-
+window.setCommentsFilter = function(f) { commentsFilter = f; renderContent('comments'); };
 window.deleteCommentAdmin = async function(id) {
   if (!confirm('Удалить комментарий?')) return;
   await updateDoc(doc(db, 'comments', id), { isDeleted: true, text: '[Комментарий удалён администратором]' });
   showToast('Комментарий удалён', 'info');
 };
-
 window.restoreCommentAdmin = async function(id) {
   if (!confirm('Восстановить?')) return;
   await updateDoc(doc(db, 'comments', id), { isDeleted: false });
@@ -4158,26 +3799,66 @@ async function initAdmin() {
   await loadAllData();
   renderContent('dashboard');
   updateBadges();
+  setupAutoRefresh();
 }
 
-// Точка входа
+/* ✅ АВТООБНОВЛЕНИЕ 26-го числа каждого месяца */
+function setupAutoRefresh() {
+  const now = new Date();
+  const dayOfMonth = now.getDate();
+
+  // Если сегодня 26-е — обновляем данные сразу и запоминаем
+  if (dayOfMonth === 26) {
+    const key = `auto_refresh_${now.getFullYear()}_${now.getMonth()}`;
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, '1');
+      console.log('🔄 Автообновление 26-го числа: перезагружаю данные...');
+      setTimeout(() => {
+        if (isDataLoaded) {
+          isDataLoaded = false;
+          loadAllData().then(() => {
+            showToast('📅 Данные обновлены автоматически (26-е число)', 'info', 6000);
+            renderContent(currentTab);
+          });
+        }
+      }, 1500);
+    }
+  }
+
+  // Проверяем каждый час, не наступило ли 26-е
+  setInterval(() => {
+    const n = new Date();
+    if (n.getDate() === 26) {
+      const key = `auto_refresh_${n.getFullYear()}_${n.getMonth()}`;
+      if (!localStorage.getItem(key)) {
+        localStorage.setItem(key, '1');
+        if (isDataLoaded) {
+          isDataLoaded = false;
+          loadAllData().then(() => {
+            showToast('📅 Данные обновлены автоматически (26-е число)', 'info', 6000);
+            renderContent(currentTab);
+          });
+        }
+      }
+    }
+  }, 60 * 60 * 1000); // раз в час
+}
+
 if (checkSession()) {
   document.getElementById('loginPage').style.display = 'none';
   document.getElementById('adminLayout').classList.add('active');
   initAdmin();
 }
 
-// Закрытие модалок по клику на оверлей
 document.querySelectorAll('.modal-overlay').forEach(m => {
   m.addEventListener('click', function(e) {
     if (e.target === this) this.classList.remove('active');
   });
 });
 
-// Плавное закрытие при ошибке
 window.addEventListener('error', (e) => console.error('Global error:', e));
 
-console.log('%c🎨 Админка Студия №1 v2.0', 'color:#C9A96E;font-size:16px;font-weight:bold;');
+console.log('%c🎨 Админка Студия №1 v3.0', 'color:#C9A96E;font-size:16px;font-weight:bold;');
 console.log('%c📊 Дашборд + Аналитика + QR + Управление', 'color:#E8D5A8;font-size:12px;');
 </script>
 </body>
