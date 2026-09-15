@@ -11,7 +11,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- ✅ НОВАЯ библиотека QR — работает на iPhone -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 <script type="importmap">
 {
@@ -23,9 +25,6 @@
 }
 </script>
 <style>
-/* ============================================
-   БАЗА
-   ============================================ */
 :root {
   --bg-primary: #0D0D0D;
   --bg-secondary: #161616;
@@ -86,57 +85,21 @@ body::before {
   50% { transform: scale(1.05) rotate(1deg); opacity: 0.9; }
   100% { transform: scale(1.03) rotate(-1deg); opacity: 0.75; }
 }
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes shimmerLong {
-  0%, 100% { background-position: 0% center; }
-  50% { background-position: 200% center; }
-}
-@keyframes pulseBtn {
-  0%, 100% { box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3); }
-  50% { box-shadow: 0 4px 40px rgba(201, 169, 110, 0.5); }
-}
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes modalSlideUp {
-  from { opacity: 0; transform: scale(0.96) translateY(30px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
-@keyframes dotPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-@keyframes likeAnim {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.4); }
-  100% { transform: scale(1); }
-}
-@keyframes starPop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.35) rotate(8deg); }
-  100% { transform: scale(1); }
-}
-@keyframes reviewCardIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes podiumPop {
-  0% { opacity: 0; transform: translateY(30px) scale(0.9); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes medalShine {
-  0%, 100% { transform: scale(1) rotate(0deg); filter: brightness(1); }
-  50% { transform: scale(1.15) rotate(5deg); filter: brightness(1.3); }
-}
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmerLong { 0%, 100% { background-position: 0% center; } 50% { background-position: 200% center; } }
+@keyframes pulseBtn { 0%, 100% { box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3); } 50% { box-shadow: 0 4px 40px rgba(201, 169, 110, 0.5); } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes modalSlideUp { from { opacity: 0; transform: scale(0.96) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes dotPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+@keyframes likeAnim { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+@keyframes starPop { 0% { transform: scale(1); } 50% { transform: scale(1.35) rotate(8deg); } 100% { transform: scale(1); } }
+@keyframes reviewCardIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes podiumPop { 0% { opacity: 0; transform: translateY(30px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes medalShine { 0%, 100% { transform: scale(1) rotate(0deg); filter: brightness(1); } 50% { transform: scale(1.15) rotate(5deg); filter: brightness(1.3); } }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
 .glass-card {
   background: var(--bg-card);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow);
   transition: var(--transition-smooth);
@@ -174,23 +137,12 @@ body::before {
   transition: var(--transition-smooth);
   box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
   background-size: 200% auto;
-  position: relative;
-  overflow: hidden;
   font-family: 'Inter', sans-serif;
 }
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(201, 169, 110, 0.4);
-  background-position: right center;
-}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(201, 169, 110, 0.4); background-position: right center; }
 .btn:active { transform: scale(0.97); }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-.btn-outline {
-  background: transparent;
-  color: var(--gold);
-  border: 2px solid var(--gold);
-  box-shadow: none;
-}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-outline { background: transparent; color: var(--gold); border: 2px solid var(--gold); box-shadow: none; }
 .btn-outline:hover { background: var(--gold); color: #fff; }
 .btn-sm { padding: 10px 20px; font-size: 14px; min-height: 40px; }
 .btn-pulse { animation: pulseBtn 2s ease-in-out infinite; }
@@ -217,10 +169,7 @@ body::before {
   animation: pulseBtn 3s ease-in-out infinite;
   font-family: 'Inter', sans-serif;
 }
-.card-btn-main:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 48px rgba(201, 169, 110, 0.5);
-}
+.card-btn-main:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 48px rgba(201, 169, 110, 0.5); }
 .card-btn-main i { font-size: 26px; }
 .secret-admin-link {
   display: inline-block;
@@ -230,14 +179,11 @@ body::before {
   cursor: pointer;
   transition: var(--transition-smooth);
   text-decoration: none;
-  background: none;
-  border: none;
   padding: 4px 8px;
   border-radius: 20px;
 }
 .secret-admin-link:hover { opacity: 0.5; background: var(--bg-card); }
 
-/* TOAST */
 #toastContainer {
   position: fixed;
   top: 80px;
@@ -272,14 +218,12 @@ body::before {
 .toast .toast-close { margin-left: auto; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 18px; padding: 4px; }
 .toast.hide { opacity: 0; transform: translateX(50px); transition: all 0.4s ease; }
 
-/* HEADER */
 header {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--header-height);
   background: rgba(13, 13, 13, 0.85);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   z-index: 1000;
   border-bottom: 1px solid var(--border-color);
   padding: 0 16px;
@@ -391,7 +335,6 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 #mainNav { display: flex; gap: 16px; align-items: center; }
 
-/* PAGES */
 .page { display: none; padding: 30px 0 60px; animation: fadeInUp 0.5s ease; }
 .page.active { display: block; }
 .section-title {
@@ -429,27 +372,9 @@ nav a:hover, nav a.active { color: var(--gold); }
   text-align: center;
 }
 
-/* HERO */
-.hero {
-  padding: 40px 0 60px;
-  text-align: center;
-  min-height: 50vh;
-  display: flex;
-  align-items: center;
-}
-.hero h1 {
-  font-size: clamp(32px, 8vw, 62px);
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  margin-bottom: 16px;
-  line-height: 1.1;
-}
-.hero p {
-  font-size: clamp(16px, 2.5vw, 20px);
-  color: var(--text-muted);
-  max-width: 580px;
-  margin: 0 auto 28px;
-}
+.hero { padding: 40px 0 60px; text-align: center; min-height: 50vh; display: flex; align-items: center; }
+.hero h1 { font-size: clamp(32px, 8vw, 62px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.1; }
+.hero p { font-size: clamp(16px, 2.5vw, 20px); color: var(--text-muted); max-width: 580px; margin: 0 auto 28px; }
 .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 .hero-buttons .btn { flex: 1; min-width: 140px; max-width: 280px; }
 .hero-badge {
@@ -467,7 +392,6 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .hero-card-btn { margin-top: 20px; display: flex; justify-content: center; }
 
-/* SERVICES */
 .categories-filter {
   display: flex;
   gap: 8px;
@@ -493,11 +417,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   transition: var(--transition-smooth);
 }
 .category-tab:hover { border-color: var(--gold); color: var(--gold); }
-.category-tab.active {
-  background: var(--gold-gradient);
-  color: #fff;
-  border-color: transparent;
-}
+.category-tab.active { background: var(--gold-gradient); color: #fff; border-color: transparent; }
 .services-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 .service-item {
   background: var(--bg-card);
@@ -524,7 +444,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   margin-left: 8px;
 }
 
-/* MASTERS */
 .masters-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 .master-card {
   background: var(--bg-card);
@@ -544,12 +463,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   background: var(--bg-secondary);
   position: relative;
 }
-.master-card .image-wrapper img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  position: relative;
-  z-index: 2;
-}
+.master-card .image-wrapper img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 2; }
 .master-card .image-wrapper .placeholder {
   width: 100%; height: 100%;
   display: flex;
@@ -580,12 +494,7 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .master-services-toggle i { transition: transform 0.3s ease; }
 .master-services-toggle.open i { transform: rotate(180deg); }
-.master-services-list {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease, opacity 0.3s ease;
-  opacity: 0;
-}
+.master-services-list { max-height: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.3s ease; opacity: 0; }
 .master-services-list.open { max-height: 2000px; opacity: 1; margin: 8px 0 12px; }
 .master-services-list ul { list-style: none; text-align: left; padding: 0 4px; }
 .master-services-list li {
@@ -598,7 +507,6 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .master-services-list li .service-price { color: var(--gold); font-weight: 600; }
 
-/* BLOG */
 .blog-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
 .blog-card {
   background: var(--bg-card);
@@ -611,27 +519,11 @@ nav a:hover, nav a.active { color: var(--gold); }
 .blog-card .date { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
 .blog-card h3 { font-size: 20px; margin-bottom: 8px; color: var(--text-primary); }
 .blog-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
-.blog-card img {
-  width: 100%;
-  max-height: 300px;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  margin-bottom: 12px;
-}
+.blog-card img { width: 100%; max-height: 300px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 12px; }
 
-/* ============================================
-   ⭐ ОТЗЫВЫ — ГЛАВНЫЙ БЛОК
-   ============================================ */
-.reviews-summary {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  margin-bottom: 30px;
-  animation: reviewCardIn 0.6s ease;
-}
-@media (min-width: 720px) {
-  .reviews-summary { grid-template-columns: 320px 1fr; align-items: stretch; }
-}
+/* REVIEWS */
+.reviews-summary { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 30px; animation: reviewCardIn 0.6s ease; }
+@media (min-width: 720px) { .reviews-summary { grid-template-columns: 320px 1fr; align-items: stretch; } }
 .rating-hero {
   background: linear-gradient(145deg, rgba(201, 169, 110, 0.12), rgba(201, 169, 110, 0.02));
   border: 1px solid var(--border-color);
@@ -676,13 +568,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   z-index: 1;
   text-shadow: 0 0 20px rgba(245, 179, 66, 0.5);
 }
-.rating-hero .total {
-  font-size: 14px;
-  color: var(--text-muted);
-  position: relative;
-  z-index: 1;
-  margin-top: 4px;
-}
+.rating-hero .total { font-size: 14px; color: var(--text-muted); position: relative; z-index: 1; margin-top: 4px; }
 .rating-hero .total strong { color: var(--gold); font-size: 18px; font-weight: 700; }
 .rating-bars {
   background: var(--bg-card);
@@ -695,23 +581,10 @@ nav a:hover, nav a.active { color: var(--gold); }
   gap: 12px;
 }
 .rating-bar-row { display: flex; align-items: center; gap: 12px; font-size: 13px; }
-.rating-bar-row .bar-label {
-  min-width: 60px;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-weight: 500;
-}
+.rating-bar-row .bar-label { min-width: 60px; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; font-weight: 500; }
 .rating-bar-row .bar-label .num { color: var(--text-primary); font-weight: 600; }
 .rating-bar-row .bar-label i { color: #F5B342; font-size: 11px; }
-.rating-bar-row .bar-track {
-  flex: 1;
-  height: 10px;
-  background: var(--bg-secondary);
-  border-radius: 10px;
-  overflow: hidden;
-}
+.rating-bar-row .bar-track { flex: 1; height: 10px; background: var(--bg-secondary); border-radius: 10px; overflow: hidden; }
 .rating-bar-row .bar-fill {
   height: 100%;
   background: linear-gradient(90deg, #C9A96E, #E8D5A8);
@@ -719,35 +592,11 @@ nav a:hover, nav a.active { color: var(--gold); }
   transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: 0 0 12px rgba(201, 169, 110, 0.5);
 }
-.rating-bar-row .bar-count {
-  min-width: 32px;
-  text-align: right;
-  color: var(--text-muted);
-  font-size: 12px;
-  font-weight: 600;
-}
+.rating-bar-row .bar-count { min-width: 32px; text-align: right; color: var(--text-muted); font-size: 12px; font-weight: 600; }
 
-/* --- ТОП-3 ОТЗЫВА МЕСЯЦА --- */
-.top-reviews {
-  margin-bottom: 30px;
-  animation: reviewCardIn 0.6s ease;
-}
-.top-reviews-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-.top-reviews-header h3 {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.3px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.top-reviews { margin-bottom: 30px; animation: reviewCardIn 0.6s ease; }
+.top-reviews-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.top-reviews-header h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.3px; display: flex; align-items: center; gap: 10px; }
 .top-reviews-header .period {
   font-size: 12.5px;
   color: var(--text-muted);
@@ -756,18 +605,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   background: var(--bg-card);
   border: 1px solid var(--border-color);
 }
-.podium {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-@media (min-width: 720px) {
-  .podium {
-    grid-template-columns: 1fr 1.15fr 1fr;
-    align-items: end;
-    gap: 16px;
-  }
-}
+.podium { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 720px) { .podium { grid-template-columns: 1fr 1.15fr 1fr; align-items: end; gap: 16px; } }
 .podium-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -784,24 +623,14 @@ nav a:hover, nav a.active { color: var(--gold); }
 .podium-card:nth-child(1) { animation-delay: 0.1s; }
 .podium-card:nth-child(2) { animation-delay: 0.2s; }
 .podium-card:nth-child(3) { animation-delay: 0.3s; }
-.podium-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--gold);
-  box-shadow: var(--shadow-hover);
-}
+.podium-card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
 .podium-card.gold-medal {
   border-color: rgba(245, 179, 66, 0.5);
   background: linear-gradient(145deg, rgba(245, 179, 66, 0.12), rgba(201, 169, 110, 0.04));
   box-shadow: 0 8px 32px rgba(245, 179, 66, 0.15);
 }
-.podium-card.silver-medal {
-  border-color: rgba(192, 192, 192, 0.4);
-  background: linear-gradient(145deg, rgba(192, 192, 192, 0.08), rgba(201, 169, 110, 0.02));
-}
-.podium-card.bronze-medal {
-  border-color: rgba(205, 127, 50, 0.4);
-  background: linear-gradient(145deg, rgba(205, 127, 50, 0.08), rgba(201, 169, 110, 0.02));
-}
+.podium-card.silver-medal { border-color: rgba(192, 192, 192, 0.4); background: linear-gradient(145deg, rgba(192, 192, 192, 0.08), rgba(201, 169, 110, 0.02)); }
+.podium-card.bronze-medal { border-color: rgba(205, 127, 50, 0.4); background: linear-gradient(145deg, rgba(205, 127, 50, 0.08), rgba(201, 169, 110, 0.02)); }
 .podium-card .medal {
   position: absolute;
   top: -12px;
@@ -815,16 +644,9 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-size: 30px;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
 }
-.podium-card.gold-medal .medal {
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  animation: medalShine 3s ease-in-out infinite;
-}
-.podium-card.silver-medal .medal {
-  background: linear-gradient(135deg, #E8E8E8, #A8A8A8);
-}
-.podium-card.bronze-medal .medal {
-  background: linear-gradient(135deg, #E8A87C, #CD7F32);
-}
+.podium-card.gold-medal .medal { background: linear-gradient(135deg, #FFD700, #FFA500); animation: medalShine 3s ease-in-out infinite; }
+.podium-card.silver-medal .medal { background: linear-gradient(135deg, #E8E8E8, #A8A8A8); }
+.podium-card.bronze-medal .medal { background: linear-gradient(135deg, #E8A87C, #CD7F32); }
 .podium-card .rank-badge {
   position: absolute;
   top: 16px;
@@ -840,15 +662,9 @@ nav a:hover, nav a.active { color: var(--gold); }
 .podium-card.gold-medal .rank-badge { background: rgba(245, 179, 66, 0.2); color: #F5B342; }
 .podium-card.silver-medal .rank-badge { background: rgba(192, 192, 192, 0.2); color: #C0C0C0; }
 .podium-card.bronze-medal .rank-badge { background: rgba(205, 127, 50, 0.2); color: #CD7F32; }
-.podium-card .podium-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 14px;
-}
+.podium-card .podium-header { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
 .podium-card .podium-avatar {
-  width: 52px;
-  height: 52px;
+  width: 52px; height: 52px;
   border-radius: 50%;
   overflow: hidden;
   background: var(--gold-gradient);
@@ -863,25 +679,9 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .podium-card .podium-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .podium-card .podium-meta { min-width: 0; flex: 1; }
-.podium-card .podium-name {
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--text-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.podium-card .podium-date {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-.podium-card .podium-stars {
-  color: #F5B342;
-  font-size: 18px;
-  letter-spacing: 2px;
-  text-shadow: 0 0 12px rgba(245, 179, 66, 0.4);
-}
+.podium-card .podium-name { font-weight: 700; font-size: 15px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.podium-card .podium-date { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.podium-card .podium-stars { color: #F5B342; font-size: 18px; letter-spacing: 2px; text-shadow: 0 0 12px rgba(245, 179, 66, 0.4); }
 .podium-card .podium-text {
   font-size: 14px;
   line-height: 1.65;
@@ -902,7 +702,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   align-self: flex-start;
 }
 
-/* --- Форма отзыва --- */
 .review-form-new {
   background: linear-gradient(145deg, rgba(201, 169, 110, 0.06), rgba(201, 169, 110, 0.01));
   border: 1px solid var(--border-color);
@@ -923,30 +722,12 @@ nav a:hover, nav a.active { color: var(--gold); }
   animation: shimmerLong 4s ease-in-out infinite;
 }
 .review-form-new .form-header { text-align: center; margin-bottom: 24px; }
-.review-form-new .form-header .form-icon {
-  font-size: 38px;
-  color: var(--gold);
-  display: block;
-  margin-bottom: 8px;
-  filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4));
-}
-.review-form-new .form-header h3 {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-}
+.review-form-new .form-header .form-icon { font-size: 38px; color: var(--gold); display: block; margin-bottom: 8px; filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4)); }
+.review-form-new .form-header h3 { font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
 .review-form-new .form-header p { color: var(--text-muted); font-size: 14px; }
-.rating-picker {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 16px 0 8px;
-  flex-wrap: wrap;
-}
+.rating-picker { display: flex; justify-content: center; gap: 10px; margin: 16px 0 8px; flex-wrap: wrap; }
 .rating-picker .star-btn {
-  width: 56px;
-  height: 56px;
+  width: 56px; height: 56px;
   border-radius: 50%;
   background: var(--bg-secondary);
   border: 2px solid var(--border-color);
@@ -981,38 +762,12 @@ nav a:hover, nav a.active { color: var(--gold); }
   border: 2px solid rgba(201, 169, 110, 0.4);
   animation: dotPulse 2s ease-in-out infinite;
 }
-.rating-picker-label {
-  text-align: center;
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-.rating-picker-label strong {
-  color: var(--gold);
-  font-size: 15px;
-  font-weight: 700;
-  display: block;
-  margin-top: 2px;
-  min-height: 20px;
-}
+.rating-picker-label { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; letter-spacing: 0.5px; }
+.rating-picker-label strong { color: var(--gold); font-size: 15px; font-weight: 700; display: block; margin-top: 2px; min-height: 20px; }
 .master-picker { margin: 16px 0; }
-.master-picker label {
-  display: block;
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-.master-picker-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-@media (min-width: 600px) {
-  .master-picker-grid { grid-template-columns: 1fr 1fr 1fr; }
-}
+.master-picker label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600; }
+.master-picker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media (min-width: 600px) { .master-picker-grid { grid-template-columns: 1fr 1fr 1fr; } }
 .master-pick-btn {
   padding: 12px 10px;
   background: var(--bg-secondary);
@@ -1030,11 +785,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-family: 'Inter', sans-serif;
 }
 .master-pick-btn:hover { border-color: var(--gold); color: var(--gold); }
-.master-pick-btn.active {
-  background: rgba(201, 169, 110, 0.12);
-  border-color: var(--gold);
-  color: var(--text-primary);
-}
+.master-pick-btn.active { background: rgba(201, 169, 110, 0.12); border-color: var(--gold); color: var(--text-primary); }
 .master-pick-btn .mp-avatar {
   width: 28px; height: 28px;
   border-radius: 50%;
@@ -1049,11 +800,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   overflow: hidden;
 }
 .master-pick-btn .mp-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.master-pick-btn .mp-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.master-pick-btn .mp-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .review-form-new textarea {
   width: 100%;
   padding: 14px 16px;
@@ -1068,37 +815,15 @@ nav a:hover, nav a.active { color: var(--gold); }
   transition: var(--transition-smooth);
   line-height: 1.6;
 }
-.review-form-new textarea:focus {
-  outline: none;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
-}
+.review-form-new textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15); }
 .review-form-new textarea::placeholder { color: var(--text-muted); }
-.review-form-new .char-counter {
-  text-align: right;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 4px;
-}
+.review-form-new .char-counter { text-align: right; font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 .review-form-new .char-counter.warn { color: #F5B342; }
 .review-form-new .char-counter.over { color: #E74C3C; }
 
-/* --- Загрузка фото --- */
-.photo-upload-block {
-  margin-top: 16px;
-}
-.photo-upload-label {
-  display: block;
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-  gap: 10px;
-}
+.photo-upload-block { margin-top: 16px; }
+.photo-upload-label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600; }
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
 .photo-thumb {
   position: relative;
   aspect-ratio: 1;
@@ -1106,13 +831,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   overflow: hidden;
   border: 2px solid var(--border-color);
   background: var(--bg-secondary);
-  transition: var(--transition-smooth);
 }
-.photo-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .photo-thumb .remove-btn {
   position: absolute;
   top: 4px;
@@ -1130,10 +850,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   justify-content: center;
   transition: var(--transition-smooth);
 }
-.photo-thumb .remove-btn:hover {
-  background: var(--red);
-  transform: scale(1.1);
-}
+.photo-thumb .remove-btn:hover { background: var(--red); transform: scale(1.1); }
 .photo-add-btn {
   aspect-ratio: 1;
   border-radius: var(--radius-sm);
@@ -1152,57 +869,17 @@ nav a:hover, nav a.active { color: var(--gold); }
   padding: 8px;
   text-align: center;
 }
-.photo-add-btn:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-  background: rgba(201, 169, 110, 0.05);
-}
-.photo-add-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-.photo-add-btn small {
-  font-size: 10px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-.photo-add-btn input[type="file"] {
-  display: none;
-}
+.photo-add-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201, 169, 110, 0.05); }
+.photo-add-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.photo-add-btn small { font-size: 10px; color: var(--text-muted); font-weight: 500; }
+.photo-add-btn input[type="file"] { display: none; }
 
-.review-form-new .submit-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-  align-items: center;
-}
+.review-form-new .submit-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; align-items: center; }
 .review-form-new .submit-row .btn { flex: 1; min-width: 200px; }
-.review-form-new .submit-row .hint {
-  flex-basis: 100%;
-  text-align: center;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 4px;
-}
+.review-form-new .submit-row .hint { flex-basis: 100%; text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
-/* --- Тулбар + список --- */
-.reviews-section-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 32px 0 20px;
-}
-.reviews-section-title h3 {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.reviews-section-title { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin: 32px 0 20px; }
+.reviews-section-title h3 { font-size: 22px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
 .reviews-section-title h3 .count-badge {
   background: var(--gold-gradient);
   color: #fff;
@@ -1213,14 +890,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   min-width: 32px;
   text-align: center;
 }
-.reviews-filters {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.reviews-filters select,
-.reviews-filters button {
+.reviews-filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.reviews-filters select, .reviews-filters button {
   padding: 8px 14px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -1232,8 +903,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-family: 'Inter', sans-serif;
   transition: var(--transition-smooth);
 }
-.reviews-filters select:hover,
-.reviews-filters button:hover { border-color: var(--gold); color: var(--gold); }
+.reviews-filters select:hover, .reviews-filters button:hover { border-color: var(--gold); color: var(--gold); }
 .reviews-filters select:focus { outline: none; border-color: var(--gold); }
 .filter-tab {
   padding: 8px 16px;
@@ -1249,19 +919,9 @@ nav a:hover, nav a.active { color: var(--gold); }
   white-space: nowrap;
 }
 .filter-tab:hover { border-color: var(--gold); color: var(--gold); }
-.filter-tab.active {
-  background: var(--gold-gradient);
-  color: #fff;
-  border-color: transparent;
-}
-.reviews-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-@media (min-width: 720px) {
-  .reviews-list { grid-template-columns: 1fr 1fr; }
-}
+.filter-tab.active { background: var(--gold-gradient); color: #fff; border-color: transparent; }
+.reviews-list { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 720px) { .reviews-list { grid-template-columns: 1fr 1fr; } }
 .review-card-new {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -1284,11 +944,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-.review-card-new:hover {
-  border-color: var(--gold);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-}
+.review-card-new:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
 .review-card-new:hover::before { opacity: 1; }
 .review-card-new .rc-header { display: flex; align-items: center; gap: 12px; }
 .review-card-new .rc-avatar {
@@ -1307,14 +963,7 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .review-card-new .rc-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .review-card-new .rc-meta { flex: 1; min-width: 0; }
-.review-card-new .rc-name {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 15px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.review-card-new .rc-name { font-weight: 600; color: var(--text-primary); font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .review-card-new .rc-date { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 .review-card-new .rc-type-badge {
   font-size: 11px;
@@ -1327,30 +976,10 @@ nav a:hover, nav a.active { color: var(--gold); }
   border: 1px solid rgba(201, 169, 110, 0.2);
   flex-shrink: 0;
 }
-.review-card-new .rc-type-badge.salon {
-  background: rgba(39, 174, 96, 0.12);
-  color: #27AE60;
-  border-color: rgba(39, 174, 96, 0.2);
-}
-.review-card-new .rc-stars {
-  color: #F5B342;
-  font-size: 18px;
-  letter-spacing: 3px;
-  text-shadow: 0 0 12px rgba(245, 179, 66, 0.4);
-}
-.review-card-new .rc-text {
-  color: var(--text-secondary);
-  font-size: 14px;
-  line-height: 1.7;
-  word-wrap: break-word;
-  white-space: pre-wrap;
-}
-.review-card-new .rc-photos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 8px;
-  margin-top: 4px;
-}
+.review-card-new .rc-type-badge.salon { background: rgba(39, 174, 96, 0.12); color: #27AE60; border-color: rgba(39, 174, 96, 0.2); }
+.review-card-new .rc-stars { color: #F5B342; font-size: 18px; letter-spacing: 3px; text-shadow: 0 0 12px rgba(245, 179, 66, 0.4); }
+.review-card-new .rc-text { color: var(--text-secondary); font-size: 14px; line-height: 1.7; word-wrap: break-word; white-space: pre-wrap; }
+.review-card-new .rc-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; margin-top: 4px; }
 .review-card-new .rc-photos .rc-photo {
   aspect-ratio: 1;
   border-radius: var(--radius-sm);
@@ -1360,17 +989,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   transition: var(--transition-smooth);
   background: var(--bg-secondary);
 }
-.review-card-new .rc-photos .rc-photo:hover {
-  transform: scale(1.05);
-  border-color: var(--gold);
-  box-shadow: 0 4px 16px rgba(201, 169, 110, 0.3);
-}
-.review-card-new .rc-photos .rc-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+.review-card-new .rc-photos .rc-photo:hover { transform: scale(1.05); border-color: var(--gold); box-shadow: 0 4px 16px rgba(201, 169, 110, 0.3); }
+.review-card-new .rc-photos .rc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .review-card-new .rc-footer {
   display: flex;
   justify-content: space-between;
@@ -1382,18 +1002,9 @@ nav a:hover, nav a.active { color: var(--gold); }
   flex-wrap: wrap;
   gap: 6px;
 }
-.review-card-new .rc-footer .rc-verified {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: #27AE60;
-  font-weight: 600;
-}
+.review-card-new .rc-footer .rc-verified { display: inline-flex; align-items: center; gap: 4px; color: #27AE60; font-weight: 600; }
 .review-card-new .rc-footer .rc-verified i { font-size: 11px; }
-.review-card-new.is-mine {
-  border-color: rgba(201, 169, 110, 0.5);
-  background: linear-gradient(145deg, rgba(201, 169, 110, 0.06), transparent);
-}
+.review-card-new.is-mine { border-color: rgba(201, 169, 110, 0.5); background: linear-gradient(145deg, rgba(201, 169, 110, 0.06), transparent); }
 .review-card-new.is-mine::after {
   content: 'ВАШ ОТЗЫВ';
   position: absolute;
@@ -1408,20 +1019,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   transform: rotate(38deg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
-.reviews-empty {
-  text-align: center;
-  padding: 60px 20px;
-  background: var(--bg-card);
-  border: 2px dashed var(--border-color);
-  border-radius: var(--radius);
-}
-.reviews-empty .empty-icon {
-  font-size: 64px;
-  color: var(--gold);
-  opacity: 0.4;
-  margin-bottom: 12px;
-  display: block;
-}
+.reviews-empty { text-align: center; padding: 60px 20px; background: var(--bg-card); border: 2px dashed var(--border-color); border-radius: var(--radius); }
+.reviews-empty .empty-icon { font-size: 64px; color: var(--gold); opacity: 0.4; margin-bottom: 12px; display: block; }
 .reviews-empty h4 { color: var(--text-primary); font-size: 20px; margin-bottom: 6px; }
 .reviews-empty p { color: var(--text-muted); font-size: 14px; max-width: 400px; margin: 0 auto 16px; }
 .reviews-login-prompt {
@@ -1432,51 +1031,16 @@ nav a:hover, nav a.active { color: var(--gold); }
   text-align: center;
   margin-bottom: 30px;
 }
-.reviews-login-prompt .lock-icon {
-  font-size: 42px;
-  color: var(--gold);
-  margin-bottom: 12px;
-  display: block;
-  filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4));
-}
+.reviews-login-prompt .lock-icon { font-size: 42px; color: var(--gold); margin-bottom: 12px; display: block; filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4)); }
 .reviews-login-prompt h3 { font-size: 20px; color: var(--text-primary); margin-bottom: 6px; }
 .reviews-login-prompt p { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }
-.my-reviews-block {
-  margin-top: 40px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-color);
-}
-.my-reviews-block h3 {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.my-reviews-block { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+.my-reviews-block h3 { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
 
-/* ============================================
-   ЛАЙТБОКС
-   ============================================ */
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.95);
-  z-index: 5000;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-}
+/* LIGHTBOX */
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 5000; align-items: center; justify-content: center; padding: 40px 20px; }
 .lightbox.active { display: flex; }
-.lightbox img {
-  max-width: 100%;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-}
+.lightbox img { max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8); }
 .lightbox-close {
   position: absolute;
   top: 20px;
@@ -1492,7 +1056,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition-smooth);
 }
 .lightbox-close:hover { background: var(--gold); color: #000; }
 .lightbox-nav {
@@ -1510,7 +1073,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition-smooth);
 }
 .lightbox-nav:hover { background: var(--gold); color: #000; }
 .lightbox-nav.prev { left: 20px; }
@@ -1532,13 +1094,7 @@ nav a:hover, nav a.active { color: var(--gold); }
 /* COMMENTS */
 .comments-section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); }
 .comments-section .comments-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
-.comment {
-  margin-bottom: 12px;
-  padding: 12px 14px;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-sm);
-  border-left: 2px solid var(--gold);
-}
+.comment { margin-bottom: 12px; padding: 12px 14px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 2px solid var(--gold); }
 .comment .comment-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
 .comment .comment-header .avatar {
   width: 32px; height: 32px;
@@ -1591,14 +1147,7 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .comment-form textarea:focus { outline: none; border-color: var(--gold); }
 .comment-form .btn { padding: 10px 20px; min-height: 50px; flex-shrink: 0; }
-.reply-form {
-  margin-left: 36px;
-  margin-top: 8px;
-  display: none;
-  gap: 10px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
+.reply-form { margin-left: 36px; margin-top: 8px; display: none; gap: 10px; align-items: flex-start; flex-wrap: wrap; }
 .reply-form.active { display: flex; }
 .reply-form textarea {
   flex: 1;
@@ -1625,23 +1174,13 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .login-to-comment .btn { margin-top: 8px; }
 
-/* ============================================
-   КАРТА МИНУТ
-   ============================================ */
-.card-wrapper {
-  width: 100%;
-  max-width: 440px;
-  margin: 0 auto 30px;
-  perspective: 1400px;
-  -webkit-perspective: 1400px;
-  cursor: pointer;
-}
+/* CARD */
+.card-wrapper { width: 100%; max-width: 440px; margin: 0 auto 30px; perspective: 1400px; cursor: pointer; }
 .card-flip {
   width: 100%;
   aspect-ratio: 1.586 / 1;
   position: relative;
   transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
   transition: transform 0.9s cubic-bezier(0.4, 0.0, 0.2, 1);
   border-radius: 22px;
   will-change: transform;
@@ -1810,7 +1349,8 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .card-back .back-particles span {
   position: absolute;
-  width: 3px; height: 3px;
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
   background: #C9A96E;
   box-shadow: 0 0 8px #C9A96E, 0 0 16px rgba(201, 169, 110, 0.5);
@@ -1898,7 +1438,6 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .back-brand-strip .b-right { opacity: 0.6; font-weight: 400; letter-spacing: 1.5px; }
 
-/* CONTACTS */
 .contact-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
 .contact-info-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
 .contact-info-item i {
@@ -1931,7 +1470,8 @@ nav a:hover, nav a.active { color: var(--gold); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px; height: 44px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--bg-card);
   color: var(--text-secondary);
@@ -1944,7 +1484,6 @@ nav a:hover, nav a.active { color: var(--gold); }
 .map-container { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); height: 240px; border: 1px solid var(--border-color); }
 .map-container iframe { width: 100%; height: 100%; display: block; border: 0; }
 
-/* MODALS */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -1999,9 +1538,7 @@ nav a:hover, nav a.active { color: var(--gold); }
 .modal .subtitle { color: var(--text-muted); margin-bottom: 20px; font-size: 14px; }
 .modal form { display: flex; flex-direction: column; gap: 14px; }
 .modal form label { font-weight: 500; font-size: 14px; color: var(--text-secondary); }
-.modal form input,
-.modal form select,
-.modal form textarea {
+.modal form input, .modal form select, .modal form textarea {
   padding: 12px 16px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
@@ -2012,9 +1549,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   width: 100%;
   min-height: var(--touch-target);
 }
-.modal form input:focus,
-.modal form select:focus,
-.modal form textarea:focus {
+.modal form input:focus, .modal form select:focus, .modal form textarea:focus {
   outline: none;
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
@@ -2022,7 +1557,8 @@ nav a:hover, nav a.active { color: var(--gold); }
 .modal form button { margin-top: 8px; padding: 16px; font-size: 17px; min-height: 50px; width: 100%; }
 .profile-photo-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 16px; }
 .profile-photo-wrapper .photo-preview {
-  width: 100px; height: 100px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   border: 3px solid var(--gold);
   background: var(--bg-secondary);
@@ -2061,7 +1597,8 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .ya-oauth-btn svg { width: 24px; height: 24px; flex-shrink: 0; }
 .profile-avatar-header {
-  width: 60px; height: 60px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--gold);
@@ -2085,7 +1622,7 @@ nav a:hover, nav a.active { color: var(--gold); }
   margin: 16px 0;
   box-shadow: 0 8px 32px rgba(201, 169, 110, 0.3);
 }
-.qr-container canvas, .qr-container img { display: block; border-radius: 12px; }
+.qr-container canvas, .qr-container img { display: block; border-radius: 12px; margin: 0 auto; }
 .qr-timer { margin-top: 12px; font-size: 14px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 8px; }
 .qr-timer .timer-bar { flex: 1; height: 4px; background: var(--bg-card); border-radius: 2px; overflow: hidden; max-width: 200px; margin: 0 auto; }
 .qr-timer .timer-fill { height: 100%; background: var(--gold-gradient); border-radius: 2px; transition: width 1s linear; }
@@ -2117,8 +1654,16 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .qr-instruction ol { margin: 8px 0 0 16px; padding: 0; }
 .qr-instruction li { margin-bottom: 4px; }
+.qr-test-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: var(--bg-card);
+  border-radius: 8px;
+  border: 1px dashed var(--border-color);
+}
 
-/* FOOTER / STICKY */
 .sticky-book {
   position: fixed;
   bottom: 16px; right: 16px;
@@ -2196,10 +1741,7 @@ footer span {
   min-width: 150px;
 }
 
-/* MEDIA */
-@media (min-width: 480px) {
-  .services-grid, .masters-grid, .blog-grid { grid-template-columns: 1fr 1fr; }
-}
+@media (min-width: 480px) { .services-grid, .masters-grid, .blog-grid { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 600px) {
   .contact-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
   .map-container { height: 300px; }
@@ -2440,7 +1982,6 @@ footer span {
 <button class="sticky-book btn-pulse" onclick="openBooking()"><i class="fas fa-calendar-plus"></i> Записаться</button>
 <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-up"></i></button>
 
-<!-- Модалка авторизации -->
 <div class="modal-overlay" id="authModal">
   <div class="modal">
     <button class="modal-close" onclick="closeAuthModal()">&times;</button>
@@ -2479,7 +2020,6 @@ footer span {
   </div>
 </div>
 
-<!-- Модалка записи -->
 <div class="modal-overlay" id="bookingModal">
   <div class="modal" style="max-width:500px;">
     <button class="modal-close" onclick="closeBooking()">&times;</button>
@@ -2495,7 +2035,6 @@ footer span {
   </div>
 </div>
 
-<!-- Модалка редактирования профиля -->
 <div class="modal-overlay" id="editProfileModal">
   <div class="modal">
     <button class="modal-close" onclick="closeEditProfile()">&times;</button>
@@ -2519,7 +2058,6 @@ footer span {
   </div>
 </div>
 
-<!-- Модалка QR -->
 <div class="modal-overlay" id="qrModal">
   <div class="modal" style="max-width:440px;">
     <button class="modal-close" onclick="closeQRModal()">&times;</button>
@@ -2547,16 +2085,18 @@ footer span {
         <ol>
           <li>Подойдите к администратору салона</li>
           <li>Покажите этот QR-код</li>
-          <li>Админ отсканирует и спишет нужное количество минут</li>
+          <li>Админ отсканирует (камерой или телефоном) и спишет минуты</li>
+          <li>Если отсканировать камерой iPhone — откроется страница с вашим профилем</li>
           <li>Код действует <strong>2 минуты</strong>, потом обновится автоматически</li>
         </ol>
-        <p style="margin-top:8px;font-size:12px;opacity:0.7;">⚠️ Не показывайте код другим людям — его можно использовать только один раз.</p>
+      </div>
+      <div class="qr-test-hint">
+        💡 <strong>Проверьте сами:</strong> наведите камеру второго телефона на этот QR — откроется страница с вашей картой
       </div>
     </div>
   </div>
 </div>
 
-<!-- Лайтбокс для фото -->
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
   <button class="lightbox-nav prev" onclick="lightboxPrev()"><i class="fas fa-chevron-left"></i></button>
@@ -2583,6 +2123,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+/* ✅ URL сайта — для генерации QR со ссылкой */
+const SITE_URL = 'https://glubkov2020-netizen.github.io/studio1/';
+
 let currentUser = null;
 let currentUserData = null;
 let allMasters = [];
@@ -2598,14 +2141,14 @@ let selectedMasterStar = 0;
 let tempPhotoData = null;
 let reviewFilter = 'all';
 let reviewSort = 'new';
-let reviewPhotos = []; // массив base64 для текущей формы
+let reviewPhotos = [];
 let lightboxPhotos = [];
 let lightboxIndex = 0;
 
 const QR_SECRET = 'STUDIO1_KEMEROVO_2026_SECRET_KEY_v1_X9K2M5P8';
 const QR_LIFETIME = 120;
 const MAX_REVIEW_PHOTOS = 3;
-const MAX_PHOTO_SIZE = 200 * 1024; // 200 КБ
+const MAX_PHOTO_SIZE = 200 * 1024;
 let qrTimerInterval = null;
 let qrSecondsLeft = QR_LIFETIME;
 
@@ -2667,7 +2210,15 @@ function getRatingLabel(rating) {
   return 'Нет оценок';
 }
 
-/* Сжатие изображения на клиенте */
+function toMillis(date) {
+  if (!date) return 0;
+  if (typeof date === 'number') return date;
+  if (date.toMillis) return date.toMillis();
+  if (date.seconds) return date.seconds * 1000;
+  const t = new Date(date).getTime();
+  return isNaN(t) ? 0 : t;
+}
+
 function compressImage(file, maxSize = 800, quality = 0.75) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -2676,21 +2227,14 @@ function compressImage(file, maxSize = 800, quality = 0.75) {
       img.onload = () => {
         let { width, height } = img;
         if (width > maxSize || height > maxSize) {
-          if (width > height) {
-            height = Math.round(height * (maxSize / width));
-            width = maxSize;
-          } else {
-            width = Math.round(width * (maxSize / height));
-            height = maxSize;
-          }
+          if (width > height) { height = Math.round(height * (maxSize / width)); width = maxSize; }
+          else { width = Math.round(width * (maxSize / height)); height = maxSize; }
         }
         const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
+        canvas.width = width; canvas.height = height;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
-        const dataUrl = canvas.toDataURL('image/jpeg', quality);
-        resolve(dataUrl);
+        resolve(canvas.toDataURL('image/jpeg', quality));
       };
       img.onerror = reject;
       img.src = e.target.result;
@@ -2728,9 +2272,6 @@ const CATEGORIES = [
   { id: 'Онлайн-услуги', icon: '💻' }
 ];
 
-/* ============================================
-   ДАННЫЕ ПО УМОЛЧАНИЮ
-   ============================================ */
 const DEFAULT_MASTERS = [
   {
     id: 'natalia',
@@ -2744,15 +2285,8 @@ const DEFAULT_MASTERS = [
       { name: 'Стрижка женская', category: 'Стрижки', price: 2500, duration: '1 ч 30 м' },
       { name: 'Стойкое окрашивание', category: 'Окрашивание', price: 3500, duration: '2 ч 30 м' },
       { name: 'Тотал блонд (первично)', category: 'Окрашивание', price: 6000, duration: '3 ч' },
-      { name: 'Коррекция тотал блонд', category: 'Окрашивание', price: 5000, duration: '2 ч' },
       { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
-      { name: 'Ламинирование ресниц', category: 'Ресницы', price: 2300, duration: '1 ч 15 м' },
-      { name: 'Наращивание ресниц (Классика)', category: 'Ресницы', price: 2000, duration: '1 ч 30 м' },
-      { name: 'Пенный Пилинг-хамам', category: 'Спа-сервисы', price: 1000, duration: '40 м' },
-      { name: 'Прикорневой объём', category: 'Спа-сервисы', price: 3500, duration: '2 ч' },
-      { name: 'Долговременная биозавивка', category: 'Биозавивка', price: 5000, duration: '3 ч' },
-      { name: 'Онлайн подбор стрижки', category: 'Онлайн-услуги', price: 2000, duration: '1 ч' },
-      { name: 'Весенний спешл', category: 'Стрижки', price: 3900, duration: '2 ч' }
+      { name: 'Ламинирование ресниц', category: 'Ресницы', price: 2300, duration: '1 ч 15 м' }
     ]
   },
   {
@@ -2765,12 +2299,8 @@ const DEFAULT_MASTERS = [
     rating: 0, reviews: 0,
     services: [
       { name: 'Перманентный макияж бровей', category: 'Перманент', price: 9000, duration: '2 ч 30 м' },
-      { name: 'Перманентный макияж век', category: 'Перманент', price: 7500, duration: '45 м' },
       { name: 'Перманентный макияж губ', category: 'Перманент', price: 9000, duration: '3 ч' },
-      { name: 'Комбо: брови + межресничка', category: 'Перманент', price: 12000, duration: '3 ч 30 м' },
-      { name: 'Коррекция перманентного макияжа', category: 'Перманент', price: 5000, duration: '2 ч' },
-      { name: 'Камуфляж темных кругов', category: 'Перманент', price: 6000, duration: '1 ч 30 м' },
-      { name: 'Удаление татуажа', category: 'Перманент', price: 2500, duration: '1 ч' }
+      { name: 'Комбо: брови + межресничка', category: 'Перманент', price: 12000, duration: '3 ч 30 м' }
     ]
   },
   {
@@ -2784,9 +2314,7 @@ const DEFAULT_MASTERS = [
     services: [
       { name: 'Загар премиум (1 мин)', category: 'Солярий', price: 33, duration: '20 м' },
       { name: 'Первый визит "Сияние"', category: 'Солярий', price: 299, duration: '20 м' },
-      { name: 'Абонемент "VIP Сияние"', category: 'Солярий', price: 4900, duration: '20 м' },
-      { name: 'Абонемент "Идеальный загар"', category: 'Солярий', price: 3000, duration: '1 ч 40 м' },
-      { name: 'Абонемент "START Сияние"', category: 'Солярий', price: 1600, duration: '50 м' }
+      { name: 'Абонемент "VIP Сияние"', category: 'Солярий', price: 4900, duration: '20 м' }
     ]
   },
   {
@@ -2800,18 +2328,11 @@ const DEFAULT_MASTERS = [
     services: [
       { name: 'Педикюр Smart', category: 'Педикюр', price: 1900, duration: '45 м' },
       { name: 'Smart Педикюр с покрытием', category: 'Педикюр', price: 2500, duration: '1 ч 30 м' },
-      { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' },
-      { name: 'Спа-ритуал для ног', category: 'Педикюр', price: 1000, duration: '30 м' },
-      { name: 'Наращивание ногтей', category: 'Маникюр', price: 3000, duration: '2 ч' },
-      { name: 'Японский эко маникюр', category: 'Маникюр', price: 2000, duration: '1 ч' },
-      { name: 'Дизайн на все ногти', category: 'Маникюр', price: 500, duration: '30 м' }
+      { name: 'Маникюр с покрытием гель-лак', category: 'Маникюр', price: 2000, duration: '2 ч' }
     ]
   }
 ];
 
-/* ============================================
-   ЗАГРУЗКА ДАННЫХ
-   ============================================ */
 async function initData() {
   try {
     const mastersSnap = await getDocs(collection(db, 'masters'));
@@ -2833,6 +2354,8 @@ async function initData() {
     } catch (e) { allBlogPosts = []; }
     await loadReviews();
     renderAll();
+    // ✅ Проверяем URL параметр ?qr= при загрузке
+    checkQRParam();
   } catch (e) { console.error('Ошибка загрузки данных:', e); }
 }
 
@@ -2853,9 +2376,6 @@ function renderAll() {
   renderCabinet();
 }
 
-/* ============================================
-   УСЛУГИ / МАСТЕРА
-   ============================================ */
 function renderCategories() {
   const c = document.getElementById('categoriesFilter');
   if (!c) return;
@@ -2924,7 +2444,7 @@ window.toggleMasterServices = function(id) {
 };
 
 /* ============================================
-   ⭐ ОТЗЫВЫ — ГЛАВНЫЙ РЕНДЕР
+   ОТЗЫВЫ
    ============================================ */
 function renderReviews() {
   const container = document.getElementById('reviewsContainer');
@@ -2939,7 +2459,6 @@ function renderReviews() {
   `;
 }
 
-/* --- 1. Сводка --- */
 function renderReviewsSummary() {
   const total = allReviews.length;
   const avg = total > 0 ? (allReviews.reduce((s, r) => s + (r.rating || 0), 0) / total) : 0;
@@ -2980,43 +2499,35 @@ function renderReviewsSummary() {
   `;
 }
 
-/* --- 2. 🏆 ТОП-3 ОТЗЫВА МЕСЯЦА --- */
 function renderTopReviews() {
   const now = Date.now();
   const monthAgo = now - 30 * 24 * 60 * 60 * 1000;
 
-  // Фильтруем отзывы за последние 30 дней с высоким рейтингом
   const candidates = allReviews.filter(r => {
-    const d = r.createdAt?.toMillis ? r.createdAt.toMillis() : new Date(r.createdAt).getTime();
+    const d = toMillis(r.createdAt);
     if (isNaN(d) || d < monthAgo) return false;
     if ((r.rating || 0) < 4) return false;
     if (r.isPublished === false) return false;
     return true;
   });
 
-  // Формула оценки: rating × 100 + min(длина_текста, 500) / 5 + свежесть
-  // Свежесть: чем ближе к сегодня, тем больше балл (макс 20)
   const scored = candidates.map(r => {
-    const ts = r.createdAt?.toMillis ? r.createdAt.toMillis() : new Date(r.createdAt).getTime();
+    const ts = toMillis(r.createdAt);
     const daysOld = (now - ts) / (24 * 60 * 60 * 1000);
-    const freshnessBonus = Math.max(0, 20 - daysOld * 0.66); // макс 20 баллов за свежесть
-    const textBonus = Math.min((r.text || '').length, 500) / 5; // макс 100 баллов за длину
-    const ratingBonus = (r.rating || 0) * 100; // 400-500 баллов за рейтинг
-    const photosBonus = (r.photos || []).length * 15; // до 45 баллов за фото
+    const freshnessBonus = Math.max(0, 20 - daysOld * 0.66);
+    const textBonus = Math.min((r.text || '').length, 500) / 5;
+    const ratingBonus = (r.rating || 0) * 100;
+    const photosBonus = (r.photos || []).length * 15;
     return { review: r, score: ratingBonus + textBonus + freshnessBonus + photosBonus };
   }).sort((a, b) => b.score - a.score).slice(0, 3);
 
-  // Если меньше 3 отзывов — не показываем секцию (никакого рандома!)
   if (scored.length < 3) return '';
 
   const medals = ['🥇', '🥈', '🥉'];
   const classes = ['gold-medal', 'silver-medal', 'bronze-medal'];
   const ranks = ['#1 ОТЗЫВ МЕСЯЦА', '#2', '#3'];
 
-  // На мобильных порядок: 2, 1, 3 (победитель в центре)
   const mobileOrder = [1, 0, 2];
-  const desktopOrder = [0, 1, 2];
-
   const periodText = `${formatDateLong(new Date(monthAgo))} — ${formatDateLong(new Date(now))}`;
 
   return `
@@ -3035,7 +2546,7 @@ function renderTopReviews() {
           const stars = '★'.repeat(Math.round(r.rating || 0)) + '☆'.repeat(5 - Math.round(r.rating || 0));
           const dateStr = (() => {
             try {
-              const d = r.createdAt?.toDate ? r.createdAt.toDate() : new Date(r.createdAt);
+              const d = new Date(r.createdAt);
               return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'short', year: 'numeric' });
             } catch { return ''; }
           })();
@@ -3064,7 +2575,6 @@ function renderTopReviews() {
   `;
 }
 
-/* --- 3. Форма отзыва с фото --- */
 function renderReviewForm() {
   if (!currentUser) {
     return `
@@ -3082,14 +2592,9 @@ function renderReviewForm() {
   const masterPickButtons = allMasters.map(m => {
     const initials = m.name.split(' ').map(w => w[0]).join('');
     const isActive = selectedMasterId === m.id;
-    const avatarHtml = m.photo
-      ? `<img src="${escapeHTML(m.photo)}" alt="${escapeHTML(m.name)}" />`
-      : initials;
+    const avatarHtml = m.photo ? `<img src="${escapeHTML(m.photo)}" alt="${escapeHTML(m.name)}" />` : initials;
     return `
-      <button type="button"
-              class="master-pick-btn ${isActive ? 'active' : ''}"
-              data-master-id="${m.id}"
-              onclick="selectMasterForReview('${m.id}')">
+      <button type="button" class="master-pick-btn ${isActive ? 'active' : ''}" data-master-id="${m.id}" onclick="selectMasterForReview('${m.id}')">
         <span class="mp-avatar">${avatarHtml}</span>
         <span class="mp-name">${escapeHTML(m.name)}</span>
       </button>
@@ -3101,9 +2606,7 @@ function renderReviewForm() {
   const photosHtml = reviewPhotos.map((photo, idx) => `
     <div class="photo-thumb">
       <img src="${photo}" alt="Фото ${idx + 1}" />
-      <button type="button" class="remove-btn" onclick="removeReviewPhoto(${idx})">
-        <i class="fas fa-times"></i>
-      </button>
+      <button type="button" class="remove-btn" onclick="removeReviewPhoto(${idx})"><i class="fas fa-times"></i></button>
     </div>
   `).join('');
 
@@ -3119,11 +2622,7 @@ function renderReviewForm() {
 
       <div class="rating-picker-label">Оцените салон</div>
       <div class="rating-picker" id="salonRatingPicker">
-        ${[1,2,3,4,5].map(n => `
-          <button type="button" class="star-btn ${selectedReviewStar >= n ? 'active' : ''}" data-rating="${n}" onclick="setSalonRating(${n})" aria-label="Оценка ${n}">
-            <i class="fas fa-star"></i>
-          </button>
-        `).join('')}
+        ${[1,2,3,4,5].map(n => `<button type="button" class="star-btn ${selectedReviewStar >= n ? 'active' : ''}" onclick="setSalonRating(${n})"><i class="fas fa-star"></i></button>`).join('')}
       </div>
       <div class="rating-picker-label" id="salonRatingLabel">
         <strong>${selectedReviewStar > 0 ? ratingLabels[selectedReviewStar] : 'Выберите оценку'}</strong>
@@ -3135,24 +2634,17 @@ function renderReviewForm() {
       </div>
 
       <div class="rating-picker" id="masterRatingPicker" style="display:none;">
-        ${[1,2,3,4,5].map(n => `
-          <button type="button" class="star-btn ${selectedMasterStar >= n ? 'active' : ''}" data-rating="${n}" onclick="setMasterRating(${n})" aria-label="Оценка мастера ${n}">
-            <i class="fas fa-star"></i>
-          </button>
-        `).join('')}
+        ${[1,2,3,4,5].map(n => `<button type="button" class="star-btn ${selectedMasterStar >= n ? 'active' : ''}" onclick="setMasterRating(${n})"><i class="fas fa-star"></i></button>`).join('')}
       </div>
 
       <div style="margin-top:16px;">
-        <label style="display:block;font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">
-          💬 Расскажите о вашем опыте
-        </label>
-        <textarea id="reviewText" placeholder="Что вам понравилось? Что можно улучшить? Ваш отзыв поможет другим клиентам..." maxlength="1000" rows="5" oninput="updateCharCounter(this)"></textarea>
+        <label style="display:block;font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">💬 Расскажите о вашем опыте</label>
+        <textarea id="reviewText" placeholder="Что вам понравилось? Что можно улучшить?" maxlength="1000" rows="5" oninput="updateCharCounter(this)"></textarea>
         <div class="char-counter" id="charCounter">0 / 1000</div>
       </div>
 
-      <!-- ФОТО -->
       <div class="photo-upload-block">
-        <label class="photo-upload-label">📸 Добавьте фото (до ${MAX_REVIEW_PHOTOS} шт, до 200 КБ каждое)</label>
+        <label class="photo-upload-label">📸 Добавьте фото (до ${MAX_REVIEW_PHOTOS} шт, до 200 КБ)</label>
         <div class="photo-grid" id="photoGrid">
           ${photosHtml}
           ${canAddMore ? `
@@ -3169,15 +2661,12 @@ function renderReviewForm() {
         <button class="btn btn-pulse" onclick="submitReview()">
           <i class="fas fa-paper-plane"></i> Отправить отзыв
         </button>
-        <div class="hint">
-          <i class="fas fa-shield-alt"></i> Ваш отзыв появится сразу после отправки
-        </div>
+        <div class="hint"><i class="fas fa-shield-alt"></i> Ваш отзыв появится сразу после отправки</div>
       </div>
     </div>
   `;
 }
 
-/* --- 4. Тулбар --- */
 function renderReviewsToolbar() {
   const total = allReviews.length;
   const mineCount = currentUser ? allReviews.filter(r => r.userId === currentUser.uid).length : 0;
@@ -3203,7 +2692,6 @@ function renderReviewsToolbar() {
   `;
 }
 
-/* --- 5. Список отзывов --- */
 function renderReviewList() {
   let reviews = allReviews.filter(r => r.isPublished !== false);
 
@@ -3212,11 +2700,7 @@ function renderReviewList() {
   else if (reviewFilter === 'photos') reviews = reviews.filter(r => (r.photos || []).length > 0);
   else if (reviewFilter === 'mine' && currentUser) reviews = reviews.filter(r => r.userId === currentUser.uid);
 
-  const getTime = (r) => {
-    if (r.createdAt?.toMillis) return r.createdAt.toMillis();
-    if (r.createdAt?.seconds) return r.createdAt.seconds * 1000;
-    return new Date(r.createdAt).getTime() || 0;
-  };
+  const getTime = (r) => toMillis(r.createdAt);
   if (reviewSort === 'new') reviews.sort((a, b) => getTime(b) - getTime(a));
   else if (reviewSort === 'old') reviews.sort((a, b) => getTime(a) - getTime(b));
   else if (reviewSort === 'high') reviews.sort((a, b) => (b.rating || 0) - (a.rating || 0));
@@ -3246,7 +2730,7 @@ function renderReviewCard(r) {
 
   const dateStr = (() => {
     try {
-      const d = r.createdAt?.toDate ? r.createdAt.toDate() : new Date(r.createdAt);
+      const d = new Date(r.createdAt);
       if (isNaN(d.getTime())) return '';
       return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' });
     } catch { return ''; }
@@ -3285,7 +2769,6 @@ function renderReviewCard(r) {
   `;
 }
 
-/* --- 6. Мои отзывы --- */
 function renderMyReviewsBlock() {
   if (!currentUser) return '';
   const mine = allReviews.filter(r => r.userId === currentUser.uid);
@@ -3298,9 +2781,6 @@ function renderMyReviewsBlock() {
   `;
 }
 
-/* ============================================
-   ОБРАБОТЧИКИ ФОРМЫ
-   ============================================ */
 const RATING_LABELS = ['', 'Ужасно', 'Плохо', 'Нормально', 'Хорошо', 'Отлично'];
 
 window.setSalonRating = function(n) {
@@ -3347,30 +2827,18 @@ window.updateCharCounter = function(textarea) {
   else if (len > 850) counter.classList.add('warn');
 };
 
-/* --- Фото --- */
 window.handleReviewPhotoSelect = async function(event) {
   const file = event.target.files[0];
   if (!file) return;
-  if (reviewPhotos.length >= MAX_REVIEW_PHOTOS) {
-    showToast(`Максимум ${MAX_REVIEW_PHOTOS} фото`, 'error');
-    return;
-  }
-  if (!file.type.startsWith('image/')) {
-    showToast('Только изображения', 'error');
-    return;
-  }
-  if (file.size > MAX_PHOTO_SIZE * 4) { // допускаем до 800 КБ, сожмём
-    showToast('Файл слишком большой (макс. 800 КБ)', 'error');
-    return;
-  }
+  if (reviewPhotos.length >= MAX_REVIEW_PHOTOS) { showToast(`Максимум ${MAX_REVIEW_PHOTOS} фото`, 'error'); return; }
+  if (!file.type.startsWith('image/')) { showToast('Только изображения', 'error'); return; }
+  if (file.size > 800 * 1024) { showToast('Файл слишком большой (макс. 800 КБ)', 'error'); return; }
   try {
     const compressed = await compressImage(file, 800, 0.75);
     reviewPhotos.push(compressed);
     renderReviews();
     showToast(`Фото добавлено (${reviewPhotos.length}/${MAX_REVIEW_PHOTOS})`, 'success', 2000);
-  } catch (e) {
-    showToast('Ошибка загрузки фото', 'error');
-  }
+  } catch (e) { showToast('Ошибка загрузки фото', 'error'); }
 };
 
 window.removeReviewPhoto = function(idx) {
@@ -3378,15 +2846,8 @@ window.removeReviewPhoto = function(idx) {
   renderReviews();
 };
 
-window.setReviewFilter = function(filter) {
-  reviewFilter = filter;
-  renderReviews();
-};
-
-window.setReviewSort = function(sort) {
-  reviewSort = sort;
-  renderReviews();
-};
+window.setReviewFilter = function(filter) { reviewFilter = filter; renderReviews(); };
+window.setReviewSort = function(sort) { reviewSort = sort; renderReviews(); };
 
 window.submitReview = async function() {
   if (!currentUser) { showToast('Войдите в аккаунт', 'error'); return; }
@@ -3410,14 +2871,13 @@ window.submitReview = async function() {
       salonRating: selectedReviewStar,
       masterRating: selectedMasterStar,
       text: text,
-      photos: reviewPhotos.slice(0, MAX_REVIEW_PHOTOS), // до 3 фото
+      photos: reviewPhotos.slice(0, MAX_REVIEW_PHOTOS),
       masterId: finalMasterId,
       masterName: finalMasterId ? (allMasters.find(m => m.id === finalMasterId)?.name || '') : '',
       createdAt: new Date().toISOString(),
       isModerated: false,
       isPublished: true
     });
-
     showToast('Спасибо за отзыв! 🎉', 'success', 5000);
     selectedReviewStar = 0;
     selectedMasterId = '';
@@ -3425,14 +2885,9 @@ window.submitReview = async function() {
     reviewPhotos = [];
     await loadReviews();
     renderReviews();
-  } catch (e) {
-    showToast('Ошибка: ' + e.message, 'error');
-  }
+  } catch (e) { showToast('Ошибка: ' + e.message, 'error'); }
 };
 
-/* ============================================
-   ЛАЙТБОКС
-   ============================================ */
 window.openLightbox = function(reviewId, photoIndex) {
   const review = allReviews.find(r => r.id === reviewId);
   if (!review || !review.photos || !review.photos.length) return;
@@ -3463,20 +2918,12 @@ window.closeLightbox = function() {
 };
 
 window.lightboxNext = function() {
-  if (lightboxIndex < lightboxPhotos.length - 1) {
-    lightboxIndex++;
-    updateLightbox();
-  }
+  if (lightboxIndex < lightboxPhotos.length - 1) { lightboxIndex++; updateLightbox(); }
 };
-
 window.lightboxPrev = function() {
-  if (lightboxIndex > 0) {
-    lightboxIndex--;
-    updateLightbox();
-  }
+  if (lightboxIndex > 0) { lightboxIndex--; updateLightbox(); }
 };
 
-// Клавиатура для лайтбокса
 document.addEventListener('keydown', (e) => {
   const lb = document.getElementById('lightbox');
   if (!lb || !lb.classList.contains('active')) return;
@@ -3546,7 +2993,7 @@ function renderComments(postId) {
     if (c.parentId && comments[c.parentId]) { if (!tree[c.parentId]) tree[c.parentId] = []; tree[c.parentId].push(c); }
     else if (!c.parentId) roots.push(c);
   });
-  const getTime = (c) => c.createdAt?.toMillis?.() || c.createdAt?.seconds * 1000 || new Date(c.createdAt).getTime() || 0;
+  const getTime = (c) => toMillis(c.createdAt);
   roots.sort((a, b) => getTime(a) - getTime(b));
   Object.keys(tree).forEach(k => tree[k].sort((a, b) => getTime(a) - getTime(b)));
   container.innerHTML = roots.map(c => renderCommentTree(c, comments, tree, postId)).join('');
@@ -3570,7 +3017,7 @@ function renderCommentTree(comment, allComments, tree, postId, level = 0) {
     <div class="comment-header">
       <div class="avatar">${comment.userPhoto ? `<img src="${comment.userPhoto}" />` : (comment.userName || '?').charAt(0).toUpperCase()}</div>
       <span class="author">${escapeHTML(comment.userName || 'Аноним')}</span>
-      <span class="time">${formatDate(comment.createdAt?.toDate?.() || comment.createdAt || new Date())}</span>
+      <span class="time">${formatDate(comment.createdAt)}</span>
     </div>
     ${isDeleted ? '<div class="comment-text deleted">[Удалён]</div>' : `<div class="comment-text">${escapeHTML(comment.text || '')}</div>`}
     ${actionsHtml}
@@ -3633,7 +3080,7 @@ window.deleteComment = async function(id) {
 };
 
 /* ============================================
-   КАБИНЕТ (карта)
+   КАБИНЕТ
    ============================================ */
 function getCvvForUser(uid) {
   let hash = 0;
@@ -3801,11 +3248,12 @@ window.changeCardDesign = async function(id) {
 };
 
 /* ============================================
-   QR-КОД
+   ✅ НОВЫЙ QR — работает на iPhone
    ============================================ */
 function generateHMAC(data, secret) {
   return CryptoJS.HmacSHA256(data, secret).toString(CryptoJS.enc.Hex);
 }
+
 function generateQRToken(userId) {
   const ts = Math.floor(Date.now() / 1000);
   const data = `${userId}:${ts}`;
@@ -3827,34 +3275,51 @@ window.showQRCode = function() {
 async function generateAndRenderQR() {
   try {
     const token = generateQRToken(currentUser.uid);
+    // ✅ КЛЮЧЕВОЕ: QR содержит URL со ссылкой, чтобы камера iPhone открыла сайт
+    const qrUrl = `${SITE_URL}?qr=${encodeURIComponent(token)}`;
+
     const container = document.getElementById('qrContainer');
     if (!container) return;
     container.innerHTML = '';
+
+    // ✅ Используем библиотеку qrcode (Soldair) — работает на iPhone
     if (typeof QRCode === 'undefined') {
-      showToast('Библиотека QR не загружена', 'error');
+      console.error('❌ Библиотека qrcode не загружена');
+      showToast('Библиотека QR не загружена. Обновите страницу.', 'error');
       return;
     }
-    const qrDiv = document.createElement('div');
-    qrDiv.style.padding = '12px';
-    qrDiv.style.background = '#fff';
-    qrDiv.style.borderRadius = '12px';
-    qrDiv.style.display = 'inline-block';
-    container.appendChild(qrDiv);
-    new QRCode(qrDiv, {
-      text: token, width: 320, height: 320,
-      colorDark: '#000000', colorLight: '#FFFFFF',
-      correctLevel: QRCode.CorrectLevel.H
+
+    const canvas = document.createElement('canvas');
+    canvas.style.width = '320px';
+    canvas.style.height = '320px';
+    canvas.style.display = 'block';
+    canvas.style.borderRadius = '12px';
+    container.appendChild(canvas);
+
+    // ✅ Генерируем QR с ПРАВИЛЬНЫМИ настройками для iPhone:
+    // - width: 400 (не 320!) — крупные модули лучше распознаются
+    // - margin: 4 (тихий zone по стандарту)
+    // - errorCorrectionLevel: 'M' (не 'H'!) — iPhone лучше читает M
+    // - color: { dark: '#000', light: '#fff' } — максимальный контраст
+    await QRCode.toCanvas(canvas, qrUrl, {
+      width: 400,
+      margin: 4,
+      errorCorrectionLevel: 'M',
+      color: { dark: '#000000FF', light: '#FFFFFFFF' }
     });
-    await new Promise(r => setTimeout(r, 100));
-    const canvas = qrDiv.querySelector('canvas');
-    if (canvas) {
-      canvas.style.width = '320px';
-      canvas.style.height = '320px';
-      canvas.style.imageRendering = 'pixelated';
-    }
+
+    // Масштабируем для отображения
+    canvas.style.width = '320px';
+    canvas.style.height = '320px';
+    canvas.style.imageRendering = 'pixelated';
+
+    console.log('✅ QR-код (URL):', qrUrl);
     qrSecondsLeft = QR_LIFETIME;
     updateQRTimerDisplay();
-  } catch (e) { showToast('Ошибка QR: ' + e.message, 'error'); }
+  } catch (e) {
+    console.error('Ошибка QR:', e);
+    showToast('Ошибка генерации QR: ' + e.message, 'error');
+  }
 }
 
 function startQRTimer() {
@@ -3867,9 +3332,11 @@ function startQRTimer() {
     if (qrSecondsLeft <= 0) generateAndRenderQR();
   }, 1000);
 }
+
 function stopQRTimer() {
   if (qrTimerInterval) { clearInterval(qrTimerInterval); qrTimerInterval = null; }
 }
+
 function updateQRTimerDisplay() {
   const m = Math.floor(qrSecondsLeft / 60);
   const s = qrSecondsLeft % 60;
@@ -3878,12 +3345,133 @@ function updateQRTimerDisplay() {
   if (t) t.textContent = `${m}:${String(s).padStart(2, '0')}`;
   if (f) f.style.width = (qrSecondsLeft / QR_LIFETIME) * 100 + '%';
 }
+
 window.closeQRModal = function() {
   const modal = document.getElementById('qrModal');
   if (modal) modal.classList.remove('active');
   document.body.style.overflow = '';
   stopQRTimer();
 };
+
+/* ✅ Проверка ?qr= в URL — для перехода с камеры iPhone */
+async function checkQRParam() {
+  const params = new URLSearchParams(window.location.search);
+  const qrToken = params.get('qr');
+  if (!qrToken) return;
+
+  // Очищаем URL, чтобы не мозолил глаза
+  try {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } catch (e) {}
+
+  showToast('📱 QR-код распознан. Проверяем...', 'info', 3000);
+
+  // Разбираем токен
+  const parts = qrToken.split(':');
+  if (parts.length !== 4 || parts[0] !== 'ST1') {
+    showToast('❌ Неверный формат QR-кода', 'error', 5000);
+    return;
+  }
+  const [, userId, timestampStr, hmac] = parts;
+  const timestamp = parseInt(timestampStr);
+  const now = Math.floor(Date.now() / 1000);
+  const age = now - timestamp;
+
+  if (age > QR_LIFETIME) {
+    showToast(`❌ QR-код истёк (${age} сек назад)`, 'error', 6000);
+    return;
+  }
+
+  const data = `${userId}:${timestamp}`;
+  const expectedHmac = CryptoJS.HmacSHA256(data, QR_SECRET).toString(CryptoJS.enc.Hex);
+  if (expectedHmac !== hmac) {
+    showToast('❌ Подпись QR-кода недействительна', 'error', 6000);
+    return;
+  }
+
+  // Ищем пользователя
+  try {
+    const userDoc = await getDoc(doc(db, 'users', userId));
+    if (!userDoc.exists()) {
+      showToast('❌ Пользователь не найден', 'error', 5000);
+      return;
+    }
+    const userData = userDoc.data();
+
+    // Если это сам пользователь — открываем кабинет
+    if (currentUser && currentUser.uid === userId) {
+      navigateTo('cabinet');
+      showToast(`✅ Добро пожаловать, ${userData.name}!`, 'success', 4000);
+      return;
+    }
+
+    // Иначе — показываем публичный профиль клиента
+    showPublicProfile(userData, userId);
+  } catch (e) {
+    console.error(e);
+    showToast('Ошибка загрузки профиля: ' + e.message, 'error');
+  }
+}
+
+/* Публичный профиль (для админа, сканирующего QR) */
+function showPublicProfile(userData, userId) {
+  // Создаём модалку динамически
+  let modal = document.getElementById('publicProfileModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.id = 'publicProfileModal';
+    modal.innerHTML = `
+      <div class="modal" style="max-width:440px;">
+        <button class="modal-close" onclick="document.getElementById('publicProfileModal').classList.remove('active');document.body.style.overflow='';">&times;</button>
+        <div id="publicProfileContent"></div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  const photo = userData.photoURL || '';
+  const initial = (userData.name || '?').charAt(0).toUpperCase();
+
+  document.getElementById('publicProfileContent').innerHTML = `
+    <div style="text-align:center;padding:12px 0;">
+      <div style="font-size:38px;color:var(--gold);margin-bottom:8px;">📱</div>
+      <h2 style="padding-right:0;text-align:center;">Карта <span class="gold-text">клиента</span></h2>
+      <p class="subtitle" style="text-align:center;">QR-код успешно распознан</p>
+    </div>
+
+    <div style="text-align:center;margin:20px 0;">
+      <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;border:3px solid var(--gold);background:var(--gold-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:36px;font-weight:800;margin:0 auto;">
+        ${photo ? `<img src="${photo}" style="width:100%;height:100%;object-fit:cover;">` : initial}
+      </div>
+      <div style="font-size:20px;font-weight:700;margin-top:12px;">${escapeHTML(userData.name || 'Без имени')}</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">${escapeHTML(userData.cardId || '')}</div>
+    </div>
+
+    <div style="background:linear-gradient(145deg, rgba(201,169,110,0.15), rgba(201,169,110,0.03));border:1px solid var(--border-color);border-radius:16px;padding:20px;text-align:center;margin:16px 0;">
+      <div style="font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;">☀️ Баланс</div>
+      <div style="font-size:48px;font-weight:900;color:var(--gold);line-height:1;margin:6px 0;">${userData.minutes || 0}</div>
+      <div style="font-size:12px;color:var(--text-muted);">минут</div>
+    </div>
+
+    <div style="background:rgba(39,174,96,0.1);border:1px solid rgba(39,174,96,0.3);border-radius:12px;padding:14px;text-align:center;font-size:13px;color:#27AE60;font-weight:600;">
+      ✅ QR-код валиден и действителен
+    </div>
+
+    <div style="margin-top:20px;text-align:center;font-size:12px;color:var(--text-muted);">
+      Покажите этот экран администратору салона для списания минут
+    </div>
+  `;
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
 
 /* ============================================
    ПРОФИЛЬ
@@ -4097,7 +3685,6 @@ window.loginWithYandex = function() {
   showToast('Вход через Яндекс временно недоступен. Используйте email.', 'info');
 };
 
-/* Тема */
 function initTheme() {
   const saved = localStorage.getItem('theme');
   if (saved === 'light') {
@@ -4120,7 +3707,6 @@ window.toggleTheme = function() {
   }
 };
 
-/* События */
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('scrollTop');
   if (btn) btn.classList.toggle('visible', window.pageYOffset > 400);
@@ -4150,7 +3736,6 @@ document.querySelectorAll('.modal-overlay').forEach(modal => {
   });
 });
 
-/* Старт */
 initTheme();
 await initData();
 
@@ -4159,6 +3744,7 @@ console.log('👩‍🎨 Мастеров:', allMasters.length);
 console.log('💇 Услуг:', allServices.length);
 console.log('📝 Постов:', allBlogPosts.length);
 console.log('⭐ Отзывов:', allReviews.length);
+console.log('✅ QR теперь содержит URL: камера iPhone откроет сайт');
 </script>
 </body>
 </html>
