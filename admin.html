@@ -119,9 +119,6 @@ body {
 .login-box .back-link { display: inline-block; margin-top: 20px; color: var(--text-muted); font-size: 13px; text-decoration: none; }
 .login-box .back-link:hover { color: var(--gold); }
 .login-box .shield-note { margin-top: 18px; font-size: 12px; color: var(--text-faint); }
-.login-box .auth-hint { margin-top: 16px; padding: 12px 14px; background: var(--blue-soft); border-radius: var(--radius-sm); font-size: 12px; color: var(--text-secondary); text-align: left; line-height: 1.6; }
-.login-box .auth-hint strong { color: var(--blue); }
-.login-box .auth-hint code { background: var(--bg-tertiary); padding: 2px 6px; border-radius: 4px; color: var(--gold); font-family: monospace; font-size: 11px; }
 
 /* BTN */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; min-height: 40px; background: var(--gold-gradient); background-size: 200% auto; color: #1A1410; font-weight: 600; font-size: 13.5px; border: none; border-radius: 10px; cursor: pointer; transition: var(--transition); font-family: 'Inter', sans-serif; white-space: nowrap; }
@@ -174,14 +171,9 @@ body {
 .nav-item .nav-icon { width: 20px; text-align: center; font-size: 15px; flex-shrink: 0; }
 .nav-item .nav-badge { margin-left: auto; font-size: 10px; padding: 2px 8px; border-radius: 20px; background: var(--gold-soft); color: var(--gold); font-weight: 700; }
 .nav-item .nav-badge.red { background: var(--red-soft); color: var(--red); }
-.nav-item.dev-only { background: linear-gradient(90deg, rgba(52, 152, 219, 0.08), transparent); border: 1px dashed rgba(52, 152, 219, 0.3); }
-.nav-item.dev-only:hover { background: rgba(52, 152, 219, 0.12); border-color: var(--blue); }
-.nav-item.dev-only.active { background: rgba(52, 152, 219, 0.15); color: var(--blue); border-style: solid; }
-.nav-item.dev-only.active::before { background: linear-gradient(135deg, #3498DB, #5DADE2); }
 .sidebar-footer { padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 6px; }
 .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; background: var(--bg-card); font-size: 13px; }
-.sidebar-user .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--gold-gradient); display: flex; align-items: center; justify-content: center; color: #1A1410; font-weight: 800; font-size: 13px; flex-shrink: 0; overflow: hidden; }
-.sidebar-user .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.sidebar-user .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--gold-gradient); display: flex; align-items: center; justify-content: center; color: #1A1410; font-weight: 800; font-size: 13px; flex-shrink: 0; }
 .sidebar-user .user-name { font-weight: 600; color: var(--text-primary); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sidebar-user .user-role { font-size: 11px; color: var(--text-muted); }
 
@@ -204,7 +196,6 @@ body {
 
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; }
 .kpi-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 18px; transition: var(--transition); position: relative; overflow: hidden; }
-.kpi-card.clickable { cursor: pointer; }
 .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold-gradient); opacity: 0; transition: opacity 0.3s ease; }
 .kpi-card:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
 .kpi-card:hover::before { opacity: 1; }
@@ -224,25 +215,6 @@ body {
 .kpi-card .kpi-value { font-size: 32px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; color: var(--text-primary); animation: countUp 0.5s ease; }
 .kpi-card .kpi-label { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
 .kpi-card .kpi-hint { font-size: 11px; color: var(--text-faint); margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color); }
-.kpi-card .kpi-expand { position: absolute; bottom: 8px; right: 12px; font-size: 11px; color: var(--text-faint); opacity: 0.5; }
-.kpi-card.clickable:hover .kpi-expand { opacity: 1; color: var(--gold); }
-
-/* DRILLDOWN */
-.drilldown-panel { background: linear-gradient(145deg, rgba(201, 169, 110, 0.08), rgba(201, 169, 110, 0.02)); border: 1px solid var(--border-hover); border-left: 3px solid var(--gold); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px; animation: fadeInUp 0.4s ease; }
-.drilldown-panel.hidden { display: none; }
-.drilldown-panel .dd-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
-.drilldown-panel .dd-title { font-size: 16px; font-weight: 800; color: var(--gold); display: flex; align-items: center; gap: 8px; }
-.drilldown-panel .dd-close { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-muted); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: var(--transition); }
-.drilldown-panel .dd-close:hover { background: var(--red-soft); color: var(--red); border-color: var(--red); }
-.drilldown-panel .dd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
-.drilldown-panel .dd-stat { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
-.drilldown-panel .dd-stat .dd-val { font-size: 22px; font-weight: 800; color: var(--gold); line-height: 1.1; }
-.drilldown-panel .dd-stat .dd-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; font-weight: 600; }
-.drilldown-panel .dd-list { max-height: 320px; overflow-y: auto; }
-.drilldown-panel .dd-list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--border-color); font-size: 13px; gap: 8px; }
-.drilldown-panel .dd-list-item:last-child { border-bottom: none; }
-.drilldown-panel .dd-list-item .dd-name { color: var(--text-secondary); font-weight: 500; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.drilldown-panel .dd-list-item .dd-val { color: var(--gold); font-weight: 700; flex-shrink: 0; }
 
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
@@ -276,7 +248,6 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 .badge.red { background: var(--red-soft); color: var(--red); }
 .badge.blue { background: var(--blue-soft); color: var(--blue); }
 .badge.purple { background: var(--purple-soft); color: var(--purple); }
-.badge.orange { background: var(--orange-soft); color: var(--orange); }
 .badge.muted { background: var(--bg-tertiary); color: var(--text-muted); }
 .stars-inline { color: #F5B342; letter-spacing: 1px; font-size: 13px; }
 
@@ -428,22 +399,20 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 .toast.success { border-left: 3px solid var(--green); }
 .toast.error { border-left: 3px solid var(--red); }
 .toast.info { border-left: 3px solid var(--gold); }
-.toast.warning { border-left: 3px solid var(--yellow); }
 .toast .toast-icon { font-size: 18px; flex-shrink: 0; }
 .toast .toast-close { margin-left: auto; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; padding: 4px; }
 .toast.hide { opacity: 0; transform: translateX(50px); transition: all 0.3s ease; }
 
-/* ============================================================
-   НОВЫЕ СТИЛИ — ДОБАВЛЕНО (модерация, пользователи, роли)
-   ============================================================ */
+/* ============================================
+   НОВЫЕ СТИЛИ (все в самом конце — ничего не сломают)
+   ============================================ */
 
-/* Role badges */
+/* Роли и статусы */
 .role-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 .role-badge.developer { background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(52, 152, 219, 0.1)); color: var(--blue); border: 1px solid rgba(52, 152, 219, 0.4); }
 .role-badge.admin { background: linear-gradient(135deg, rgba(201, 169, 110, 0.2), rgba(201, 169, 110, 0.1)); color: var(--gold); border: 1px solid rgba(201, 169, 110, 0.4); }
 .role-badge.user { background: var(--bg-tertiary); color: var(--text-muted); border: 1px solid var(--border-color); }
 
-/* Status badges */
 .status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 10.5px; font-weight: 700; }
 .status-badge.active { background: var(--green-soft); color: var(--green); }
 .status-badge.banned { background: var(--red-soft); color: var(--red); }
@@ -451,7 +420,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 .status-badge.verified { background: var(--blue-soft); color: var(--blue); }
 .status-badge.unverified { background: var(--orange-soft); color: var(--orange); }
 
-/* Moderation tabs */
+/* Модерация комментариев */
 .moderation-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
 .moderation-tab { padding: 8px 16px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-secondary); font-size: 13px; font-weight: 600; cursor: pointer; transition: var(--transition-fast); font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 6px; }
 .moderation-tab:hover { border-color: var(--gold); color: var(--gold); }
@@ -459,7 +428,6 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 .moderation-tab .count { background: var(--bg-tertiary); padding: 1px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; }
 .moderation-tab.active .count { background: var(--gold); color: #1A1410; }
 
-/* Moderation cards */
 .moderation-list { display: flex; flex-direction: column; gap: 12px; }
 .moderation-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 16px 18px; transition: var(--transition); }
 .moderation-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-hover); }
@@ -478,7 +446,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 .moderation-card .mod-post-link a:hover { text-decoration: underline; }
 .moderation-card .mod-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-/* Ban modal */
+/* Бан */
 .ban-duration-picker { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin: 12px 0; }
 .ban-duration-option { padding: 12px 10px; background: var(--bg-card); border: 2px solid var(--border-color); border-radius: var(--radius-sm); cursor: pointer; text-align: center; transition: var(--transition-fast); font-family: 'Inter', sans-serif; }
 .ban-duration-option:hover { border-color: var(--gold); background: var(--gold-soft); }
@@ -486,18 +454,16 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 .ban-duration-option .dur-emoji { font-size: 20px; display: block; margin-bottom: 4px; }
 .ban-duration-option .dur-label { font-size: 12.5px; font-weight: 600; }
 
-/* Ban reason textarea */
 .ban-reason-input { width: 100%; padding: 12px 14px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); font-size: 14px; font-family: 'Inter', sans-serif; resize: vertical; min-height: 80px; }
 .ban-reason-input:focus { outline: none; border-color: var(--gold); background: rgba(201, 169, 110, 0.05); }
 
-/* Device ban toggle */
 .device-ban-toggle { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition-fast); }
 .device-ban-toggle:hover { border-color: var(--gold); background: var(--gold-soft); }
 .device-ban-toggle input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--gold); cursor: pointer; flex-shrink: 0; }
 .device-ban-toggle .dev-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
 .device-ban-toggle .dev-text strong { color: var(--gold); }
 
-/* Users table compact */
+/* Мини-статистика пользователей */
 .users-stats-mini { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 16px; }
 .users-stat-mini { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
 .users-stat-mini .usm-val { font-size: 22px; font-weight: 800; color: var(--gold); line-height: 1.1; }
@@ -506,23 +472,6 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 .users-stat-mini.green .usm-val { color: var(--green); }
 .users-stat-mini.blue .usm-val { color: var(--blue); }
 
-/* Consent info block */
-.consent-block { background: rgba(52, 152, 219, 0.05); border: 1px solid rgba(52, 152, 219, 0.2); border-radius: var(--radius-sm); padding: 14px 16px; margin-top: 12px; font-size: 12.5px; line-height: 1.7; color: var(--text-secondary); }
-.consent-block h5 { font-size: 13px; color: var(--blue); font-weight: 700; margin-bottom: 8px; }
-.consent-block .consent-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed var(--border-color); gap: 12px; }
-.consent-block .consent-row:last-child { border-bottom: none; }
-.consent-block .consent-row .c-label { color: var(--text-muted); }
-.consent-block .consent-row .c-val { color: var(--text-primary); font-weight: 600; text-align: right; }
-.consent-block .consent-row .c-val.yes { color: var(--green); }
-.consent-block .consent-row .c-val.no { color: var(--red); }
-
-/* ============================================================
-   АДАПТИВ
-   ============================================================ */
-@media (max-width: 1024px) {
-  .kpi-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
-  .main-content { padding: 20px 20px 60px; }
-}
 @media (max-width: 768px) {
   .sidebar { transform: translateX(-100%); box-shadow: 0 0 40px rgba(0, 0, 0, 0.6); }
   .sidebar.open { transform: translateX(0); animation: sidebarSlideIn 0.3s ease; }
@@ -555,7 +504,6 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
   .code-input-cell { width: 42px; height: 56px; font-size: 22px; border-radius: 10px; }
   .code-input-group { gap: 6px; }
   .code-balance-display .balance-number { font-size: 42px; }
-  .drilldown-panel .dd-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
@@ -567,28 +515,16 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
     <i class="fas fa-crown icon"></i>
     <h2>Вход в <span class="gold-text">админку</span></h2>
     <p class="subtitle">Студия №1 · Система управления</p>
-
-    <!-- Firebase Auth (основной) -->
-    <form id="firebaseLoginForm" onsubmit="loginWithFirebase(event)" autocomplete="off">
-      <input type="email" id="fbEmailInput" placeholder="Email" required autocomplete="email" />
-      <input type="password" id="fbPasswordInput" placeholder="Пароль" required autocomplete="current-password" />
-      <div class="error" id="fbLoginError"></div>
-      <button type="submit" class="btn" id="fbLoginBtn" style="width:100%;min-height:46px;font-size:15px;margin-top:8px;">
-        <i class="fas fa-shield-alt"></i> Войти
+    <form id="adminLoginForm" onsubmit="adminLogin(event)" autocomplete="off">
+      <input type="text" id="adminLoginInput" placeholder="Логин" required autocomplete="off" />
+      <input type="password" id="adminPasswordInput" placeholder="Пароль" required autocomplete="new-password" />
+      <div class="error" id="adminLoginError">Неверный логин или пароль</div>
+      <div class="attempts" id="adminLoginAttempts"></div>
+      <button type="submit" class="btn" id="loginSubmitBtn" style="width:100%;min-height:46px;font-size:15px;margin-top:8px;">
+        <i class="fas fa-lock"></i> Войти
       </button>
     </form>
-
-    <!-- Подсказка -->
-    <div class="auth-hint">
-      <strong>🔑 Вход по email:</strong><br>
-      · Разработчик: <code>glubkov2020@gmail.com</code><br>
-      · Владелица: <code>Studiia1@mail.ru</code><br>
-      <span style="opacity:0.7;font-size:11px;margin-top:6px;display:block;">
-        Пароль — тот, что вы задали при регистрации на сайте
-      </span>
-    </div>
-
-    <p class="shield-note"><i class="fas fa-shield-alt"></i> Защищённое соединение Firebase</p>
+    <p class="shield-note"><i class="fas fa-shield-alt"></i> Защищённое соединение</p>
     <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Вернуться на сайт</a>
   </div>
 </div>
@@ -602,7 +538,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
         <div class="logo-mark">S1</div>
         <div class="logo-text">Студия №1</div>
       </div>
-      <div class="sidebar-subtitle" id="sidebarSubtitle">Admin Panel</div>
+      <div class="sidebar-subtitle">Admin Panel</div>
     </div>
 
     <nav class="sidebar-nav">
@@ -655,20 +591,19 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
         <span>Пользователи</span>
       </div>
 
-      <!-- DEV-ONLY: Техническая консоль (видна только разработчику) -->
-      <div class="nav-item dev-only" data-tab="dev" id="devConsoleNavItem" onclick="goToDevConsole()" style="display:none;">
+      <a href="dev.html" class="nav-item" style="text-decoration:none;">
         <span class="nav-icon">👨‍💻</span>
-        <span>Техническая консоль</span>
+        <span>Dev-консоль</span>
         <span class="nav-badge" style="background:var(--blue-soft);color:var(--blue);">DEV</span>
-      </div>
+      </a>
     </nav>
 
     <div class="sidebar-footer">
-      <div class="sidebar-user" id="sidebarUser">
-        <div class="user-avatar" id="sidebarAvatar">A</div>
+      <div class="sidebar-user">
+        <div class="user-avatar">A</div>
         <div class="user-info">
-          <div class="user-name" id="sidebarUserName">Загрузка...</div>
-          <div class="user-role" id="sidebarUserRole">—</div>
+          <div class="user-name">Администратор</div>
+          <div class="user-role">Studio1Admin</div>
         </div>
       </div>
       <a href="index.html" class="btn btn-ghost btn-sm" style="width:100%;">
@@ -702,18 +637,15 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
     <div id="adminContent"></div>
   </main>
 </div>
-<!-- LOADING -->
+
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
   <div class="loading-text" id="loadingText">Загрузка данных...</div>
 </div>
 
-<!-- TOAST -->
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- ============================================
-     МОДАЛКА: ПРОФИЛЬ КЛИЕНТА (твоя, без изменений)
-     ============================================ -->
+<!-- ТВОЯ МОДАЛКА: ПРОФИЛЬ КЛИЕНТА -->
 <div class="modal-overlay" id="clientModal">
   <div class="modal modal-lg">
     <button class="modal-close" onclick="closeClientModal()">&times;</button>
@@ -721,9 +653,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
   </div>
 </div>
 
-<!-- ============================================
-     МОДАЛКА: РЕДАКТИРОВАНИЕ МАСТЕРА (твоя)
-     ============================================ -->
+<!-- ТВОЯ МОДАЛКА: РЕДАКТИРОВАНИЕ МАСТЕРА -->
 <div class="modal-overlay" id="masterEditModal">
   <div class="modal modal-lg">
     <button class="modal-close" onclick="closeMasterEdit()">&times;</button>
@@ -732,17 +662,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 </div>
 
 <!-- ============================================
-     НОВАЯ: ПРОСМОТР КОММЕНТАРИЯ (для модерации)
-     ============================================ -->
-<div class="modal-overlay" id="commentModal">
-  <div class="modal modal-lg">
-    <button class="modal-close" onclick="closeCommentModal()">&times;</button>
-    <div id="commentModalContent"></div>
-  </div>
-</div>
-
-<!-- ============================================
-     НОВАЯ: БАН ПОЛЬЗОВАТЕЛЯ
+     НОВАЯ МОДАЛКА: БАН ПОЛЬЗОВАТЕЛЯ
      ============================================ -->
 <div class="modal-overlay" id="banModal">
   <div class="modal">
@@ -750,10 +670,8 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
     <h2>🚫 Заблокировать <span class="gold-text">пользователя</span></h2>
     <p class="subtitle" id="banModalSubtitle">Выберите срок и причину блокировки</p>
 
-    <!-- Инфа о пользователе -->
     <div id="banUserInfo" style="margin-bottom:20px;"></div>
 
-    <!-- Форма бана -->
     <form id="banForm" onsubmit="applyBan(event)">
       <input type="hidden" id="banUserId" />
 
@@ -785,7 +703,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
       </div>
 
       <div class="form-group full-width" style="margin-bottom:14px;">
-        <label><i class="fas fa-align-left"></i> Причина (видна только админам)</label>
+        <label><i class="fas fa-align-left"></i> Причина</label>
         <textarea id="banReason" class="ban-reason-input" placeholder="Например: спам в комментариях, оскорбления, нарушение правил сайта..." required></textarea>
       </div>
 
@@ -808,7 +726,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 </div>
 
 <!-- ============================================
-     НОВАЯ: ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ ПОЛЬЗОВАТЕЛЯ
+     НОВАЯ МОДАЛКА: ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ
      ============================================ -->
 <div class="modal-overlay" id="deleteUserModal">
   <div class="modal modal-sm">
@@ -824,10 +742,9 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
         <li>✅ Профиль пользователя из Firestore</li>
         <li>✅ Его история операций с минутами</li>
         <li>✅ Согласия на обработку персональных данных</li>
-        <li>✅ Сессия в Firebase Auth (для полного удаления нужно вручную)</li>
       </ul>
       <p style="margin-top:10px;font-size:12px;color:var(--text-muted);">
-        Отзывы и комментарии останутся на сайте, но станут «от удалённого пользователя».
+        Отзывы и комментарии останутся, но станут «от удалённого пользователя».
       </p>
     </div>
 
@@ -850,49 +767,17 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 </div>
 
 <!-- ============================================
-     НОВАЯ: НАЗНАЧИТЬ РОЛЬ ПОЛЬЗОВАТЕЛЮ
+     НОВАЯ МОДАЛКА: ПРОСМОТР КОММЕНТАРИЯ
      ============================================ -->
-<div class="modal-overlay" id="promoteUserModal">
-  <div class="modal modal-sm">
-    <button class="modal-close" onclick="closePromoteUserModal()">&times;</button>
-    <h2>👑 Назначить <span class="gold-text">роль</span></h2>
-    <p class="subtitle">Изменение уровня доступа пользователя</p>
-
-    <div id="promoteUserInfo" style="margin:20px 0;"></div>
-
-    <form id="promoteUserForm" onsubmit="applyPromoteUser(event)">
-      <input type="hidden" id="promoteUserId" />
-
-      <div class="form-group full-width" style="margin-bottom:14px;">
-        <label><i class="fas fa-user-tag"></i> Новая роль</label>
-        <select id="promoteRole">
-          <option value="user">👤 Пользователь (обычный клиент)</option>
-          <option value="admin">👑 Администратор (владелец салона)</option>
-          <option value="developer">👨‍💻 Разработчик (техническая консоль)</option>
-        </select>
-      </div>
-
-      <div class="instructions" style="margin-bottom:14px;">
-        <h4><i class="fas fa-info-circle"></i> Что даёт роль</h4>
-        <ul>
-          <li><strong>👤 user</strong> — обычный клиент, карта минут, отзывы, комментарии</li>
-          <li><strong>👑 admin</strong> — полный доступ к admin.html (эта админка)</li>
-          <li><strong>👨‍💻 developer</strong> — admin.html + dev.html (техническая консоль)</li>
-        </ul>
-      </div>
-
-      <div style="display:flex;gap:8px;">
-        <button type="button" class="btn btn-ghost" onclick="closePromoteUserModal()" style="flex:1;">Отмена</button>
-        <button type="submit" class="btn" style="flex:1;">
-          <i class="fas fa-check"></i> Назначить
-        </button>
-      </div>
-    </form>
+<div class="modal-overlay" id="commentModal">
+  <div class="modal modal-lg">
+    <button class="modal-close" onclick="closeCommentModal()">&times;</button>
+    <div id="commentModalContent"></div>
   </div>
 </div>
 
 <!-- ============================================
-     НОВАЯ: ОБЩЕЕ ПОДТВЕРЖДЕНИЕ
+     УНИВЕРСАЛЬНОЕ ПОДТВЕРЖДЕНИЕ
      ============================================ -->
 <div class="modal-overlay" id="confirmModal">
   <div class="modal modal-sm">
@@ -908,20 +793,9 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
     </div>
   </div>
 </div>
-
-<!-- ============================================
-     НОВАЯ: ПРОСМОТР ПОЛЬЗОВАТЕЛЯ (общая инфа)
-     ============================================ -->
-<div class="modal-overlay" id="userDetailModal">
-  <div class="modal modal-lg">
-    <button class="modal-close" onclick="closeUserDetailModal()">&times;</button>
-    <div id="userDetailModalContent"></div>
-  </div>
-</div>
 <script type="module">
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
-import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -934,25 +808,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
 
-/* ============================================
-   КОНСТАНТЫ
-   ============================================ */
-
-// Хардкод-логин (fallback, если Firebase Auth недоступен)
 const ADMIN_CREDENTIALS = {
   login: 'Studio1Admin',
   password: 'K3m3r0v0#2026Secure!'
 };
 
-// Разрешённые email для админки
-const ALLOWED_EMAILS = {
-  'glubkov2020@gmail.com': 'developer',
-  'studiia1@mail.ru': 'admin'
-};
-
-// Коды клиентов
 const CODE_SECRET = 'STUDIO1_KEMEROVO_CODE_V2_X7K9M2P5Q8W3';
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const CODE_LENGTH = 6;
@@ -966,39 +827,7 @@ const RATE_LIMITS = {
 };
 
 /* ============================================
-   СОСТОЯНИЕ (расширено)
-   ============================================ */
-let currentAdminUser = null;   // Firebase Auth user
-let currentAdminRole = null;   // 'developer' | 'admin'
-let currentAdminData = null;   // Данные из users/{uid}
-let allMasters = [];
-let allBlogPosts = [];
-let allUsers = [];
-let allComments = [];
-let allReviews = [];
-let allTokens = [];
-let currentTab = 'dashboard';
-let clientSearch = '';
-let commentsFilter = 'all';      // all / pending / approved / rejected / deleted
-let usersFilter = 'all';         // all / active / banned / unverified / admin
-let usersSearchQuery = '';
-let isDataLoaded = false;
-let commentListeners = [];
-let currentScannedUser = null;
-let codeLogs = [];
-let charts = {};
-let clientSearchDebounce = null;
-let currentEditingMasterId = null;
-let editingServices = [];
-let editingPhotoData = null;
-let codeInputBuffer = ['', '', '', '', '', ''];
-
-// Новые
-let banSelectedDuration = '24h';
-let commentModalCurrentId = null;
-
-/* ============================================
-   УТИЛИТЫ (твои, без изменений)
+   УТИЛИТЫ (твои)
    ============================================ */
 function escapeHTML(str) {
   if (!str) return '';
@@ -1041,10 +870,9 @@ function pluralize(n, one, few, many) {
 
 function showToast(message, type = 'info', duration = 3500) {
   const container = document.getElementById('toastContainer');
-  if (!container) return;
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
-  const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+  const icons = { success: '✅', error: '❌', info: 'ℹ️' };
   toast.innerHTML = `<span class="toast-icon">${icons[type] || 'ℹ️'}</span><span>${message}</span><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>`;
   container.appendChild(toast);
   setTimeout(() => { toast.classList.add('hide'); setTimeout(() => toast.remove(), 300); }, duration);
@@ -1054,7 +882,6 @@ function showLoading(text = 'Загрузка...') {
   document.getElementById('loadingText').textContent = text;
   document.getElementById('loadingOverlay').classList.add('active');
 }
-
 function hideLoading() {
   document.getElementById('loadingOverlay').classList.remove('active');
 }
@@ -1104,30 +931,21 @@ async function findUserByCode(code) {
   if (!verifyCodeFormat(normalized)) {
     return { valid: false, error: 'Неверный формат кода (нужно 6 символов)' };
   }
-
   const currentTw = getCurrentTimeWindow();
   const windowsToCheck = [currentTw, currentTw - 1];
-
   let users = allUsers;
-  if (!users.length) {
-    await reloadUsers();
-    users = allUsers;
-  }
-
+  if (!users.length) { await reloadUsers(); users = allUsers; }
   for (const user of users) {
     if (!user.id) continue;
     for (const tw of windowsToCheck) {
       const expectedCode = generateClientCode(user.id, tw);
       if (expectedCode === normalized) {
         const used = await isCodeUsed(normalized, user.id, tw);
-        if (used) {
-          return { valid: false, error: 'Код уже был использован' };
-        }
+        if (used) return { valid: false, error: 'Код уже был использован' };
         return { valid: true, userId: user.id, timeWindow: tw, code: normalized };
       }
     }
   }
-
   return { valid: false, error: 'Код не найден. Проверьте правильность ввода.' };
 }
 
@@ -1157,207 +975,74 @@ function checkRateLimit(key) {
   }
   const attempts = RATE_LIMITS.codeAttempts.get(key).filter(t => now - t < RATE_LIMITS.windowMs);
   RATE_LIMITS.codeAttempts.set(key, attempts);
-
-  if (attempts.length >= RATE_LIMITS.maxCodeAttempts) {
-    return false;
-  }
+  if (attempts.length >= RATE_LIMITS.maxCodeAttempts) return false;
   attempts.push(now);
   return true;
 }
 
 /* ============================================
-   FIREBASE AUTH — ВХОД ЧЕРЕЗ EMAIL (НОВОЕ)
+   АВТОРИЗАЦИЯ (твоя)
    ============================================ */
+let loginAttempts = 0;
+const MAX_ATTEMPTS = 5;
+const BLOCK_TIME = 5 * 60 * 1000;
+let blockUntil = null;
 
-window.loginWithFirebase = async function(e) {
+window.adminLogin = function(e) {
   e.preventDefault();
-  const email = document.getElementById('fbEmailInput').value.trim().toLowerCase();
-  const password = document.getElementById('fbPasswordInput').value;
-  const errorEl = document.getElementById('fbLoginError');
-  const btn = document.getElementById('fbLoginBtn');
-
-  errorEl.style.display = 'none';
-
-  // Проверка на разрешённый email
-  if (!ALLOWED_EMAILS[email]) {
-    errorEl.textContent = 'У вас нет доступа к админ-панели';
-    errorEl.style.display = 'block';
+  if (blockUntil && Date.now() < blockUntil) {
+    const left = Math.ceil((blockUntil - Date.now()) / 1000);
+    const attemptsEl = document.getElementById('adminLoginAttempts');
+    attemptsEl.textContent = `⛔ Доступ заблокирован. Попробуйте через ${Math.floor(left / 60)} мин ${left % 60} сек.`;
+    attemptsEl.style.display = 'block';
     return;
   }
-
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner" style="animation:spin 0.8s linear infinite;"></i> Вход...';
-
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    // Дальше onAuthStateChanged обработает
-  } catch (error) {
-    console.error('Login error:', error);
-    let msg = 'Ошибка входа';
-    if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') msg = 'Неверный email или пароль';
-    else if (error.code === 'auth/user-not-found') msg = 'Аккаунт с таким email не найден. Зарегистрируйтесь на сайте.';
-    else if (error.code === 'auth/too-many-requests') msg = 'Слишком много попыток. Подождите пару минут.';
-    else if (error.code === 'auth/invalid-email') msg = 'Некорректный email';
-    else if (error.code === 'auth/network-request-failed') msg = 'Проблема с сетью. Проверьте соединение.';
-    else msg = error.message;
-    errorEl.textContent = msg;
-    errorEl.style.display = 'block';
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-shield-alt"></i> Войти';
+  if (blockUntil && Date.now() >= blockUntil) {
+    blockUntil = null;
+    loginAttempts = 0;
   }
-};
+  const login = document.getElementById('adminLoginInput').value.trim();
+  const password = document.getElementById('adminPasswordInput').value.trim();
+  const errorEl = document.getElementById('adminLoginError');
+  const attemptsEl = document.getElementById('adminLoginAttempts');
 
-/* Fallback — старый хардкод-логин (оставлен на всякий случай) */
-window.adminLoginLegacy = function(e) {
-  if (e) e.preventDefault();
-  const login = document.getElementById('adminLoginInput')?.value.trim();
-  const password = document.getElementById('adminPasswordInput')?.value.trim();
   if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
-    sessionStorage.setItem('admin_session_v5_legacy', btoa(JSON.stringify({
+    loginAttempts = 0;
+    blockUntil = null;
+    const sessionData = btoa(JSON.stringify({
       login: ADMIN_CREDENTIALS.login,
-      timestamp: Date.now()
-    })));
+      timestamp: Date.now(),
+      fingerprint: navigator.userAgent.slice(0, 32)
+    }));
+    sessionStorage.setItem('admin_session_v5', sessionData);
     document.getElementById('loginPage').style.display = 'none';
     document.getElementById('adminLayout').classList.add('active');
-    currentAdminRole = 'developer';
-    currentAdminUser = { email: 'legacy@admin', uid: 'legacy' };
     initAdmin();
   } else {
-    alert('Неверный логин или пароль');
-  }
-};
-
-/* ============================================
-   СЛУШАТЕЛЬ СОСТОЯНИЯ АВТОРИЗАЦИИ
-   ============================================ */
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const email = user.email.toLowerCase();
-
-    // Проверка на разрешённый email
-    if (!ALLOWED_EMAILS[email]) {
-      showToast('У вас нет доступа к админ-панели', 'error', 5000);
-      await signOut(auth);
-      return;
-    }
-
-    currentAdminUser = user;
-    currentAdminRole = ALLOWED_EMAILS[email];
-
-    // Загружаем данные из Firestore
-    try {
-      const d = await getDoc(doc(db, 'users', user.uid));
-      if (d.exists()) {
-        currentAdminData = d.data();
-      } else {
-        // Если документа нет — создаём
-        const newData = {
-          name: user.displayName || email.split('@')[0],
-          email: email,
-          phone: '',
-          photoURL: user.photoURL || '',
-          role: currentAdminRole,
-          createdAt: new Date().toISOString(),
-          minutes: 0,
-          history: []
-        };
-        await setDoc(doc(db, 'users', user.uid), newData);
-        currentAdminData = newData;
-      }
-    } catch (e) {
-      console.error('Error loading admin data:', e);
-      currentAdminData = { name: email.split('@')[0], role: currentAdminRole };
-    }
-
-    // Показ админки
-    document.getElementById('loginPage').style.display = 'none';
-    document.getElementById('adminLayout').classList.add('active');
-
-    // Настройка боковой панели
-    updateSidebarUser();
-
-    // Показ dev-кнопки только разработчику
-    if (currentAdminRole === 'developer') {
-      const devBtn = document.getElementById('devConsoleNavItem');
-      if (devBtn) devBtn.style.display = 'flex';
-      const subtitle = document.getElementById('sidebarSubtitle');
-      if (subtitle) subtitle.textContent = 'Developer Panel';
+    loginAttempts++;
+    const remaining = MAX_ATTEMPTS - loginAttempts;
+    if (loginAttempts >= MAX_ATTEMPTS) {
+      blockUntil = Date.now() + BLOCK_TIME;
+      attemptsEl.textContent = '⛔ Слишком много попыток. Доступ заблокирован на 5 минут.';
+      attemptsEl.style.display = 'block';
+      document.getElementById('loginSubmitBtn').disabled = true;
+      setTimeout(() => {
+        document.getElementById('loginSubmitBtn').disabled = false;
+        attemptsEl.style.display = 'none';
+        loginAttempts = 0;
+        blockUntil = null;
+      }, BLOCK_TIME);
     } else {
-      const devBtn = document.getElementById('devConsoleNavItem');
-      if (devBtn) devBtn.style.display = 'none';
-      const subtitle = document.getElementById('sidebarSubtitle');
-      if (subtitle) subtitle.textContent = 'Admin Panel';
+      errorEl.textContent = `Неверный логин или пароль. Осталось попыток: ${remaining}`;
+      errorEl.style.display = 'block';
     }
-
-    // Инициализация админки
-    initAdmin();
-
-  } else {
-    // Не авторизован
-    currentAdminUser = null;
-    currentAdminRole = null;
-    currentAdminData = null;
-    document.getElementById('loginPage').style.display = 'flex';
-    document.getElementById('adminLayout').classList.remove('active');
-  }
-});
-
-/* Обновление инфы о пользователе в боковой панели */
-function updateSidebarUser() {
-  const avatar = document.getElementById('sidebarAvatar');
-  const nameEl = document.getElementById('sidebarUserName');
-  const roleEl = document.getElementById('sidebarUserRole');
-
-  if (!currentAdminUser) return;
-
-  const name = currentAdminData?.name || currentAdminUser.displayName || currentAdminUser.email.split('@')[0];
-  const photo = currentAdminData?.photoURL || currentAdminUser.photoURL;
-  const roleText = currentAdminRole === 'developer' ? 'Разработчик' : 'Администратор';
-
-  if (nameEl) nameEl.textContent = name;
-  if (roleEl) roleEl.textContent = roleText;
-
-  if (avatar) {
-    if (photo) {
-      avatar.innerHTML = `<img src="${photo}" />`;
-    } else {
-      avatar.textContent = name.charAt(0).toUpperCase();
-    }
-  }
-}
-
-/* ============================================
-   ВЫХОД
-   ============================================ */
-window.adminLogout = async function() {
-  if (!confirm('Выйти из админки?')) return;
-  try {
-    sessionStorage.removeItem('admin_session_v5_legacy');
-    await signOut(auth);
-    // onAuthStateChanged сам покажет login-page
-  } catch (e) {
-    console.error(e);
-    location.reload();
+    document.getElementById('adminPasswordInput').value = '';
+    document.getElementById('adminPasswordInput').focus();
   }
 };
 
-/* ============================================
-   ПЕРЕХОД В ТЕХНИЧЕСКУЮ КОНСОЛЬ
-   ============================================ */
-window.goToDevConsole = function() {
-  if (currentAdminRole !== 'developer') {
-    showToast('Доступ только для разработчика', 'error');
-    return;
-  }
-  window.location.href = 'dev.html';
-};
-
-/* ============================================
-   ПРОВЕРКА LEGACY-СЕССИИ (fallback)
-   ============================================ */
-function checkLegacySession() {
-  const sessionData = sessionStorage.getItem('admin_session_v5_legacy');
+function checkSession() {
+  const sessionData = sessionStorage.getItem('admin_session_v5');
   if (!sessionData) return false;
   try {
     const parsed = JSON.parse(atob(sessionData));
@@ -1366,87 +1051,44 @@ function checkLegacySession() {
       return true;
     }
   } catch (e) {}
-  sessionStorage.removeItem('admin_session_v5_legacy');
+  sessionStorage.removeItem('admin_session_v5');
   return false;
 }
 
-// Если есть legacy-сессия — запускаем админку в обход Firebase Auth
-if (checkLegacySession()) {
-  currentAdminRole = 'developer';
-  currentAdminUser = { email: 'legacy@admin', uid: 'legacy', displayName: 'Legacy Admin' };
-  currentAdminData = { name: 'Legacy Admin', role: 'developer' };
-  document.getElementById('loginPage').style.display = 'none';
-  document.getElementById('adminLayout').classList.add('active');
-  updateSidebarUser();
-  const devBtn = document.getElementById('devConsoleNavItem');
-  if (devBtn) devBtn.style.display = 'flex';
-  setTimeout(() => initAdmin(), 100);
-}
+window.adminLogout = function() {
+  if (!confirm('Выйти из админки?')) return;
+  sessionStorage.removeItem('admin_session_v5');
+  location.reload();
+};
 
 /* ============================================
-   МОДАЛКИ — УТИЛИТЫ
+   СОСТОЯНИЕ
    ============================================ */
-window.closeConfirmModal = function() {
-  document.getElementById('confirmModal').classList.remove('active');
-};
+let allMasters = [];
+let allBlogPosts = [];
+let allUsers = [];
+let allComments = [];
+let allReviews = [];
+let allTokens = [];
+let currentTab = 'dashboard';
+let clientSearch = '';
+let commentsFilter = 'pending';
+let usersFilter = 'all';
+let usersSearchQuery = '';
+let isDataLoaded = false;
+let commentListeners = [];
+let currentScannedUser = null;
+let codeLogs = [];
+let charts = {};
+let clientSearchDebounce = null;
+let currentEditingMasterId = null;
+let editingServices = [];
+let editingPhotoData = null;
+let codeInputBuffer = ['', '', '', '', '', ''];
+let banSelectedDuration = '24h';
 
-window.showConfirm = function(title, text, onConfirm) {
-  document.getElementById('confirmTitle').textContent = title;
-  document.getElementById('confirmText').textContent = text;
-  const btn = document.getElementById('confirmActionBtn');
-  const newBtn = btn.cloneNode(true);
-  btn.parentNode.replaceChild(newBtn, btn);
-  newBtn.addEventListener('click', () => {
-    closeConfirmModal();
-    onConfirm();
-  });
-  document.getElementById('confirmModal').classList.add('active');
-};
-
-window.closeCommentModal = function() {
-  document.getElementById('commentModal').classList.remove('active');
-  commentModalCurrentId = null;
-};
-
-window.closeBanModal = function() {
-  document.getElementById('banModal').classList.remove('active');
-};
-
-window.closeDeleteUserModal = function() {
-  document.getElementById('deleteUserModal').classList.remove('active');
-};
-
-window.closePromoteUserModal = function() {
-  document.getElementById('promoteUserModal').classList.remove('active');
-};
-
-window.closeUserDetailModal = function() {
-  document.getElementById('userDetailModal').classList.remove('active');
-};
-
-// Закрытие по клику на фон
-document.querySelectorAll('.modal-overlay').forEach(m => {
-  m.addEventListener('click', function(e) {
-    if (e.target === this) {
-      this.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
-});
-
-// ESC — закрыть всё
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
-    document.body.style.overflow = '';
-  }
-});
-
-console.log('%c🎨 Admin Panel v5.0 (Firebase Auth)', 'color:#C9A96E;font-size:14px;font-weight:bold;');
-console.log('%c🔐 Разрешённые роли:', 'color:#E8D5A8;font-size:12px;', ALLOWED_EMAILS);
-</script>
 /* ============================================
-   ЗАГРУЗКА ДАННЫХ
+   ЗАГРУЗКА ДАННЫХ (твоя)
    ============================================ */
 async function loadAllData() {
   if (isDataLoaded) return;
@@ -1539,13 +1181,11 @@ async function reloadUsers() {
   allUsers = [];
   snap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
 }
-
 async function reloadMasters() {
   const snap = await getDocs(collection(db, 'masters'));
   allMasters = [];
   snap.forEach(d => allMasters.push({ id: d.id, ...d.data() }));
 }
-
 async function reloadReviews() {
   try {
     const snap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
@@ -1553,7 +1193,6 @@ async function reloadReviews() {
     snap.forEach(d => allReviews.push({ id: d.id, ...d.data() }));
   } catch (e) { allReviews = []; }
 }
-
 async function reloadBlog() {
   try {
     const snap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
@@ -1566,28 +1205,19 @@ function updateBadges() {
   const reviewsBadge = document.getElementById('reviewsBadge');
   if (reviewsBadge) {
     const pending = allReviews.filter(r => !r.isPublished).length;
-    if (pending > 0) {
-      reviewsBadge.textContent = pending;
-      reviewsBadge.style.display = 'inline-block';
-    } else {
-      reviewsBadge.style.display = 'none';
-    }
+    if (pending > 0) { reviewsBadge.textContent = pending; reviewsBadge.style.display = 'inline-block'; }
+    else reviewsBadge.style.display = 'none';
   }
-
   const commentsBadge = document.getElementById('commentsBadge');
   if (commentsBadge) {
-    const pendingComments = allComments.filter(c => c.status === 'pending').length;
-    if (pendingComments > 0) {
-      commentsBadge.textContent = pendingComments;
-      commentsBadge.style.display = 'inline-block';
-    } else {
-      commentsBadge.style.display = 'none';
-    }
+    const pending = allComments.filter(c => c.status === 'pending' && !c.isDeleted).length;
+    if (pending > 0) { commentsBadge.textContent = pending; commentsBadge.style.display = 'inline-block'; }
+    else commentsBadge.style.display = 'none';
   }
 }
 
 /* ============================================
-   НАВИГАЦИЯ
+   НАВИГАЦИЯ (твоя + users)
    ============================================ */
 const TAB_META = {
   dashboard: { emoji: '📊', title: 'Дашборд', subtitle: 'Общая сводка по салону' },
@@ -1598,7 +1228,7 @@ const TAB_META = {
   blog: { emoji: '📝', title: 'Блог', subtitle: 'Публикации и новости' },
   reviews: { emoji: '⭐', title: 'Отзывы', subtitle: 'Отзывы клиентов и рейтинг' },
   comments: { emoji: '💬', title: 'Комментарии', subtitle: 'Модерация комментариев' },
-  users: { emoji: '👥', title: 'Пользователи', subtitle: 'Управление аккаунтами и ролями' }
+  users: { emoji: '👥', title: 'Пользователи', subtitle: 'Управление аккаунтами' }
 };
 
 window.switchTab = function(tab) {
@@ -1619,9 +1249,8 @@ window.toggleSidebar = function(e) {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebarOverlay');
   const isOpen = sidebar.classList.contains('open');
-  if (isOpen) {
-    closeSidebar();
-  } else {
+  if (isOpen) { closeSidebar(); }
+  else {
     sidebar.classList.add('open');
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1631,17 +1260,14 @@ window.toggleSidebar = function(e) {
 window.closeSidebar = function() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebarOverlay');
-  if (sidebar) sidebar.classList.remove('open');
-  if (overlay) overlay.classList.remove('active');
-  if (window.innerWidth <= 768) {
-    document.body.style.overflow = '';
-  }
+  sidebar.classList.remove('open');
+  overlay.classList.remove('active');
+  if (window.innerWidth <= 768) document.body.style.overflow = '';
 };
 
 function renderContent(tab) {
   const container = document.getElementById('adminContent');
   const topActions = document.getElementById('topActions');
-  if (!container) return;
   topActions.innerHTML = '';
 
   switch (tab) {
@@ -1677,7 +1303,6 @@ function renderContent(tab) {
       break;
     case 'users':
       container.innerHTML = renderUsersAdmin();
-      setTimeout(attachUsersHandlers, 50);
       break;
   }
   if (tab === 'analytics') {
@@ -1693,7 +1318,7 @@ window.refreshAll = async function() {
 };
 
 /* ============================================
-   ДАШБОРД (обновлён: KPI кликабельны)
+   ДАШБОРД (твой оригинал)
    ============================================ */
 function renderDashboard() {
   const totalUsers = allUsers.length;
@@ -1706,7 +1331,7 @@ function renderDashboard() {
     : '—';
   const publishedPosts = allBlogPosts.filter(p => p.status !== 'draft').length;
   const activeComments = allComments.filter(c => !c.isDeleted).length;
-  const pendingComments = allComments.filter(c => c.status === 'pending').length;
+  const pendingComments = allComments.filter(c => c.status === 'pending' && !c.isDeleted).length;
 
   const todayStart = new Date();
   todayStart.setHours(0, 0, 0, 0);
@@ -1721,36 +1346,30 @@ function renderDashboard() {
   const topClients = [...allUsers].sort((a, b) => (b.minutes || 0) - (a.minutes || 0)).slice(0, 5);
 
   return `
-    <div id="dashboardDrilldown"></div>
-
     <div class="kpi-grid">
-      <div class="kpi-card clickable" onclick="openDrilldown('users')">
+      <div class="kpi-card">
         <div class="kpi-header"><div class="kpi-icon gold">👤</div></div>
         <div class="kpi-value">${formatNumber(totalUsers)}</div>
         <div class="kpi-label">Клиентов в базе</div>
         <div class="kpi-hint">Всего аккаунтов</div>
-        <span class="kpi-expand">нажмите →</span>
       </div>
-      <div class="kpi-card clickable" onclick="openDrilldown('minutes')">
+      <div class="kpi-card">
         <div class="kpi-header"><div class="kpi-icon orange">☀️</div></div>
         <div class="kpi-value">${formatNumber(totalMinutes)}</div>
         <div class="kpi-label">Минут на балансах</div>
         <div class="kpi-hint">Сумма по всем клиентам</div>
-        <span class="kpi-expand">нажмите →</span>
       </div>
-      <div class="kpi-card clickable" onclick="openDrilldown('masters')">
+      <div class="kpi-card">
         <div class="kpi-header"><div class="kpi-icon blue">👩‍🎨</div></div>
         <div class="kpi-value">${formatNumber(totalMasters)}</div>
         <div class="kpi-label">Мастеров</div>
         <div class="kpi-hint">${totalServices} ${pluralize(totalServices, 'услуга', 'услуги', 'услуг')}</div>
-        <span class="kpi-expand">нажмите →</span>
       </div>
-      <div class="kpi-card clickable" onclick="openDrilldown('rating')">
+      <div class="kpi-card">
         <div class="kpi-header"><div class="kpi-icon purple">⭐</div></div>
         <div class="kpi-value">${avgRating}</div>
         <div class="kpi-label">Средний рейтинг</div>
         <div class="kpi-hint">${totalReviews} ${pluralize(totalReviews, 'отзыв', 'отзыва', 'отзывов')}</div>
-        <span class="kpi-expand">нажмите →</span>
       </div>
       <div class="kpi-card">
         <div class="kpi-header"><div class="kpi-icon green">📝</div></div>
@@ -1758,7 +1377,7 @@ function renderDashboard() {
         <div class="kpi-label">Постов в блоге</div>
         <div class="kpi-hint">Опубликовано</div>
       </div>
-      <div class="kpi-card clickable" onclick="switchTab('comments')">
+      <div class="kpi-card" style="cursor:pointer;" onclick="switchTab('comments')">
         <div class="kpi-header">
           <div class="kpi-icon yellow">💬</div>
           ${pendingComments > 0 ? `<span class="kpi-trend down">⏳ ${pendingComments} ждут</span>` : ''}
@@ -1766,7 +1385,6 @@ function renderDashboard() {
         <div class="kpi-value">${formatNumber(activeComments)}</div>
         <div class="kpi-label">Комментариев</div>
         <div class="kpi-hint">${pendingComments > 0 ? `${pendingComments} на модерации` : 'Все проверены'}</div>
-        <span class="kpi-expand">к модерации →</span>
       </div>
       <div class="kpi-card">
         <div class="kpi-header"><div class="kpi-icon green">🆕</div></div>
@@ -1845,7 +1463,7 @@ function renderDashboard() {
       <div class="card-subtitle">Все данные хранятся в защищённой базе Firestore</div>
       <div class="grid-3" style="margin:0;gap:12px;">
         <div class="metric-mini">
-          <span class="mm-label" title="Всего документов во всех коллекциях Firestore">📦 Всего записей в БД:</span>
+          <span class="mm-label">📦 Всего записей в БД:</span>
           <span class="mm-value">${formatNumber(totalRecords)}</span>
         </div>
         <div class="metric-mini">
@@ -1857,134 +1475,9 @@ function renderDashboard() {
           <span class="mm-value">${new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'})}</span>
         </div>
       </div>
-      <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--border-color);font-size:11.5px;color:var(--text-faint);line-height:1.7;">
-        <strong>«Всего записей в БД»</strong> — это сумма всех документов в коллекциях Firestore:<br>
-        👤 Клиенты (${totalUsers}) + 👩‍🎨 Мастера (${totalMasters}) + ⭐ Отзывы (${totalReviews}) + 📝 Посты (${allBlogPosts.length}) + 💬 Комментарии (${allComments.length}) + 🔐 Коды (${allTokens.length})
-      </div>
     </div>
   `;
 }
-
-/* ============================================
-   DRILLDOWN — раскрытие карточек (новое)
-   ============================================ */
-window.openDrilldown = function(type) {
-  const dd = document.getElementById('dashboardDrilldown');
-  if (!dd) return;
-
-  // Если уже открыт этот же — закрываем
-  if (dd.dataset.type === type && dd.innerHTML) {
-    dd.innerHTML = '';
-    dd.dataset.type = '';
-    return;
-  }
-  dd.dataset.type = type;
-
-  let content = '';
-
-  if (type === 'users') {
-    const week = allUsers.filter(u => u.createdAt && (Date.now() - toMillis(u.createdAt)) <= 7 * 24 * 60 * 60 * 1000).length;
-    const month = allUsers.filter(u => u.createdAt && (Date.now() - toMillis(u.createdAt)) <= 30 * 24 * 60 * 60 * 1000).length;
-    const banned = allUsers.filter(u => u.banned).length;
-    const admins = allUsers.filter(u => u.role === 'admin' || u.role === 'developer').length;
-    content = `
-      <div class="dd-head">
-        <div class="dd-title">👥 Пользователи — детально</div>
-        <button class="dd-close" onclick="openDrilldown('users')">&times;</button>
-      </div>
-      <div class="dd-grid">
-        <div class="dd-stat"><div class="dd-val">${allUsers.length}</div><div class="dd-lbl">Всего</div></div>
-        <div class="dd-stat"><div class="dd-val">${week}</div><div class="dd-lbl">За 7 дней</div></div>
-        <div class="dd-stat"><div class="dd-val">${month}</div><div class="dd-lbl">За 30 дней</div></div>
-        <div class="dd-stat"><div class="dd-val" style="color:var(--red);">${banned}</div><div class="dd-lbl">Забанено</div></div>
-        <div class="dd-stat"><div class="dd-val" style="color:var(--blue);">${admins}</div><div class="dd-lbl">Админов</div></div>
-      </div>
-      <div style="text-align:right;margin-top:12px;">
-        <button class="btn btn-sm btn-outline" onclick="switchTab('users')">Все пользователи →</button>
-      </div>
-    `;
-  } else if (type === 'minutes') {
-    const sorted = [...allUsers].sort((a,b) => (b.minutes||0) - (a.minutes||0)).slice(0, 10);
-    const totalMin = allUsers.reduce((s,u) => s + (u.minutes||0), 0);
-    const withMinutes = allUsers.filter(u => (u.minutes||0) > 0).length;
-    const avg = withMinutes > 0 ? (totalMin / withMinutes).toFixed(0) : 0;
-    content = `
-      <div class="dd-head">
-        <div class="dd-title">☀️ Минуты — детально</div>
-        <button class="dd-close" onclick="openDrilldown('minutes')">&times;</button>
-      </div>
-      <div class="dd-grid">
-        <div class="dd-stat"><div class="dd-val">${totalMin}</div><div class="dd-lbl">Всего минут</div></div>
-        <div class="dd-stat"><div class="dd-val">${withMinutes}</div><div class="dd-lbl">Клиентов с балансом</div></div>
-        <div class="dd-stat"><div class="dd-val">${avg}</div><div class="dd-lbl">Средний баланс</div></div>
-      </div>
-      <h4 style="margin-top:16px;margin-bottom:8px;font-size:14px;">Топ-10 по балансу</h4>
-      <div class="dd-list">
-        ${sorted.map(u => `
-          <div class="dd-list-item">
-            <span class="dd-name">${escapeHTML(u.name || 'Без имени')}</span>
-            <span class="dd-val">${u.minutes || 0} мин</span>
-          </div>
-        `).join('') || '<p style="color:var(--text-muted);">Нет данных</p>'}
-      </div>
-    `;
-  } else if (type === 'masters') {
-    const sorted = [...allMasters].sort((a,b) => (b.services?.length||0) - (a.services?.length||0));
-    content = `
-      <div class="dd-head">
-        <div class="dd-title">👩‍🎨 Мастера — детально</div>
-        <button class="dd-close" onclick="openDrilldown('masters')">&times;</button>
-      </div>
-      <div class="dd-grid">
-        <div class="dd-stat"><div class="dd-val">${allMasters.length}</div><div class="dd-lbl">Мастеров</div></div>
-        <div class="dd-stat"><div class="dd-val">${allMasters.reduce((s,m) => s + (m.services?.length||0), 0)}</div><div class="dd-lbl">Всего услуг</div></div>
-        <div class="dd-stat"><div class="dd-val">${allMasters.reduce((s,m) => s + allReviews.filter(r=>r.masterId===m.id).length, 0)}</div><div class="dd-lbl">Отзывов о мастерах</div></div>
-      </div>
-      <h4 style="margin-top:16px;margin-bottom:8px;font-size:14px;">Услуги по мастерам</h4>
-      <div class="dd-list">
-        ${sorted.map(m => `
-          <div class="dd-list-item">
-            <span class="dd-name">${escapeHTML(m.name || 'Мастер')}</span>
-            <span class="dd-val">${m.services?.length || 0} услуг</span>
-          </div>
-        `).join('') || '<p style="color:var(--text-muted);">Нет данных</p>'}
-      </div>
-      <div style="text-align:right;margin-top:12px;">
-        <button class="btn btn-sm btn-outline" onclick="switchTab('masters')">Все мастера →</button>
-      </div>
-    `;
-  } else if (type === 'rating') {
-    const dist = [5,4,3,2,1].map(n => ({ star: n, count: allReviews.filter(r => Math.round(r.rating||0) === n).length }));
-    const high = allReviews.filter(r => (r.rating||0) >= 4).length;
-    const low = allReviews.filter(r => (r.rating||0) <= 2).length;
-    content = `
-      <div class="dd-head">
-        <div class="dd-title">⭐ Рейтинг — детально</div>
-        <button class="dd-close" onclick="openDrilldown('rating')">&times;</button>
-      </div>
-      <div class="dd-grid">
-        <div class="dd-stat"><div class="dd-val">${allReviews.length}</div><div class="dd-lbl">Всего отзывов</div></div>
-        <div class="dd-stat"><div class="dd-val" style="color:var(--green);">${high}</div><div class="dd-lbl">4-5 звёзд</div></div>
-        <div class="dd-stat"><div class="dd-val" style="color:var(--red);">${low}</div><div class="dd-lbl">1-2 звезды</div></div>
-        <div class="dd-stat"><div class="dd-val">${allReviews.length > 0 ? Math.round((high/allReviews.length)*100) : 0}%</div><div class="dd-lbl">Довольны</div></div>
-      </div>
-      <h4 style="margin-top:16px;margin-bottom:8px;font-size:14px;">Распределение оценок</h4>
-      <div class="dd-list">
-        ${dist.map(d => `
-          <div class="dd-list-item">
-            <span class="dd-name">${d.star} ${'★'.repeat(d.star)}</span>
-            <span class="dd-val">${d.count}</span>
-          </div>
-        `).join('')}
-      </div>
-      <div style="text-align:right;margin-top:12px;">
-        <button class="btn btn-sm btn-outline" onclick="switchTab('reviews')">Все отзывы →</button>
-      </div>
-    `;
-  }
-
-  dd.innerHTML = `<div class="drilldown-panel">${content}</div>`;
-};
 
 /* ============================================
    КОДЫ КЛИЕНТОВ (твой оригинал)
@@ -2066,14 +1559,8 @@ function setupCodeInputs() {
       codeInputBuffer[i] = val;
       cell.classList.toggle('filled', !!val);
       cell.classList.remove('error', 'success');
-
-      if (val && i < cells.length - 1) {
-        cells[i + 1].focus();
-      }
-
-      if (codeInputBuffer.every(c => c)) {
-        setTimeout(submitCodeEntry, 100);
-      }
+      if (val && i < cells.length - 1) cells[i + 1].focus();
+      if (codeInputBuffer.every(c => c)) setTimeout(submitCodeEntry, 100);
     });
 
     cell.addEventListener('keydown', (e) => {
@@ -2083,9 +1570,7 @@ function setupCodeInputs() {
         codeInputBuffer[i - 1] = '';
         cells[i - 1].classList.remove('filled');
       }
-      if (e.key === 'Enter') {
-        submitCodeEntry();
-      }
+      if (e.key === 'Enter') submitCodeEntry();
       if (e.key === 'ArrowLeft' && i > 0) cells[i - 1].focus();
       if (e.key === 'ArrowRight' && i < cells.length - 1) cells[i + 1].focus();
     });
@@ -2100,11 +1585,8 @@ function setupCodeInputs() {
           cells[j].classList.toggle('filled', !!codeInputBuffer[j]);
         }
       }
-      if (pasted.length === CODE_LENGTH) {
-        setTimeout(submitCodeEntry, 100);
-      } else if (pasted.length < CODE_LENGTH && cells[pasted.length]) {
-        cells[pasted.length].focus();
-      }
+      if (pasted.length === CODE_LENGTH) setTimeout(submitCodeEntry, 100);
+      else if (pasted.length < CODE_LENGTH && cells[pasted.length]) cells[pasted.length].focus();
     });
   });
   if (cells[0]) cells[0].focus();
@@ -2118,10 +1600,7 @@ window.clearCodeEntry = function() {
     c.classList.remove('filled', 'error', 'success');
   });
   const statusEl = document.getElementById('codeStatus');
-  if (statusEl) {
-    statusEl.className = 'code-status';
-    statusEl.innerHTML = '🔍 Введите код из 6 символов';
-  }
+  if (statusEl) { statusEl.className = 'code-status'; statusEl.innerHTML = '🔍 Введите код из 6 символов'; }
   const resultEl = document.getElementById('codeResult');
   if (resultEl) resultEl.innerHTML = '';
   const first = document.getElementById('codeCell0');
@@ -2132,68 +1611,37 @@ window.clearCodeEntry = function() {
 
 window.submitCodeEntry = async function() {
   const code = codeInputBuffer.join('');
-  if (code.length !== CODE_LENGTH) {
-    showToast(`Введите все ${CODE_LENGTH} символов`, 'error');
-    return;
-  }
-
+  if (code.length !== CODE_LENGTH) { showToast(`Введите все ${CODE_LENGTH} символов`, 'error'); return; }
   const rateKey = 'admin_codes';
   if (!checkRateLimit(rateKey)) {
     showToast('⛔ Слишком много попыток. Подождите минуту.', 'error', 5000);
     const statusEl = document.getElementById('codeStatus');
-    if (statusEl) {
-      statusEl.className = 'code-status error';
-      statusEl.innerHTML = '⛔ Превышен лимит попыток (5 в минуту). Подождите.';
-    }
+    if (statusEl) { statusEl.className = 'code-status error'; statusEl.innerHTML = '⛔ Превышен лимит попыток (5 в минуту). Подождите.'; }
     return;
   }
-
   const statusEl = document.getElementById('codeStatus');
-  if (statusEl) {
-    statusEl.className = 'code-status loading';
-    statusEl.innerHTML = '<i class="fas fa-spinner" style="animation:spin 0.8s linear infinite;"></i> Поиск клиента...';
-  }
-
+  if (statusEl) { statusEl.className = 'code-status loading'; statusEl.innerHTML = '<i class="fas fa-spinner" style="animation:spin 0.8s linear infinite;"></i> Поиск клиента...'; }
   document.querySelectorAll('.code-input-cell').forEach(c => c.classList.remove('error', 'success'));
-
   try {
     const result = await findUserByCode(code);
-
     if (!result.valid) {
       document.querySelectorAll('.code-input-cell').forEach(c => c.classList.add('error'));
-      if (statusEl) {
-        statusEl.className = 'code-status error';
-        statusEl.innerHTML = `❌ ${result.error}`;
-      }
+      if (statusEl) { statusEl.className = 'code-status error'; statusEl.innerHTML = `❌ ${result.error}`; }
       showToast(result.error, 'error');
       return;
     }
-
     document.querySelectorAll('.code-input-cell').forEach(c => c.classList.add('success'));
-
     const user = allUsers.find(u => u.id === result.userId);
     if (!user) {
-      if (statusEl) {
-        statusEl.className = 'code-status error';
-        statusEl.innerHTML = '❌ Пользователь не найден';
-      }
+      if (statusEl) { statusEl.className = 'code-status error'; statusEl.innerHTML = '❌ Пользователь не найден'; }
       return;
     }
-
     currentScannedUser = { user, code, timeWindow: result.timeWindow };
-
-    if (statusEl) {
-      statusEl.className = 'code-status success';
-      statusEl.innerHTML = `✅ Клиент найден: ${escapeHTML(user.name)}`;
-    }
-
+    if (statusEl) { statusEl.className = 'code-status success'; statusEl.innerHTML = `✅ Клиент найден: ${escapeHTML(user.name)}`; }
     showCodeResultCard(user, code);
   } catch (e) {
     console.error(e);
-    if (statusEl) {
-      statusEl.className = 'code-status error';
-      statusEl.innerHTML = '❌ Ошибка: ' + e.message;
-    }
+    if (statusEl) { statusEl.className = 'code-status error'; statusEl.innerHTML = '❌ Ошибка: ' + e.message; }
     showToast('Ошибка: ' + e.message, 'error');
   }
 };
@@ -2252,13 +1700,7 @@ window.codeSpendMinutes = async function() {
     });
     await updateDoc(userRef, { minutes: newBalance, history });
     await markCodeUsed(code, user.id, timeWindow, 'spent', minutes);
-
-    codeLogs.unshift({
-      date: new Date().toISOString(),
-      userName: user.name, userId: user.id,
-      action: 'spent', minutes, remaining: newBalance
-    });
-
+    codeLogs.unshift({ date: new Date().toISOString(), userName: user.name, userId: user.id, action: 'spent', minutes, remaining: newBalance });
     showToast(`✅ Списано ${minutes} мин. Баланс: ${newBalance}`, 'success');
     await reloadUsers();
     currentScannedUser = null;
@@ -2285,13 +1727,7 @@ window.codeAddMinutes = async function() {
     });
     await updateDoc(userRef, { minutes: newBalance, history });
     await markCodeUsed(code, user.id, timeWindow, 'added', minutes);
-
-    codeLogs.unshift({
-      date: new Date().toISOString(),
-      userName: user.name, userId: user.id,
-      action: 'added', minutes, remaining: newBalance
-    });
-
+    codeLogs.unshift({ date: new Date().toISOString(), userName: user.name, userId: user.id, action: 'added', minutes, remaining: newBalance });
     showToast(`✅ Добавлено ${minutes} мин. Баланс: ${newBalance}`, 'success');
     await reloadUsers();
     currentScannedUser = null;
@@ -2398,10 +1834,8 @@ window.updateClientSearch = function(v) {
              (u.email || '').toLowerCase().includes(searchLower) ||
              (u.cardId || '').toLowerCase().includes(searchLower);
     }).sort((a, b) => (b.minutes || 0) - (a.minutes || 0));
-
     const badge = document.querySelector('#adminContent .search-box .badge');
     if (badge) badge.textContent = `${filtered.length} ${pluralize(filtered.length, 'клиент', 'клиента', 'клиентов')}`;
-
     const tableWrap = document.getElementById('clientsTableWrap');
     if (tableWrap) tableWrap.innerHTML = renderClientsTable(filtered);
   }, 250);
@@ -2445,18 +1879,6 @@ window.showClient = async function(userId) {
   const daysSinceReg = registrationDate
     ? Math.floor((Date.now() - toMillis(registrationDate)) / (24 * 60 * 60 * 1000))
     : 0;
-
-  const categoryCount = {};
-  history.forEach(h => {
-    if (h.spent && h.action) {
-      const match = h.action.match(/\(([^)]+)\)/);
-      if (match) {
-        const cat = match[1].split(',')[0].trim();
-        categoryCount[cat] = (categoryCount[cat] || 0) + 1;
-      }
-    }
-  });
-  const topCategory = Object.entries(categoryCount).sort((a, b) => b[1] - a[1])[0];
 
   const content = document.getElementById('clientModalContent');
 
@@ -2514,33 +1936,6 @@ window.showClient = async function(userId) {
         <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Отзывов (${avgRating})</div>
       </div>
     </div>
-
-    ${topCategory ? `
-      <div class="info-row" style="background:var(--gold-soft);padding:10px 14px;border-radius:8px;border:none;">
-        <span class="label">🎯 Любимая категория</span>
-        <span class="value" style="color:var(--gold);">${escapeHTML(topCategory[0])} (${topCategory[1]} раз)</span>
-      </div>
-    ` : ''}
-
-    ${userReviews.length > 0 ? `
-      <h4 style="margin-top:24px;margin-bottom:12px;color:var(--text-primary);font-size:15px;">⭐ Отзывы клиента (${userReviews.length})</h4>
-      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;max-height:280px;overflow-y:auto;">
-        ${userReviews.map(r => {
-          const stars = '★'.repeat(Math.round(r.rating || 0)) + '☆'.repeat(5 - Math.round(r.rating || 0));
-          const master = allMasters.find(m => m.id === r.masterId);
-          return `
-            <div style="padding:12px 14px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-color);">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                <span class="stars-inline">${stars}</span>
-                <span style="font-size:11px;color:var(--text-muted);">${formatDateShort(r.createdAt)}</span>
-              </div>
-              ${master ? `<div style="font-size:11px;color:var(--gold);margin-bottom:4px;">👤 ${escapeHTML(master.name)}</div>` : '<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">🏢 О салоне</div>'}
-              <div style="font-size:12.5px;color:var(--text-secondary);line-height:1.5;">${escapeHTML((r.text || '').slice(0, 200))}${(r.text || '').length > 200 ? '…' : ''}</div>
-            </div>
-          `;
-        }).join('')}
-      </div>
-    ` : ''}
 
     <h4 style="margin-top:24px;margin-bottom:8px;color:var(--text-primary);font-size:15px;">📜 История операций (${history.length})</h4>
     <div class="history-list">
@@ -2690,12 +2085,7 @@ window.openMasterEdit = function(masterId) {
   const isNew = !masterId;
   const m = isNew ? {
     id: 'master_' + Date.now(),
-    name: '',
-    specialty: '',
-    description: '',
-    education: '',
-    photo: '',
-    services: []
+    name: '', specialty: '', description: '', education: '', photo: '', services: []
   } : allMasters.find(x => x.id === masterId);
 
   if (!m) { showToast('Мастер не найден', 'error'); return; }
@@ -3074,8 +2464,9 @@ window.deletePost = async function(id) {
   renderContent('blog');
   showToast('Пост удалён', 'info');
 };
-    /* ============================================
-   ОТЗЫВЫ (твои + новые пометки)
+
+/* ============================================
+   ОТЗЫВЫ (твой оригинал)
    ============================================ */
 function renderReviewsAdmin() {
   const total = allReviews.length;
@@ -3137,10 +2528,9 @@ window.deleteReview = async function(id) {
    КОММЕНТАРИИ С МОДЕРАЦИЕЙ (НОВОЕ)
    ============================================ */
 function renderCommentsAdmin() {
-  const pendingCount = allComments.filter(c => c.status === 'pending').length;
-  const approvedCount = allComments.filter(c => c.status === 'approved').length;
+  const pendingCount = allComments.filter(c => c.status === 'pending' && !c.isDeleted).length;
+  const approvedCount = allComments.filter(c => c.status === 'approved' && !c.isDeleted).length;
   const rejectedCount = allComments.filter(c => c.status === 'rejected').length;
-  const deletedCount = allComments.filter(c => c.isDeleted).length;
 
   let filtered = allComments;
   if (commentsFilter === 'pending') filtered = allComments.filter(c => c.status === 'pending' && !c.isDeleted);
@@ -3169,11 +2559,6 @@ function renderCommentsAdmin() {
       <button class="moderation-tab ${commentsFilter === 'all' ? 'active' : ''}" onclick="setCommentsFilter('all')">
         📋 Все <span class="count">${allComments.length}</span>
       </button>
-      ${deletedCount > 0 ? `
-        <button class="moderation-tab ${commentsFilter === 'deleted' ? 'active' : ''}" onclick="setCommentsFilter('deleted')">
-          🗑️ Удалённые <span class="count">${deletedCount}</span>
-        </button>
-      ` : ''}
     </div>
 
     ${filtered.length === 0 ? `
@@ -3196,7 +2581,6 @@ function renderModerationCard(c) {
   const postTitle = post ? (post.title || 'Пост') : 'Пост';
   const isPending = c.status === 'pending';
   const isApproved = c.status === 'approved';
-  const isRejected = c.status === 'rejected';
   const isDeleted = c.isDeleted === true;
 
   const cardClass = isDeleted ? 'rejected' : (isPending ? 'pending' : (isApproved ? 'approved' : 'rejected'));
@@ -3211,7 +2595,7 @@ function renderModerationCard(c) {
         </div>
         ${isPending ? '<span class="status-badge pending"><i class="fas fa-clock"></i> На модерации</span>' : ''}
         ${isApproved ? '<span class="status-badge active"><i class="fas fa-check"></i> Одобрен</span>' : ''}
-        ${isRejected ? '<span class="status-badge banned"><i class="fas fa-times"></i> Отклонён</span>' : ''}
+        ${c.status === 'rejected' ? '<span class="status-badge banned"><i class="fas fa-times"></i> Отклонён</span>' : ''}
         ${isDeleted ? '<span class="status-badge banned"><i class="fas fa-trash"></i> Удалён</span>' : ''}
       </div>
 
@@ -3246,7 +2630,7 @@ function renderModerationCard(c) {
             <i class="fas fa-eye"></i> Детали
           </button>
         ` : ''}
-        ${isRejected && !isDeleted ? `
+        ${c.status === 'rejected' && !isDeleted ? `
           <button class="btn btn-success btn-sm" onclick="approveComment('${c.id}')">
             <i class="fas fa-check"></i> Восстановить
           </button>
@@ -3274,16 +2658,11 @@ window.approveComment = async function(id) {
     await updateDoc(doc(db, 'comments', id), {
       status: 'approved',
       isDeleted: false,
-      moderatedBy: currentAdminUser?.email || 'admin',
+      moderatedBy: 'Studio1Admin',
       moderatedAt: new Date().toISOString()
     });
     const c = allComments.find(x => x.id === id);
-    if (c) {
-      c.status = 'approved';
-      c.isDeleted = false;
-      c.moderatedBy = currentAdminUser?.email;
-      c.moderatedAt = new Date().toISOString();
-    }
+    if (c) { c.status = 'approved'; c.isDeleted = false; }
     showToast('Комментарий одобрен ✅', 'success');
     updateBadges();
     renderContent('comments');
@@ -3293,29 +2672,21 @@ window.approveComment = async function(id) {
 };
 
 window.rejectComment = function(id) {
-  showConfirm(
-    'Отклонить комментарий?',
-    'Комментарий будет помечен как отклонённый и не появится на сайте',
-    async () => {
-      try {
-        await updateDoc(doc(db, 'comments', id), {
-          status: 'rejected',
-          moderatedBy: currentAdminUser?.email || 'admin',
-          moderatedAt: new Date().toISOString()
-        });
-        const c = allComments.find(x => x.id === id);
-        if (c) {
-          c.status = 'rejected';
-          c.moderatedBy = currentAdminUser?.email;
-          c.moderatedAt = new Date().toISOString();
-        }
-        showToast('Комментарий отклонён', 'info');
-        renderContent('comments');
-      } catch (e) {
-        showToast('Ошибка: ' + e.message, 'error');
-      }
+  showConfirm('Отклонить комментарий?', 'Комментарий будет помечен как отклонённый и не появится на сайте', async () => {
+    try {
+      await updateDoc(doc(db, 'comments', id), {
+        status: 'rejected',
+        moderatedBy: 'Studio1Admin',
+        moderatedAt: new Date().toISOString()
+      });
+      const c = allComments.find(x => x.id === id);
+      if (c) c.status = 'rejected';
+      showToast('Комментарий отклонён', 'info');
+      renderContent('comments');
+    } catch (e) {
+      showToast('Ошибка: ' + e.message, 'error');
     }
-  );
+  });
 };
 
 window.moveCommentToPending = async function(id) {
@@ -3326,11 +2697,7 @@ window.moveCommentToPending = async function(id) {
       moderatedAt: null
     });
     const c = allComments.find(x => x.id === id);
-    if (c) {
-      c.status = 'pending';
-      c.moderatedBy = null;
-      c.moderatedAt = null;
-    }
+    if (c) c.status = 'pending';
     showToast('Возвращён на модерацию', 'info');
     renderContent('comments');
   } catch (e) {
@@ -3339,27 +2706,20 @@ window.moveCommentToPending = async function(id) {
 };
 
 window.deleteCommentAdmin = function(id) {
-  showConfirm(
-    'Удалить комментарий?',
-    'Комментарий будет помечен как удалённый и скрыт с сайта',
-    async () => {
-      try {
-        await updateDoc(doc(db, 'comments', id), {
-          isDeleted: true,
-          text: '[Комментарий удалён администратором]'
-        });
-        const c = allComments.find(x => x.id === id);
-        if (c) {
-          c.isDeleted = true;
-          c.text = '[Комментарий удалён администратором]';
-        }
-        showToast('Комментарий удалён', 'info');
-        renderContent('comments');
-      } catch (e) {
-        showToast('Ошибка: ' + e.message, 'error');
-      }
+  showConfirm('Удалить комментарий?', 'Комментарий будет скрыт с сайта', async () => {
+    try {
+      await updateDoc(doc(db, 'comments', id), {
+        isDeleted: true,
+        text: '[Комментарий удалён администратором]'
+      });
+      const c = allComments.find(x => x.id === id);
+      if (c) { c.isDeleted = true; c.text = '[Комментарий удалён администратором]'; }
+      showToast('Комментарий удалён', 'info');
+      renderContent('comments');
+    } catch (e) {
+      showToast('Ошибка: ' + e.message, 'error');
     }
-  );
+  });
 };
 
 window.restoreCommentAdmin = async function(id) {
@@ -3367,14 +2727,11 @@ window.restoreCommentAdmin = async function(id) {
     await updateDoc(doc(db, 'comments', id), {
       isDeleted: false,
       status: 'approved',
-      moderatedBy: currentAdminUser?.email || 'admin',
+      moderatedBy: 'Studio1Admin',
       moderatedAt: new Date().toISOString()
     });
     const c = allComments.find(x => x.id === id);
-    if (c) {
-      c.isDeleted = false;
-      c.status = 'approved';
-    }
+    if (c) { c.isDeleted = false; c.status = 'approved'; }
     showToast('Комментарий восстановлен', 'success');
     renderContent('comments');
   } catch (e) {
@@ -3385,8 +2742,6 @@ window.restoreCommentAdmin = async function(id) {
 window.openCommentModal = function(id) {
   const c = allComments.find(x => x.id === id);
   if (!c) return;
-  commentModalCurrentId = id;
-
   const initial = (c.userName || '?').charAt(0).toUpperCase();
   const post = allBlogPosts.find(p => p.id === c.postId);
   const user = allUsers.find(u => u.id === c.userId);
@@ -3412,9 +2767,6 @@ window.openCommentModal = function(id) {
     <div class="info-row"><span class="label">Статус</span><span class="value">${c.status === 'approved' ? '✅ Одобрен' : c.status === 'pending' ? '⏳ На модерации' : '❌ Отклонён'}</span></div>
     <div class="info-row"><span class="label">Удалён</span><span class="value">${c.isDeleted ? '🗑️ Да' : '✅ Нет'}</span></div>
     <div class="info-row"><span class="label">Лайков</span><span class="value">${c.likes || 0}</span></div>
-    ${c.parentId ? `<div class="info-row"><span class="label">Ответ на комментарий</span><span class="value"><code class="cell-mono" style="font-size:11px;">${c.parentId}</code></span></div>` : ''}
-    ${c.moderatedBy ? `<div class="info-row"><span class="label">Проверил</span><span class="value">${escapeHTML(c.moderatedBy)}</span></div>` : ''}
-    ${c.moderatedAt ? `<div class="info-row"><span class="label">Дата проверки</span><span class="value">${formatDate(c.moderatedAt)}</span></div>` : ''}
     <div class="info-row"><span class="label">ID комментария</span><span class="value"><code class="cell-mono" style="font-size:11px;">${c.id}</code></span></div>
     ${user ? `<div class="info-row"><span class="label">ID автора</span><span class="value"><code class="cell-mono" style="font-size:11px;">${user.id}</code></span></div>` : ''}
 
@@ -3431,6 +2783,11 @@ window.openCommentModal = function(id) {
   document.body.style.overflow = 'hidden';
 };
 
+window.closeCommentModal = function() {
+  document.getElementById('commentModal').classList.remove('active');
+  document.body.style.overflow = '';
+};
+
 /* ============================================
    ПОЛЬЗОВАТЕЛИ (НОВОЕ)
    ============================================ */
@@ -3438,26 +2795,14 @@ function renderUsersAdmin() {
   const total = allUsers.length;
   const banned = allUsers.filter(u => u.banned).length;
   const verified = allUsers.filter(u => u.emailVerified !== false).length;
-  const admins = allUsers.filter(u => u.role === 'admin' || u.role === 'developer').length;
+  const active = total - banned;
 
   return `
     <div class="users-stats-mini">
-      <div class="users-stat-mini">
-        <div class="usm-val">${total}</div>
-        <div class="usm-lbl">Всего</div>
-      </div>
-      <div class="users-stat-mini green">
-        <div class="usm-val">${verified}</div>
-        <div class="usm-lbl">✓ Email</div>
-      </div>
-      <div class="users-stat-mini danger">
-        <div class="usm-val">${banned}</div>
-        <div class="usm-lbl">Забанено</div>
-      </div>
-      <div class="users-stat-mini blue">
-        <div class="usm-val">${admins}</div>
-        <div class="usm-lbl">Админов</div>
-      </div>
+      <div class="users-stat-mini"><div class="usm-val">${total}</div><div class="usm-lbl">Всего</div></div>
+      <div class="users-stat-mini green"><div class="usm-val">${active}</div><div class="usm-lbl">Активные</div></div>
+      <div class="users-stat-mini danger"><div class="usm-val">${banned}</div><div class="usm-lbl">Забанено</div></div>
+      <div class="users-stat-mini blue"><div class="usm-val">${verified}</div><div class="usm-lbl">✓ Email</div></div>
     </div>
 
     <div class="search-box">
@@ -3466,10 +2811,8 @@ function renderUsersAdmin() {
         <option value="all" ${usersFilter === 'all' ? 'selected' : ''}>📋 Все</option>
         <option value="active" ${usersFilter === 'active' ? 'selected' : ''}>✅ Активные</option>
         <option value="banned" ${usersFilter === 'banned' ? 'selected' : ''}>🚫 Забаненные</option>
-        <option value="unverified" ${usersFilter === 'unverified' ? 'selected' : ''}>📧 Без подтверждения</option>
-        <option value="admin" ${usersFilter === 'admin' ? 'selected' : ''}>👑 Админы</option>
       </select>
-      <button class="btn btn-ghost btn-sm" onclick="loadUsers()"><i class="fas fa-sync-alt"></i></button>
+      <button class="btn btn-ghost btn-sm" onclick="loadUsersData()"><i class="fas fa-sync-alt"></i></button>
     </div>
 
     <div class="table-wrap">
@@ -3478,11 +2821,11 @@ function renderUsersAdmin() {
           <tr>
             <th style="width:50px;"></th>
             <th>Пользователь</th>
-            <th>Роль</th>
+            <th>Телефон</th>
             <th>Статус</th>
             <th>Минут</th>
             <th>Регистрация</th>
-            <th style="width:220px;">Действия</th>
+            <th style="width:200px;">Действия</th>
           </tr>
         </thead>
         <tbody id="usersTableBody">
@@ -3498,8 +2841,6 @@ function renderUsersTable() {
 
   if (usersFilter === 'active') filtered = filtered.filter(u => !u.banned);
   else if (usersFilter === 'banned') filtered = filtered.filter(u => u.banned);
-  else if (usersFilter === 'unverified') filtered = filtered.filter(u => u.emailVerified === false);
-  else if (usersFilter === 'admin') filtered = filtered.filter(u => u.role === 'admin' || u.role === 'developer');
 
   if (usersSearchQuery) {
     const q = usersSearchQuery.toLowerCase().trim();
@@ -3521,45 +2862,39 @@ function renderUsersTable() {
 
   return filtered.map(u => {
     const initial = (u.name || u.email || '?').charAt(0).toUpperCase();
-    const isDeveloper = u.role === 'developer';
-    const isAdmin = u.role === 'admin';
-    const isProtected = isDeveloper || u.email === 'glubkov2020@gmail.com' || u.email === 'studiia1@mail.ru';
-
-    const roleBadge = isDeveloper
-      ? '<span class="role-badge developer"><i class="fas fa-code"></i> Dev</span>'
-      : (isAdmin ? '<span class="role-badge admin"><i class="fas fa-shield-alt"></i> Admin</span>' : '<span class="role-badge user"><i class="fas fa-user"></i> User</span>');
+    const isProtected = u.id === 'legacy' || u.email === 'Studio1Admin';
 
     const statusBadges = [
-      u.banned ? '<span class="status-badge banned"><i class="fas fa-ban"></i> Забанен</span>' : '',
-      u.emailVerified === false ? '<span class="status-badge unverified"><i class="fas fa-envelope"></i> Email не подтверждён</span>' : '',
-      u.bannedByDevice ? '<span class="status-badge banned"><i class="fas fa-mobile-alt"></i> По устройству</span>' : '',
+      u.banned ? `<span class="status-badge banned"><i class="fas fa-ban"></i> Забанен</span>` : '',
       u.banned && u.bannedUntil && u.bannedUntil !== 'forever' ? `<span class="status-badge banned">до ${formatDateShort(u.bannedUntil)}</span>` : '',
-      u.banned && u.bannedUntil === 'forever' ? '<span class="status-badge banned">навсегда</span>' : ''
-    ].filter(Boolean).join(' ') || '<span class="status-badge active"><i class="fas fa-check"></i> Активен</span>';
+      u.banned && u.bannedUntil === 'forever' ? `<span class="status-badge banned">навсегда</span>` : '',
+      u.bannedByDevice ? '<span class="status-badge banned"><i class="fas fa-mobile-alt"></i> Устройство</span>' : '',
+      u.emailVerified === false ? '<span class="status-badge unverified"><i class="fas fa-envelope"></i> Email не подтверждён</span>' : '',
+      !u.banned ? '<span class="status-badge active"><i class="fas fa-check"></i> Активен</span>' : ''
+    ].filter(Boolean).join(' ');
 
     return `
       <tr>
         <td>
-          <div class="avatar-sm" style="cursor:pointer;" onclick="openUserDetail('${u.id}')">
+          <div class="avatar-sm">
             ${u.photoURL ? `<img src="${escapeHTML(u.photoURL)}" />` : initial}
           </div>
         </td>
-        <td style="cursor:pointer;" onclick="openUserDetail('${u.id}')">
+        <td>
           <div class="cell-strong">${escapeHTML(u.name || 'Без имени')}</div>
           <div class="cell-muted">${escapeHTML(u.email || '—')}</div>
         </td>
-        <td>${roleBadge}</td>
+        <td>${escapeHTML(u.phone || '—')}</td>
         <td>${statusBadges}</td>
         <td><strong style="color:var(--gold);">${u.minutes || 0}</strong></td>
         <td class="cell-muted">${formatDateShort(u.createdAt)}</td>
         <td>
           <div class="cell-actions">
-            <button class="btn btn-ghost btn-xs" onclick="openUserDetail('${u.id}')" title="Профиль"><i class="fas fa-eye"></i></button>
+            <button class="btn btn-ghost btn-xs" onclick="showClient('${u.id}')" title="Профиль"><i class="fas fa-eye"></i></button>
             ${!isProtected ? `
               ${u.banned
                 ? `<button class="btn btn-success btn-xs" onclick="unbanUser('${u.id}')" title="Разбанить"><i class="fas fa-unlock"></i></button>`
                 : `<button class="btn btn-warning btn-xs" onclick="openBanModal('${u.id}')" title="Забанить"><i class="fas fa-ban"></i></button>`}
-              <button class="btn btn-ghost btn-xs" onclick="openPromoteUserModal('${u.id}')" title="Сменить роль"><i class="fas fa-user-tag"></i></button>
               <button class="btn btn-danger btn-xs" onclick="openDeleteUserModal('${u.id}')" title="Удалить"><i class="fas fa-trash"></i></button>
             ` : '<span class="badge gold" style="font-size:10px;">🔒 Защищён</span>'}
           </div>
@@ -3581,18 +2916,14 @@ window.updateUsersFilter = function(v) {
   if (tbody) tbody.innerHTML = renderUsersTable();
 };
 
-window.loadUsers = async function() {
+window.loadUsersData = async function() {
   await reloadUsers();
   renderContent('users');
   showToast('Список обновлён', 'success');
 };
 
-function attachUsersHandlers() {
-  // уже через oninput / onchange
-}
-
 /* ============================================
-   БАН / РАЗБАН / УДАЛЕНИЕ / РОЛЬ
+   БАН / РАЗБАН / УДАЛЕНИЕ
    ============================================ */
 window.openBanModal = function(userId) {
   const u = allUsers.find(x => x.id === userId);
@@ -3612,7 +2943,6 @@ window.openBanModal = function(userId) {
     </div>
   `;
 
-  // Сброс формы
   document.getElementById('banReason').value = '';
   document.getElementById('banByDevice').checked = false;
   banSelectedDuration = '24h';
@@ -3639,10 +2969,7 @@ window.applyBan = async function(e) {
   const reason = document.getElementById('banReason').value.trim();
   const byDevice = document.getElementById('banByDevice').checked;
 
-  if (!reason) {
-    showToast('Укажите причину бана', 'error');
-    return;
-  }
+  if (!reason) { showToast('Укажите причину бана', 'error'); return; }
 
   const u = allUsers.find(x => x.id === userId);
   if (!u) return;
@@ -3659,13 +2986,12 @@ window.applyBan = async function(e) {
       banned: true,
       bannedUntil,
       banReason: reason,
-      bannedBy: currentAdminUser?.email || 'admin',
+      bannedBy: 'Studio1Admin',
       bannedAt: new Date().toISOString()
     };
 
     if (byDevice) {
-      // Fingerprint из браузера
-      const fp = await generateDeviceFingerprint();
+      const fp = generateDeviceFingerprint();
       updates.bannedByDevice = true;
       updates.bannedDeviceId = fp;
 
@@ -3675,7 +3001,7 @@ window.applyBan = async function(e) {
           bannedUserId: userId,
           bannedUserEmail: u.email,
           reason,
-          bannedBy: currentAdminUser?.email || 'admin',
+          bannedBy: 'Studio1Admin',
           bannedAt: new Date().toISOString(),
           until: bannedUntil
         });
@@ -3693,8 +3019,7 @@ window.applyBan = async function(e) {
   }
 };
 
-async function generateDeviceFingerprint() {
-  // Простой fingerprint: UA + screen + timezone + language
+function generateDeviceFingerprint() {
   const parts = [
     navigator.userAgent,
     screen.width + 'x' + screen.height,
@@ -3704,7 +3029,6 @@ async function generateDeviceFingerprint() {
     navigator.hardwareConcurrency || 0
   ];
   const str = parts.join('|');
-  // Простой хеш
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     hash = ((hash << 5) - hash) + str.charCodeAt(i);
@@ -3755,13 +3079,12 @@ window.openDeleteUserModal = function(userId) {
         <div style="font-weight:700;color:var(--text-primary);">${escapeHTML(u.name || 'Без имени')}</div>
         <div style="font-size:12.5px;color:var(--text-muted);">${escapeHTML(u.email || '')}</div>
         <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">
-          ${u.minutes || 0} минут на балансе · ${(u.history || []).length} операций
+          ${u.minutes || 0} минут · ${(u.history || []).length} операций
         </div>
       </div>
     </div>
   `;
 
-  // Проверка ввода "УДАЛИТЬ"
   const input = document.getElementById('deleteConfirmInput');
   const btn = document.getElementById('deleteUserBtn');
   input.oninput = () => {
@@ -3787,17 +3110,14 @@ window.confirmDeleteUser = async function(e) {
   if (!u) return;
 
   try {
-    // Удаляем документ из Firestore
     await deleteDoc(doc(db, 'users', userId));
 
-    // Помечаем отзывы и комментарии пользователя
     try {
       const reviewsQuery = query(collection(db, 'reviews'), where('userId', '==', userId));
       const reviewsSnap = await getDocs(reviewsQuery);
       for (const d of reviewsSnap.docs) {
         await updateDoc(d.ref, { userName: 'Удалённый пользователь', userPhoto: '' });
       }
-
       const commentsQuery = query(collection(db, 'comments'), where('userId', '==', userId));
       const commentsSnap = await getDocs(commentsQuery);
       for (const d of commentsSnap.docs) {
@@ -3814,127 +3134,37 @@ window.confirmDeleteUser = async function(e) {
   }
 };
 
-window.openPromoteUserModal = function(userId) {
-  const u = allUsers.find(x => x.id === userId);
-  if (!u) return;
-
-  document.getElementById('promoteUserId').value = userId;
-  document.getElementById('promoteRole').value = u.role || 'user';
-
-  const initial = (u.name || u.email || '?').charAt(0).toUpperCase();
-  document.getElementById('promoteUserInfo').innerHTML = `
-    <div style="display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-color);">
-      <div class="avatar-md">${u.photoURL ? `<img src="${escapeHTML(u.photoURL)}" />` : initial}</div>
-      <div>
-        <div style="font-weight:700;color:var(--text-primary);">${escapeHTML(u.name || 'Без имени')}</div>
-        <div style="font-size:12.5px;color:var(--text-muted);">${escapeHTML(u.email || '')}</div>
-        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Текущая роль: <strong>${u.role || 'user'}</strong></div>
-      </div>
-    </div>
-  `;
-
-  document.getElementById('promoteUserModal').classList.add('active');
-  document.body.style.overflow = 'hidden';
+window.closeBanModal = function() {
+  document.getElementById('banModal').classList.remove('active');
+  document.body.style.overflow = '';
 };
 
-window.applyPromoteUser = async function(e) {
-  e.preventDefault();
-  const userId = document.getElementById('promoteUserId').value;
-  const newRole = document.getElementById('promoteRole').value;
-
-  const u = allUsers.find(x => x.id === userId);
-  if (!u) return;
-
-  try {
-    await updateDoc(doc(db, 'users', userId), { role: newRole });
-    u.role = newRole;
-    showToast(`Роль изменена на "${newRole}" ✅`, 'success');
-    closePromoteUserModal();
-    renderContent('users');
-  } catch (e) {
-    showToast('Ошибка: ' + e.message, 'error');
-  }
+window.closeDeleteUserModal = function() {
+  document.getElementById('deleteUserModal').classList.remove('active');
+  document.body.style.overflow = '';
 };
 
-window.openUserDetail = function(userId) {
-  const u = allUsers.find(x => x.id === userId);
-  if (!u) return;
+window.closeConfirmModal = function() {
+  document.getElementById('confirmModal').classList.remove('active');
+  document.body.style.overflow = '';
+};
 
-  const initial = (u.name || u.email || '?').charAt(0).toUpperCase();
-  const userReviews = allReviews.filter(r => r.userId === userId);
-  const userComments = allComments.filter(c => c.userId === userId);
-  const consents = u.consents || {};
-
-  const consentLabels = {
-    personalData: 'Обработка ПД',
-    privacyPolicy: 'Политика конфиденциальности',
-    termsOfService: 'Пользовательское соглашение',
-    cookies: 'Использование cookies'
-  };
-
-  const consentRows = Object.entries(consents).map(([k, v]) => {
-    const label = consentLabels[k] || k;
-    const granted = v.granted ? '✅ Да' : '❌ Нет';
-    const revoked = v.revoked ? ' (отозвано)' : '';
-    const dateStr = v.date ? formatDate(v.date) : '—';
-    return `
-      <div class="consent-row">
-        <span class="c-label">${label}</span>
-        <span class="c-val ${v.granted && !v.revoked ? 'yes' : 'no'}">${granted}${revoked} · ${dateStr}</span>
-      </div>
-    `;
-  }).join('');
-
-  document.getElementById('userDetailModalContent').innerHTML = `
-    <h2>👤 <span class="gold-text">Профиль пользователя</span></h2>
-    <p class="subtitle">Полная информация об аккаунте</p>
-
-    <div style="text-align:center;margin-bottom:20px;">
-      <div class="avatar-lg" style="margin:0 auto;">
-        ${u.photoURL ? `<img src="${escapeHTML(u.photoURL)}" />` : initial}
-      </div>
-      <div style="margin-top:10px;font-size:20px;font-weight:700;color:var(--text-primary);">${escapeHTML(u.name || 'Без имени')}</div>
-      <div style="margin-top:4px;">
-        ${u.role === 'developer' ? '<span class="role-badge developer"><i class="fas fa-code"></i> Developer</span>' : ''}
-        ${u.role === 'admin' ? '<span class="role-badge admin"><i class="fas fa-shield-alt"></i> Admin</span>' : ''}
-        ${!u.role || u.role === 'user' ? '<span class="role-badge user"><i class="fas fa-user"></i> User</span>' : ''}
-        ${u.banned ? '<span class="status-badge banned"><i class="fas fa-ban"></i> Забанен</span>' : ''}
-      </div>
-    </div>
-
-    <div class="info-row"><span class="label">🆔 User ID</span><span class="value"><code class="cell-mono" style="font-size:11px;">${u.id}</code></span></div>
-    <div class="info-row"><span class="label">✉️ Email</span><span class="value">${escapeHTML(u.email || '—')}</span></div>
-    <div class="info-row"><span class="label">📞 Телефон</span><span class="value">${escapeHTML(u.phone || '—')}</span></div>
-    <div class="info-row"><span class="label">📇 Card ID</span><span class="value"><code class="cell-mono">${escapeHTML(u.cardId || '—')}</code></span></div>
-    <div class="info-row"><span class="label">☀️ Минут</span><span class="value" style="color:var(--gold);font-size:16px;">${u.minutes || 0}</span></div>
-    <div class="info-row"><span class="label">📅 Регистрация</span><span class="value">${formatDate(u.createdAt)}</span></div>
-    <div class="info-row"><span class="label">🔐 Email подтверждён</span><span class="value">${u.emailVerified === false ? '❌ Нет' : '✅ Да'}</span></div>
-    <div class="info-row"><span class="label">🚫 Забанен</span><span class="value">${u.banned ? `Да (${u.banReason || 'причина не указана'})` : 'Нет'}</span></div>
-    ${u.banned && u.bannedUntil ? `<div class="info-row"><span class="label">⏱️ Бан до</span><span class="value">${u.bannedUntil === 'forever' ? 'Навсегда' : formatDate(u.bannedUntil)}</span></div>` : ''}
-    <div class="info-row"><span class="label">⭐ Отзывов</span><span class="value">${userReviews.length}</span></div>
-    <div class="info-row"><span class="label">💬 Комментариев</span><span class="value">${userComments.length}</span></div>
-
-    ${consentRows ? `
-      <div class="consent-block">
-        <h5><i class="fas fa-shield-alt"></i> Согласия на обработку ПД</h5>
-        ${consentRows}
-      </div>
-    ` : ''}
-
-    <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;">
-      <button class="btn btn-ghost" onclick="closeUserDetailModal();showClient('${u.id}')"><i class="fas fa-coins"></i> Минуты и операции</button>
-      ${!u.banned && u.email !== 'glubkov2020@gmail.com' && u.email !== 'studiia1@mail.ru' ? `
-        <button class="btn btn-warning" onclick="closeUserDetailModal();openBanModal('${u.id}')"><i class="fas fa-ban"></i> Забанить</button>
-      ` : ''}
-      <button class="btn btn-ghost" onclick="closeUserDetailModal()">Закрыть</button>
-    </div>
-  `;
-  document.getElementById('userDetailModal').classList.add('active');
+window.showConfirm = function(title, text, onConfirm) {
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmText').textContent = text;
+  const btn = document.getElementById('confirmActionBtn');
+  const newBtn = btn.cloneNode(true);
+  btn.parentNode.replaceChild(newBtn, btn);
+  newBtn.addEventListener('click', () => {
+    closeConfirmModal();
+    onConfirm();
+  });
+  document.getElementById('confirmModal').classList.add('active');
   document.body.style.overflow = 'hidden';
 };
 
 /* ============================================
-   АНАЛИТИКА (твой оригинал + drilldown)
+   АНАЛИТИКА (твой оригинал)
    ============================================ */
 function renderAnalytics() {
   const totalUsers = allUsers.length;
@@ -4152,9 +3382,7 @@ function renderAnalyticsTables() {
 
   const masterStats = allMasters.map(m => {
     const mReviews = allReviews.filter(r => r.masterId === m.id);
-    const avg = mReviews.length > 0
-      ? mReviews.reduce((s, r) => s + (r.rating || 0), 0) / mReviews.length
-      : 0;
+    const avg = mReviews.length > 0 ? mReviews.reduce((s, r) => s + (r.rating || 0), 0) / mReviews.length : 0;
     return { name: m.name, reviews: mReviews.length, avg: avg };
   }).filter(m => m.reviews > 0).sort((a, b) => b.avg - a.avg);
 
@@ -4303,7 +3531,6 @@ function renderAnalyticsInstructions() {
             <li><strong>Всего клиентов</strong> — количество аккаунтов в базе <code>users</code>.</li>
             <li><strong>Активные клиенты</strong> — те, у кого в истории есть хотя бы одна операция.</li>
             <li><strong>Процент активных</strong> = <code>(Активные / Всего) × 100%</code>.</li>
-            <li><strong>Тренд регистраций</strong> = <code>((Новые за 30д − Новые за пред. 30д) / Пред. 30д) × 100%</code>.</li>
           </ul>
         </div>
 
@@ -4313,20 +3540,7 @@ function renderAnalyticsInstructions() {
             <li><strong>Суммарный баланс</strong> — сумма поля <code>minutes</code> по всем клиентам.</li>
             <li><strong>Списано минут</strong> — сумма всех <code>spent</code> в истории.</li>
             <li><strong>Пополнено минут</strong> — сумма всех <code>added</code> в истории.</li>
-            <li><strong>Среднее пополнение</strong> = <code>Всего пополнено / Кол-во операций</code>.</li>
           </ul>
-        </div>
-
-        <div class="instructions">
-          <h4><i class="fas fa-bolt"></i> Утилизация минут</h4>
-          <div class="formula">
-            Утилизация = (Всего списано / Всего пополнено) × 100%
-            <span class="formula-note">
-              🟢 ≥ 70% — клиенты активно ходят в солярий<br>
-              🟡 40–70% — есть запас минут у клиентов<br>
-              🔴 &lt; 40% — клиенты накопили минуты, но не ходят
-            </span>
-          </div>
         </div>
 
         <div class="instructions">
@@ -4335,18 +3549,8 @@ function renderAnalyticsInstructions() {
             <li><strong>Формат</strong>: 6 символов (A-Z кроме I, O + цифры 2-9) — 1 миллиард комбинаций.</li>
             <li><strong>Генерация</strong>: HMAC-SHA256 от <code>userId + временное_окно</code>.</li>
             <li><strong>Меняется каждые 60 секунд</strong> — защита от подбора.</li>
-            <li><strong>Используется 1 раз</strong> — после списания/пополнения код "сгорает".</li>
-            <li><strong>Защита</strong>: rate limit на 5 попыток в минуту для защиты от брутфорса.</li>
-          </ul>
-        </div>
-
-        <div class="instructions">
-          <h4><i class="fas fa-shield-alt"></i> Что НЕ используется</h4>
-          <ul>
-            <li>❌ Случайные числа — все цифры берутся из Firestore</li>
-            <li>❌ Демо-данные — если клиентов нет, показывается пустое состояние</li>
-            <li>❌ Прогнозы на будущее — только факты за прошедшие периоды</li>
-            <li>❌ Придуманные средние — если нет операций, среднее не рассчитывается</li>
+            <li><strong>Используется 1 раз</strong> — после списания/пополнения код «сгорает».</li>
+            <li><strong>Защита</strong>: rate limit на 5 попыток в минуту.</li>
           </ul>
         </div>
       </div>
@@ -4368,14 +3572,8 @@ function renderAnalyticsCharts() {
     plugins: {
       legend: { labels: { color: textColor, font: { family: 'Inter', size: 12 } } },
       tooltip: {
-        backgroundColor: '#1E1E22',
-        titleColor: '#F5F1EC',
-        bodyColor: '#C8C2BB',
-        borderColor: 'rgba(201, 169, 110, 0.3)',
-        borderWidth: 1,
-        padding: 12,
-        titleFont: { family: 'Inter', size: 13, weight: '600' },
-        bodyFont: { family: 'Inter', size: 12 }
+        backgroundColor: '#1E1E22', titleColor: '#F5F1EC', bodyColor: '#C8C2BB',
+        borderColor: 'rgba(201, 169, 110, 0.3)', borderWidth: 1, padding: 12
       }
     },
     scales: {
@@ -4409,14 +3607,8 @@ function renderAnalyticsCharts() {
           data: regValues,
           borderColor: goldColor,
           backgroundColor: 'rgba(201, 169, 110, 0.15)',
-          borderWidth: 3,
-          pointBackgroundColor: goldColor,
-          pointBorderColor: '#0A0A0B',
-          pointBorderWidth: 2,
-          pointRadius: 5,
-          pointHoverRadius: 7,
-          tension: 0.4,
-          fill: true
+          borderWidth: 3, pointBackgroundColor: goldColor, pointBorderColor: '#0A0A0B',
+          pointBorderWidth: 2, pointRadius: 5, pointHoverRadius: 7, tension: 0.4, fill: true
         }]
       },
       options: { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { display: false } } }
@@ -4441,8 +3633,7 @@ function renderAnalyticsCharts() {
           data: [ratingDist[1], ratingDist[2], ratingDist[3], ratingDist[4], ratingDist[5]],
           backgroundColor: ['rgba(231, 76, 60, 0.7)', 'rgba(230, 126, 34, 0.7)', 'rgba(241, 196, 15, 0.7)', 'rgba(52, 152, 219, 0.7)', 'rgba(39, 174, 96, 0.7)'],
           borderColor: ['#E74C3C', '#E67E22', '#F1C40F', '#3498DB', '#27AE60'],
-          borderWidth: 2,
-          borderRadius: 8
+          borderWidth: 2, borderRadius: 8
         }]
       },
       options: { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { display: false } } }
@@ -4465,13 +3656,11 @@ function renderAnalyticsCharts() {
         datasets: [{
           data: masterReviewCounts.map(m => m.count),
           backgroundColor: ['rgba(201, 169, 110, 0.9)', 'rgba(232, 213, 168, 0.8)', 'rgba(52, 152, 219, 0.7)', 'rgba(155, 89, 182, 0.7)', 'rgba(230, 126, 34, 0.7)', 'rgba(39, 174, 96, 0.7)'],
-          borderColor: '#121214',
-          borderWidth: 3
+          borderColor: '#121214', borderWidth: 3
         }]
       },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
+        responsive: true, maintainAspectRatio: false,
         plugins: {
           legend: { position: 'bottom', labels: { color: textColor, font: { family: 'Inter', size: 11 }, padding: 12, boxWidth: 12 } },
           tooltip: commonOptions.plugins.tooltip
@@ -4567,12 +3756,32 @@ function setupAutoRefresh() {
   }, 60 * 60 * 1000);
 }
 
+if (checkSession()) {
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('adminLayout').classList.add('active');
+  initAdmin();
+}
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+    document.body.style.overflow = '';
+  }
+});
+
 window.addEventListener('error', (e) => console.error('Global error:', e));
 
-console.log('%c🎨 Админка Студия №1 v5.0', 'color:#C9A96E;font-size:16px;font-weight:bold;');
-console.log('%c🔐 Firebase Auth + роли + модерация + бан', 'color:#E8D5A8;font-size:12px;');
-console.log('%c👨‍💻 Разработчик: glubkov2020@gmail.com', 'color:#3498DB;font-size:12px;');
-console.log('%c👑 Владелица: Studiia1@mail.ru', 'color:#C9A96E;font-size:12px;');
+console.log('%c🎨 Админка Студия №1 v4.5', 'color:#C9A96E;font-size:16px;font-weight:bold;');
+console.log('%c🔑 Коды + модерация + управление пользователями', 'color:#E8D5A8;font-size:12px;');
 </script>
 </body>
 </html>
