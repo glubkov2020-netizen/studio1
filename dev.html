@@ -20,23 +20,32 @@
 </script>
 <style>
 :root {
-  --bg: #0A0A0A;
-  --bg-2: #0F0F0F;
-  --bg-3: #141414;
-  --border: #1F1F1F;
-  --border-hi: #2A2A2A;
+  --bg: #060608;
+  --bg-2: #0B0B0E;
+  --bg-3: #121216;
+  --bg-4: #1A1A20;
+  --border: #1E1E24;
+  --border-hi: #2E2E38;
+  --border-glow: #3A3A48;
   --green: #00FF41;
   --green-dim: #00AA2A;
   --green-glow: rgba(0, 255, 65, 0.4);
-  --red: #FF3333;
+  --green-glow-soft: rgba(0, 255, 65, 0.15);
+  --red: #FF3355;
   --yellow: #FFD700;
   --blue: #4A9EFF;
   --purple: #B388FF;
-  --text: #E0E0E0;
-  --text-dim: #808080;
-  --text-dim-2: #505050;
+  --cyan: #00E5FF;
+  --pink: #FF4DA6;
+  --orange: #FF9E40;
+  --text: #E8E8EA;
+  --text-dim: #8A8A95;
+  --text-dim-2: #5A5A65;
+  --glass: rgba(18, 18, 22, 0.7);
+  --shadow-glow: 0 0 40px rgba(0, 255, 65, 0.08);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
 body {
   font-family: 'JetBrains Mono', monospace;
   background: var(--bg);
@@ -45,40 +54,100 @@ body {
   line-height: 1.55;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background 0.5s ease;
 }
+
+/* Animated gradient background */
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
+  inset: -50%;
   pointer-events: none;
   background:
-    repeating-linear-gradient(0deg, rgba(0, 255, 65, 0.015) 0px, rgba(0, 255, 65, 0.015) 1px, transparent 1px, transparent 3px);
-  z-index: 1;
-  mix-blend-mode: screen;
+    radial-gradient(circle at 15% 20%, rgba(0, 255, 65, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(74, 158, 255, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(179, 136, 255, 0.05) 0%, transparent 45%),
+    radial-gradient(circle at 70% 70%, rgba(0, 229, 255, 0.04) 0%, transparent 40%);
+  z-index: 0;
+  animation: bgFloat 30s ease-in-out infinite;
+  will-change: transform;
 }
+@keyframes bgFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  33% { transform: translate(3%, -2%) rotate(3deg) scale(1.05); }
+  66% { transform: translate(-2%, 3%) rotate(-3deg) scale(1.02); }
+}
+
+/* Scanlines */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.5) 100%);
-  z-index: 2;
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 255, 65, 0.012) 0px, rgba(0, 255, 65, 0.012) 1px, transparent 1px, transparent 3px);
+  z-index: 1;
+  mix-blend-mode: screen;
+  opacity: 0.6;
 }
 
-/* TOPBAR */
+/* Grid overlay */
+.dev-grid-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(0, 255, 65, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.025) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+/* Vignette */
+.dev-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+/* Scan line animation */
+.dev-scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.5), transparent);
+  z-index: 3;
+  pointer-events: none;
+  animation: scanMove 8s linear infinite;
+  opacity: 0.4;
+}
+@keyframes scanMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ============ TOPBAR ============ */
 .dev-topbar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(6, 6, 8, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-hi);
-  padding: 10px 20px;
+  padding: 12px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 .dev-brand {
   display: flex;
@@ -87,19 +156,34 @@ body::after {
   font-weight: 700;
   color: var(--green);
   font-size: 14px;
-  text-shadow: 0 0 8px var(--green-glow);
+  text-shadow: 0 0 10px var(--green-glow);
+  letter-spacing: 0.5px;
 }
 .dev-brand .dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 12px var(--green);
+  box-shadow: 0 0 14px var(--green), 0 0 4px var(--green);
   animation: pulse 1.5s ease-in-out infinite;
+  position: relative;
+}
+.dev-brand .dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--green);
+  opacity: 0;
+  animation: ping 2s ease-out infinite;
+}
+@keyframes ping {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
 }
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 0.5; transform: scale(0.85); }
 }
 .dev-brand small {
   color: var(--text-dim);
@@ -110,7 +194,7 @@ body::after {
 .dev-topbar-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-size: 12px;
   color: var(--text-dim);
   flex-wrap: wrap;
@@ -119,12 +203,17 @@ body::after {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px;
+  padding: 5px 11px;
   background: rgba(0, 255, 65, 0.08);
   border: 1px solid rgba(0, 255, 65, 0.25);
   border-radius: 20px;
   color: var(--green);
   font-size: 11px;
+  transition: all 0.3s ease;
+}
+.dev-topbar-right .status:hover {
+  background: rgba(0, 255, 65, 0.15);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
 }
 .dev-topbar-right .status.warn {
   background: rgba(255, 215, 0, 0.08);
@@ -132,34 +221,77 @@ body::after {
   color: var(--yellow);
 }
 .dev-topbar-right .status.err {
-  background: rgba(255, 51, 51, 0.08);
-  border-color: rgba(255, 51, 51, 0.3);
+  background: rgba(255, 51, 85, 0.08);
+  border-color: rgba(255, 51, 85, 0.3);
   color: var(--red);
 }
 
-/* BUTTONS */
+/* Language switcher */
+.dev-lang-switch {
+  display: inline-flex;
+  border: 1px solid var(--border-hi);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-2);
+}
+.dev-lang-switch button {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  padding: 5px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+.dev-lang-switch button:hover {
+  color: var(--text);
+  background: var(--bg-3);
+}
+.dev-lang-switch button.active {
+  background: var(--green);
+  color: #000;
+  text-shadow: none;
+}
+
+/* ============ BUTTONS ============ */
 .dbtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 7px 13px;
   background: transparent;
   border: 1px solid var(--border-hi);
   color: var(--text);
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.2s;
+  border-radius: 5px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
 }
+.dbtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, var(--green-glow-soft), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.dbtn:hover::before { opacity: 1; }
 .dbtn:hover {
   border-color: var(--green);
   color: var(--green);
-  background: rgba(0, 255, 65, 0.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 255, 65, 0.15);
 }
-.dbtn:disabled { opacity: 0.4; cursor: not-allowed; }
+.dbtn:active { transform: translateY(0); }
+.dbtn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 .dbtn-primary {
   background: var(--green);
   color: #000;
@@ -169,19 +301,22 @@ body::after {
 .dbtn-primary:hover {
   background: #00FF41;
   color: #000;
-  box-shadow: 0 0 20px var(--green-glow);
+  box-shadow: 0 0 25px var(--green-glow);
 }
 .dbtn-danger {
   border-color: var(--red);
   color: var(--red);
 }
 .dbtn-danger:hover {
-  background: rgba(255, 51, 51, 0.1);
+  background: rgba(255, 51, 85, 0.1);
   border-color: var(--red);
   color: var(--red);
+  box-shadow: 0 4px 15px rgba(255, 51, 85, 0.2);
 }
+.dbtn i { position: relative; z-index: 1; }
+.dbtn span { position: relative; z-index: 1; }
 
-/* LAYOUT */
+/* ============ LAYOUT ============ */
 .dev-container {
   position: relative;
   z-index: 3;
@@ -189,82 +324,114 @@ body::after {
   margin: 0 auto;
   padding: 20px;
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 250px 1fr;
   gap: 20px;
 }
 @media (max-width: 900px) {
   .dev-container { grid-template-columns: 1fr; }
 }
 
-/* SIDEBAR */
+/* ============ SIDEBAR ============ */
 .dev-sidebar {
   position: sticky;
-  top: 70px;
+  top: 80px;
   align-self: start;
-  max-height: calc(100vh - 90px);
+  max-height: calc(100vh - 100px);
   overflow-y: auto;
-  background: var(--bg-2);
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 10px;
   padding: 10px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
 }
 .dev-sidebar::-webkit-scrollbar { width: 6px; }
+.dev-sidebar::-webkit-scrollbar-track { background: transparent; }
 .dev-sidebar::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 3px; }
+.dev-sidebar::-webkit-scrollbar-thumb:hover { background: var(--green-dim); }
+
 .dev-nav-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 9px 12px;
+  padding: 10px 12px;
   color: var(--text-dim);
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 12px;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
   border-left: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+.dev-nav-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--green-glow-soft), transparent);
+  opacity: 0;
+  transition: opacity 0.25s;
 }
 .dev-nav-item:hover {
   color: var(--text);
   background: var(--bg-3);
+  transform: translateX(2px);
 }
+.dev-nav-item:hover::before { opacity: 0.5; }
 .dev-nav-item.active {
   color: var(--green);
   background: rgba(0, 255, 65, 0.06);
   border-left-color: var(--green);
+  box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.05);
+}
+.dev-nav-item.active i {
+  filter: drop-shadow(0 0 6px var(--green-glow));
 }
 .dev-nav-item i {
   width: 16px;
   text-align: center;
   font-size: 13px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s;
 }
+.dev-nav-item:hover i { transform: scale(1.1); }
 .dev-nav-item .nav-badge {
   margin-left: auto;
   background: var(--border-hi);
   color: var(--text-dim);
   font-size: 10px;
-  padding: 1px 6px;
+  padding: 1px 7px;
   border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s;
+}
+.dev-nav-item.active .nav-badge {
+  background: rgba(0, 255, 65, 0.2);
+  color: var(--green);
 }
 .dev-nav-section {
-  padding: 12px 12px 6px;
+  padding: 14px 12px 6px;
   font-size: 10px;
   color: var(--text-dim-2);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 500;
+  letter-spacing: 1.5px;
+  font-weight: 600;
 }
 
-/* MAIN */
-.dev-main {
-  min-width: 0;
-}
+/* ============ MAIN ============ */
+.dev-main { min-width: 0; }
 .dev-panel {
   display: none;
-  animation: fadeIn 0.3s ease;
+  animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .dev-panel.active { display: block; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -273,22 +440,28 @@ body::after {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   flex-wrap: wrap;
 }
 .dev-panel-header h1 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--green);
-  text-shadow: 0 0 12px var(--green-glow);
+  text-shadow: 0 0 15px var(--green-glow);
   display: flex;
   align-items: center;
   gap: 10px;
+  letter-spacing: 0.3px;
 }
 .dev-panel-header h1::before {
   content: '>';
   color: var(--green);
   opacity: 0.5;
+  animation: blink 1.2s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.1; }
 }
 .dev-panel-header .sub {
   font-size: 11px;
@@ -296,24 +469,22 @@ body::after {
   margin-top: 4px;
 }
 
-/* CARDS */
+/* ============ CARDS ============ */
 .dev-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 14px;
+  margin-bottom: 18px;
 }
 .dev-card {
-  background: var(--bg-2);
+  background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg-3) 100%);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 16px;
+  border-radius: 10px;
+  padding: 18px;
   position: relative;
   overflow: hidden;
-  transition: all 0.2s;
-}
-.dev-card:hover {
-  border-color: var(--border-hi);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 .dev-card::before {
   content: '';
@@ -321,48 +492,76 @@ body::after {
   top: 0;
   left: 0;
   width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
-  opacity: 0.5;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  opacity: 0.4;
+  transition: opacity 0.3s;
 }
+.dev-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 255, 65, 0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+.dev-card:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 255, 65, 0.1);
+}
+.dev-card:hover::before { opacity: 1; }
+.dev-card:hover::after { opacity: 1; }
 .dev-card .card-label {
   font-size: 10px;
   color: var(--text-dim);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+  font-weight: 600;
 }
 .dev-card .card-value {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   color: var(--green);
   line-height: 1.1;
   word-break: break-word;
-  text-shadow: 0 0 15px var(--green-glow);
+  text-shadow: 0 0 20px var(--green-glow);
+  transition: all 0.3s;
 }
 .dev-card .card-value.small { font-size: 16px; }
-.dev-card .card-value.blue { color: var(--blue); text-shadow: none; }
-.dev-card .card-value.purple { color: var(--purple); text-shadow: none; }
-.dev-card .card-value.yellow { color: var(--yellow); text-shadow: none; }
-.dev-card .card-value.red { color: var(--red); text-shadow: none; }
+.dev-card .card-value.blue { color: var(--blue); text-shadow: 0 0 20px rgba(74, 158, 255, 0.3); }
+.dev-card .card-value.purple { color: var(--purple); text-shadow: 0 0 20px rgba(179, 136, 255, 0.3); }
+.dev-card .card-value.yellow { color: var(--yellow); text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+.dev-card .card-value.red { color: var(--red); text-shadow: 0 0 20px rgba(255, 51, 85, 0.3); }
+.dev-card .card-value.cyan { color: var(--cyan); text-shadow: 0 0 20px rgba(0, 229, 255, 0.3); }
 .dev-card .card-sub {
   font-size: 11px;
   color: var(--text-dim);
   margin-top: 6px;
 }
 
-/* BLOCKS */
+/* ============ BLOCKS ============ */
 .dev-block {
-  background: var(--bg-2);
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  margin-bottom: 16px;
+  border-radius: 10px;
+  margin-bottom: 18px;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.3s;
 }
+.dev-block:hover { border-color: var(--border-hi); }
 .dev-block-header {
-  padding: 12px 16px;
+  padding: 14px 18px;
   border-bottom: 1px solid var(--border);
-  background: var(--bg-3);
+  background: linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -380,12 +579,11 @@ body::after {
 .dev-block-header h3 i {
   color: var(--green);
   font-size: 12px;
+  filter: drop-shadow(0 0 6px var(--green-glow));
 }
-.dev-block-body {
-  padding: 16px;
-}
+.dev-block-body { padding: 18px; }
 
-/* TABLE */
+/* ============ TABLE ============ */
 .dev-table {
   width: 100%;
   border-collapse: collapse;
@@ -393,24 +591,32 @@ body::after {
 }
 .dev-table th {
   text-align: left;
-  padding: 10px 12px;
+  padding: 12px 14px;
   font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   color: var(--text-dim);
-  font-weight: 500;
+  font-weight: 600;
   border-bottom: 1px solid var(--border-hi);
   white-space: nowrap;
+  background: var(--bg-3);
 }
 .dev-table td {
-  padding: 10px 12px;
+  padding: 12px 14px;
   border-bottom: 1px solid var(--border);
   color: var(--text);
   font-family: 'JetBrains Mono', monospace;
+  transition: background 0.2s;
 }
 .dev-table tr:last-child td { border-bottom: none; }
-.dev-table tr:hover td {
-  background: rgba(0, 255, 65, 0.02);
+.dev-table tbody tr {
+  transition: all 0.2s;
+}
+.dev-table tbody tr:hover td {
+  background: rgba(0, 255, 65, 0.03);
+}
+.dev-table tbody tr:hover {
+  box-shadow: inset 3px 0 0 var(--green);
 }
 .dev-table .mono-sm {
   font-size: 11px;
@@ -420,10 +626,10 @@ body::after {
 .dev-table .num {
   text-align: right;
   color: var(--green);
-  font-weight: 500;
+  font-weight: 600;
 }
 
-/* KEY-VALUE LIST */
+/* ============ KEY-VALUE LIST ============ */
 .kv-list {
   display: flex;
   flex-direction: column;
@@ -433,16 +639,23 @@ body::after {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 0;
+  padding: 11px 0;
   border-bottom: 1px solid var(--border);
   font-size: 12px;
   align-items: flex-start;
+  transition: all 0.2s;
+}
+.kv-row:hover {
+  background: rgba(0, 255, 65, 0.02);
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 4px;
 }
 .kv-row:last-child { border-bottom: none; }
 .kv-row .kv-key {
   color: var(--text-dim);
   flex-shrink: 0;
-  min-width: 140px;
+  min-width: 150px;
 }
 .kv-row .kv-val {
   color: var(--text);
@@ -454,14 +667,15 @@ body::after {
 .kv-row .kv-val.blue { color: var(--blue); }
 .kv-row .kv-val.yellow { color: var(--yellow); }
 .kv-row .kv-val.red { color: var(--red); }
+.kv-row .kv-val.purple { color: var(--purple); }
 .kv-row .kv-val.muted { color: var(--text-dim); }
 
-/* CODE BLOCK */
+/* ============ CODE BLOCK ============ */
 .dev-code {
   background: #000;
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 14px;
+  border-radius: 6px;
+  padding: 16px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   line-height: 1.6;
@@ -469,47 +683,54 @@ body::after {
   overflow-x: auto;
   white-space: pre;
   position: relative;
+  box-shadow: inset 0 0 40px rgba(0, 255, 65, 0.03);
 }
 .dev-code::-webkit-scrollbar { height: 6px; }
 .dev-code::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 3px; }
 .dev-code .copy-btn {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  padding: 4px 8px;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
   background: rgba(0, 255, 65, 0.1);
   border: 1px solid var(--green-dim);
   color: var(--green);
   font-size: 10px;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: all 0.2s;
   font-family: 'JetBrains Mono', monospace;
 }
 .dev-code:hover .copy-btn { opacity: 1; }
-.dev-code .copy-btn:hover { background: rgba(0, 255, 65, 0.2); }
+.dev-code .copy-btn:hover { background: rgba(0, 255, 65, 0.2); transform: scale(1.05); }
 
-/* TERMINAL */
+/* ============ TERMINAL ============ */
 .dev-terminal {
   background: #000;
   border: 1px solid var(--green-dim);
-  border-radius: 6px;
-  padding: 12px;
+  border-radius: 8px;
+  padding: 14px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
-  line-height: 1.6;
+  line-height: 1.7;
   max-height: 400px;
   overflow-y: auto;
   color: var(--green);
-  box-shadow: inset 0 0 30px rgba(0, 255, 65, 0.05);
+  box-shadow: inset 0 0 40px rgba(0, 255, 65, 0.05);
 }
 .dev-terminal::-webkit-scrollbar { width: 6px; }
-.dev-terminal::-webkit-scrollbar-thumb { background: var(--green-dim); }
+.dev-terminal::-webkit-scrollbar-track { background: transparent; }
+.dev-terminal::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 3px; }
 .dev-terminal .term-line {
   display: flex;
   gap: 8px;
-  padding: 2px 0;
+  padding: 3px 0;
+  animation: termIn 0.3s ease;
+}
+@keyframes termIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 .dev-terminal .term-line::before {
   content: '$';
@@ -527,7 +748,7 @@ body::after {
   font-size: 10px;
 }
 
-/* LOADING */
+/* ============ LOADING ============ */
 .dev-loading {
   display: flex;
   align-items: center;
@@ -546,7 +767,7 @@ body::after {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ACCESS */
+/* ============ ACCESS DENIED ============ */
 .dev-access-denied {
   text-align: center;
   padding: 80px 20px;
@@ -554,18 +775,26 @@ body::after {
   margin: 0 auto;
   position: relative;
   z-index: 3;
+  animation: fadeInUp 0.5s ease;
 }
 .dev-access-denied .icon {
-  font-size: 60px;
+  font-size: 70px;
   color: var(--red);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   display: block;
-  text-shadow: 0 0 30px rgba(255, 51, 51, 0.5);
+  text-shadow: 0 0 40px rgba(255, 51, 85, 0.6);
+  animation: shake 2s ease-in-out infinite;
+}
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
 }
 .dev-access-denied h2 {
-  font-size: 20px;
+  font-size: 22px;
   color: var(--red);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
 }
 .dev-access-denied p {
   color: var(--text-dim);
@@ -579,9 +808,10 @@ body::after {
   border-radius: 4px;
   color: var(--green);
   font-size: 11px;
+  border: 1px solid var(--border-hi);
 }
 
-/* TOAST */
+/* ============ TOAST ============ */
 .dev-toast-container {
   position: fixed;
   bottom: 20px;
@@ -589,56 +819,64 @@ body::after {
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   max-width: 380px;
 }
 .dev-toast {
-  background: var(--bg-2);
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-hi);
   border-left: 3px solid var(--green);
-  border-radius: 4px;
-  padding: 12px 16px;
+  border-radius: 8px;
+  padding: 14px 16px;
   font-size: 12px;
   color: var(--text);
-  animation: slideIn 0.3s ease;
+  animation: slideInToast 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   display: flex;
   gap: 10px;
   align-items: flex-start;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s;
 }
+.dev-toast:hover { transform: translateX(-4px); }
 .dev-toast.err { border-left-color: var(--red); }
 .dev-toast.warn { border-left-color: var(--yellow); }
 .dev-toast.info { border-left-color: var(--blue); }
-.dev-toast .ti { flex-shrink: 0; }
+.dev-toast.success { border-left-color: var(--green); }
+.dev-toast .ti { flex-shrink: 0; font-size: 14px; }
 .dev-toast .ti.green { color: var(--green); }
 .dev-toast .ti.red { color: var(--red); }
 .dev-toast .ti.yellow { color: var(--yellow); }
 .dev-toast .ti.blue { color: var(--blue); }
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(40px); }
-  to { opacity: 1; transform: translateX(0); }
+@keyframes slideInToast {
+  from { opacity: 0; transform: translateX(60px) scale(0.9); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
 }
 
-/* TAGS */
+/* ============ TAGS ============ */
 .dev-tag {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 2px 8px;
-  border-radius: 3px;
+  padding: 3px 9px;
+  border-radius: 4px;
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  transition: all 0.2s;
 }
 .dev-tag.green { background: rgba(0, 255, 65, 0.12); color: var(--green); border: 1px solid rgba(0, 255, 65, 0.3); }
-.dev-tag.red { background: rgba(255, 51, 51, 0.12); color: var(--red); border: 1px solid rgba(255, 51, 51, 0.3); }
+.dev-tag.red { background: rgba(255, 51, 85, 0.12); color: var(--red); border: 1px solid rgba(255, 51, 85, 0.3); }
 .dev-tag.yellow { background: rgba(255, 215, 0, 0.12); color: var(--yellow); border: 1px solid rgba(255, 215, 0, 0.3); }
 .dev-tag.blue { background: rgba(74, 158, 255, 0.12); color: var(--blue); border: 1px solid rgba(74, 158, 255, 0.3); }
 .dev-tag.gray { background: var(--bg-3); color: var(--text-dim); border: 1px solid var(--border-hi); }
 .dev-tag.purple { background: rgba(179, 136, 255, 0.12); color: var(--purple); border: 1px solid rgba(179, 136, 255, 0.3); }
+.dev-tag.cyan { background: rgba(0, 229, 255, 0.12); color: var(--cyan); border: 1px solid rgba(0, 229, 255, 0.3); }
+.dev-tag:hover { transform: scale(1.05); }
 
-/* MODAL */
+/* ============ MODAL ============ */
 .dev-modal-overlay {
   display: none;
   position: fixed;
@@ -648,33 +886,45 @@ body::after {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fadeIn 0.2s ease;
 }
 .dev-modal-overlay.active { display: flex; }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 .dev-modal {
   background: var(--bg-2);
   border: 1px solid var(--border-hi);
-  border-radius: 6px;
+  border-radius: 10px;
   max-width: 900px;
   width: 100%;
   max-height: 85vh;
   overflow: auto;
-  padding: 20px;
+  padding: 22px;
   position: relative;
+  animation: modalIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 .dev-modal h3 {
   color: var(--green);
   font-size: 14px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   padding-right: 40px;
 }
 .dev-modal .modal-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 14px;
+  right: 14px;
 }
 
-/* ПРОГРЕСС БАР */
+/* ============ PROGRESS BAR ============ */
 .dev-progress {
   width: 100%;
   height: 6px;
@@ -682,25 +932,101 @@ body::after {
   border-radius: 3px;
   overflow: hidden;
   margin-top: 8px;
+  position: relative;
 }
 .dev-progress .fill {
   height: 100%;
   background: linear-gradient(90deg, var(--green-dim), var(--green));
   border-radius: 3px;
-  transition: width 0.3s ease;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+.dev-progress .fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 .dev-progress.warn .fill { background: linear-gradient(90deg, #AA8800, var(--yellow)); }
 .dev-progress.err .fill { background: linear-gradient(90deg, #AA2222, var(--red)); }
 
-/* MOBILE */
+/* ============ CHART ============ */
+.dev-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 80px;
+  padding: 10px 0;
+}
+.dev-chart .bar {
+  flex: 1;
+  background: linear-gradient(180deg, var(--green), var(--green-dim));
+  border-radius: 3px 3px 0 0;
+  min-height: 4px;
+  transition: all 0.3s;
+  position: relative;
+  animation: barGrow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes barGrow {
+  from { height: 0 !important; }
+}
+.dev-chart .bar:hover {
+  background: linear-gradient(180deg, #00FF41, var(--green));
+  box-shadow: 0 0 15px var(--green-glow);
+}
+
+/* ============ STAT PULSE ============ */
+.dev-stat-pulse {
+  position: relative;
+}
+.dev-stat-pulse::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ============ SEARCH INPUT ============ */
+.dev-input {
+  background: var(--bg-3);
+  border: 1px solid var(--border-hi);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  outline: none;
+  transition: all 0.2s;
+  width: 100%;
+  max-width: 300px;
+}
+.dev-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.1);
+}
+.dev-input::placeholder { color: var(--text-dim-2); }
+
+/* ============ MOBILE ============ */
 @media (max-width: 600px) {
   .dev-container { padding: 12px; gap: 12px; }
-  .dev-topbar { padding: 8px 12px; }
+  .dev-topbar { padding: 10px 12px; }
   .dev-brand { font-size: 12px; }
   .dev-brand small { display: none; }
   .dev-topbar-right .status.hide-mobile { display: none; }
-  .dev-panel-header h1 { font-size: 15px; }
-  .dev-card .card-value { font-size: 20px; }
+  .dev-panel-header h1 { font-size: 16px; }
+  .dev-card .card-value { font-size: 22px; }
   .dev-table { font-size: 11px; }
   .dev-table th, .dev-table td { padding: 8px 8px; }
   .kv-row { flex-direction: column; gap: 4px; }
@@ -708,9 +1034,92 @@ body::after {
   .kv-row .kv-key { min-width: 0; }
   .dev-modal { padding: 16px; }
 }
+
+/* ============ THEME LIGHT ============ */
+[data-theme="light"] {
+  --bg: #F5F5F7;
+  --bg-2: #FFFFFF;
+  --bg-3: #F0F0F2;
+  --bg-4: #E8E8EA;
+  --border: #E0E0E2;
+  --border-hi: #D0D0D2;
+  --text: #1A1A1E;
+  --text-dim: #6A6A75;
+  --text-dim-2: #9A9AA5;
+  --glass: rgba(255, 255, 255, 0.8);
+}
+[data-theme="light"] .dev-code { color: #00AA2A; background: #F8F8FA; }
+[data-theme="light"] .dev-terminal { color: #00AA2A; background: #F8F8FA; }
+
+/* ============ SCROLLBAR GLOBAL ============ */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 5px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--green-dim); }
+
+/* ============ FADE UTILS ============ */
+.fade-in { animation: fadeInUp 0.5s ease; }
+
+/* ============ STATUS DOT ============ */
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+.status-dot.warn { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }
+.status-dot.err { background: var(--red); box-shadow: 0 0 8px var(--red); }
+
+/* ============ TOOLTIP ============ */
+[data-tooltip] {
+  position: relative;
+}
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--bg-4);
+  color: var(--text);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s;
+  border: 1px solid var(--border-hi);
+  z-index: 1000;
+}
+[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============ NOTIFICATION DOT ============ */
+.notif-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
 </style>
 </head>
 <body>
+
+<!-- Background effects -->
+<div class="dev-grid-overlay"></div>
+<div class="dev-scanline"></div>
+<div class="dev-vignette"></div>
+
 <div class="dev-toast-container" id="devToastContainer"></div>
 
 <!-- TOPBAR -->
@@ -721,8 +1130,12 @@ body::after {
     <small>studio1-kemerovo</small>
   </div>
   <div class="dev-topbar-right">
+    <div class="dev-lang-switch">
+      <button id="langRu" class="active" onclick="setLanguage('ru')">RU</button>
+      <button id="langEn" onclick="setLanguage('en')">EN</button>
+    </div>
     <span class="status" id="statusFirebase">
-      <i class="fas fa-database"></i> <span id="statusFirebaseText">Firebase: connecting...</span>
+      <i class="fas fa-database"></i> <span id="statusFirebaseText" data-i18n="firebaseConnecting">Firebase: connecting...</span>
     </span>
     <span class="status hide-mobile" id="statusAuth">
       <i class="fas fa-user-shield"></i> <span id="statusAuthText">Auth: —</span>
@@ -730,8 +1143,11 @@ body::after {
     <span class="status hide-mobile" id="statusUptime">
       <i class="fas fa-clock"></i> <span id="statusUptimeText">00:00:00</span>
     </span>
+    <button class="dbtn" data-tooltip="Toggle theme" onclick="toggleTheme()">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
     <button class="dbtn dbtn-danger" onclick="handleDevLogout()">
-      <i class="fas fa-sign-out-alt"></i> Logout
+      <i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">Logout</span>
     </button>
   </div>
 </div>
@@ -739,18 +1155,19 @@ body::after {
 <!-- ACCESS DENIED -->
 <div class="dev-access-denied" id="devAccessDenied" style="display:none;">
   <i class="fas fa-skull-crossbones icon"></i>
-  <h2>ACCESS DENIED</h2>
-  <p>Этот раздел доступен только разработчику.</p>
-  <p style="margin-top:12px;">Требуется вход как <code>glubkov2020@gmail.com</code></p>
+  <h2 data-i18n="accessDenied">ACCESS DENIED</h2>
+  <p data-i18n="accessDeniedMsg">Этот раздел доступен только разработчику.</p>
+  <p style="margin-top:12px;" data-i18n="accessDeniedReq">Требуется вход как</p>
+  <p><code>glubkov2020@gmail.com</code></p>
   <button class="dbtn dbtn-primary" style="margin-top:20px;" onclick="window.location.href='index.html'">
-    <i class="fas fa-arrow-left"></i> Вернуться на сайт
+    <i class="fas fa-arrow-left"></i> <span data-i18n="backToSite">Вернуться на сайт</span>
   </button>
 </div>
 
 <!-- LOADING -->
-<div class="dev-loading" id="devLoading" style="justify-content:center; padding:80px 20px;">
+<div class="dev-loading" id="devLoading" style="justify-content:center; padding:80px 20px; position:relative; z-index:3;">
   <div class="dev-spinner"></div>
-  <span>Инициализация console...</span>
+  <span data-i18n="initializing">Инициализация console...</span>
 </div>
 
 <!-- MAIN LAYOUT -->
@@ -758,50 +1175,53 @@ body::after {
 
   <!-- SIDEBAR -->
   <aside class="dev-sidebar">
-    <div class="dev-nav-section">Runtime</div>
+    <div class="dev-nav-section" data-i18n="runtime">Runtime</div>
     <div class="dev-nav-item active" data-panel="env" onclick="switchPanel('env')">
-      <i class="fas fa-cube"></i> Environment
+      <i class="fas fa-cube"></i> <span data-i18n="navEnv">Environment</span>
     </div>
     <div class="dev-nav-item" data-panel="firestore" onclick="switchPanel('firestore')">
-      <i class="fas fa-database"></i> Firestore
+      <i class="fas fa-database"></i> <span data-i18n="navFirestore">Firestore</span>
       <span class="nav-badge" id="navFirestoreCount">0</span>
     </div>
     <div class="dev-nav-item" data-panel="auth" onclick="switchPanel('auth')">
-      <i class="fas fa-user-shield"></i> Auth
+      <i class="fas fa-user-shield"></i> <span data-i18n="navAuth">Auth</span>
       <span class="nav-badge" id="navAuthCount">0</span>
     </div>
 
-    <div class="dev-nav-section">Infrastructure</div>
+    <div class="dev-nav-section" data-i18n="infrastructure">Infrastructure</div>
     <div class="dev-nav-item" data-panel="hosting" onclick="switchPanel('hosting')">
-      <i class="fas fa-server"></i> Hosting
+      <i class="fas fa-server"></i> <span data-i18n="navHosting">Hosting</span>
     </div>
     <div class="dev-nav-item" data-panel="storage" onclick="switchPanel('storage')">
-      <i class="fas fa-hdd"></i> Storage
+      <i class="fas fa-hdd"></i> <span data-i18n="navStorage">Storage</span>
     </div>
     <div class="dev-nav-item" data-panel="network" onclick="switchPanel('network')">
-      <i class="fas fa-network-wired"></i> Network
+      <i class="fas fa-network-wired"></i> <span data-i18n="navNetwork">Network</span>
     </div>
 
-    <div class="dev-nav-section">Diagnostics</div>
+    <div class="dev-nav-section" data-i18n="diagnostics">Diagnostics</div>
     <div class="dev-nav-item" data-panel="performance" onclick="switchPanel('performance')">
-      <i class="fas fa-tachometer-alt"></i> Performance
+      <i class="fas fa-tachometer-alt"></i> <span data-i18n="navPerformance">Performance</span>
+    </div>
+    <div class="dev-nav-item" data-panel="analytics" onclick="switchPanel('analytics')">
+      <i class="fas fa-chart-bar"></i> <span data-i18n="navAnalytics">Analytics</span>
     </div>
     <div class="dev-nav-item" data-panel="logs" onclick="switchPanel('logs')">
-      <i class="fas fa-scroll"></i> System Logs
+      <i class="fas fa-scroll"></i> <span data-i18n="navLogs">System Logs</span>
       <span class="nav-badge" id="navLogsCount">0</span>
     </div>
     <div class="dev-nav-item" data-panel="console" onclick="switchPanel('console')">
-      <i class="fas fa-terminal"></i> Console
+      <i class="fas fa-terminal"></i> <span data-i18n="navConsole">Console</span>
     </div>
 
-    <div class="dev-nav-section">Danger</div>
+    <div class="dev-nav-section" data-i18n="danger">Danger</div>
     <div class="dev-nav-item" data-panel="maintenance" onclick="switchPanel('maintenance')">
-      <i class="fas fa-tools"></i> Maintenance
+      <i class="fas fa-tools"></i> <span data-i18n="navMaintenance">Maintenance</span>
     </div>
 
     <div class="dev-nav-section" style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">
-      <a href="admin.html" style="display:flex;align-items:center;gap:10px;padding:9px 12px;color:var(--text-dim);text-decoration:none;border-radius:4px;font-size:12px;transition:all 0.15s;" onmouseover="this.style.background='var(--bg-3)';this.style.color='var(--text)'" onmouseout="this.style.background='';this.style.color='var(--text-dim)'">
-        <i class="fas fa-shield-alt" style="width:16px;text-align:center;font-size:13px;"></i> ← В админку
+      <a href="admin.html" style="display:flex;align-items:center;gap:10px;padding:9px 12px;color:var(--text-dim);text-decoration:none;border-radius:6px;font-size:12px;transition:all 0.15s;" onmouseover="this.style.background='var(--bg-3)';this.style.color='var(--text)'" onmouseout="this.style.background='';this.style.color='var(--text-dim)'">
+        <i class="fas fa-shield-alt" style="width:16px;text-align:center;font-size:13px;"></i> <span data-i18n="backToAdmin">← В админку</span>
       </a>
     </div>
   </aside>
@@ -813,63 +1233,63 @@ body::after {
     <div class="dev-panel active" id="panel-env">
       <div class="dev-panel-header">
         <div>
-          <h1>Environment</h1>
-          <div class="sub">Конфигурация проекта и runtime окружение</div>
+          <h1 data-i18n="envTitle">Environment</h1>
+          <div class="sub" data-i18n="envSub">Конфигурация проекта и runtime окружение</div>
         </div>
         <button class="dbtn" onclick="loadEnv()">
-          <i class="fas fa-sync-alt"></i> Refresh
+          <i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span>
         </button>
       </div>
 
       <div class="dev-grid">
-        <div class="dev-card">
-          <div class="card-label">Project ID</div>
+        <div class="dev-card dev-stat-pulse">
+          <div class="card-label" data-i18n="projectId">Project ID</div>
           <div class="card-value small blue" id="envProjectId">—</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Auth Domain</div>
+          <div class="card-label" data-i18n="authDomain">Auth Domain</div>
           <div class="card-value small purple" id="envAuthDomain">—</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Region</div>
+          <div class="card-label" data-i18n="region">Region</div>
           <div class="card-value small yellow" id="envRegion">—</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Env</div>
-          <div class="card-value small" id="envMode">PRODUCTION</div>
+          <div class="card-label" data-i18n="env">Env</div>
+          <div class="card-value small cyan" id="envMode">PRODUCTION</div>
         </div>
       </div>
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-key"></i> Firebase Config</h3>
+          <h3><i class="fas fa-key"></i> <span data-i18n="firebaseConfig">Firebase Config</span></h3>
           <button class="dbtn" onclick="copyText(document.getElementById('envConfigJson').innerText, 'Firebase config')">
-            <i class="fas fa-copy"></i> Copy
+            <i class="fas fa-copy"></i> <span data-i18n="copy">Copy</span>
           </button>
         </div>
         <div class="dev-block-body">
-          <pre class="dev-code" id="envConfigJson">загрузка...</pre>
+          <pre class="dev-code" id="envConfigJson">...</pre>
         </div>
       </div>
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-globe"></i> Browser / Runtime</h3>
+          <h3><i class="fas fa-globe"></i> <span data-i18n="browserRuntime">Browser / Runtime</span></h3>
         </div>
         <div class="dev-block-body">
           <div class="kv-list" id="envBrowserInfo">
-            <div class="dev-loading"><div class="dev-spinner"></div> загрузка...</div>
+            <div class="dev-loading"><div class="dev-spinner"></div> <span data-i18n="loading">загрузка...</span></div>
           </div>
         </div>
       </div>
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-server"></i> CDN / Libraries</h3>
+          <h3><i class="fas fa-server"></i> <span data-i18n="cdnLibraries">CDN / Libraries</span></h3>
         </div>
         <div class="dev-block-body">
           <div class="kv-list" id="envLibraries">
-            <div class="dev-loading"><div class="dev-spinner"></div> загрузка...</div>
+            <div class="dev-loading"><div class="dev-spinner"></div> <span data-i18n="loading">загрузка...</span></div>
           </div>
         </div>
       </div>
@@ -879,55 +1299,55 @@ body::after {
     <div class="dev-panel" id="panel-firestore">
       <div class="dev-panel-header">
         <div>
-          <h1>Firestore</h1>
-          <div class="sub">Коллекции, документы, размер базы данных</div>
+          <h1 data-i18n="firestoreTitle">Firestore</h1>
+          <div class="sub" data-i18n="firestoreSub">Коллекции, документы, размер базы данных</div>
         </div>
         <button class="dbtn" onclick="loadFirestore()">
-          <i class="fas fa-sync-alt"></i> Refresh
+          <i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span>
         </button>
       </div>
 
       <div class="dev-grid">
         <div class="dev-card">
-          <div class="card-label">Коллекций</div>
+          <div class="card-label" data-i18n="collections">Коллекций</div>
           <div class="card-value" id="fsCollections">—</div>
-          <div class="card-sub">Активных</div>
+          <div class="card-sub" data-i18n="active">Активных</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Всего документов</div>
+          <div class="card-label" data-i18n="totalDocs">Всего документов</div>
           <div class="card-value blue" id="fsTotalDocs">—</div>
-          <div class="card-sub">По всем коллекциям</div>
+          <div class="card-sub" data-i18n="acrossCollections">По всем коллекциям</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Оценка размера</div>
+          <div class="card-label" data-i18n="estimatedSize">Оценка размера</div>
           <div class="card-value purple" id="fsSize">—</div>
-          <div class="card-sub">Приблизительно</div>
+          <div class="card-sub" data-i18n="approximately">Приблизительно</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Reads today</div>
+          <div class="card-label" data-i18n="readsToday">Reads today</div>
           <div class="card-value yellow" id="fsReads">—</div>
-          <div class="card-sub">За сегодня</div>
+          <div class="card-sub" data-i18n="today">За сегодня</div>
         </div>
       </div>
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-list"></i> Коллекции</h3>
+          <h3><i class="fas fa-list"></i> <span data-i18n="collectionsList">Коллекции</span></h3>
           <span class="dev-tag gray" id="fsTimestamp">—</span>
         </div>
         <div class="dev-block-body" style="padding:0;">
           <table class="dev-table" id="fsCollectionsTable">
             <thead>
               <tr>
-                <th>Коллекция</th>
-                <th>Документов</th>
-                <th>Размер</th>
-                <th>Последний документ</th>
-                <th style="width:100px;">Действия</th>
+                <th data-i18n="collection">Коллекция</th>
+                <th data-i18n="documents">Документов</th>
+                <th data-i18n="size">Размер</th>
+                <th data-i18n="lastDoc">Последний документ</th>
+                <th style="width:100px;" data-i18n="actions">Действия</th>
               </tr>
             </thead>
             <tbody id="fsCollectionsBody">
-              <tr><td colspan="5"><div class="dev-loading"><div class="dev-spinner"></div> загрузка...</div></td></tr>
+              <tr><td colspan="5"><div class="dev-loading"><div class="dev-spinner"></div> <span data-i18n="loading">загрузка...</span></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -938,47 +1358,47 @@ body::after {
     <div class="dev-panel" id="panel-auth">
       <div class="dev-panel-header">
         <div>
-          <h1>Auth</h1>
-          <div class="sub">Пользователи Firebase Authentication</div>
+          <h1 data-i18n="authTitle">Auth</h1>
+          <div class="sub" data-i18n="authSub">Пользователи Firebase Authentication</div>
         </div>
         <button class="dbtn" onclick="loadAuth()">
-          <i class="fas fa-sync-alt"></i> Refresh
+          <i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span>
         </button>
       </div>
 
       <div class="dev-grid">
         <div class="dev-card">
-          <div class="card-label">Пользователей</div>
+          <div class="card-label" data-i18n="users">Пользователей</div>
           <div class="card-value" id="authUsersCount">—</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Активных сессий</div>
+          <div class="card-label" data-i18n="activeSessions">Активных сессий</div>
           <div class="card-value blue" id="authActiveSessions">—</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Подтвердили email</div>
+          <div class="card-label" data-i18n="verifiedEmail">Подтвердили email</div>
           <div class="card-value green" id="authVerified">—</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Текущий юзер</div>
+          <div class="card-label" data-i18n="currentUser">Текущий юзер</div>
           <div class="card-value small purple" id="authCurrentUser">—</div>
         </div>
       </div>
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-user-shield"></i> Current Session</h3>
+          <h3><i class="fas fa-user-shield"></i> <span data-i18n="currentSession">Current Session</span></h3>
         </div>
         <div class="dev-block-body">
           <div class="kv-list" id="authCurrentInfo">
-            <div class="dev-loading"><div class="dev-spinner"></div> загрузка...</div>
+            <div class="dev-loading"><div class="dev-spinner"></div> <span data-i18n="loading">загрузка...</span></div>
           </div>
         </div>
       </div>
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-list"></i> Пользователи (из Firestore)</h3>
+          <h3><i class="fas fa-list"></i> <span data-i18n="usersFromFirestore">Пользователи (из Firestore)</span></h3>
           <span class="dev-tag blue" id="authFirestoreNote">via Firestore</span>
         </div>
         <div class="dev-block-body" style="padding:0;">
@@ -987,13 +1407,13 @@ body::after {
               <tr>
                 <th>UID</th>
                 <th>Email</th>
-                <th>Роль</th>
+                <th data-i18n="role">Роль</th>
                 <th>Verified</th>
-                <th>Создан</th>
+                <th data-i18n="created">Создан</th>
               </tr>
             </thead>
             <tbody id="authUsersBody">
-              <tr><td colspan="5"><div class="dev-loading"><div class="dev-spinner"></div> загрузка...</div></td></tr>
+              <tr><td colspan="5"><div class="dev-loading"><div class="dev-spinner"></div> <span data-i18n="loading">загрузка...</span></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -1004,14 +1424,14 @@ body::after {
     <div class="dev-panel" id="panel-hosting">
       <div class="dev-panel-header">
         <div>
-          <h1>Hosting</h1>
-          <div class="sub">Информация о хостинге и доменах</div>
+          <h1 data-i18n="hostingTitle">Hosting</h1>
+          <div class="sub" data-i18n="hostingSub">Информация о хостинге и доменах</div>
         </div>
       </div>
 
       <div class="dev-grid">
         <div class="dev-card">
-          <div class="card-label">Текущий домен</div>
+          <div class="card-label" data-i18n="currentDomain">Текущий домен</div>
           <div class="card-value small blue" id="hostingDomain">—</div>
         </div>
         <div class="dev-card">
@@ -1030,7 +1450,7 @@ body::after {
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-globe"></i> Доступные домены</h3>
+          <h3><i class="fas fa-globe"></i> <span data-i18n="availableDomains">Доступные домены</span></h3>
         </div>
         <div class="dev-block-body">
           <div class="kv-list">
@@ -1047,7 +1467,7 @@ body::after {
               <span class="kv-val blue">glubkov2020-netizen.github.io/studio1</span>
             </div>
             <div class="kv-row">
-              <span class="kv-key">Продакшн домен</span>
+              <span class="kv-key" data-i18n="prodDomain">Продакшн домен</span>
               <span class="kv-val yellow">studiia1.ru (Reg.Host-Lite, до 19.05.2027)</span>
             </div>
           </div>
@@ -1069,30 +1489,8 @@ body::after {
               <span class="kv-val green">enabled</span>
             </div>
             <div class="kv-row">
-              <span class="kv-key">TLS версия</span>
+              <span class="kv-key">TLS</span>
               <span class="kv-val green">1.3</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="dev-block">
-        <div class="dev-block-header">
-          <h3><i class="fas fa-code-branch"></i> Deploy</h3>
-        </div>
-        <div class="dev-block-body">
-          <div class="kv-list">
-            <div class="kv-row">
-              <span class="kv-key">Метод деплоя</span>
-              <span class="kv-val blue">GitHub Pages (для тестов)</span>
-            </div>
-            <div class="kv-row">
-              <span class="kv-key">Production plan</span>
-              <span class="kv-val yellow">Reg.Host-Lite / studiia1.ru</span>
-            </div>
-            <div class="kv-row">
-              <span class="kv-key">CI/CD</span>
-              <span class="kv-val muted">ручной (push в репо)</span>
             </div>
           </div>
         </div>
@@ -1103,8 +1501,8 @@ body::after {
     <div class="dev-panel" id="panel-storage">
       <div class="dev-panel-header">
         <div>
-          <h1>Storage</h1>
-          <div class="sub">Firebase Storage — бакеты и файлы</div>
+          <h1 data-i18n="storageTitle">Storage</h1>
+          <div class="sub" data-i18n="storageSub">Firebase Storage — бакеты и файлы</div>
         </div>
       </div>
 
@@ -1114,22 +1512,22 @@ body::after {
           <div class="card-value small blue" id="storageBucket">—</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Файлов</div>
+          <div class="card-label" data-i18n="files">Файлов</div>
           <div class="card-value yellow" id="storageFiles">—</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Размер</div>
+          <div class="card-label" data-i18n="size">Размер</div>
           <div class="card-value purple" id="storageSize">—</div>
         </div>
         <div class="dev-card">
-          <div class="card-label">Статус</div>
+          <div class="card-label" data-i18n="status">Статус</div>
           <div class="card-value small" id="storageStatus">—</div>
         </div>
       </div>
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-info-circle"></i> О Storage</h3>
+          <h3><i class="fas fa-info-circle"></i> <span data-i18n="aboutStorage">О Storage</span></h3>
         </div>
         <div class="dev-block-body">
           <div class="kv-list">
@@ -1139,15 +1537,15 @@ body::after {
             </div>
             <div class="kv-row">
               <span class="kv-key">Region</span>
-              <span class="kv-val muted">europe-west (по умолчанию)</span>
+              <span class="kv-val muted">europe-west</span>
             </div>
             <div class="kv-row">
-              <span class="kv-key">Использование</span>
-              <span class="kv-val">Аватары, фото отзывов (dataURL в Firestore)</span>
+              <span class="kv-key" data-i18n="usage">Использование</span>
+              <span class="kv-val" data-i18n="storageUsage">Аватары, фото отзывов (dataURL в Firestore)</span>
             </div>
             <div class="kv-row">
-              <span class="kv-key">Примечание</span>
-              <span class="kv-val yellow">Фото хранятся в Firestore как dataURL. Storage не используется.</span>
+              <span class="kv-key" data-i18n="note">Примечание</span>
+              <span class="kv-val yellow" data-i18n="storageNote">Фото хранятся в Firestore как dataURL. Storage не используется.</span>
             </div>
           </div>
         </div>
@@ -1158,11 +1556,11 @@ body::after {
     <div class="dev-panel" id="panel-network">
       <div class="dev-panel-header">
         <div>
-          <h1>Network</h1>
-          <div class="sub">Мониторинг соединения и запросов</div>
+          <h1 data-i18n="networkTitle">Network</h1>
+          <div class="sub" data-i18n="networkSub">Мониторинг соединения и запросов</div>
         </div>
         <button class="dbtn" onclick="testNetworkSpeed()">
-          <i class="fas fa-tachometer-alt"></i> Speed Test
+          <i class="fas fa-tachometer-alt"></i> <span data-i18n="speedTest">Speed Test</span>
         </button>
       </div>
 
@@ -1179,7 +1577,7 @@ body::after {
         <div class="dev-card">
           <div class="card-label">RTT</div>
           <div class="card-value blue" id="netRtt">—</div>
-          <div class="card-sub">мс</div>
+          <div class="card-sub" data-i18n="ms">мс</div>
         </div>
         <div class="dev-card">
           <div class="card-label">Online</div>
@@ -1189,21 +1587,21 @@ body::after {
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-clock"></i> Latency tests</h3>
+          <h3><i class="fas fa-clock"></i> <span data-i18n="latencyTests">Latency tests</span></h3>
           <button class="dbtn" onclick="runLatencyTests()">
-            <i class="fas fa-play"></i> Run
+            <i class="fas fa-play"></i> <span data-i18n="run">Run</span>
           </button>
         </div>
         <div class="dev-block-body">
           <div class="kv-list" id="netLatencyList">
-            <div style="color:var(--text-dim);font-size:12px;">Нажмите «Run» для проверки задержки</div>
+            <div style="color:var(--text-dim);font-size:12px;" data-i18n="latencyHint">Нажмите «Run» для проверки задержки</div>
           </div>
         </div>
       </div>
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-server"></i> Firebase endpoints</h3>
+          <h3><i class="fas fa-server"></i> <span data-i18n="firebaseEndpoints">Firebase endpoints</span></h3>
         </div>
         <div class="dev-block-body">
           <div class="kv-list">
@@ -1228,11 +1626,11 @@ body::after {
     <div class="dev-panel" id="panel-performance">
       <div class="dev-panel-header">
         <div>
-          <h1>Performance</h1>
-          <div class="sub">Метрики производительности и загрузки</div>
+          <h1 data-i18n="perfTitle">Performance</h1>
+          <div class="sub" data-i18n="perfSub">Метрики производительности и загрузки</div>
         </div>
         <button class="dbtn" onclick="loadPerformance()">
-          <i class="fas fa-sync-alt"></i> Refresh
+          <i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span>
         </button>
       </div>
 
@@ -1240,12 +1638,12 @@ body::after {
         <div class="dev-card">
           <div class="card-label">Page Load</div>
           <div class="card-value yellow" id="perfLoadTime">—</div>
-          <div class="card-sub">мс</div>
+          <div class="card-sub" data-i18n="ms">мс</div>
         </div>
         <div class="dev-card">
           <div class="card-label">DOM Ready</div>
           <div class="card-value blue" id="perfDomReady">—</div>
-          <div class="card-sub">мс</div>
+          <div class="card-sub" data-i18n="ms">мс</div>
         </div>
         <div class="dev-card">
           <div class="card-label">Memory</div>
@@ -1260,12 +1658,75 @@ body::after {
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-chart-line"></i> Timing Metrics</h3>
+          <h3><i class="fas fa-chart-line"></i> <span data-i18n="timingMetrics">Timing Metrics</span></h3>
         </div>
         <div class="dev-block-body">
           <div class="kv-list" id="perfTimings">
-            <div class="dev-loading"><div class="dev-spinner"></div> загрузка...</div>
+            <div class="dev-loading"><div class="dev-spinner"></div> <span data-i18n="loading">загрузка...</span></div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ANALYTICS ============ -->
+    <div class="dev-panel" id="panel-analytics">
+      <div class="dev-panel-header">
+        <div>
+          <h1 data-i18n="analyticsTitle">Analytics</h1>
+          <div class="sub" data-i18n="analyticsSub">Визуализация данных коллекций</div>
+        </div>
+        <button class="dbtn" onclick="loadAnalytics()">
+          <i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Refresh</span>
+        </button>
+      </div>
+
+      <div class="dev-grid">
+        <div class="dev-card">
+          <div class="card-label" data-i18n="totalCollections">Всего коллекций</div>
+          <div class="card-value blue" id="analyticsCollections">—</div>
+        </div>
+        <div class="dev-card">
+          <div class="card-label" data-i18n="totalDocuments">Всего документов</div>
+          <div class="card-value" id="analyticsTotal">—</div>
+        </div>
+        <div class="dev-card">
+          <div class="card-label" data-i18n="largest">Самая большая</div>
+          <div class="card-value small purple" id="analyticsLargest">—</div>
+        </div>
+        <div class="dev-card">
+          <div class="card-label" data-i18n="emptyCollections">Пустых</div>
+          <div class="card-value yellow" id="analyticsEmpty">—</div>
+        </div>
+      </div>
+
+      <div class="dev-block">
+        <div class="dev-block-header">
+          <h3><i class="fas fa-chart-bar"></i> <span data-i18n="docsByCollection">Документы по коллекциям</span></h3>
+        </div>
+        <div class="dev-block-body">
+          <div class="dev-chart" id="analyticsChart">
+            <div style="color:var(--text-dim);font-size:12px;" data-i18n="loadingChart">Загрузка графика...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dev-block">
+        <div class="dev-block-header">
+          <h3><i class="fas fa-table"></i> <span data-i18n="distribution">Распределение</span></h3>
+        </div>
+        <div class="dev-block-body" style="padding:0;">
+          <table class="dev-table">
+            <thead>
+              <tr>
+                <th data-i18n="collection">Коллекция</th>
+                <th data-i18n="documents">Документов</th>
+                <th style="width:50%;" data-i18n="percentage">Процент</th>
+              </tr>
+            </thead>
+            <tbody id="analyticsBody">
+              <tr><td colspan="3"><div class="dev-loading"><div class="dev-spinner"></div> <span data-i18n="loading">загрузка...</span></div></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -1274,22 +1735,23 @@ body::after {
     <div class="dev-panel" id="panel-logs">
       <div class="dev-panel-header">
         <div>
-          <h1>System Logs</h1>
-          <div class="sub">Журнал событий console</div>
+          <h1 data-i18n="logsTitle">System Logs</h1>
+          <div class="sub" data-i18n="logsSub">Журнал событий console</div>
         </div>
-        <div style="display:flex;gap:8px;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input type="text" class="dev-input" id="logSearch" placeholder="Search logs..." oninput="filterLogs()" style="max-width:200px;">
           <button class="dbtn" onclick="exportLogs()">
-            <i class="fas fa-download"></i> Export
+            <i class="fas fa-download"></i> <span data-i18n="export">Export</span>
           </button>
           <button class="dbtn dbtn-danger" onclick="clearLogs()">
-            <i class="fas fa-trash"></i> Clear
+            <i class="fas fa-trash"></i> <span data-i18n="clear">Clear</span>
           </button>
         </div>
       </div>
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-scroll"></i> Event Stream</h3>
+          <h3><i class="fas fa-scroll"></i> <span data-i18n="eventStream">Event Stream</span></h3>
           <span class="dev-tag gray" id="logsCount">0 events</span>
         </div>
         <div class="dev-block-body" style="padding:0;">
@@ -1304,14 +1766,14 @@ body::after {
     <div class="dev-panel" id="panel-console">
       <div class="dev-panel-header">
         <div>
-          <h1>Console</h1>
-          <div class="sub">Интерактивная консоль для запросов к Firebase</div>
+          <h1 data-i18n="consoleTitle">Console</h1>
+          <div class="sub" data-i18n="consoleSub">Интерактивная консоль для запросов к Firebase</div>
         </div>
       </div>
 
       <div class="dev-block">
         <div class="dev-block-header">
-          <h3><i class="fas fa-terminal"></i> Quick Commands</h3>
+          <h3><i class="fas fa-terminal"></i> <span data-i18n="quickCommands">Quick Commands</span></h3>
         </div>
         <div class="dev-block-body">
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
@@ -1336,52 +1798,43 @@ body::after {
     <div class="dev-panel" id="panel-maintenance">
       <div class="dev-panel-header">
         <div>
-          <h1>Maintenance</h1>
-          <div class="sub">Опасные операции. Используйте с осторожностью</div>
+          <h1 data-i18n="maintenanceTitle">Maintenance</h1>
+          <div class="sub" data-i18n="maintenanceSub">Опасные операции. Используйте с осторожностью</div>
         </div>
       </div>
 
-      <div class="dev-block" style="border-color:rgba(255,51,51,0.3);">
-        <div class="dev-block-header" style="border-bottom-color:rgba(255,51,51,0.3);background:rgba(255,51,51,0.05);">
-          <h3 style="color:var(--red);"><i class="fas fa-exclamation-triangle" style="color:var(--red);"></i> Danger Zone</h3>
+      <div class="dev-block" style="border-color:rgba(255,51,85,0.3);">
+        <div class="dev-block-header" style="border-bottom-color:rgba(255,51,85,0.3);background:rgba(255,51,85,0.05);">
+          <h3 style="color:var(--red);"><i class="fas fa-exclamation-triangle" style="color:var(--red);"></i> <span data-i18n="dangerZone">Danger Zone</span></h3>
         </div>
         <div class="dev-block-body">
-          <p style="color:var(--text-dim);font-size:12px;margin-bottom:20px;">
+          <p style="color:var(--text-dim);font-size:12px;margin-bottom:20px;" data-i18n="dangerWarning">
             ⚠️ Эти операции необратимы. Используйте только при полной уверенности.
-            Перед выполнением рекомендуется сделать экспорт данных.
           </p>
 
           <div class="kv-list">
             <div class="kv-row" style="align-items:center;">
               <div>
-                <div class="kv-key" style="color:var(--text);font-weight:600;">Export all data to JSON</div>
-                <div style="color:var(--text-dim);font-size:11px;margin-top:4px;">Выгрузить все коллекции Firestore в один JSON-файл</div>
+                <div class="kv-key" style="color:var(--text);font-weight:600;" data-i18n="exportAll">Export all data to JSON</div>
+                <div style="color:var(--text-dim);font-size:11px;margin-top:4px;" data-i18n="exportAllSub">Выгрузить все коллекции Firestore в один JSON-файл</div>
               </div>
-              <button class="dbtn" onclick="exportAllData()"><i class="fas fa-download"></i> Export</button>
+              <button class="dbtn" onclick="exportAllData()"><i class="fas fa-download"></i> <span data-i18n="export">Export</span></button>
             </div>
 
             <div class="kv-row" style="align-items:center;">
               <div>
-                <div class="kv-key" style="color:var(--text);font-weight:600;">Clear logs</div>
-                <div style="color:var(--text-dim);font-size:11px;margin-top:4px;">Очистить локальные логи системы</div>
+                <div class="kv-key" style="color:var(--text);font-weight:600;" data-i18n="clearLogs">Clear logs</div>
+                <div style="color:var(--text-dim);font-size:11px;margin-top:4px;" data-i18n="clearLogsSub">Очистить локальные логи системы</div>
               </div>
-              <button class="dbtn" onclick="clearLogs()"><i class="fas fa-trash"></i> Clear</button>
+              <button class="dbtn" onclick="clearLogs()"><i class="fas fa-trash"></i> <span data-i18n="clear">Clear</span></button>
             </div>
 
-            <div class="kv-row" style="align-items:center;border-top:1px solid rgba(255,51,51,0.2);padding-top:16px;margin-top:8px;">
+            <div class="kv-row" style="align-items:center;border-top:1px solid rgba(255,51,85,0.2);padding-top:16px;margin-top:8px;">
               <div>
-                <div class="kv-key" style="color:var(--yellow);font-weight:600;">Clean old used codes</div>
-                <div style="color:var(--text-dim);font-size:11px;margin-top:4px;">Удалить коды старше 30 дней из usedCodes</div>
+                <div class="kv-key" style="color:var(--yellow);font-weight:600;" data-i18n="cleanCodes">Clean old used codes</div>
+                <div style="color:var(--text-dim);font-size:11px;margin-top:4px;" data-i18n="cleanCodesSub">Удалить коды старше 30 дней из usedCodes</div>
               </div>
-              <button class="dbtn" onclick="confirmDangerous('cleanOldCodes')"><i class="fas fa-broom"></i> Clean</button>
-            </div>
-
-            <div class="kv-row" style="align-items:center;border-top:1px solid rgba(255,51,51,0.2);padding-top:16px;margin-top:8px;">
-              <div>
-                <div class="kv-key" style="color:var(--red);font-weight:600;">Reset site data</div>
-                <div style="color:var(--text-dim);font-size:11px;margin-top:4px;">⚠️ Полная очистка пользователей, отзывов, комментариев. Требует подтверждения.</div>
-              </div>
-              <button class="dbtn dbtn-danger" onclick="confirmDangerous('resetSiteData')"><i class="fas fa-bomb"></i> Reset</button>
+              <button class="dbtn" onclick="confirmDangerous('cleanOldCodes')"><i class="fas fa-broom"></i> <span data-i18n="clean">Clean</span></button>
             </div>
           </div>
         </div>
@@ -1396,9 +1849,10 @@ body::after {
   <div class="dev-modal">
     <button class="dbtn modal-close" onclick="closeDevModal()">✕</button>
     <h3 id="devModalTitle">Document</h3>
-    <pre class="dev-code" id="devModalContent" style="max-height:70vh;">загрузка...</pre>
+    <pre class="dev-code" id="devModalContent" style="max-height:70vh;">...</pre>
   </div>
 </div>
+
 <script type="module">
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
@@ -1423,9 +1877,279 @@ let currentUser = null;
 let uptimeSeconds = 0;
 let uptimeInterval = null;
 let logs = [];
-let consoleOutput = [];
+let logFilter = '';
+let currentLang = localStorage.getItem('devLang') || 'ru';
 
 const bootTime = Date.now();
+
+/* ============ I18N ============ */
+const I18N = {
+  ru: {
+    firebaseConnecting: 'Firebase: подключение...',
+    logout: 'Выйти',
+    accessDenied: 'ДОСТУП ЗАПРЕЩЁН',
+    accessDeniedMsg: 'Этот раздел доступен только разработчику.',
+    accessDeniedReq: 'Требуется вход как',
+    backToSite: 'Вернуться на сайт',
+    initializing: 'Инициализация console...',
+    runtime: 'Runtime',
+    infrastructure: 'Инфраструктура',
+    diagnostics: 'Диагностика',
+    danger: 'Опасное',
+    navEnv: 'Окружение',
+    navFirestore: 'Firestore',
+    navAuth: 'Авторизация',
+    navHosting: 'Хостинг',
+    navStorage: 'Хранилище',
+    navNetwork: 'Сеть',
+    navPerformance: 'Производительность',
+    navAnalytics: 'Аналитика',
+    navLogs: 'Системные логи',
+    navConsole: 'Консоль',
+    navMaintenance: 'Обслуживание',
+    backToAdmin: '← В админку',
+    envTitle: 'Окружение',
+    envSub: 'Конфигурация проекта и runtime окружение',
+    refresh: 'Обновить',
+    projectId: 'ID проекта',
+    authDomain: 'Домен Auth',
+    region: 'Регион',
+    env: 'Среда',
+    firebaseConfig: 'Firebase Config',
+    copy: 'Копировать',
+    browserRuntime: 'Браузер / Runtime',
+    cdnLibraries: 'CDN / Библиотеки',
+    loading: 'загрузка...',
+    firestoreTitle: 'Firestore',
+    firestoreSub: 'Коллекции, документы, размер базы данных',
+    collections: 'Коллекций',
+    active: 'Активных',
+    totalDocs: 'Всего документов',
+    acrossCollections: 'По всем коллекциям',
+    estimatedSize: 'Оценка размера',
+    approximately: 'Приблизительно',
+    readsToday: 'Чтений сегодня',
+    today: 'За сегодня',
+    collectionsList: 'Коллекции',
+    collection: 'Коллекция',
+    documents: 'Документов',
+    size: 'Размер',
+    lastDoc: 'Последний документ',
+    actions: 'Действия',
+    authTitle: 'Авторизация',
+    authSub: 'Пользователи Firebase Authentication',
+    users: 'Пользователей',
+    activeSessions: 'Активных сессий',
+    verifiedEmail: 'Подтвердили email',
+    currentUser: 'Текущий юзер',
+    currentSession: 'Текущая сессия',
+    usersFromFirestore: 'Пользователи (из Firestore)',
+    role: 'Роль',
+    created: 'Создан',
+    hostingTitle: 'Хостинг',
+    hostingSub: 'Информация о хостинге и доменах',
+    currentDomain: 'Текущий домен',
+    availableDomains: 'Доступные домены',
+    prodDomain: 'Продакшн домен',
+    storageTitle: 'Хранилище',
+    storageSub: 'Firebase Storage — бакеты и файлы',
+    files: 'Файлов',
+    status: 'Статус',
+    aboutStorage: 'О Storage',
+    usage: 'Использование',
+    storageUsage: 'Аватары, фото отзывов (dataURL в Firestore)',
+    note: 'Примечание',
+    storageNote: 'Фото хранятся в Firestore как dataURL. Storage не используется.',
+    networkTitle: 'Сеть',
+    networkSub: 'Мониторинг соединения и запросов',
+    speedTest: 'Тест скорости',
+    ms: 'мс',
+    latencyTests: 'Тесты задержки',
+    run: 'Запустить',
+    latencyHint: 'Нажмите «Run» для проверки задержки',
+    firebaseEndpoints: 'Firebase endpoints',
+    perfTitle: 'Производительность',
+    perfSub: 'Метрики производительности и загрузки',
+    timingMetrics: 'Метрики таймингов',
+    analyticsTitle: 'Аналитика',
+    analyticsSub: 'Визуализация данных коллекций',
+    totalCollections: 'Всего коллекций',
+    totalDocuments: 'Всего документов',
+    largest: 'Самая большая',
+    emptyCollections: 'Пустых',
+    docsByCollection: 'Документы по коллекциям',
+    loadingChart: 'Загрузка графика...',
+    distribution: 'Распределение',
+    percentage: 'Процент',
+    logsTitle: 'Системные логи',
+    logsSub: 'Журнал событий console',
+    export: 'Экспорт',
+    clear: 'Очистить',
+    eventStream: 'Поток событий',
+    consoleTitle: 'Консоль',
+    consoleSub: 'Интерактивная консоль для запросов к Firebase',
+    quickCommands: 'Быстрые команды',
+    maintenanceTitle: 'Обслуживание',
+    maintenanceSub: 'Опасные операции. Используйте с осторожностью',
+    dangerZone: 'Опасная зона',
+    dangerWarning: '⚠️ Эти операции необратимы. Используйте только при полной уверенности.',
+    exportAll: 'Экспорт всех данных в JSON',
+    exportAllSub: 'Выгрузить все коллекции Firestore в один JSON-файл',
+    clearLogs: 'Очистить логи',
+    clearLogsSub: 'Очистить локальные логи системы',
+    cleanCodes: 'Очистить старые коды',
+    cleanCodesSub: 'Удалить коды старше 30 дней из usedCodes',
+    clean: 'Очистить',
+    copyFirebase: 'Firebase config'
+  },
+  en: {
+    firebaseConnecting: 'Firebase: connecting...',
+    logout: 'Logout',
+    accessDenied: 'ACCESS DENIED',
+    accessDeniedMsg: 'This section is available only to the developer.',
+    accessDeniedReq: 'Login required as',
+    backToSite: 'Back to site',
+    initializing: 'Initializing console...',
+    runtime: 'Runtime',
+    infrastructure: 'Infrastructure',
+    diagnostics: 'Diagnostics',
+    danger: 'Danger',
+    navEnv: 'Environment',
+    navFirestore: 'Firestore',
+    navAuth: 'Auth',
+    navHosting: 'Hosting',
+    navStorage: 'Storage',
+    navNetwork: 'Network',
+    navPerformance: 'Performance',
+    navAnalytics: 'Analytics',
+    navLogs: 'System Logs',
+    navConsole: 'Console',
+    navMaintenance: 'Maintenance',
+    backToAdmin: '← Back to admin',
+    envTitle: 'Environment',
+    envSub: 'Project configuration and runtime environment',
+    refresh: 'Refresh',
+    projectId: 'Project ID',
+    authDomain: 'Auth Domain',
+    region: 'Region',
+    env: 'Env',
+    firebaseConfig: 'Firebase Config',
+    copy: 'Copy',
+    browserRuntime: 'Browser / Runtime',
+    cdnLibraries: 'CDN / Libraries',
+    loading: 'loading...',
+    firestoreTitle: 'Firestore',
+    firestoreSub: 'Collections, documents, database size',
+    collections: 'Collections',
+    active: 'Active',
+    totalDocs: 'Total documents',
+    acrossCollections: 'Across all collections',
+    estimatedSize: 'Estimated size',
+    approximately: 'Approximately',
+    readsToday: 'Reads today',
+    today: 'Today',
+    collectionsList: 'Collections',
+    collection: 'Collection',
+    documents: 'Documents',
+    size: 'Size',
+    lastDoc: 'Last document',
+    actions: 'Actions',
+    authTitle: 'Auth',
+    authSub: 'Firebase Authentication users',
+    users: 'Users',
+    activeSessions: 'Active sessions',
+    verifiedEmail: 'Email verified',
+    currentUser: 'Current user',
+    currentSession: 'Current Session',
+    usersFromFirestore: 'Users (from Firestore)',
+    role: 'Role',
+    created: 'Created',
+    hostingTitle: 'Hosting',
+    hostingSub: 'Hosting and domains information',
+    currentDomain: 'Current domain',
+    availableDomains: 'Available domains',
+    prodDomain: 'Production domain',
+    storageTitle: 'Storage',
+    storageSub: 'Firebase Storage — buckets and files',
+    files: 'Files',
+    status: 'Status',
+    aboutStorage: 'About Storage',
+    usage: 'Usage',
+    storageUsage: 'Avatars, review photos (dataURL in Firestore)',
+    note: 'Note',
+    storageNote: 'Photos stored in Firestore as dataURL. Storage not used.',
+    networkTitle: 'Network',
+    networkSub: 'Connection and requests monitoring',
+    speedTest: 'Speed Test',
+    ms: 'ms',
+    latencyTests: 'Latency tests',
+    run: 'Run',
+    latencyHint: 'Click «Run» to test latency',
+    firebaseEndpoints: 'Firebase endpoints',
+    perfTitle: 'Performance',
+    perfSub: 'Performance and load metrics',
+    timingMetrics: 'Timing Metrics',
+    analyticsTitle: 'Analytics',
+    analyticsSub: 'Collections data visualization',
+    totalCollections: 'Total collections',
+    totalDocuments: 'Total documents',
+    largest: 'Largest',
+    emptyCollections: 'Empty',
+    docsByCollection: 'Documents by collection',
+    loadingChart: 'Loading chart...',
+    distribution: 'Distribution',
+    percentage: 'Percentage',
+    logsTitle: 'System Logs',
+    logsSub: 'Console event log',
+    export: 'Export',
+    clear: 'Clear',
+    eventStream: 'Event Stream',
+    consoleTitle: 'Console',
+    consoleSub: 'Interactive console for Firebase queries',
+    quickCommands: 'Quick Commands',
+    maintenanceTitle: 'Maintenance',
+    maintenanceSub: 'Dangerous operations. Use with caution',
+    dangerZone: 'Danger Zone',
+    dangerWarning: '⚠️ These operations are irreversible. Use only when absolutely sure.',
+    exportAll: 'Export all data to JSON',
+    exportAllSub: 'Export all Firestore collections to a single JSON file',
+    clearLogs: 'Clear logs',
+    clearLogsSub: 'Clear local system logs',
+    cleanCodes: 'Clean old used codes',
+    cleanCodesSub: 'Delete codes older than 30 days from usedCodes',
+    clean: 'Clean',
+    copyFirebase: 'Firebase config'
+  }
+};
+
+window.setLanguage = function(lang) {
+  currentLang = lang;
+  localStorage.setItem('devLang', lang);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (I18N[lang] && I18N[lang][key]) {
+      el.textContent = I18N[lang][key];
+    }
+  });
+  document.getElementById('langRu').classList.toggle('active', lang === 'ru');
+  document.getElementById('langEn').classList.toggle('active', lang === 'en');
+  logEvent('info', `Language switched to ${lang.toUpperCase()}`);
+};
+
+function t(key) {
+  return (I18N[currentLang] && I18N[currentLang][key]) || key;
+}
+
+/* ============ THEME ============ */
+window.toggleTheme = function() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('devTheme', next);
+  document.getElementById('themeIcon').className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+  devToast(`Theme: ${next}`, 'success');
+};
 
 /* ============ TOAST ============ */
 function devToast(msg, type = 'info', duration = 3500) {
@@ -1437,7 +2161,7 @@ function devToast(msg, type = 'info', duration = 3500) {
   t.className = `dev-toast ${type}`;
   t.innerHTML = `<i class="fas ${icons[type]} ti ${colors[type]}"></i><span>${msg}</span>`;
   c.appendChild(t);
-  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(40px)'; setTimeout(() => t.remove(), 300); }, duration);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(60px)'; setTimeout(() => t.remove(), 300); }, duration);
 }
 
 /* ============ LOGS ============ */
@@ -1449,29 +2173,35 @@ function logEvent(type, message) {
   renderLogs();
 }
 
+function filterLogs() {
+  logFilter = document.getElementById('logSearch').value.toLowerCase();
+  renderLogs();
+}
+
 function renderLogs() {
   const term = document.getElementById('logsTerminal');
   if (!term) return;
   const count = document.getElementById('logsCount');
   const navBadge = document.getElementById('navLogsCount');
-  if (count) count.textContent = `${logs.length} events`;
+  const filtered = logFilter ? logs.filter(l => l.message.toLowerCase().includes(logFilter)) : logs;
+  if (count) count.textContent = `${filtered.length} events`;
   if (navBadge) navBadge.textContent = Math.min(logs.length, 99);
-  term.innerHTML = logs.slice(0, 200).map(l =>
+  term.innerHTML = filtered.slice(0, 200).map(l =>
     `<div class="term-line ${l.type}"><span class="ts">${l.ts}</span> ${escapeHTML(l.message)}</div>`
-  ).join('') || '<div class="term-line info">нет событий</div>';
+  ).join('') || '<div class="term-line info">no events</div>';
 }
 
 function clearLogs() {
-  if (!confirm('Очистить все логи?')) return;
+  if (!confirm('Clear all logs?')) return;
   logs = [];
   renderLogs();
-  devToast('Логи очищены', 'success');
+  devToast('Logs cleared', 'success');
 }
 
 function exportLogs() {
   const data = JSON.stringify(logs, null, 2);
   downloadFile(data, `logs-${Date.now()}.json`, 'application/json');
-  devToast('Логи экспортированы', 'success');
+  devToast('Logs exported', 'success');
 }
 
 /* ============ UTILS ============ */
@@ -1508,11 +2238,11 @@ function formatDateTime(d) {
   } catch { return '—'; }
 }
 
-function copyText(text, label = 'Текст') {
+function copyText(text, label = 'Text') {
   navigator.clipboard.writeText(text).then(() => {
-    devToast(`${label} скопирован в буфер`, 'success');
+    devToast(`${label} copied to clipboard`, 'success');
   }).catch(() => {
-    devToast('Не удалось скопировать', 'error');
+    devToast('Copy failed', 'error');
   });
 }
 
@@ -1539,6 +2269,7 @@ window.switchPanel = function(panel) {
   else if (panel === 'storage') loadStorage();
   else if (panel === 'network') loadNetwork();
   else if (panel === 'performance') loadPerformance();
+  else if (panel === 'analytics') loadAnalytics();
   else if (panel === 'logs') renderLogs();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
@@ -1571,9 +2302,9 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 window.handleDevLogout = async function() {
-  if (!confirm('Выйти из console?')) return;
+  if (!confirm('Logout from console?')) return;
   logEvent('warn', 'Logout initiated');
-  try { await signOut(auth); window.location.href = 'index.html'; } catch (e) { devToast('Ошибка: ' + e.message, 'error'); }
+  try { await signOut(auth); window.location.href = 'index.html'; } catch (e) { devToast('Error: ' + e.message, 'error'); }
 };
 
 /* ============ UPTIME ============ */
@@ -1620,6 +2351,7 @@ function loadEnv() {
     <div class="kv-row"><span class="kv-key">Do Not Track</span><span class="kv-val">${navigator.doNotTrack || '—'}</span></div>
     <div class="kv-row"><span class="kv-key">Hardware Concurrency</span><span class="kv-val blue">${navigator.hardwareConcurrency || '—'} cores</span></div>
     <div class="kv-row"><span class="kv-key">Device Memory</span><span class="kv-val blue">${navigator.deviceMemory || '—'} GB</span></div>
+    <div class="kv-row"><span class="kv-key">Connection Type</span><span class="kv-val cyan">${(navigator.connection && navigator.connection.effectiveType) || '—'}</span></div>
   `;
   document.getElementById('envBrowserInfo').innerHTML = browserInfo;
 
@@ -1627,7 +2359,6 @@ function loadEnv() {
     <div class="kv-row"><span class="kv-key">Firebase App</span><span class="kv-val green">v12.18.0 (ESM)</span></div>
     <div class="kv-row"><span class="kv-key">Firebase Auth</span><span class="kv-val green">v12.18.0</span></div>
     <div class="kv-row"><span class="kv-key">Firebase Firestore</span><span class="kv-val green">v12.18.0</span></div>
-    <div class="kv-row"><span class="kv-key">CryptoJS</span><span class="kv-val green">4.2.0</span></div>
     <div class="kv-row"><span class="kv-key">Font Awesome</span><span class="kv-val green">6.5.0</span></div>
     <div class="kv-row"><span class="kv-key">Fonts</span><span class="kv-val">Inter, JetBrains Mono</span></div>
   `;
@@ -1637,17 +2368,18 @@ function loadEnv() {
 }
 
 /* ============ FIRESTORE ============ */
+const COLLECTIONS = ['users', 'reviews', 'comments', 'masters', 'blog', 'bookings', 'consents', 'usedCodes', 'bannedDevices'];
+
 async function loadFirestore() {
-  const collectionsList = ['users', 'reviews', 'comments', 'masters', 'blog', 'bookings', 'consents', 'usedCodes', 'bannedDevices'];
   const tbody = document.getElementById('fsCollectionsBody');
-  tbody.innerHTML = `<tr><td colspan="5"><div class="dev-loading"><div class="dev-spinner"></div> загрузка...</div></td></tr>`;
+  tbody.innerHTML = `<tr><td colspan="5"><div class="dev-loading"><div class="dev-spinner"></div> ${t('loading')}</div></td></tr>`;
 
   let totalDocs = 0;
   let totalSize = 0;
   let activeCollections = 0;
   const rows = [];
 
-  for (const colName of collectionsList) {
+  for (const colName of COLLECTIONS) {
     try {
       const snap = await getDocs(collection(db, colName));
       const count = snap.size;
@@ -1680,7 +2412,7 @@ async function loadFirestore() {
     }
   }
 
-  rows.sort((a, b) => b.count - a.count || 0);
+  rows.sort((a, b) => (b.count || 0) - (a.count || 0));
 
   tbody.innerHTML = rows.map(r => `
     <tr>
@@ -1689,7 +2421,7 @@ async function loadFirestore() {
       <td class="num">${r.error ? '—' : formatBytes(r.size)}</td>
       <td class="mono-sm">${r.last ? formatDateTime(r.last) : '—'}</td>
       <td>
-        <button class="dbtn" onclick="inspectCollection('${r.name}')" style="font-size:10px;padding:3px 8px;">
+        <button class="dbtn" onclick="inspectCollection('${r.name}')" style="font-size:10px;padding:4px 9px;">
           <i class="fas fa-search"></i> View
         </button>
       </td>
@@ -1714,7 +2446,7 @@ window.inspectCollection = async function(colName) {
     showDevModal(`Collection: ${colName} (${docs.length} docs)`, JSON.stringify(docs.slice(0, 50), null, 2) + (docs.length > 50 ? '\n\n... and ' + (docs.length - 50) + ' more' : ''));
     logEvent('info', `Inspect collection: ${colName}`);
   } catch (e) {
-    devToast('Ошибка: ' + e.message, 'error');
+    devToast('Error: ' + e.message, 'error');
   }
 };
 
@@ -1746,7 +2478,7 @@ async function loadAuth() {
 
   const tbody = document.getElementById('authUsersBody');
   if (!users.length) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-dim);">Пользователи не найдены</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-dim);">No users found</td></tr>`;
   } else {
     tbody.innerHTML = users.slice(0, 100).map(u => {
       const roleTag = u.role === 'developer' ? '<span class="dev-tag purple">dev</span>' : u.role === 'admin' ? '<span class="dev-tag blue">admin</span>' : '<span class="dev-tag gray">user</span>';
@@ -1761,7 +2493,7 @@ async function loadAuth() {
         </tr>
       `;
     }).join('');
-    if (users.length > 100) tbody.innerHTML += `<tr><td colspan="5" style="text-align:center;padding:10px;color:var(--text-dim);font-size:11px;">... ещё ${users.length - 100}</td></tr>`;
+    if (users.length > 100) tbody.innerHTML += `<tr><td colspan="5" style="text-align:center;padding:10px;color:var(--text-dim);font-size:11px;">... +${users.length - 100} more</td></tr>`;
   }
 
   logEvent('info', `Auth: ${users.length} users, ${verified} verified`);
@@ -1782,7 +2514,7 @@ function loadStorage() {
   document.getElementById('storageBucket').textContent = firebaseConfig.storageBucket;
   document.getElementById('storageFiles').textContent = '—';
   document.getElementById('storageSize').textContent = '—';
-  document.getElementById('storageStatus').innerHTML = '<span class="dev-tag yellow">не используется</span>';
+  document.getElementById('storageStatus').innerHTML = '<span class="dev-tag yellow">not used</span>';
   logEvent('info', 'Storage: not used (photos as dataURL)');
 }
 
@@ -1804,7 +2536,7 @@ function loadNetwork() {
 
 window.runLatencyTests = async function() {
   const list = document.getElementById('netLatencyList');
-  list.innerHTML = '<div class="dev-loading"><div class="dev-spinner"></div> тестирование...</div>';
+  list.innerHTML = '<div class="dev-loading"><div class="dev-spinner"></div> testing...</div>';
   const endpoints = [
     { name: 'Firebase Hosting', url: 'https://studio1-kemerovo.web.app/__/firebase/init.json' },
     { name: 'Google (fonts)', url: 'https://fonts.googleapis.com/', noCors: true },
@@ -1821,7 +2553,7 @@ window.runLatencyTests = async function() {
       const color = ms < 100 ? 'green' : ms < 300 ? 'yellow' : 'red';
       results.push(`<div class="kv-row"><span class="kv-key">${ep.name}</span><span class="kv-val ${color}">${ms} ms</span></div>`);
     } catch (e) {
-      results.push(`<div class="kv-row"><span class="kv-key">${ep.name}</span><span class="kv-val red">ошибка</span></div>`);
+      results.push(`<div class="kv-row"><span class="kv-key">${ep.name}</span><span class="kv-val red">error</span></div>`);
     }
   }
   list.innerHTML = results.join('');
@@ -1829,17 +2561,17 @@ window.runLatencyTests = async function() {
 };
 
 window.testNetworkSpeed = function() {
-  devToast('Замер скорости: загружаю тестовый файл...', 'info');
+  devToast('Speed test: loading test file...', 'info');
   const t0 = performance.now();
   const img = new Image();
   const url = 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/icons/1-circle.svg';
   img.onload = () => {
     const ms = performance.now() - t0;
-    devToast(`Тест загрузки: ~${Math.round(ms)}ms`, 'success');
+    devToast(`Load test: ~${Math.round(ms)}ms`, 'success');
     logEvent('info', `Speed test: ${Math.round(ms)}ms`);
   };
   img.onerror = () => {
-    devToast('Не удалось загрузить тестовый файл', 'error');
+    devToast('Failed to load test file', 'error');
   };
   img.src = url + '?t=' + Date.now();
 };
@@ -1859,7 +2591,6 @@ function loadPerformance() {
     const used = (performance.memory.usedJSHeapSize / 1024 / 1024).toFixed(2);
     const limit = (performance.memory.jsHeapSizeLimit / 1024 / 1024).toFixed(0);
     document.getElementById('perfMemory').textContent = `${used} / ${limit}`;
-    document.getElementById('perfMemory').className = 'card-value purple';
   } else {
     document.getElementById('perfMemory').textContent = 'N/A';
   }
@@ -1885,6 +2616,60 @@ function formatUptime() {
   const m = String(Math.floor((uptimeSeconds % 3600) / 60)).padStart(2, '0');
   const s = String(uptimeSeconds % 60).padStart(2, '0');
   return `${h}:${m}:${s}`;
+}
+
+/* ============ ANALYTICS ============ */
+async function loadAnalytics() {
+  const chart = document.getElementById('analyticsChart');
+  const tbody = document.getElementById('analyticsBody');
+  chart.innerHTML = `<div style="color:var(--text-dim);font-size:12px;">${t('loadingChart')}</div>`;
+  tbody.innerHTML = `<tr><td colspan="3"><div class="dev-loading"><div class="dev-spinner"></div> ${t('loading')}</div></td></tr>`;
+
+  const data = [];
+  let total = 0;
+  for (const colName of COLLECTIONS) {
+    try {
+      const snap = await getDocs(collection(db, colName));
+      data.push({ name: colName, count: snap.size });
+      total += snap.size;
+    } catch (e) {
+      data.push({ name: colName, count: 0 });
+    }
+  }
+
+  data.sort((a, b) => b.count - a.count);
+  const max = Math.max(...data.map(d => d.count), 1);
+  const empty = data.filter(d => d.count === 0).length;
+  const largest = data[0];
+
+  document.getElementById('analyticsCollections').textContent = data.filter(d => d.count > 0).length;
+  document.getElementById('analyticsTotal').textContent = total;
+  document.getElementById('analyticsLargest').textContent = largest ? largest.name : '—';
+  document.getElementById('analyticsEmpty').textContent = empty;
+
+  chart.innerHTML = data.map(d => {
+    const h = Math.max((d.count / max) * 100, 2);
+    return `<div class="bar" style="height:${h}%" data-tooltip="${d.name}: ${d.count}"></div>`;
+  }).join('');
+
+  tbody.innerHTML = data.map(d => {
+    const pct = total > 0 ? ((d.count / total) * 100).toFixed(1) : '0.0';
+    const color = d.count === 0 ? 'gray' : d.count > total / 3 ? 'green' : 'blue';
+    return `
+      <tr>
+        <td><span class="dev-tag ${color}">${d.name}</span></td>
+        <td class="num">${d.count}</td>
+        <td>
+          <div class="dev-progress" style="height:8px;">
+            <div class="fill" style="width:${pct}%;background:linear-gradient(90deg,var(--green-dim),var(--green));"></div>
+          </div>
+          <div style="font-size:10px;color:var(--text-dim);margin-top:4px;">${pct}%</div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  logEvent('ok', `Analytics: ${total} documents across ${data.length} collections`);
 }
 
 /* ============ CONSOLE ============ */
@@ -1927,8 +2712,7 @@ window.cmdShowCurrentUser = function() {
 
 window.cmdListCollections = async function() {
   appendConsole('info', `> list collections`);
-  const cols = ['users', 'reviews', 'comments', 'masters', 'blog', 'bookings', 'consents', 'usedCodes', 'bannedDevices'];
-  for (const col of cols) {
+  for (const col of COLLECTIONS) {
     try {
       const snap = await getDocs(collection(db, col));
       appendConsole(snap.size > 0 ? 'ok' : 'info', `  ${col.padEnd(20)} ${snap.size} docs`);
@@ -1941,11 +2725,11 @@ window.cmdListCollections = async function() {
 /* ============ MAINTENANCE ============ */
 window.confirmDangerous = function(action) {
   const messages = {
-    cleanOldCodes: 'Удалить использованные коды старше 30 дней? Это безопасная операция.',
-    resetSiteData: '⚠️ ВНИМАНИЕ! Будут удалены ВСЕ пользователи, отзывы, комментарии. Это необратимо. Продолжить?'
+    cleanOldCodes: 'Delete used codes older than 30 days? This is safe.',
+    resetSiteData: '⚠️ WARNING! All users, reviews, comments will be deleted. Irreversible. Continue?'
   };
-  if (!confirm(messages[action] || 'Подтвердить?')) return;
-  if (action === 'resetSiteData' && !confirm('Точно? ТРЕБУЕТСЯ ВТОРОЕ ПОДТВЕРЖДЕНИЕ')) return;
+  if (!confirm(messages[action] || 'Confirm?')) return;
+  if (action === 'resetSiteData' && !confirm('Are you sure? SECOND CONFIRMATION REQUIRED')) return;
   executeMaintenance(action);
 };
 
@@ -1964,21 +2748,18 @@ async function executeMaintenance(action) {
           total++;
         }
       }
-      devToast(`Очищено ${total} старых кодов`, 'success');
+      devToast(`Cleaned ${total} old codes`, 'success');
       logEvent('ok', `Maintenance complete: cleaned ${total} docs`);
       if (document.getElementById('panel-firestore').classList.contains('active')) loadFirestore();
     } catch (e) {
-      devToast('Ошибка: ' + e.message, 'error');
+      devToast('Error: ' + e.message, 'error');
       logEvent('err', 'Maintenance failed: ' + e.message);
     }
-  } else if (action === 'resetSiteData') {
-    devToast('⚠️ Reset отключён для безопасности. Используйте Firebase Console.', 'warn', 6000);
-    logEvent('warn', 'Reset blocked for safety. Use Firebase Console.');
   }
 }
 
 window.exportAllData = async function() {
-  devToast('Экспорт данных...', 'info');
+  devToast('Exporting data...', 'info');
   logEvent('info', 'Export all data started');
   const cols = ['users', 'reviews', 'comments', 'masters', 'blog', 'bookings', 'consents'];
   const data = { exportedAt: new Date().toISOString(), project: firebaseConfig.projectId, collections: {} };
@@ -1990,10 +2771,10 @@ window.exportAllData = async function() {
     }
     const json = JSON.stringify(data, null, 2);
     downloadFile(json, `studio1-backup-${Date.now()}.json`, 'application/json');
-    devToast('Данные экспортированы', 'success');
+    devToast('Data exported', 'success');
     logEvent('ok', `Export complete: ${Object.keys(data.collections).length} collections`);
   } catch (e) {
-    devToast('Ошибка экспорта: ' + e.message, 'error');
+    devToast('Export error: ' + e.message, 'error');
     logEvent('err', 'Export failed: ' + e.message);
   }
 };
@@ -2033,18 +2814,26 @@ window.addEventListener('unhandledrejection', (e) => {
 });
 
 /* ============ BOOT ============ */
-console.log('%c▀▀▀ DEV CONSOLE ▀▀▀', 'color: #00FF41; font-weight: 700; font-size: 14px;');
+console.log('%c▀▀▀ DEV CONSOLE v2.0 ▀▀▀', 'color: #00FF41; font-weight: 700; font-size: 14px;');
 console.log('%cstudio1-kemerovo', 'color: #808080; font-size: 11px;');
 console.log('%cType in console: window.DEV for helpers', 'color: #00AA2A;');
 
 window.DEV = {
-  version: '1.0',
+  version: '2.0',
   project: firebaseConfig.projectId,
   export: exportAllData,
   clearLogs: clearLogs,
   logs: () => logs,
+  lang: (l) => setLanguage(l),
   refresh: () => { loadEnv(); loadFirestore(); loadAuth(); }
 };
+
+// Init language and theme
+const savedTheme = localStorage.getItem('devTheme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.getElementById('themeIcon').className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+setLanguage(currentLang);
 
 logEvent('ok', 'Dev console initialized');
 </script>
