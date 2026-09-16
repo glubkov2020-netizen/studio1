@@ -38,6 +38,7 @@
   --red: #E74C3C;
   --orange: #F5B342;
   --blue: #3498DB;
+  --purple: #B388FF;
   --transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   --radius: 16px;
   --radius-sm: 10px;
@@ -53,6 +54,7 @@
   --border-color: rgba(201, 169, 110, 0.2);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg-primary);
@@ -67,9 +69,7 @@ body::before {
   background: var(--bg-primary),
     radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.1) 0%, transparent 55%),
     radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.06) 0%, transparent 50%);
-  animation: bgShift 20s ease-in-out infinite alternate;
 }
-@keyframes bgShift { 0% { opacity: 0.7; } 100% { opacity: 1; } }
 
 /* ============ HEADER ============ */
 .admin-header {
@@ -169,7 +169,6 @@ body::before {
   min-width: 20px; text-align: center;
 }
 .admin-tab.active .tab-badge { background: rgba(0,0,0,0.3); }
-
 .admin-section { display: none; animation: fadeInUp 0.4s ease; }
 .admin-section.active { display: block; }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -208,9 +207,7 @@ body::before {
 .stat-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: var(--gold-gradient); background-size: 200% auto;
-  animation: shimmer 4s ease-in-out infinite;
 }
-@keyframes shimmer { 0%, 100% { background-position: 0% center; } 50% { background-position: 200% center; } }
 .stat-card .stat-icon {
   font-size: 24px; color: var(--gold);
   margin-bottom: 12px; display: block;
@@ -275,7 +272,6 @@ body::before {
 }
 .admin-table-filters input:focus,
 .admin-table-filters select:focus { outline: none; border-color: var(--gold); }
-
 .admin-list { display: flex; flex-direction: column; }
 .admin-list-item {
   padding: 16px 20px;
@@ -324,6 +320,7 @@ body::before {
 .badge-blue { background: rgba(52, 152, 219, 0.15); color: var(--blue); }
 .badge-gray { background: rgba(138, 133, 128, 0.15); color: var(--text-muted); }
 .badge-gold { background: rgba(201, 169, 110, 0.15); color: var(--gold); }
+.badge-purple { background: rgba(179, 136, 255, 0.15); color: var(--purple); }
 
 /* ============ MODERATION CARD ============ */
 .moderation-card {
@@ -427,10 +424,11 @@ body::before {
   padding: 10px 0;
   border-bottom: 1px solid var(--border-color);
   font-size: 13px;
+  gap: 12px;
 }
 .modal .modal-info-row:last-child { border-bottom: none; }
-.modal .modal-info-row .label { color: var(--text-muted); }
-.modal .modal-info-row .value { color: var(--text-primary); font-weight: 600; }
+.modal .modal-info-row .label { color: var(--text-muted); flex-shrink: 0; }
+.modal .modal-info-row .value { color: var(--text-primary); font-weight: 600; text-align: right; word-break: break-word; }
 .modal form { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
 .modal form label {
   display: block; font-size: 13px; font-weight: 600;
@@ -482,8 +480,7 @@ body::before {
   margin-left: auto; background: none; border: none;
   color: var(--text-muted); cursor: pointer; font-size: 18px; padding: 4px;
 }
-
-/* ============ LOADING ============ */
+  /* ============ LOADING ============ */
 .loading-spinner {
   display: inline-block;
   width: 20px; height: 20px;
@@ -506,6 +503,7 @@ body::before {
   text-align: center;
   padding: 80px 20px;
   max-width: 500px; margin: 0 auto;
+  position: relative; z-index: 1;
 }
 .access-denied .ad-icon {
   font-size: 72px; color: var(--red);
@@ -514,437 +512,7 @@ body::before {
 .access-denied h2 { font-size: 24px; margin-bottom: 10px; }
 .access-denied p { color: var(--text-muted); margin-bottom: 20px; }
 
-/* ============ АДАПТИВ ============ */
-@media (max-width: 768px) {
-  .admin-container { padding: 16px; }
-  .admin-header { padding: 12px 16px; }
-  .admin-header-inner { gap: 10px; }
-  .admin-logo { font-size: 17px; }
-  .admin-logo small { display: none; }
-  .admin-user .user-name { display: none; }
-  .stat-card .stat-value { font-size: 26px; }
-  .admin-list-item { padding: 14px 16px; }
-  .admin-list-item .li-info { min-width: 100%; }
-  .admin-list-item .li-actions { width: 100%; margin-top: 4px; }
-  .admin-list-item .li-actions .btn { flex: 1; }
-  .admin-tabs { padding: 4px 4px; }
-  .admin-tab { padding: 8px 14px; font-size: 13px; }
-  .admin-tab .tab-label { display: none; }
-  .admin-tab .tab-label-short { display: inline; }
-  .section-head h2 { font-size: 20px; }
-  .admin-table-header { padding: 12px 16px; }
-  .admin-table-filters input,
-  .admin-table-filters select { font-size: 12px; padding: 6px 10px; }
-  .modal { padding: 20px 16px; }
-}
-@media (max-width: 400px) {
-  .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .stat-card { padding: 14px; }
-  .stat-card .stat-value { font-size: 22px; }
-  .stat-card .stat-label { font-size: 11px; }
-}
-</style>
-</head>
-<body>
-<div id="toastContainer"></div>
-
-<header class="admin-header">
-  <div class="admin-header-inner">
-    <div class="admin-logo">
-      <i class="fas fa-shield-alt"></i>
-      Студия №1
-      <small>Админ-панель</small>
-    </div>
-    <div class="admin-user" id="adminUserBlock" style="display:none;">
-      <div class="avatar" id="adminAvatar">?</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;color:var(--text-primary);" id="adminUserName">Загрузка...</div>
-        <div style="font-size:11px;color:var(--text-muted);" id="adminUserRole">—</div>
-      </div>
-    </div>
-    <div class="admin-header-actions">
-      <button class="btn btn-ghost btn-sm" onclick="window.location.href='index.html'">
-        <i class="fas fa-home"></i> На сайт
-      </button>
-      <button class="btn btn-ghost btn-sm" onclick="toggleTheme()" title="Тема">
-        <i class="fas fa-sun" id="themeIcon"></i>
-      </button>
-      <button class="btn btn-outline btn-sm" onclick="handleLogout()">
-        <i class="fas fa-sign-out-alt"></i> Выйти
-      </button>
-    </div>
-  </div>
-</header>
-
-<!-- ACCESS DENIED (показывается, если не админ) -->
-<div class="access-denied" id="accessDenied" style="display:none;">
-  <i class="fas fa-lock ad-icon"></i>
-  <h2>Доступ запрещён</h2>
-  <p>Эта страница доступна только администраторам.</p>
-  <p style="font-size:13px;margin-bottom:20px;">Войдите как <strong>Studiia1@mail.ru</strong> или <strong>glubkov2020@gmail.com</strong>.</p>
-  <button class="btn" onclick="window.location.href='index.html'">
-    <i class="fas fa-arrow-left"></i> Вернуться на сайт
-  </button>
-</div>
-
-<!-- LOADING -->
-<div class="loading-block" id="adminLoading">
-  <span class="loading-spinner"></span>
-  <div>Загрузка админ-панели...</div>
-</div>
-
-<!-- ОСНОВНОЙ КОНТЕНТ -->
-<div class="admin-container" id="adminMain" style="display:none;">
-
-  <!-- TABS -->
-  <div class="admin-tabs">
-    <button class="admin-tab active" data-tab="overview" onclick="switchTab('overview')">
-      <i class="fas fa-chart-pie"></i>
-      <span class="tab-label">Обзор</span>
-      <span class="tab-label-short" style="display:none;">Обзор</span>
-    </button>
-    <button class="admin-tab" data-tab="analytics" onclick="switchTab('analytics')">
-      <i class="fas fa-chart-line"></i>
-      <span class="tab-label">Аналитика</span>
-      <span class="tab-label-short" style="display:none;">Аналит.</span>
-    </button>
-    <button class="admin-tab" data-tab="comments" onclick="switchTab('comments')">
-      <i class="fas fa-comments"></i>
-      <span class="tab-label">Комментарии</span>
-      <span class="tab-label-short" style="display:none;">Комм.</span>
-      <span class="tab-badge" id="commentsBadge" style="display:none;">0</span>
-    </button>
-    <button class="admin-tab" data-tab="users" onclick="switchTab('users')">
-      <i class="fas fa-users"></i>
-      <span class="tab-label">Пользователи</span>
-      <span class="tab-label-short" style="display:none;">Польз.</span>
-    </button>
-    <button class="admin-tab" data-tab="reviews" onclick="switchTab('reviews')">
-      <i class="fas fa-star"></i>
-      <span class="tab-label">Отзывы</span>
-      <span class="tab-label-short" style="display:none;">Отзывы</span>
-    </button>
-    <button class="admin-tab" data-tab="masters" onclick="switchTab('masters')">
-      <i class="fas fa-user-tie"></i>
-      <span class="tab-label">Мастера</span>
-      <span class="tab-label-short" style="display:none;">Мастера</span>
-    </button>
-    <button class="admin-tab" data-tab="blog" onclick="switchTab('blog')">
-      <i class="fas fa-newspaper"></i>
-      <span class="tab-label">Блог</span>
-      <span class="tab-label-short" style="display:none;">Блог</span>
-    </button>
-    <button class="admin-tab" data-tab="settings" onclick="switchTab('settings')">
-      <i class="fas fa-cog"></i>
-      <span class="tab-label">Настройки</span>
-      <span class="tab-label-short" style="display:none;">Настр.</span>
-    </button>
-  </div>
-
-  <!-- ОБЗОР -->
-  <div class="admin-section active" id="section-overview">
-    <div class="section-head">
-      <div>
-        <h2><i class="fas fa-chart-pie"></i> Обзор</h2>
-        <div class="sub">Ключевые показатели салона на сегодня</div>
-      </div>
-      <button class="btn btn-outline btn-sm" onclick="loadOverview()">
-        <i class="fas fa-sync-alt"></i> Обновить
-      </button>
-    </div>
-
-    <div class="stats-grid" id="overviewStats">
-      <div class="loading-block" style="grid-column:1/-1;">
-        <span class="loading-spinner"></span>
-        <div>Загрузка статистики...</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- АНАЛИТИКА -->
-  <div class="admin-section" id="section-analytics">
-    <div class="section-head">
-      <div>
-        <h2><i class="fas fa-chart-line"></i> Аналитика</h2>
-        <div class="sub">Детальные метрики. Нажмите на карточку, чтобы увидеть подробности</div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <select id="analyticsPeriod" onchange="loadAnalytics()" style="padding:8px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:30px;color:var(--text-primary);font-size:13px;font-family:'Inter',sans-serif;">
-          <option value="7">За 7 дней</option>
-          <option value="30" selected>За 30 дней</option>
-          <option value="90">За 90 дней</option>
-          <option value="365">За год</option>
-          <option value="all">За всё время</option>
-        </select>
-        <button class="btn btn-outline btn-sm" onclick="loadAnalytics()">
-          <i class="fas fa-sync-alt"></i>
-        </button>
-      </div>
-    </div>
-
-    <div class="stats-grid" id="analyticsStats">
-      <div class="loading-block" style="grid-column:1/-1;">
-        <span class="loading-spinner"></span>
-        <div>Загрузка аналитики...</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- КОММЕНТАРИИ -->
-  <div class="admin-section" id="section-comments">
-    <div class="section-head">
-      <div>
-        <h2><i class="fas fa-comments"></i> Модерация комментариев</h2>
-        <div class="sub">Комментарии появляются на сайте только после одобрения</div>
-      </div>
-      <button class="btn btn-outline btn-sm" onclick="loadComments()">
-        <i class="fas fa-sync-alt"></i> Обновить
-      </button>
-    </div>
-
-    <div class="admin-table-wrapper" style="margin-bottom:20px;">
-      <div class="admin-table-header">
-        <h3><i class="fas fa-clock" style="color:var(--orange);"></i> На модерации <span class="count" id="pendingCount">0</span></h3>
-      </div>
-      <div class="admin-list" id="pendingCommentsList">
-        <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
-      </div>
-    </div>
-
-    <div class="admin-table-wrapper">
-      <div class="admin-table-header">
-        <h3><i class="fas fa-check-circle" style="color:var(--green);"></i> Одобренные <span class="count" id="approvedCount">0</span></h3>
-        <div class="admin-table-filters">
-          <input type="text" id="approvedSearch" placeholder="Поиск..." oninput="filterApprovedComments()" />
-        </div>
-      </div>
-      <div class="admin-list" id="approvedCommentsList">
-        <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ПОЛЬЗОВАТЕЛИ -->
-  <div class="admin-section" id="section-users">
-    <div class="section-head">
-      <div>
-        <h2><i class="fas fa-users"></i> Пользователи</h2>
-        <div class="sub">Управление аккаунтами: бан, удаление, блокировка по устройству</div>
-      </div>
-      <button class="btn btn-outline btn-sm" onclick="loadUsers()">
-        <i class="fas fa-sync-alt"></i> Обновить
-      </button>
-    </div>
-
-    <div class="stats-grid" id="usersStats" style="margin-bottom:20px;">
-      <div class="loading-block" style="grid-column:1/-1;">
-        <span class="loading-spinner"></span>
-        <div>Загрузка...</div>
-      </div>
-    </div>
-
-    <div class="admin-table-wrapper">
-      <div class="admin-table-header">
-        <h3><i class="fas fa-list"></i> Все пользователи <span class="count" id="usersCount">0</span></h3>
-        <div class="admin-table-filters">
-          <input type="text" id="usersSearch" placeholder="Поиск по имени / email..." oninput="filterUsers()" />
-          <select id="usersFilter" onchange="filterUsers()">
-            <option value="all">Все</option>
-            <option value="active">Активные</option>
-            <option value="banned">Забаненные</option>
-            <option value="unverified">Без подтверждения email</option>
-            <option value="developer">Разработчики</option>
-            <option value="admin">Админы</option>
-          </select>
-        </div>
-      </div>
-      <div class="admin-list" id="usersList">
-        <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ОТЗЫВЫ -->
-  <div class="admin-section" id="section-reviews">
-    <div class="section-head">
-      <div>
-        <h2><i class="fas fa-star"></i> Отзывы</h2>
-        <div class="sub">Управление отзывами клиентов</div>
-      </div>
-      <button class="btn btn-outline btn-sm" onclick="loadReviews()">
-        <i class="fas fa-sync-alt"></i> Обновить
-      </button>
-    </div>
-
-    <div class="stats-grid" id="reviewsStats" style="margin-bottom:20px;">
-      <div class="loading-block" style="grid-column:1/-1;">
-        <span class="loading-spinner"></span>
-        <div>Загрузка...</div>
-      </div>
-    </div>
-
-    <div class="admin-table-wrapper">
-      <div class="admin-table-header">
-        <h3><i class="fas fa-list"></i> Все отзывы <span class="count" id="reviewsCount">0</span></h3>
-        <div class="admin-table-filters">
-          <input type="text" id="reviewsSearch" placeholder="Поиск..." oninput="filterReviews()" />
-          <select id="reviewsFilter" onchange="filterReviews()">
-            <option value="all">Все</option>
-            <option value="5">5 звёзд</option>
-            <option value="4">4 звезды</option>
-            <option value="3">3 звезды</option>
-            <option value="low">1-2 звезды</option>
-            <option value="withphotos">С фото</option>
-          </select>
-        </div>
-      </div>
-      <div class="admin-list" id="reviewsList">
-        <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- МАСТЕРА -->
-  <div class="admin-section" id="section-masters">
-    <div class="section-head">
-      <div>
-        <h2><i class="fas fa-user-tie"></i> Мастера</h2>
-        <div class="sub">Список мастеров и их услуг</div>
-      </div>
-      <button class="btn btn-outline btn-sm" onclick="loadMasters()">
-        <i class="fas fa-sync-alt"></i> Обновить
-      </button>
-    </div>
-
-    <div class="admin-list" id="mastersList" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);">
-      <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
-    </div>
-  </div>
-
-  <!-- БЛОГ -->
-  <div class="admin-section" id="section-blog">
-    <div class="section-head">
-      <div>
-        <h2><i class="fas fa-newspaper"></i> Блог</h2>
-        <div class="sub">Посты и новости салона</div>
-      </div>
-      <button class="btn btn-outline btn-sm" onclick="loadBlog()">
-        <i class="fas fa-sync-alt"></i> Обновить
-      </button>
-    </div>
-
-    <div class="admin-list" id="blogList" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);">
-      <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
-    </div>
-  </div>
-
-  <!-- НАСТРОЙКИ -->
-  <div class="admin-section" id="section-settings">
-    <div class="section-head">
-      <div>
-        <h2><i class="fas fa-cog"></i> Настройки</h2>
-        <div class="sub">Информация о вас и о системе</div>
-      </div>
-    </div>
-
-    <div class="admin-table-wrapper" style="margin-bottom:20px;">
-      <div class="admin-table-header">
-        <h3><i class="fas fa-user-circle"></i> Ваш профиль</h3>
-      </div>
-      <div style="padding:20px;">
-        <div class="modal-info-row">
-          <span class="label">Имя</span>
-          <span class="value" id="settingsName">—</span>
-        </div>
-        <div class="modal-info-row">
-          <span class="label">Email</span>
-          <span class="value" id="settingsEmail">—</span>
-        </div>
-        <div class="modal-info-row">
-          <span class="label">Роль</span>
-          <span class="value" id="settingsRole">—</span>
-        </div>
-        <div class="modal-info-row">
-          <span class="label">Телефон</span>
-          <span class="value" id="settingsPhone">—</span>
-        </div>
-        <div class="modal-info-row">
-          <span class="label">Дата регистрации</span>
-          <span class="value" id="settingsCreatedAt">—</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="admin-table-wrapper">
-      <div class="admin-table-header">
-        <h3><i class="fas fa-info-circle"></i> О системе</h3>
-      </div>
-      <div style="padding:20px;">
-        <div class="modal-info-row">
-          <span class="label">Проект</span>
-          <span class="value">studio1-kemerovo</span>
-        </div>
-        <div class="modal-info-row">
-          <span class="label">Версия админки</span>
-          <span class="value">2.0</span>
-        </div>
-        <div class="modal-info-row">
-          <span class="label">Дата сборки</span>
-          <span class="value">Сентябрь 2026</span>
-        </div>
-        <div class="modal-info-row">
-          <span class="label">Технический раздел</span>
-          <span class="value"><a href="dev.html" style="color:var(--gold);">dev.html →</a></span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- МОДАЛКА ПОЛЬЗОВАТЕЛЯ -->
-<div class="modal-overlay" id="userModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('userModal')">&times;</button>
-    <h2>Профиль пользователя</h2>
-    <p class="subtitle">Полная информация и управление доступом</p>
-    <div id="userModalContent"></div>
-  </div>
-</div>
-
-<!-- МОДАЛКА КОММЕНТАРИЯ -->
-<div class="modal-overlay" id="commentModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('commentModal')">&times;</button>
-    <h2>Комментарий</h2>
-    <p class="subtitle">Полный текст и метаданные</p>
-    <div id="commentModalContent"></div>
-  </div>
-</div>
-
-<!-- МОДАЛКА ОТЗЫВА -->
-<div class="modal-overlay" id="reviewModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('reviewModal')">&times;</button>
-    <h2>Отзыв</h2>
-    <p class="subtitle">Полная информация</p>
-    <div id="reviewModalContent"></div>
-  </div>
-</div>
-
-<!-- МОДАЛКА ПОДТВЕРЖДЕНИЯ -->
-<div class="modal-overlay" id="confirmModal">
-  <div class="modal" style="max-width:450px;">
-    <button class="modal-close" onclick="closeModal('confirmModal')">&times;</button>
-    <h2 id="confirmTitle">Подтверждение</h2>
-    <p class="subtitle" id="confirmText">Вы уверены?</p>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal('confirmModal')">Отмена</button>
-      <button class="btn btn-danger" id="confirmBtn">Подтвердить</button>
-    </div>
-  </div>
-</div>
-/* ============ ГРАФИКИ (CSS-only) ============ */
+/* ============ ГРАФИКИ ============ */
 .chart-container {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -966,8 +534,6 @@ body::before {
   color: var(--text-muted);
   margin-bottom: 20px;
 }
-
-/* Bar chart — вертикальные столбики */
 .bar-chart {
   display: flex;
   align-items: flex-end;
@@ -1022,7 +588,6 @@ body::before {
 }
 .bar-chart .bar-item:hover .bar-value { opacity: 1; }
 
-/* Horizontal bar chart */
 .hbar-chart {
   display: flex;
   flex-direction: column;
@@ -1075,52 +640,6 @@ body::before {
   color: var(--gold);
 }
 
-/* Line chart (простенький, CSS) */
-.line-chart {
-  position: relative;
-  height: 200px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border-color);
-  border-left: 1px solid var(--border-color);
-}
-.line-chart .line-grid {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  pointer-events: none;
-}
-.line-chart .line-grid .grid-line {
-  height: 1px;
-  background: var(--border-color);
-  opacity: 0.4;
-}
-.line-chart svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-.line-chart svg polyline {
-  fill: none;
-  stroke: url(#lineGradient);
-  stroke-width: 2;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-.line-chart svg .point {
-  fill: var(--gold);
-  stroke: var(--bg-primary);
-  stroke-width: 2;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.line-chart svg .point:hover {
-  r: 6;
-  filter: drop-shadow(0 0 8px var(--gold));
-}
-
-/* ============ DRILLDOWN ============ */
 .drilldown {
   display: none;
   background: var(--bg-secondary);
@@ -1190,7 +709,6 @@ body::before {
   display: block;
 }
 
-/* ============ РЕЙТИНГ ЗВЁЗДЫ ============ */
 .stars-display {
   display: inline-flex;
   gap: 2px;
@@ -1200,7 +718,6 @@ body::before {
   text-shadow: 0 0 8px rgba(245, 179, 66, 0.5);
 }
 
-/* ============ СПИСКИ МАСТЕРОВ / БЛОГА ============ */
 .master-item-admin {
   padding: 16px 20px;
   border-bottom: 1px solid var(--border-color);
@@ -1230,10 +747,7 @@ body::before {
   height: 100%;
   object-fit: cover;
 }
-.master-item-admin .mi-info {
-  flex: 1;
-  min-width: 200px;
-}
+.master-item-admin .mi-info { flex: 1; min-width: 200px; }
 .master-item-admin .mi-name {
   font-size: 16px;
   font-weight: 700;
@@ -1264,6 +778,7 @@ body::before {
   justify-content: space-between;
   padding: 4px 0;
   border-bottom: 1px dashed var(--border-color);
+  gap: 12px;
 }
 .master-item-admin .mi-services .service-row:last-child { border-bottom: none; }
 
@@ -1290,51 +805,7 @@ body::before {
   margin-bottom: 8px;
 }
 
-/* ============ БАННЕРЫ ============ */
-.info-banner {
-  background: rgba(52, 152, 219, 0.1);
-  border-left: 3px solid var(--blue);
-  border-radius: var(--radius-sm);
-  padding: 14px 18px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 16px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-.info-banner i { color: var(--blue); font-size: 18px; flex-shrink: 0; margin-top: 2px; }
-.warning-banner {
-  background: rgba(245, 179, 66, 0.1);
-  border-left: 3px solid var(--orange);
-  border-radius: var(--radius-sm);
-  padding: 14px 18px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 16px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-.warning-banner i { color: var(--orange); font-size: 18px; flex-shrink: 0; margin-top: 2px; }
-.danger-banner {
-  background: rgba(231, 76, 60, 0.1);
-  border-left: 3px solid var(--red);
-  border-radius: var(--radius-sm);
-  padding: 14px 18px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 16px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-.danger-banner i { color: var(--red); font-size: 18px; flex-shrink: 0; margin-top: 2px; }
-
-/* ============ LIGHTBOX (для фото отзывов) ============ */
+/* ============ LIGHTBOX ============ */
 .admin-lightbox {
   display: none;
   position: fixed;
@@ -1369,10 +840,301 @@ body::before {
   justify-content: center;
 }
 .admin-lightbox .lb-close:hover { background: var(--gold); color: #000; }
+
+/* ============ АДАПТИВ ============ */
+@media (max-width: 768px) {
+  .admin-container { padding: 16px; }
+  .admin-header { padding: 12px 16px; }
+  .admin-header-inner { gap: 10px; }
+  .admin-logo { font-size: 17px; }
+  .admin-logo small { display: none; }
+  .stat-card .stat-value { font-size: 26px; }
+  .admin-list-item { padding: 14px 16px; }
+  .admin-list-item .li-info { min-width: 100%; }
+  .admin-list-item .li-actions { width: 100%; margin-top: 4px; }
+  .admin-list-item .li-actions .btn { flex: 1; }
+  .admin-tab { padding: 8px 14px; font-size: 13px; }
+  .section-head h2 { font-size: 20px; }
+  .admin-table-header { padding: 12px 16px; }
+  .modal { padding: 20px 16px; }
+}
+@media (max-width: 400px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card { padding: 14px; }
+  .stat-card .stat-value { font-size: 22px; }
+  .stat-card .stat-label { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+<div id="toastContainer"></div>
+
+<header class="admin-header">
+  <div class="admin-header-inner">
+    <div class="admin-logo">
+      <i class="fas fa-shield-alt"></i>
+      Студия №1
+      <small>Админ-панель</small>
+    </div>
+    <div class="admin-user" id="adminUserBlock" style="display:none;">
+      <div class="avatar" id="adminAvatar">?</div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--text-primary);" id="adminUserName">Загрузка...</div>
+        <div style="font-size:11px;color:var(--text-muted);" id="adminUserRole">—</div>
+      </div>
+    </div>
+    <div class="admin-header-actions">
+      <button class="btn btn-ghost btn-sm" onclick="window.location.href='index.html'">
+        <i class="fas fa-home"></i> На сайт
+      </button>
+      <button class="btn btn-ghost btn-sm" onclick="toggleTheme()" title="Тема">
+        <i class="fas fa-sun" id="themeIcon"></i>
+      </button>
+      <button class="btn btn-outline btn-sm" onclick="handleLogout()">
+        <i class="fas fa-sign-out-alt"></i> Выйти
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="access-denied" id="accessDenied" style="display:none;">
+  <i class="fas fa-lock ad-icon"></i>
+  <h2>Доступ запрещён</h2>
+  <p>Эта страница доступна только администраторам.</p>
+  <p style="font-size:13px;margin-bottom:20px;">Войдите как <strong>Studiia1@mail.ru</strong> или <strong>glubkov2020@gmail.com</strong>.</p>
+  <button class="btn" onclick="window.location.href='index.html'">
+    <i class="fas fa-arrow-left"></i> Вернуться на сайт
+  </button>
+</div>
+
+<div class="loading-block" id="adminLoading">
+  <span class="loading-spinner"></span>
+  <div>Загрузка админ-панели...</div>
+</div>
+
+<div class="admin-container" id="adminMain" style="display:none;">
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-tab="overview" onclick="switchTab('overview')"><i class="fas fa-chart-pie"></i> Обзор</button>
+    <button class="admin-tab" data-tab="analytics" onclick="switchTab('analytics')"><i class="fas fa-chart-line"></i> Аналитика</button>
+    <button class="admin-tab" data-tab="comments" onclick="switchTab('comments')"><i class="fas fa-comments"></i> Комментарии <span class="tab-badge" id="commentsBadge" style="display:none;">0</span></button>
+    <button class="admin-tab" data-tab="users" onclick="switchTab('users')"><i class="fas fa-users"></i> Пользователи</button>
+    <button class="admin-tab" data-tab="reviews" onclick="switchTab('reviews')"><i class="fas fa-star"></i> Отзывы</button>
+    <button class="admin-tab" data-tab="masters" onclick="switchTab('masters')"><i class="fas fa-user-tie"></i> Мастера</button>
+    <button class="admin-tab" data-tab="blog" onclick="switchTab('blog')"><i class="fas fa-newspaper"></i> Блог</button>
+    <button class="admin-tab" data-tab="settings" onclick="switchTab('settings')"><i class="fas fa-cog"></i> Настройки</button>
+  </div>
+
+  <div class="admin-section active" id="section-overview">
+    <div class="section-head">
+      <div>
+        <h2><i class="fas fa-chart-pie"></i> Обзор</h2>
+        <div class="sub">Ключевые показатели салона на сегодня</div>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="loadOverview()"><i class="fas fa-sync-alt"></i> Обновить</button>
+    </div>
+    <div class="stats-grid" id="overviewStats">
+      <div class="loading-block" style="grid-column:1/-1;"><span class="loading-spinner"></span><div>Загрузка статистики...</div></div>
+    </div>
+  </div>
+
+  <div class="admin-section" id="section-analytics">
+    <div class="section-head">
+      <div>
+        <h2><i class="fas fa-chart-line"></i> Аналитика</h2>
+        <div class="sub">Детальные метрики</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <select id="analyticsPeriod" onchange="loadAnalytics()" style="padding:8px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:30px;color:var(--text-primary);font-size:13px;font-family:'Inter',sans-serif;">
+          <option value="7">За 7 дней</option>
+          <option value="30" selected>За 30 дней</option>
+          <option value="90">За 90 дней</option>
+          <option value="365">За год</option>
+        </select>
+        <button class="btn btn-outline btn-sm" onclick="loadAnalytics()"><i class="fas fa-sync-alt"></i></button>
+      </div>
+    </div>
+    <div class="stats-grid" id="analyticsStats">
+      <div class="loading-block" style="grid-column:1/-1;"><span class="loading-spinner"></span><div>Загрузка...</div></div>
+    </div>
+    <div id="analyticsChart"></div>
+  </div>
+
+  <div class="admin-section" id="section-comments">
+    <div class="section-head">
+      <div>
+        <h2><i class="fas fa-comments"></i> Модерация</h2>
+        <div class="sub">Комментарии появляются на сайте только после одобрения</div>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="loadComments()"><i class="fas fa-sync-alt"></i> Обновить</button>
+    </div>
+    <div class="admin-table-wrapper" style="margin-bottom:20px;">
+      <div class="admin-table-header">
+        <h3><i class="fas fa-clock" style="color:var(--orange);"></i> На модерации <span class="count" id="pendingCount">0</span></h3>
+      </div>
+      <div class="admin-list" id="pendingCommentsList">
+        <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
+      </div>
+    </div>
+    <div class="admin-table-wrapper">
+      <div class="admin-table-header">
+        <h3><i class="fas fa-check-circle" style="color:var(--green);"></i> Одобренные <span class="count" id="approvedCount">0</span></h3>
+        <div class="admin-table-filters">
+          <input type="text" id="approvedSearch" placeholder="Поиск..." oninput="filterApprovedComments()" />
+        </div>
+      </div>
+      <div class="admin-list" id="approvedCommentsList">
+        <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-section" id="section-users">
+    <div class="section-head">
+      <div>
+        <h2><i class="fas fa-users"></i> Пользователи</h2>
+        <div class="sub">Управление аккаунтами</div>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="loadUsers()"><i class="fas fa-sync-alt"></i> Обновить</button>
+    </div>
+    <div class="stats-grid" id="usersStats" style="margin-bottom:20px;">
+      <div class="loading-block" style="grid-column:1/-1;"><span class="loading-spinner"></span><div>Загрузка...</div></div>
+    </div>
+    <div class="admin-table-wrapper">
+      <div class="admin-table-header">
+        <h3><i class="fas fa-list"></i> Все <span class="count" id="usersCount">0</span></h3>
+        <div class="admin-table-filters">
+          <input type="text" id="usersSearch" placeholder="Поиск..." oninput="filterUsers()" />
+          <select id="usersFilter" onchange="filterUsers()">
+            <option value="all">Все</option>
+            <option value="active">Активные</option>
+            <option value="banned">Забаненные</option>
+            <option value="unverified">Без подтверждения</option>
+          </select>
+        </div>
+      </div>
+      <div class="admin-list" id="usersList">
+        <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-section" id="section-reviews">
+    <div class="section-head">
+      <div>
+        <h2><i class="fas fa-star"></i> Отзывы</h2>
+        <div class="sub">Управление отзывами</div>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="loadReviews()"><i class="fas fa-sync-alt"></i> Обновить</button>
+    </div>
+    <div class="stats-grid" id="reviewsStats" style="margin-bottom:20px;">
+      <div class="loading-block" style="grid-column:1/-1;"><span class="loading-spinner"></span><div>Загрузка...</div></div>
+    </div>
+    <div class="admin-table-wrapper">
+      <div class="admin-table-header">
+        <h3><i class="fas fa-list"></i> Все <span class="count" id="reviewsCount">0</span></h3>
+        <div class="admin-table-filters">
+          <input type="text" id="reviewsSearch" placeholder="Поиск..." oninput="filterReviews()" />
+          <select id="reviewsFilter" onchange="filterReviews()">
+            <option value="all">Все</option>
+            <option value="5">5★</option>
+            <option value="4">4★</option>
+            <option value="3">3★</option>
+            <option value="low">1-2★</option>
+            <option value="withphotos">С фото</option>
+          </select>
+        </div>
+      </div>
+      <div class="admin-list" id="reviewsList">
+        <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-section" id="section-masters">
+    <div class="section-head">
+      <div><h2><i class="fas fa-user-tie"></i> Мастера</h2></div>
+      <button class="btn btn-outline btn-sm" onclick="loadMasters()"><i class="fas fa-sync-alt"></i> Обновить</button>
+    </div>
+    <div class="admin-list" id="mastersList" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);">
+      <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
+    </div>
+  </div>
+
+  <div class="admin-section" id="section-blog">
+    <div class="section-head">
+      <div><h2><i class="fas fa-newspaper"></i> Блог</h2></div>
+      <button class="btn btn-outline btn-sm" onclick="loadBlog()"><i class="fas fa-sync-alt"></i> Обновить</button>
+    </div>
+    <div class="admin-list" id="blogList" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);">
+      <div class="loading-block"><span class="loading-spinner"></span><div>Загрузка...</div></div>
+    </div>
+  </div>
+
+  <div class="admin-section" id="section-settings">
+    <div class="section-head"><div><h2><i class="fas fa-cog"></i> Настройки</h2></div></div>
+    <div class="admin-table-wrapper" style="margin-bottom:20px;">
+      <div class="admin-table-header"><h3><i class="fas fa-user-circle"></i> Профиль</h3></div>
+      <div style="padding:20px;">
+        <div class="modal-info-row"><span class="label">Имя</span><span class="value" id="settingsName">—</span></div>
+        <div class="modal-info-row"><span class="label">Email</span><span class="value" id="settingsEmail">—</span></div>
+        <div class="modal-info-row"><span class="label">Роль</span><span class="value" id="settingsRole">—</span></div>
+        <div class="modal-info-row"><span class="label">Телефон</span><span class="value" id="settingsPhone">—</span></div>
+        <div class="modal-info-row"><span class="label">Дата регистрации</span><span class="value" id="settingsCreatedAt">—</span></div>
+      </div>
+    </div>
+    <div class="admin-table-wrapper">
+      <div class="admin-table-header"><h3><i class="fas fa-info-circle"></i> О системе</h3></div>
+      <div style="padding:20px;">
+        <div class="modal-info-row"><span class="label">Проект</span><span class="value">studio1-kemerovo</span></div>
+        <div class="modal-info-row"><span class="label">Версия</span><span class="value">2.0</span></div>
+        <div class="modal-info-row"><span class="label">Технический раздел</span><span class="value"><a href="dev.html" style="color:var(--gold);">dev.html →</a></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="userModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('userModal')">&times;</button>
+    <h2>Профиль пользователя</h2>
+    <p class="subtitle">Полная информация</p>
+    <div id="userModalContent"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="commentModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('commentModal')">&times;</button>
+    <h2>Комментарий</h2>
+    <p class="subtitle">Полный текст и метаданные</p>
+    <div id="commentModalContent"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="reviewModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('reviewModal')">&times;</button>
+    <h2>Отзыв</h2>
+    <p class="subtitle">Полная информация</p>
+    <div id="reviewModalContent"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal" style="max-width:450px;">
+    <button class="modal-close" onclick="closeModal('confirmModal')">&times;</button>
+    <h2 id="confirmTitle">Подтверждение</h2>
+    <p class="subtitle" id="confirmText">Вы уверены?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('confirmModal')">Отмена</button>
+      <button class="btn btn-danger" id="confirmBtn">Подтвердить</button>
+    </div>
+  </div>
+</div>
 <script type="module">
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { getFirestore, collection, getDocs, doc, getDoc, updateDoc, deleteDoc, query, orderBy, where, addDoc, setDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, doc, getDoc, updateDoc, deleteDoc, query, orderBy, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -1392,7 +1154,6 @@ const ADMIN_EMAIL = 'studiia1@mail.ru';
 
 let currentUser = null;
 let currentUserData = null;
-
 let allUsers = [];
 let allReviews = [];
 let allComments = [];
@@ -1401,7 +1162,6 @@ let allBlogPosts = [];
 let allBookings = [];
 let allConsents = [];
 
-let currentTab = 'overview';
 let usersFilter = 'all';
 let usersSearchQuery = '';
 let reviewsFilter = 'all';
@@ -1415,9 +1175,9 @@ function showToast(msg, type = 'info', duration = 4000) {
   const t = document.createElement('div');
   t.className = `toast ${type}`;
   const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
-  t.innerHTML = `<span class="toast-icon">${icons[type]}</span><span>${msg}</span><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>`;
+  t.innerHTML = `<span class="toast-icon">${icons[type] || 'ℹ️'}</span><span>${msg}</span><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>`;
   c.appendChild(t);
-  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 400); }, duration);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(40px)'; setTimeout(() => t.remove(), 400); }, duration);
 }
 
 /* ============ HELPERS ============ */
@@ -1461,12 +1221,10 @@ function daysAgo(ms) {
 
 /* ============ TABS ============ */
 window.switchTab = function(tab) {
-  currentTab = tab;
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
   document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
   const target = document.getElementById(`section-${tab}`);
   if (target) target.classList.add('active');
-  // Подгружаем данные вкладки
   if (tab === 'overview') loadOverview();
   else if (tab === 'analytics') loadAnalytics();
   else if (tab === 'comments') loadComments();
@@ -1523,7 +1281,6 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById('adminUserBlock').style.display = 'none';
     return;
   }
-  currentUser = user;
   const email = user.email;
   const isDev = email === DEVELOPER_EMAIL;
   const isAdmin = email === ADMIN_EMAIL;
@@ -1532,13 +1289,13 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById('adminMain').style.display = 'none';
     return;
   }
-  // Загружаем данные пользователя
+  currentUser = user;
   try {
     const d = await getDoc(doc(db, 'users', user.uid));
     if (d.exists()) currentUserData = d.data();
     else currentUserData = { name: user.displayName || email, role: isDev ? 'developer' : 'admin' };
   } catch (e) { console.error(e); }
-  // Показываем
+
   document.getElementById('accessDenied').style.display = 'none';
   document.getElementById('adminMain').style.display = 'block';
   document.getElementById('adminUserBlock').style.display = 'flex';
@@ -1548,7 +1305,7 @@ onAuthStateChanged(auth, async (user) => {
   const av = document.getElementById('adminAvatar');
   if (currentUserData.photoURL) av.innerHTML = `<img src="${currentUserData.photoURL}" />`;
   else av.textContent = name.charAt(0).toUpperCase();
-  // Грузим всё
+
   await loadAllData();
   switchTab('overview');
 });
@@ -1561,47 +1318,46 @@ window.handleLogout = async function() {
 /* ============ LOAD ALL ============ */
 async function loadAllData() {
   try {
-    // Users
     const usersSnap = await getDocs(collection(db, 'users'));
     allUsers = [];
     usersSnap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
-    // Reviews
+
     const reviewsSnap = await getDocs(collection(db, 'reviews'));
     allReviews = [];
     reviewsSnap.forEach(d => allReviews.push({ id: d.id, ...d.data() }));
     allReviews.sort((a, b) => toMillis(b.createdAt) - toMillis(a.createdAt));
-    // Comments
+
     const commentsSnap = await getDocs(collection(db, 'comments'));
     allComments = [];
     commentsSnap.forEach(d => allComments.push({ id: d.id, ...d.data() }));
     allComments.sort((a, b) => toMillis(b.createdAt) - toMillis(a.createdAt));
-    // Masters
+
     const mastersSnap = await getDocs(collection(db, 'masters'));
     allMasters = [];
     mastersSnap.forEach(d => allMasters.push({ id: d.id, ...d.data() }));
-    // Blog
+
     try {
       const blogSnap = await getDocs(query(collection(db, 'blog'), orderBy('date', 'desc')));
       allBlogPosts = [];
       blogSnap.forEach(d => allBlogPosts.push({ id: d.id, ...d.data() }));
     } catch (e) { allBlogPosts = []; }
-    // Bookings
+
     try {
       const bSnap = await getDocs(collection(db, 'bookings'));
       allBookings = [];
       bSnap.forEach(d => allBookings.push({ id: d.id, ...d.data() }));
     } catch (e) { allBookings = []; }
-    // Consents
+
     try {
       const cSnap = await getDocs(collection(db, 'consents'));
       allConsents = [];
       cSnap.forEach(d => allConsents.push({ id: d.id, ...d.data() }));
     } catch (e) { allConsents = []; }
-    // Обновляем бейдж на вкладке «Комментарии»
+
     updateCommentsBadge();
   } catch (e) {
-    console.error('Ошибка загрузки данных:', e);
-    showToast('Ошибка загрузки данных: ' + e.message, 'error');
+    console.error('Ошибка загрузки:', e);
+    showToast('Ошибка загрузки: ' + e.message, 'error');
   }
 }
 
@@ -1618,41 +1374,33 @@ function updateCommentsBadge() {
 async function loadOverview() {
   const container = document.getElementById('overviewStats');
   if (!container) return;
-  container.innerHTML = `<div class="loading-block" style="grid-column:1/-1;"><span class="loading-spinner"></span><div>Загрузка статистики...</div></div>`;
+  container.innerHTML = `<div class="loading-block" style="grid-column:1/-1;"><span class="loading-spinner"></span><div>Загрузка...</div></div>`;
   try {
-    const now = Date.now();
-    const day = 24 * 60 * 60 * 1000;
-
     const totalUsers = allUsers.length;
     const verifiedUsers = allUsers.filter(u => u.emailVerified !== false).length;
     const totalReviews = allReviews.length;
     const avgRating = totalReviews > 0 ? (allReviews.reduce((s, r) => s + (r.rating || 0), 0) / totalReviews).toFixed(1) : '0.0';
     const pendingComments = allComments.filter(c => c.status === 'pending').length;
     const totalMasters = allMasters.length;
-
-    // Новые за 7 дней
     const newUsersWeek = allUsers.filter(u => u.createdAt && daysAgo(toMillis(u.createdAt)) <= 7).length;
     const newReviewsWeek = allReviews.filter(r => r.createdAt && daysAgo(toMillis(r.createdAt)) <= 7).length;
-    const newCommentsWeek = allComments.filter(c => c.createdAt && daysAgo(toMillis(c.createdAt)) <= 7).length;
     const newBookingsWeek = allBookings.filter(b => b.createdAt && daysAgo(toMillis(b.createdAt)) <= 7).length;
 
-    const html = `
+    container.innerHTML = `
       <div class="stat-card" onclick="openStatDrilldown('users')">
         <i class="fas fa-users stat-icon"></i>
         <div class="stat-value">${totalUsers}</div>
-        <div class="stat-label">Всего пользователей</div>
+        <div class="stat-label">Пользователей</div>
         <div class="stat-delta positive"><i class="fas fa-arrow-up"></i> +${newUsersWeek} за 7 дней</div>
         <i class="fas fa-chevron-right stat-arrow"></i>
       </div>
-
       <div class="stat-card" onclick="openStatDrilldown('reviews')">
         <i class="fas fa-star stat-icon"></i>
         <div class="stat-value">${totalReviews}</div>
-        <div class="stat-label">Всего отзывов</div>
+        <div class="stat-label">Отзывов</div>
         <div class="stat-delta positive"><i class="fas fa-arrow-up"></i> +${newReviewsWeek} за 7 дней</div>
         <i class="fas fa-chevron-right stat-arrow"></i>
       </div>
-
       <div class="stat-card" onclick="openStatDrilldown('rating')">
         <i class="fas fa-trophy stat-icon"></i>
         <div class="stat-value">${avgRating}</div>
@@ -1660,7 +1408,6 @@ async function loadOverview() {
         <div class="stat-delta"><i class="fas fa-star" style="color:#F5B342;"></i> из 5.0</div>
         <i class="fas fa-chevron-right stat-arrow"></i>
       </div>
-
       <div class="stat-card" onclick="openStatDrilldown('comments')">
         <i class="fas fa-comments stat-icon"></i>
         <div class="stat-value">${pendingComments}</div>
@@ -1668,7 +1415,6 @@ async function loadOverview() {
         <div class="stat-delta ${pendingComments > 0 ? 'negative' : 'positive'}"><i class="fas fa-clock"></i> Ждут проверки</div>
         <i class="fas fa-chevron-right stat-arrow"></i>
       </div>
-
       <div class="stat-card" onclick="openStatDrilldown('masters')">
         <i class="fas fa-user-tie stat-icon"></i>
         <div class="stat-value">${totalMasters}</div>
@@ -1676,7 +1422,6 @@ async function loadOverview() {
         <div class="stat-delta">В команде</div>
         <i class="fas fa-chevron-right stat-arrow"></i>
       </div>
-
       <div class="stat-card" onclick="openStatDrilldown('bookings')">
         <i class="fas fa-calendar-check stat-icon"></i>
         <div class="stat-value">${newBookingsWeek}</div>
@@ -1684,7 +1429,6 @@ async function loadOverview() {
         <div class="stat-delta">Через сайт</div>
         <i class="fas fa-chevron-right stat-arrow"></i>
       </div>
-
       <div class="stat-card" onclick="openStatDrilldown('verified')">
         <i class="fas fa-envelope-circle-check stat-icon"></i>
         <div class="stat-value">${verifiedUsers}</div>
@@ -1692,7 +1436,6 @@ async function loadOverview() {
         <div class="stat-delta ${verifiedUsers === totalUsers ? 'positive' : ''}">${totalUsers > 0 ? Math.round((verifiedUsers / totalUsers) * 100) : 0}% от всех</div>
         <i class="fas fa-chevron-right stat-arrow"></i>
       </div>
-
       <div class="stat-card" onclick="openStatDrilldown('consents')">
         <i class="fas fa-shield-alt stat-icon"></i>
         <div class="stat-value">${allConsents.length}</div>
@@ -1701,8 +1444,7 @@ async function loadOverview() {
         <i class="fas fa-chevron-right stat-arrow"></i>
       </div>
     `;
-    container.innerHTML = html;
-    // Drilldown-контейнер
+
     let dd = document.getElementById('overviewDrilldown');
     if (!dd) {
       dd = document.createElement('div');
@@ -1711,11 +1453,11 @@ async function loadOverview() {
     }
     dd.innerHTML = '';
   } catch (e) {
-    container.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-exclamation-triangle empty-icon" style="color:var(--red);"></i><h4>Ошибка загрузки</h4><p>${escapeHTML(e.message)}</p></div>`;
+    container.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-exclamation-triangle empty-icon" style="color:var(--red);"></i><h4>Ошибка</h4><p>${escapeHTML(e.message)}</p></div>`;
   }
 }
 
-/* ============ DRILLDOWN ОБЗОР ============ */
+/* ============ DRILLDOWN ============ */
 window.openStatDrilldown = function(type) {
   const dd = document.getElementById('overviewDrilldown');
   if (!dd) return;
@@ -1731,119 +1473,31 @@ window.openStatDrilldown = function(type) {
     const week = allUsers.filter(u => u.createdAt && daysAgo(toMillis(u.createdAt)) <= 7).length;
     const month = allUsers.filter(u => u.createdAt && daysAgo(toMillis(u.createdAt)) <= 30).length;
     const banned = allUsers.filter(u => u.banned).length;
-    html = `
-      <div class="drilldown active">
-        <h4><i class="fas fa-users" style="color:var(--gold);"></i> Пользователи — детально</h4>
-        <div class="dd-stats">
-          <div class="dd-stat"><div class="dd-value">${allUsers.length}</div><div class="dd-label">Всего</div></div>
-          <div class="dd-stat"><div class="dd-value">${week}</div><div class="dd-label">За 7 дней</div></div>
-          <div class="dd-stat"><div class="dd-value">${month}</div><div class="dd-label">За 30 дней</div></div>
-          <div class="dd-stat"><div class="dd-value">${banned}</div><div class="dd-label">Забанено</div></div>
-        </div>
-        <div class="hbar-chart">
-          ${allUsers.slice(0, 10).map(u => `
-            <div class="hbar-item">
-              <div class="hbar-label">${escapeHTML(u.name || u.email || 'Аноним')}</div>
-              <div class="hbar-track"><div class="hbar-fill" style="width:${Math.min(100, ((u.minutes || 0) / 100) * 100)}%;">${u.minutes || 0}</div></div>
-              <div class="hbar-count">мин</div>
-            </div>
-          `).join('') || '<div style="color:var(--text-muted);font-size:13px;">Нет данных</div>'}
-        </div>
-        <div style="text-align:right;margin-top:12px;"><button class="btn btn-sm btn-outline" onclick="switchTab('users')">Все пользователи →</button></div>
-      </div>
-    `;
+    html = `<div class="drilldown active"><h4><i class="fas fa-users" style="color:var(--gold);"></i> Пользователи — детально</h4><div class="dd-stats"><div class="dd-stat"><div class="dd-value">${allUsers.length}</div><div class="dd-label">Всего</div></div><div class="dd-stat"><div class="dd-value">${week}</div><div class="dd-label">За 7 дней</div></div><div class="dd-stat"><div class="dd-value">${month}</div><div class="dd-label">За 30 дней</div></div><div class="dd-stat"><div class="dd-value">${banned}</div><div class="dd-label">Забанено</div></div></div><div style="text-align:right;margin-top:12px;"><button class="btn btn-sm btn-outline" onclick="switchTab('users')">Все пользователи →</button></div></div>`;
   } else if (type === 'reviews') {
     const dist = [5,4,3,2,1].map(n => ({ star: n, count: allReviews.filter(r => Math.round(r.rating||0) === n).length }));
     const withPhotos = allReviews.filter(r => (r.photos||[]).length > 0).length;
-    html = `
-      <div class="drilldown active">
-        <h4><i class="fas fa-star" style="color:var(--gold);"></i> Отзывы — детально</h4>
-        <div class="dd-stats">
-          <div class="dd-stat"><div class="dd-value">${allReviews.length}</div><div class="dd-label">Всего</div></div>
-          <div class="dd-stat"><div class="dd-value">${withPhotos}</div><div class="dd-label">С фото</div></div>
-          <div class="dd-stat"><div class="dd-value">${allReviews.filter(r => daysAgo(toMillis(r.createdAt)) <= 7).length}</div><div class="dd-label">За 7 дней</div></div>
-        </div>
-        <div class="hbar-chart">
-          ${dist.map(d => `
-            <div class="hbar-item">
-              <div class="hbar-label">${d.star} ★</div>
-              <div class="hbar-track"><div class="hbar-fill" style="width:${allReviews.length ? (d.count/allReviews.length)*100 : 0}%;"></div></div>
-              <div class="hbar-count">${d.count}</div>
-            </div>
-          `).join('')}
-        </div>
-        <div style="text-align:right;margin-top:12px;"><button class="btn btn-sm btn-outline" onclick="switchTab('reviews')">Все отзывы →</button></div>
-      </div>
-    `;
+    html = `<div class="drilldown active"><h4><i class="fas fa-star" style="color:var(--gold);"></i> Отзывы — детально</h4><div class="dd-stats"><div class="dd-stat"><div class="dd-value">${allReviews.length}</div><div class="dd-label">Всего</div></div><div class="dd-stat"><div class="dd-value">${withPhotos}</div><div class="dd-label">С фото</div></div><div class="dd-stat"><div class="dd-value">${allReviews.filter(r => daysAgo(toMillis(r.createdAt)) <= 7).length}</div><div class="dd-label">За 7 дней</div></div></div><div class="hbar-chart" style="margin-top:16px;">${dist.map(d => `<div class="hbar-item"><div class="hbar-label">${d.star} ★</div><div class="hbar-track"><div class="hbar-fill" style="width:${allReviews.length ? (d.count/allReviews.length)*100 : 0}%;"></div></div><div class="hbar-count">${d.count}</div></div>`).join('')}</div><div style="text-align:right;margin-top:12px;"><button class="btn btn-sm btn-outline" onclick="switchTab('reviews')">Все отзывы →</button></div></div>`;
   } else if (type === 'rating') {
     const avg = allReviews.length > 0 ? (allReviews.reduce((s,r)=>s+(r.rating||0),0)/allReviews.length) : 0;
     const high = allReviews.filter(r => (r.rating||0) >= 4).length;
     const low = allReviews.filter(r => (r.rating||0) <= 2).length;
-    html = `
-      <div class="drilldown active">
-        <h4><i class="fas fa-trophy" style="color:var(--gold);"></i> Рейтинг — детально</h4>
-        <div class="dd-stats">
-          <div class="dd-stat"><div class="dd-value">${avg.toFixed(2)}</div><div class="dd-label">Средний балл</div></div>
-          <div class="dd-stat"><div class="dd-value">${high}</div><div class="dd-label">Отзывов 4-5★</div></div>
-          <div class="dd-stat"><div class="dd-value">${low}</div><div class="dd-label">Отзывов 1-2★</div></div>
-          <div class="dd-stat"><div class="dd-value">${allReviews.length > 0 ? Math.round((high/allReviews.length)*100) : 0}%</div><div class="dd-label">Довольны</div></div>
-        </div>
-      </div>
-    `;
+    html = `<div class="drilldown active"><h4><i class="fas fa-trophy" style="color:var(--gold);"></i> Рейтинг — детально</h4><div class="dd-stats"><div class="dd-stat"><div class="dd-value">${avg.toFixed(2)}</div><div class="dd-label">Средний балл</div></div><div class="dd-stat"><div class="dd-value">${high}</div><div class="dd-label">Отзывов 4-5★</div></div><div class="dd-stat"><div class="dd-value">${low}</div><div class="dd-label">Отзывов 1-2★</div></div><div class="dd-stat"><div class="dd-value">${allReviews.length > 0 ? Math.round((high/allReviews.length)*100) : 0}%</div><div class="dd-label">Довольны</div></div></div></div>`;
   } else if (type === 'comments') {
     const pending = allComments.filter(c => c.status === 'pending').length;
     const approved = allComments.filter(c => c.status === 'approved').length;
     const rejected = allComments.filter(c => c.status === 'rejected').length;
-    html = `
-      <div class="drilldown active">
-        <h4><i class="fas fa-comments" style="color:var(--gold);"></i> Комментарии — детально</h4>
-        <div class="dd-stats">
-          <div class="dd-stat"><div class="dd-value">${allComments.length}</div><div class="dd-label">Всего</div></div>
-          <div class="dd-stat"><div class="dd-value" style="color:var(--orange);">${pending}</div><div class="dd-label">На модерации</div></div>
-          <div class="dd-stat"><div class="dd-value" style="color:var(--green);">${approved}</div><div class="dd-label">Одобрено</div></div>
-          <div class="dd-stat"><div class="dd-value" style="color:var(--red);">${rejected}</div><div class="dd-label">Отклонено</div></div>
-        </div>
-        <div style="text-align:right;margin-top:12px;"><button class="btn btn-sm btn-outline" onclick="switchTab('comments')">К модерации →</button></div>
-      </div>
-    `;
+    html = `<div class="drilldown active"><h4><i class="fas fa-comments" style="color:var(--gold);"></i> Комментарии — детально</h4><div class="dd-stats"><div class="dd-stat"><div class="dd-value">${allComments.length}</div><div class="dd-label">Всего</div></div><div class="dd-stat"><div class="dd-value" style="color:var(--orange);">${pending}</div><div class="dd-label">На модерации</div></div><div class="dd-stat"><div class="dd-value" style="color:var(--green);">${approved}</div><div class="dd-label">Одобрено</div></div><div class="dd-stat"><div class="dd-value" style="color:var(--red);">${rejected}</div><div class="dd-label">Отклонено</div></div></div><div style="text-align:right;margin-top:12px;"><button class="btn btn-sm btn-outline" onclick="switchTab('comments')">К модерации →</button></div></div>`;
   } else if (type === 'masters') {
-    html = `
-      <div class="drilldown active">
-        <h4><i class="fas fa-user-tie" style="color:var(--gold);"></i> Мастера — детально</h4>
-        <div class="dd-stats">
-          <div class="dd-stat"><div class="dd-value">${allMasters.length}</div><div class="dd-label">Всего</div></div>
-          <div class="dd-stat"><div class="dd-value">${allMasters.reduce((s,m)=>s+(m.services?.length||0),0)}</div><div class="dd-label">Услуг</div></div>
-          <div class="dd-stat"><div class="dd-value">${allMasters.length > 0 ? (allMasters.reduce((s,m)=>s+(m.rating||0),0)/allMasters.length).toFixed(1) : '0.0'}</div><div class="dd-label">Ср. рейтинг</div></div>
-        </div>
-        <div style="text-align:right;margin-top:12px;"><button class="btn btn-sm btn-outline" onclick="switchTab('masters')">К мастерам →</button></div>
-      </div>
-    `;
+    html = `<div class="drilldown active"><h4><i class="fas fa-user-tie" style="color:var(--gold);"></i> Мастера — детально</h4><div class="dd-stats"><div class="dd-stat"><div class="dd-value">${allMasters.length}</div><div class="dd-label">Всего</div></div><div class="dd-stat"><div class="dd-value">${allMasters.reduce((s,m)=>s+(m.services?.length||0),0)}</div><div class="dd-label">Услуг</div></div><div class="dd-stat"><div class="dd-value">${allMasters.length > 0 ? (allMasters.reduce((s,m)=>s+(m.rating||0),0)/allMasters.length).toFixed(1) : '0.0'}</div><div class="dd-label">Ср. рейтинг</div></div></div><div style="text-align:right;margin-top:12px;"><button class="btn btn-sm btn-outline" onclick="switchTab('masters')">К мастерам →</button></div></div>`;
   } else if (type === 'bookings') {
     const week = allBookings.filter(b => daysAgo(toMillis(b.createdAt)) <= 7).length;
     const month = allBookings.filter(b => daysAgo(toMillis(b.createdAt)) <= 30).length;
-    html = `
-      <div class="drilldown active">
-        <h4><i class="fas fa-calendar-check" style="color:var(--gold);"></i> Записи — детально</h4>
-        <div class="dd-stats">
-          <div class="dd-stat"><div class="dd-value">${allBookings.length}</div><div class="dd-label">Всего</div></div>
-          <div class="dd-stat"><div class="dd-value">${week}</div><div class="dd-label">За 7 дней</div></div>
-          <div class="dd-stat"><div class="dd-value">${month}</div><div class="dd-label">За 30 дней</div></div>
-        </div>
-      </div>
-    `;
+    html = `<div class="drilldown active"><h4><i class="fas fa-calendar-check" style="color:var(--gold);"></i> Записи — детально</h4><div class="dd-stats"><div class="dd-stat"><div class="dd-value">${allBookings.length}</div><div class="dd-label">Всего</div></div><div class="dd-stat"><div class="dd-value">${week}</div><div class="dd-label">За 7 дней</div></div><div class="dd-stat"><div class="dd-value">${month}</div><div class="dd-label">За 30 дней</div></div></div></div>`;
   } else if (type === 'verified') {
     const verified = allUsers.filter(u => u.emailVerified !== false).length;
     const unverified = allUsers.length - verified;
-    html = `
-      <div class="drilldown active">
-        <h4><i class="fas fa-envelope-circle-check" style="color:var(--gold);"></i> Подтверждение email</h4>
-        <div class="dd-stats">
-          <div class="dd-stat"><div class="dd-value">${verified}</div><div class="dd-label">Подтвердили</div></div>
-          <div class="dd-stat"><div class="dd-value" style="color:var(--orange);">${unverified}</div><div class="dd-label">Не подтвердили</div></div>
-          <div class="dd-stat"><div class="dd-value">${allUsers.length > 0 ? Math.round((verified/allUsers.length)*100) : 0}%</div><div class="dd-label">Доля</div></div>
-        </div>
-      </div>
-    `;
+    html = `<div class="drilldown active"><h4><i class="fas fa-envelope-circle-check" style="color:var(--gold);"></i> Подтверждение email</h4><div class="dd-stats"><div class="dd-stat"><div class="dd-value">${verified}</div><div class="dd-label">Подтвердили</div></div><div class="dd-stat"><div class="dd-value" style="color:var(--orange);">${unverified}</div><div class="dd-label">Не подтвердили</div></div><div class="dd-stat"><div class="dd-value">${allUsers.length > 0 ? Math.round((verified/allUsers.length)*100) : 0}%</div><div class="dd-label">Доля</div></div></div></div>`;
   } else if (type === 'consents') {
     const byType = {
       personalData: allConsents.filter(c => c.consents?.personalData?.granted).length,
@@ -1851,20 +1505,7 @@ window.openStatDrilldown = function(type) {
       termsOfService: allConsents.filter(c => c.consents?.termsOfService?.granted).length,
       cookies: allConsents.filter(c => c.consents?.cookies?.granted).length
     };
-    html = `
-      <div class="drilldown active">
-        <h4><i class="fas fa-shield-alt" style="color:var(--gold);"></i> Согласия на обработку ПД</h4>
-        <div class="dd-stats">
-          <div class="dd-stat"><div class="dd-value">${allConsents.length}</div><div class="dd-label">Всего записей</div></div>
-        </div>
-        <div class="hbar-chart">
-          <div class="hbar-item"><div class="hbar-label">Обработка ПД</div><div class="hbar-track"><div class="hbar-fill" style="width:${allConsents.length ? (byType.personalData/allConsents.length)*100 : 0}%;"></div></div><div class="hbar-count">${byType.personalData}</div></div>
-          <div class="hbar-item"><div class="hbar-label">Политика</div><div class="hbar-track"><div class="hbar-fill" style="width:${allConsents.length ? (byType.privacyPolicy/allConsents.length)*100 : 0}%;"></div></div><div class="hbar-count">${byType.privacyPolicy}</div></div>
-          <div class="hbar-item"><div class="hbar-label">Соглашение</div><div class="hbar-track"><div class="hbar-fill" style="width:${allConsents.length ? (byType.termsOfService/allConsents.length)*100 : 0}%;"></div></div><div class="hbar-count">${byType.termsOfService}</div></div>
-          <div class="hbar-item"><div class="hbar-label">Cookies</div><div class="hbar-track"><div class="hbar-fill" style="width:${allConsents.length ? (byType.cookies/allConsents.length)*100 : 0}%;"></div></div><div class="hbar-count">${byType.cookies}</div></div>
-        </div>
-      </div>
-    `;
+    html = `<div class="drilldown active"><h4><i class="fas fa-shield-alt" style="color:var(--gold);"></i> Согласия на обработку ПД</h4><div class="dd-stats"><div class="dd-stat"><div class="dd-value">${allConsents.length}</div><div class="dd-label">Всего записей</div></div></div><div class="hbar-chart" style="margin-top:16px;"><div class="hbar-item"><div class="hbar-label">Обработка ПД</div><div class="hbar-track"><div class="hbar-fill" style="width:${allConsents.length ? (byType.personalData/allConsents.length)*100 : 0}%;"></div></div><div class="hbar-count">${byType.personalData}</div></div><div class="hbar-item"><div class="hbar-label">Политика</div><div class="hbar-track"><div class="hbar-fill" style="width:${allConsents.length ? (byType.privacyPolicy/allConsents.length)*100 : 0}%;"></div></div><div class="hbar-count">${byType.privacyPolicy}</div></div><div class="hbar-item"><div class="hbar-label">Соглашение</div><div class="hbar-track"><div class="hbar-fill" style="width:${allConsents.length ? (byType.termsOfService/allConsents.length)*100 : 0}%;"></div></div><div class="hbar-count">${byType.termsOfService}</div></div><div class="hbar-item"><div class="hbar-label">Cookies</div><div class="hbar-track"><div class="hbar-fill" style="width:${allConsents.length ? (byType.cookies/allConsents.length)*100 : 0}%;"></div></div><div class="hbar-count">${byType.cookies}</div></div></div></div>`;
   }
   dd.innerHTML = html;
 };
@@ -1873,9 +1514,9 @@ window.openStatDrilldown = function(type) {
 async function loadAnalytics() {
   const container = document.getElementById('analyticsStats');
   if (!container) return;
-  container.innerHTML = `<div class="loading-block" style="grid-column:1/-1;"><span class="loading-spinner"></span><div>Загрузка аналитики...</div></div>`;
+  container.innerHTML = `<div class="loading-block" style="grid-column:1/-1;"><span class="loading-spinner"></span><div>Загрузка...</div></div>`;
   const period = parseInt(document.getElementById('analyticsPeriod')?.value || '30');
-  const since = period === -1 ? 0 : Date.now() - period * 24 * 60 * 60 * 1000;
+  const since = Date.now() - period * 24 * 60 * 60 * 1000;
   const filterByDate = (arr) => arr.filter(x => toMillis(x.createdAt) >= since);
 
   const usersInPeriod = filterByDate(allUsers);
@@ -1883,13 +1524,12 @@ async function loadAnalytics() {
   const commentsInPeriod = filterByDate(allComments);
   const bookingsInPeriod = filterByDate(allBookings);
 
-  // Активность по дням
-  const days = period === -1 ? 30 : period;
+  const days = period;
   const dailyMap = {};
   for (let i = days - 1; i >= 0; i--) {
     const d = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
     const key = d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' });
-    dailyMap[key] = { users: 0, reviews: 0, comments: 0, date: d };
+    dailyMap[key] = { users: 0, reviews: 0, comments: 0 };
   }
   usersInPeriod.forEach(u => { const k = new Date(toMillis(u.createdAt)).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' }); if (dailyMap[k]) dailyMap[k].users++; });
   reviewsInPeriod.forEach(r => { const k = new Date(toMillis(r.createdAt)).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' }); if (dailyMap[k]) dailyMap[k].reviews++; });
@@ -1901,35 +1541,13 @@ async function loadAnalytics() {
   const totalNew = usersInPeriod.length + reviewsInPeriod.length + commentsInPeriod.length + bookingsInPeriod.length;
   const avgRatingPeriod = reviewsInPeriod.length > 0 ? (reviewsInPeriod.reduce((s, r) => s + (r.rating || 0), 0) / reviewsInPeriod.length).toFixed(1) : '0.0';
 
-  const html = `
-    <div class="stat-card">
-      <i class="fas fa-chart-line stat-icon"></i>
-      <div class="stat-value">${totalNew}</div>
-      <div class="stat-label">Действий за период</div>
-      <div class="stat-delta">Регистрации, отзывы, комментарии, записи</div>
-    </div>
-    <div class="stat-card">
-      <i class="fas fa-user-plus stat-icon"></i>
-      <div class="stat-value">${usersInPeriod.length}</div>
-      <div class="stat-label">Новых пользователей</div>
-      <div class="stat-delta positive"><i class="fas fa-users"></i> всего ${allUsers.length}</div>
-    </div>
-    <div class="stat-card">
-      <i class="fas fa-star stat-icon"></i>
-      <div class="stat-value">${reviewsInPeriod.length}</div>
-      <div class="stat-label">Новых отзывов</div>
-      <div class="stat-delta"><i class="fas fa-star" style="color:#F5B342;"></i> ср. ${avgRatingPeriod}</div>
-    </div>
-    <div class="stat-card">
-      <i class="fas fa-comments stat-icon"></i>
-      <div class="stat-value">${commentsInPeriod.length}</div>
-      <div class="stat-label">Комментариев</div>
-      <div class="stat-delta">За период</div>
-    </div>
+  container.innerHTML = `
+    <div class="stat-card"><i class="fas fa-chart-line stat-icon"></i><div class="stat-value">${totalNew}</div><div class="stat-label">Действий за период</div></div>
+    <div class="stat-card"><i class="fas fa-user-plus stat-icon"></i><div class="stat-value">${usersInPeriod.length}</div><div class="stat-label">Новых юзеров</div></div>
+    <div class="stat-card"><i class="fas fa-star stat-icon"></i><div class="stat-value">${reviewsInPeriod.length}</div><div class="stat-label">Новых отзывов</div><div class="stat-delta"><i class="fas fa-star" style="color:#F5B342;"></i> ср. ${avgRatingPeriod}</div></div>
+    <div class="stat-card"><i class="fas fa-comments stat-icon"></i><div class="stat-value">${commentsInPeriod.length}</div><div class="stat-label">Комментариев</div></div>
   `;
-  container.innerHTML = html;
 
-  // График активности
   let chartBlock = document.getElementById('analyticsChart');
   if (!chartBlock) {
     chartBlock = document.createElement('div');
@@ -1939,47 +1557,27 @@ async function loadAnalytics() {
   chartBlock.innerHTML = `
     <div class="chart-container">
       <h3><i class="fas fa-chart-bar"></i> Активность по дням</h3>
-      <div class="chart-sub">Наведите на столбик, чтобы увидеть точное число</div>
+      <div class="chart-sub">Наведите на столбик, чтобы увидеть число</div>
       <div class="bar-chart">
-        ${dailyArr.map(d => `
-          <div class="bar-item">
-            <div class="bar-value">${d.users + d.reviews + d.comments}</div>
-            <div class="bar" style="height:${((d.users + d.reviews + d.comments) / maxDaily) * 100}%;"></div>
-            <div class="bar-label">${d.label}</div>
-          </div>
-        `).join('')}
+        ${dailyArr.map(d => `<div class="bar-item"><div class="bar-value">${d.users + d.reviews + d.comments}</div><div class="bar" style="height:${((d.users + d.reviews + d.comments) / maxDaily) * 100}%;"></div><div class="bar-label">${d.label}</div></div>`).join('')}
       </div>
     </div>
     <div class="chart-container">
-      <h3><i class="fas fa-users"></i> Топ-10 активных пользователей</h3>
-      <div class="chart-sub">По количеству накопленных минут</div>
+      <h3><i class="fas fa-users"></i> Топ-10 по минутам</h3>
       <div class="hbar-chart">
-        ${allUsers.slice().sort((a,b) => (b.minutes||0) - (a.minutes||0)).slice(0,10).map(u => `
-          <div class="hbar-item">
-            <div class="hbar-label">${escapeHTML(u.name || u.email || 'Аноним')}</div>
-            <div class="hbar-track"><div class="hbar-fill" style="width:${Math.min(100, ((u.minutes || 0) / 500) * 100)}%;">${u.minutes || 0}</div></div>
-            <div class="hbar-count">мин</div>
-          </div>
-        `).join('') || '<div style="color:var(--text-muted);font-size:13px;">Нет данных</div>'}
+        ${allUsers.slice().sort((a,b) => (b.minutes||0) - (a.minutes||0)).slice(0,10).map(u => `<div class="hbar-item"><div class="hbar-label">${escapeHTML(u.name || u.email || 'Аноним')}</div><div class="hbar-track"><div class="hbar-fill" style="width:${Math.min(100, ((u.minutes || 0) / 500) * 100)}%;">${u.minutes || 0}</div></div><div class="hbar-count">мин</div></div>`).join('') || '<div style="color:var(--text-muted);font-size:13px;">Нет данных</div>'}
       </div>
     </div>
     <div class="chart-container">
       <h3><i class="fas fa-user-tie"></i> Мастера по услугам</h3>
-      <div class="chart-sub">Количество услуг у каждого мастера</div>
       <div class="hbar-chart">
-        ${allMasters.slice().sort((a,b) => (b.services?.length||0) - (a.services?.length||0)).map(m => `
-          <div class="hbar-item">
-            <div class="hbar-label">${escapeHTML(m.name || 'Мастер')}</div>
-            <div class="hbar-track"><div class="hbar-fill" style="width:${Math.min(100, ((m.services?.length || 0) / 10) * 100)}%;">${m.services?.length || 0}</div></div>
-            <div class="hbar-count">услуг</div>
-          </div>
-        `).join('') || '<div style="color:var(--text-muted);font-size:13px;">Нет данных</div>'}
+        ${allMasters.slice().sort((a,b) => (b.services?.length||0) - (a.services?.length||0)).map(m => `<div class="hbar-item"><div class="hbar-label">${escapeHTML(m.name || 'Мастер')}</div><div class="hbar-track"><div class="hbar-fill" style="width:${Math.min(100, ((m.services?.length || 0) / 10) * 100)}%;">${m.services?.length || 0}</div></div><div class="hbar-count">услуг</div></div>`).join('') || '<div style="color:var(--text-muted);font-size:13px;">Нет данных</div>'}
       </div>
     </div>
   `;
 }
 
-/* ============ НАСТРОЙКИ ============ */
+/* ============ SETTINGS ============ */
 function loadSettings() {
   if (!currentUser || !currentUserData) return;
   document.getElementById('settingsName').textContent = currentUserData.name || '—';
@@ -1989,14 +1587,7 @@ function loadSettings() {
   document.getElementById('settingsCreatedAt').textContent = formatDate(currentUserData.createdAt);
 }
 
-/* ============ INIT ============ */
-initTheme();
-
-console.log('🛡️ Админ-панель загружена');
-</script>
-</body>
-</html>
-/* ============ КОММЕНТАРИИ (МОДЕРАЦИЯ) ============ */
+/* ============ КОММЕНТАРИИ ============ */
 async function loadComments() {
   const pendingList = document.getElementById('pendingCommentsList');
   const approvedList = document.getElementById('approvedCommentsList');
@@ -2009,21 +1600,19 @@ async function loadComments() {
   document.getElementById('approvedCount').textContent = approved.length;
   updateCommentsBadge();
 
-  // Pending
   if (!pending.length) {
     pendingList.innerHTML = `<div class="empty-state"><i class="fas fa-check-circle empty-icon" style="color:var(--green);"></i><h4>Всё чисто</h4><p>Нет комментариев на модерации</p></div>`;
   } else {
     pendingList.innerHTML = pending.map(c => renderCommentAdminCard(c, true)).join('');
   }
 
-  // Approved
   let approvedFiltered = approved;
   if (approvedCommentsSearch) {
     const q = approvedCommentsSearch.toLowerCase();
     approvedFiltered = approved.filter(c => (c.text || '').toLowerCase().includes(q) || (c.userName || '').toLowerCase().includes(q));
   }
   if (!approvedFiltered.length) {
-    approvedList.innerHTML = `<div class="empty-state"><i class="fas fa-comment-slash empty-icon"></i><h4>Пусто</h4><p>${approvedCommentsSearch ? 'Ничего не найдено' : 'Нет одобренных комментариев'}</p></div>`;
+    approvedList.innerHTML = `<div class="empty-state"><i class="fas fa-comment-slash empty-icon"></i><h4>Пусто</h4><p>${approvedCommentsSearch ? 'Ничего не найдено' : 'Нет одобренных'}</p></div>`;
   } else {
     approvedList.innerHTML = approvedFiltered.slice(0, 100).map(c => renderCommentAdminCard(c, false)).join('');
   }
@@ -2054,7 +1643,6 @@ function renderCommentAdminCard(c, isPending) {
           <button class="btn btn-sm btn-warning" onclick="moveCommentToPending('${c.id}')"><i class="fas fa-clock"></i> На модерацию</button>
           <button class="btn btn-sm btn-danger" onclick="deleteCommentAdmin('${c.id}')"><i class="fas fa-trash"></i> Удалить</button>
         `}
-        <button class="btn btn-sm btn-ghost" onclick="openCommentModal('${c.id}')"><i class="fas fa-expand"></i> Детали</button>
       </div>
     </div>
   `;
@@ -2080,11 +1668,11 @@ window.approveComment = async function(id) {
 };
 
 window.rejectComment = function(id) {
-  confirmAction('Отклонить комментарий?', 'Комментарий будет удалён и не появится на сайте', async () => {
+  confirmAction('Отклонить комментарий?', 'Он будет удалён и не появится на сайте', async () => {
     try {
       await deleteDoc(doc(db, 'comments', id));
       allComments = allComments.filter(c => c.id !== id);
-      showToast('Комментарий отклонён и удалён', 'info');
+      showToast('Комментарий отклонён', 'info');
       loadComments();
     } catch (e) { showToast('Ошибка: ' + e.message, 'error'); }
   });
@@ -2095,7 +1683,7 @@ window.moveCommentToPending = async function(id) {
     await updateDoc(doc(db, 'comments', id), { status: 'pending' });
     const c = allComments.find(x => x.id === id);
     if (c) c.status = 'pending';
-    showToast('Комментарий возвращён на модерацию', 'info');
+    showToast('Возвращён на модерацию', 'info');
     loadComments();
   } catch (e) { showToast('Ошибка: ' + e.message, 'error'); }
 };
@@ -2127,13 +1715,10 @@ window.openCommentModal = function(id) {
     <div class="mc-post-link" style="margin-bottom:12px;"><i class="fas fa-newspaper"></i> Пост: <a href="index.html#post_${c.postId}" target="_blank">${escapeHTML(post?.title || 'Пост')}</a></div>
     <div class="mc-text" style="max-height:none;background:var(--bg-secondary);padding:14px;border-radius:10px;margin-bottom:16px;">${escapeHTML(c.text || '')}</div>
     <div class="modal-info-row"><span class="label">ID</span><span class="value" style="font-family:monospace;font-size:11px;">${c.id}</span></div>
-    <div class="modal-info-row"><span class="label">Автор ID</span><span class="value" style="font-family:monospace;font-size:11px;">${c.userId || '—'}</span></div>
     <div class="modal-info-row"><span class="label">Email</span><span class="value">${escapeHTML(c.userEmail || '—')}</span></div>
     <div class="modal-info-row"><span class="label">Статус</span><span class="value">${c.status === 'approved' ? '✅ Одобрен' : c.status === 'pending' ? '⏳ На модерации' : '❌ Отклонён'}</span></div>
     ${c.moderatedBy ? `<div class="modal-info-row"><span class="label">Проверил</span><span class="value">${escapeHTML(c.moderatedBy)}</span></div>` : ''}
-    ${c.moderatedAt ? `<div class="modal-info-row"><span class="label">Дата проверки</span><span class="value">${formatDateTime(c.moderatedAt)}</span></div>` : ''}
     <div class="modal-info-row"><span class="label">Лайков</span><span class="value">${c.likes || 0}</span></div>
-    ${c.parentId ? `<div class="modal-info-row"><span class="label">Ответ на</span><span class="value" style="font-family:monospace;font-size:11px;">${c.parentId}</span></div>` : ''}
   `;
   openModal('commentModal');
 };
@@ -2144,20 +1729,19 @@ async function loadUsers() {
   const statsContainer = document.getElementById('usersStats');
   if (!container) return;
 
-  // Статистика
   const total = allUsers.length;
   const banned = allUsers.filter(u => u.banned).length;
   const verified = allUsers.filter(u => u.emailVerified !== false).length;
   const admins = allUsers.filter(u => u.role === 'admin' || u.role === 'developer').length;
+
   if (statsContainer) {
     statsContainer.innerHTML = `
       <div class="stat-card"><i class="fas fa-users stat-icon"></i><div class="stat-value">${total}</div><div class="stat-label">Всего</div></div>
-      <div class="stat-card"><i class="fas fa-check-circle stat-icon" style="color:var(--green);"></i><div class="stat-value">${verified}</div><div class="stat-label">Подтвердили email</div></div>
+      <div class="stat-card"><i class="fas fa-check-circle stat-icon" style="color:var(--green);"></i><div class="stat-value">${verified}</div><div class="stat-label">Verified email</div></div>
       <div class="stat-card"><i class="fas fa-ban stat-icon" style="color:var(--red);"></i><div class="stat-value">${banned}</div><div class="stat-label">Забанено</div></div>
       <div class="stat-card"><i class="fas fa-shield-alt stat-icon"></i><div class="stat-value">${admins}</div><div class="stat-label">Админов</div></div>
     `;
   }
-
   renderUsersList();
 }
 
@@ -2166,26 +1750,20 @@ function renderUsersList() {
   if (!container) return;
   let filtered = allUsers.slice();
 
-  // Фильтр
   if (usersFilter === 'active') filtered = filtered.filter(u => !u.banned);
   else if (usersFilter === 'banned') filtered = filtered.filter(u => u.banned);
   else if (usersFilter === 'unverified') filtered = filtered.filter(u => u.emailVerified === false);
-  else if (usersFilter === 'developer') filtered = filtered.filter(u => u.role === 'developer');
-  else if (usersFilter === 'admin') filtered = filtered.filter(u => u.role === 'admin');
 
-  // Поиск
   if (usersSearchQuery) {
     const q = usersSearchQuery.toLowerCase();
     filtered = filtered.filter(u => (u.name || '').toLowerCase().includes(q) || (u.email || '').toLowerCase().includes(q) || (u.phone || '').toLowerCase().includes(q));
   }
-
-  // Сортировка: сначала новые
   filtered.sort((a, b) => toMillis(b.createdAt) - toMillis(a.createdAt));
 
   document.getElementById('usersCount').textContent = filtered.length;
 
   if (!filtered.length) {
-    container.innerHTML = `<div class="empty-state"><i class="fas fa-user-slash empty-icon"></i><h4>Пользователи не найдены</h4><p>Попробуйте изменить фильтр</p></div>`;
+    container.innerHTML = `<div class="empty-state"><i class="fas fa-user-slash empty-icon"></i><h4>Не найдено</h4><p>Измените фильтр</p></div>`;
     return;
   }
 
@@ -2193,10 +1771,10 @@ function renderUsersList() {
     const initial = (u.name || u.email || '?').charAt(0).toUpperCase();
     const isDev = u.email === DEVELOPER_EMAIL;
     const isAdmin = u.email === ADMIN_EMAIL;
-    const roleBadge = u.role === 'developer' ? '<span class="badge badge-gold"><i class="fas fa-code"></i> Разработчик</span>' : (u.role === 'admin' ? '<span class="badge badge-blue"><i class="fas fa-shield-alt"></i> Админ</span>' : '');
+    const roleBadge = u.role === 'developer' ? '<span class="badge badge-gold"><i class="fas fa-code"></i> Dev</span>' : (u.role === 'admin' ? '<span class="badge badge-blue"><i class="fas fa-shield-alt"></i> Admin</span>' : '');
     const banBadge = u.banned ? `<span class="badge badge-red"><i class="fas fa-ban"></i> Забанен до ${formatDate(u.bannedUntil)}</span>` : '';
     const verifyBadge = u.emailVerified === false ? '<span class="badge badge-orange"><i class="fas fa-envelope"></i> Email не подтверждён</span>' : '';
-    const bannedByDevice = u.bannedByDevice ? '<span class="badge badge-red"><i class="fas fa-mobile-alt"></i> Блок по устройству</span>' : '';
+    const bannedByDevice = u.bannedByDevice ? '<span class="badge badge-red"><i class="fas fa-mobile-alt"></i> По устройству</span>' : '';
 
     return `
       <div class="admin-list-item">
@@ -2209,18 +1787,15 @@ function renderUsersList() {
             <span><i class="fas fa-clock"></i> ${formatDate(u.createdAt)}</span>
             <span><i class="fas fa-coins"></i> ${u.minutes || 0} мин</span>
           </div>
-          <div class="li-meta" style="margin-top:6px;">
-            ${banBadge} ${verifyBadge} ${bannedByDevice}
-          </div>
+          <div class="li-meta" style="margin-top:6px;">${banBadge} ${verifyBadge} ${bannedByDevice}</div>
         </div>
         <div class="li-actions">
           <button class="btn btn-xs btn-ghost" onclick="openUserModal('${u.id}')"><i class="fas fa-eye"></i> Профиль</button>
           ${!isDev && !isAdmin ? `
             ${u.banned 
               ? `<button class="btn btn-xs btn-success" onclick="unbanUser('${u.id}')"><i class="fas fa-unlock"></i> Разбан</button>`
-              : `<button class="btn btn-xs btn-warning" onclick="openBanModal('${u.id}')"><i class="fas fa-ban"></i> Бан</button>`
-            }
-            <button class="btn btn-xs btn-danger" onclick="deleteUser('${u.id}', '${escapeHTML(u.name || u.email)}')"><i class="fas fa-trash"></i> Удалить</button>
+              : `<button class="btn btn-xs btn-warning" onclick="openBanModal('${u.id}')"><i class="fas fa-ban"></i> Бан</button>`}
+            <button class="btn btn-xs btn-danger" onclick="deleteUser('${u.id}', '${escapeHTML(u.name || u.email)}')"><i class="fas fa-trash"></i></button>
           ` : '<span class="badge badge-gold"><i class="fas fa-lock"></i> Защищён</span>'}
         </div>
       </div>
@@ -2241,10 +1816,8 @@ window.openUserModal = function(id) {
   const userReviews = allReviews.filter(r => r.userId === id);
   const userComments = allComments.filter(c => c.userId === id);
   const consents = u.consents || {};
-  const consentList = Object.entries(consents).map(([k, v]) => {
-    const labels = { personalData: 'Обработка ПД', privacyPolicy: 'Политика', termsOfService: 'Соглашение', cookies: 'Cookies' };
-    return `<div class="modal-info-row"><span class="label">${labels[k] || k}</span><span class="value">${v.granted ? '✅' : '❌'} ${v.revoked ? '(отозвано)' : ''} ${v.date ? formatDate(v.date) : ''}</span></div>`;
-  }).join('');
+  const labels = { personalData: 'Обработка ПД', privacyPolicy: 'Политика', termsOfService: 'Соглашение', cookies: 'Cookies' };
+  const consentList = Object.entries(consents).map(([k, v]) => `<div class="modal-info-row"><span class="label">${labels[k] || k}</span><span class="value">${v.granted ? '✅' : '❌'} ${v.revoked ? '(отозвано)' : ''} ${v.date ? formatDate(v.date) : ''}</span></div>`).join('');
 
   document.getElementById('userModalContent').innerHTML = `
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
@@ -2257,22 +1830,14 @@ window.openUserModal = function(id) {
     <div class="modal-info-row"><span class="label">ID</span><span class="value" style="font-family:monospace;font-size:11px;">${u.id}</span></div>
     <div class="modal-info-row"><span class="label">Роль</span><span class="value">${u.role || 'user'}</span></div>
     <div class="modal-info-row"><span class="label">Телефон</span><span class="value">${escapeHTML(u.phone || '—')}</span></div>
-    <div class="modal-info-row"><span class="label">Дата регистрации</span><span class="value">${formatDateTime(u.createdAt)}</span></div>
+    <div class="modal-info-row"><span class="label">Регистрация</span><span class="value">${formatDateTime(u.createdAt)}</span></div>
     <div class="modal-info-row"><span class="label">Минут</span><span class="value">${u.minutes || 0}</span></div>
     <div class="modal-info-row"><span class="label">Card ID</span><span class="value" style="font-family:monospace;">${u.cardId || '—'}</span></div>
     <div class="modal-info-row"><span class="label">Email подтверждён</span><span class="value">${u.emailVerified === false ? '❌ Нет' : '✅ Да'}</span></div>
     <div class="modal-info-row"><span class="label">Забанен</span><span class="value">${u.banned ? `Да, до ${formatDate(u.bannedUntil)}` : 'Нет'}</span></div>
     <div class="modal-info-row"><span class="label">Отзывов</span><span class="value">${userReviews.length}</span></div>
     <div class="modal-info-row"><span class="label">Комментариев</span><span class="value">${userComments.length}</span></div>
-
     ${consentList ? `<h3 style="font-size:14px;font-weight:700;margin-top:20px;margin-bottom:10px;">📋 Согласия</h3>${consentList}` : ''}
-
-    ${u.bannedByDevice ? `<div class="danger-banner" style="margin-top:16px;"><i class="fas fa-mobile-alt"></i><div><strong>Заблокирован по устройству:</strong> ${escapeHTML(u.bannedDeviceId || '')}<br>Причина: ${escapeHTML(u.banReason || '—')}</div></div>` : ''}
-
-    <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn btn-sm btn-outline" onclick="closeModal('userModal');switchTab('reviews')"><i class="fas fa-star"></i> Все отзывы</button>
-      <button class="btn btn-sm btn-outline" onclick="window.open('mailto:${escapeHTML(u.email || '')}')"><i class="fas fa-envelope"></i> Написать</button>
-    </div>
   `;
   openModal('userModal');
 };
@@ -2280,13 +1845,17 @@ window.openUserModal = function(id) {
 window.openBanModal = function(id) {
   const u = allUsers.find(x => x.id === id);
   if (!u) return;
-  const content = `
-    <h2>Заблокировать пользователя</h2>
+  document.getElementById('confirmTitle').innerHTML = 'Заблокировать пользователя';
+  document.getElementById('confirmText').innerHTML = '';
+  const modalContent = document.getElementById('confirmModal').querySelector('.modal');
+  modalContent.innerHTML = `
+    <button class="modal-close" onclick="closeModal('confirmModal')">&times;</button>
+    <h2>Заблокировать</h2>
     <p class="subtitle">${escapeHTML(u.name || u.email)}</p>
     <form onsubmit="applyBan(event, '${id}')">
       <div>
-        <label>Срок блокировки</label>
-        <select id="banDuration" required>
+        <label style="display:block;font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">Срок</label>
+        <select id="banDuration" required style="width:100%;padding:12px 16px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;color:var(--text-primary);font-size:14px;font-family:'Inter',sans-serif;">
           <option value="1h">1 час</option>
           <option value="24h" selected>1 день</option>
           <option value="7d">7 дней</option>
@@ -2294,25 +1863,19 @@ window.openBanModal = function(id) {
           <option value="forever">Навсегда</option>
         </select>
       </div>
-      <div>
-        <label>Причина (видна только админам)</label>
-        <textarea id="banReason" rows="3" placeholder="Например: спам, оскорбления, нарушение правил..." required></textarea>
+      <div style="margin-top:14px;">
+        <label style="display:block;font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">Причина</label>
+        <textarea id="banReason" rows="3" placeholder="Спам, оскорбления..." required style="width:100%;padding:12px 16px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:10px;color:var(--text-primary);font-size:14px;font-family:'Inter',sans-serif;resize:vertical;"></textarea>
       </div>
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:12px;background:var(--bg-secondary);border-radius:10px;">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:12px;background:var(--bg-secondary);border-radius:10px;margin-top:14px;font-size:13px;">
         <input type="checkbox" id="banByDevice" style="width:18px;height:18px;accent-color:var(--gold);" />
-        <span style="font-size:13px;">Также заблокировать это устройство (fingerprint)</span>
+        <span>Заблокировать это устройство</span>
       </label>
       <div class="modal-actions">
         <button type="button" class="btn btn-ghost" onclick="closeModal('confirmModal')">Отмена</button>
         <button type="submit" class="btn btn-danger"><i class="fas fa-ban"></i> Забанить</button>
       </div>
     </form>
-  `;
-  document.getElementById('confirmTitle').textContent = '';
-  document.getElementById('confirmText').innerHTML = '';
-  document.getElementById('confirmModal').querySelector('.modal').innerHTML = `
-    <button class="modal-close" onclick="closeModal('confirmModal')">&times;</button>
-    ${content}
   `;
   openModal('confirmModal');
 };
@@ -2326,35 +1889,25 @@ window.applyBan = async function(e, id) {
   const byDevice = document.getElementById('banByDevice').checked;
 
   let bannedUntil = null;
-  if (duration === '1h') bannedUntil = new Date(Date.now() + 60 * 60 * 1000).toISOString();
-  else if (duration === '24h') bannedUntil = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-  else if (duration === '7d') bannedUntil = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
-  else if (duration === '30d') bannedUntil = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+  if (duration === '1h') bannedUntil = new Date(Date.now() + 3600000).toISOString();
+  else if (duration === '24h') bannedUntil = new Date(Date.now() + 86400000).toISOString();
+  else if (duration === '7d') bannedUntil = new Date(Date.now() + 7 * 86400000).toISOString();
+  else if (duration === '30d') bannedUntil = new Date(Date.now() + 30 * 86400000).toISOString();
   else bannedUntil = 'forever';
 
   try {
     const updates = {
-      banned: true,
-      bannedUntil,
-      banReason: reason,
-      bannedBy: currentUser.email,
-      bannedAt: new Date().toISOString()
+      banned: true, bannedUntil, banReason: reason,
+      bannedBy: currentUser.email, bannedAt: new Date().toISOString()
     };
     if (byDevice) {
-      // Простой fingerprint (можно потом заменить на FingerprintJS)
       const fp = btoa(navigator.userAgent + '|' + screen.width + 'x' + screen.height).substring(0, 32);
       updates.bannedByDevice = true;
       updates.bannedDeviceId = fp;
-      // Записываем в отдельную коллекцию bannedDevices
       try {
         await setDoc(doc(db, 'bannedDevices', fp), {
-          deviceId: fp,
-          bannedUserId: id,
-          bannedUserEmail: u.email,
-          reason,
-          bannedBy: currentUser.email,
-          bannedAt: new Date().toISOString(),
-          until: bannedUntil
+          deviceId: fp, bannedUserId: id, bannedUserEmail: u.email,
+          reason, bannedBy: currentUser.email, bannedAt: new Date().toISOString(), until: bannedUntil
         });
       } catch (er) { console.warn(er); }
     }
@@ -2369,24 +1922,19 @@ window.applyBan = async function(e, id) {
 };
 
 window.unbanUser = async function(id) {
-  confirmAction('Разбанить пользователя?', 'Доступ к сайту будет восстановлен', async () => {
+  confirmAction('Разбанить?', 'Доступ к сайту восстановится', async () => {
     try {
-      await updateDoc(doc(db, 'users', id), {
-        banned: false,
-        bannedUntil: null,
-        bannedByDevice: false,
-        bannedDeviceId: null
-      });
+      await updateDoc(doc(db, 'users', id), { banned: false, bannedUntil: null, bannedByDevice: false, bannedDeviceId: null });
       const u = allUsers.find(x => x.id === id);
       if (u) { u.banned = false; u.bannedUntil = null; u.bannedByDevice = false; }
-      showToast('Пользователь разбанен ✅', 'success');
+      showToast('Разбанен ✅', 'success');
       loadUsers();
     } catch (e) { showToast('Ошибка: ' + e.message, 'error'); }
   });
 };
 
 window.deleteUser = function(id, name) {
-  confirmAction('Удалить пользователя?', `Пользователь "${name}" будет удалён из Firestore. Его отзывы и комментарии останутся, но станут "от удалённого пользователя".`, async () => {
+  confirmAction('Удалить пользователя?', `"${name}" будет удалён из Firestore`, async () => {
     try {
       await deleteDoc(doc(db, 'users', id));
       allUsers = allUsers.filter(u => u.id !== id);
@@ -2409,13 +1957,12 @@ async function loadReviews() {
 
   if (statsContainer) {
     statsContainer.innerHTML = `
-      <div class="stat-card"><i class="fas fa-star stat-icon"></i><div class="stat-value">${total}</div><div class="stat-label">Всего отзывов</div></div>
+      <div class="stat-card"><i class="fas fa-star stat-icon"></i><div class="stat-value">${total}</div><div class="stat-label">Всего</div></div>
       <div class="stat-card"><i class="fas fa-chart-line stat-icon"></i><div class="stat-value">${avg}</div><div class="stat-label">Средний рейтинг</div></div>
       <div class="stat-card"><i class="fas fa-camera stat-icon"></i><div class="stat-value">${withPhotos}</div><div class="stat-label">С фото</div></div>
       <div class="stat-card"><i class="fas fa-calendar-week stat-icon"></i><div class="stat-value">${week}</div><div class="stat-label">За 7 дней</div></div>
     `;
   }
-
   renderReviewsList();
 }
 
@@ -2438,7 +1985,7 @@ function renderReviewsList() {
   document.getElementById('reviewsCount').textContent = filtered.length;
 
   if (!filtered.length) {
-    container.innerHTML = `<div class="empty-state"><i class="fas fa-star empty-icon"></i><h4>Отзывы не найдены</h4><p>Попробуйте изменить фильтр</p></div>`;
+    container.innerHTML = `<div class="empty-state"><i class="fas fa-star empty-icon"></i><h4>Не найдено</h4><p>Измените фильтр</p></div>`;
     return;
   }
 
@@ -2448,14 +1995,13 @@ function renderReviewsList() {
     const photosHtml = (r.photos || []).length > 0 ? `<div class="review-photos-admin">${r.photos.map(p => `<div class="rp-photo" onclick="openAdminLightbox('${p}')"><img src="${p}" /></div>`).join('')}</div>` : '';
     return `
       <div class="admin-list-item" style="flex-direction:column;align-items:stretch;">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
           <div class="li-avatar">${r.userPhoto ? `<img src="${escapeHTML(r.userPhoto)}" />` : initial}</div>
           <div style="flex:1;min-width:0;">
             <div class="li-name">${escapeHTML(r.userName || 'Аноним')} <span class="stars-display">${stars}</span></div>
             <div class="li-meta">
               <span><i class="fas fa-clock"></i> ${formatDateTime(r.createdAt)}</span>
               ${r.masterName ? `<span><i class="fas fa-user-tie"></i> ${escapeHTML(r.masterName)}</span>` : ''}
-              <span><i class="fas fa-star"></i> ${r.rating}/5</span>
             </div>
           </div>
           <div class="li-actions">
@@ -2493,12 +2039,8 @@ window.openReviewModal = function(id) {
     <div class="modal-info-row"><span class="label">Дата</span><span class="value">${formatDateTime(r.createdAt)}</span></div>
     <div class="modal-info-row"><span class="label">Оценка</span><span class="value">${r.rating}/5</span></div>
     ${r.masterName ? `<div class="modal-info-row"><span class="label">Мастер</span><span class="value">${escapeHTML(r.masterName)}</span></div>` : ''}
-    ${r.salonRating ? `<div class="modal-info-row"><span class="label">Оценка салона</span><span class="value">${r.salonRating}/5</span></div>` : ''}
-    ${r.masterRating ? `<div class="modal-info-row"><span class="label">Оценка мастера</span><span class="value">${r.masterRating}/5</span></div>` : ''}
-    <div class="modal-info-row"><span class="label">Email</span><span class="value">${escapeHTML(r.userEmail || '—')}</span></div>
     <div style="margin-top:16px;padding:14px;background:var(--bg-secondary);border-radius:10px;font-size:14px;line-height:1.6;color:var(--text-secondary);">${escapeHTML(r.text || '')}</div>
     ${photosHtml}
-    <div class="modal-info-row" style="margin-top:16px;"><span class="label">ID</span><span class="value" style="font-family:monospace;font-size:11px;">${r.id}</span></div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('reviewModal')">Закрыть</button>
       <button class="btn btn-danger" onclick="deleteReview('${r.id}'); closeModal('reviewModal');"><i class="fas fa-trash"></i> Удалить</button>
@@ -2523,18 +2065,12 @@ async function loadMasters() {
   const container = document.getElementById('mastersList');
   if (!container) return;
   if (!allMasters.length) {
-    container.innerHTML = `<div class="empty-state"><i class="fas fa-user-tie empty-icon"></i><h4>Мастеров нет</h4><p>Добавьте мастеров через Firebase Console</p></div>`;
+    container.innerHTML = `<div class="empty-state"><i class="fas fa-user-tie empty-icon"></i><h4>Мастеров нет</h4></div>`;
     return;
   }
   container.innerHTML = allMasters.map(m => {
     const initial = (m.name || '?').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-    const servicesHtml = (m.services || []).map(s => `
-      <div class="service-row">
-        <span>${escapeHTML(s.name)} <span style="color:var(--text-muted);font-size:11px;">(${escapeHTML(s.category || '')}, ${escapeHTML(s.duration || '')})</span></span>
-        <span style="color:var(--gold);font-weight:600;">${s.price} ₽</span>
-      </div>
-    `).join('') || '<div style="color:var(--text-muted);font-size:12px;">Услуги не добавлены</div>';
-
+    const servicesHtml = (m.services || []).map(s => `<div class="service-row"><span>${escapeHTML(s.name)} <span style="color:var(--text-muted);font-size:11px;">(${escapeHTML(s.category || '')}, ${escapeHTML(s.duration || '')})</span></span><span style="color:var(--gold);font-weight:600;">${s.price} ₽</span></div>`).join('') || '<div style="color:var(--text-muted);font-size:12px;">Услуги не добавлены</div>';
     return `
       <div class="master-item-admin">
         <div class="mi-avatar">${m.photo ? `<img src="${escapeHTML(m.photo)}" />` : initial}</div>
@@ -2558,7 +2094,7 @@ async function loadBlog() {
   const container = document.getElementById('blogList');
   if (!container) return;
   if (!allBlogPosts.length) {
-    container.innerHTML = `<div class="empty-state"><i class="fas fa-newspaper empty-icon"></i><h4>Постов нет</h4><p>Добавьте посты через Firebase Console</p></div>`;
+    container.innerHTML = `<div class="empty-state"><i class="fas fa-newspaper empty-icon"></i><h4>Постов нет</h4></div>`;
     return;
   }
   container.innerHTML = allBlogPosts.map(p => `
@@ -2567,7 +2103,7 @@ async function loadBlog() {
       <div class="bi-date"><i class="fas fa-calendar"></i> ${formatDate(p.date)} ${p.status === 'draft' ? '• <span class="badge badge-orange">Черновик</span>' : ''}</div>
       <div class="bi-preview">${escapeHTML((p.content || '').substring(0, 300))}${(p.content || '').length > 300 ? '...' : ''}</div>
       <div class="li-actions">
-        <button class="btn btn-xs btn-ghost" onclick="window.open('index.html#post_${p.id}', '_blank')"><i class="fas fa-external-link-alt"></i> Открыть на сайте</button>
+        <button class="btn btn-xs btn-ghost" onclick="window.open('index.html#post_${p.id}', '_blank')"><i class="fas fa-external-link-alt"></i> Открыть</button>
       </div>
     </div>
   `).join('');
@@ -2600,6 +2136,12 @@ document.addEventListener('keydown', (e) => {
     document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
     closeAdminLightbox();
   }
+});
+
+document.querySelectorAll('.modal-overlay').forEach(modal => {
+  modal.addEventListener('click', function(e) {
+    if (e.target === this) { this.classList.remove('active'); document.body.style.overflow = ''; }
+  });
 });
 
 console.log('🛡️ Админ-панель Студия №1 загружена');
