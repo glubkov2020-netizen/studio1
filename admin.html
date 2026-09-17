@@ -403,10 +403,6 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 .toast .toast-close { margin-left: auto; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; padding: 4px; }
 .toast.hide { opacity: 0; transform: translateX(50px); transition: all 0.3s ease; }
 
-/* ============================================
-   НОВЫЕ СТИЛИ (все в самом конце — ничего не сломают)
-   ============================================ */
-
 /* Роли и статусы */
 .role-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 .role-badge.developer { background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(52, 152, 219, 0.1)); color: var(--blue); border: 1px solid rgba(52, 152, 219, 0.4); }
@@ -645,7 +641,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- ТВОЯ МОДАЛКА: ПРОФИЛЬ КЛИЕНТА -->
+<!-- МОДАЛКА: ПРОФИЛЬ КЛИЕНТА -->
 <div class="modal-overlay" id="clientModal">
   <div class="modal modal-lg">
     <button class="modal-close" onclick="closeClientModal()">&times;</button>
@@ -653,7 +649,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
   </div>
 </div>
 
-<!-- ТВОЯ МОДАЛКА: РЕДАКТИРОВАНИЕ МАСТЕРА -->
+<!-- МОДАЛКА: РЕДАКТИРОВАНИЕ МАСТЕРА -->
 <div class="modal-overlay" id="masterEditModal">
   <div class="modal modal-lg">
     <button class="modal-close" onclick="closeMasterEdit()">&times;</button>
@@ -661,9 +657,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
   </div>
 </div>
 
-<!-- ============================================
-     НОВАЯ МОДАЛКА: БАН ПОЛЬЗОВАТЕЛЯ
-     ============================================ -->
+<!-- МОДАЛКА: БАН ПОЛЬЗОВАТЕЛЯ -->
 <div class="modal-overlay" id="banModal">
   <div class="modal">
     <button class="modal-close" onclick="closeBanModal()">&times;</button>
@@ -725,9 +719,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
   </div>
 </div>
 
-<!-- ============================================
-     НОВАЯ МОДАЛКА: ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ
-     ============================================ -->
+<!-- МОДАЛКА: ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ -->
 <div class="modal-overlay" id="deleteUserModal">
   <div class="modal modal-sm">
     <button class="modal-close" onclick="closeDeleteUserModal()">&times;</button>
@@ -766,9 +758,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
   </div>
 </div>
 
-<!-- ============================================
-     НОВАЯ МОДАЛКА: ПРОСМОТР КОММЕНТАРИЯ
-     ============================================ -->
+<!-- МОДАЛКА: ПРОСМОТР КОММЕНТАРИЯ -->
 <div class="modal-overlay" id="commentModal">
   <div class="modal modal-lg">
     <button class="modal-close" onclick="closeCommentModal()">&times;</button>
@@ -776,9 +766,7 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
   </div>
 </div>
 
-<!-- ============================================
-     УНИВЕРСАЛЬНОЕ ПОДТВЕРЖДЕНИЕ
-     ============================================ -->
+<!-- УНИВЕРСАЛЬНОЕ ПОДТВЕРЖДЕНИЕ -->
 <div class="modal-overlay" id="confirmModal">
   <div class="modal modal-sm">
     <button class="modal-close" onclick="closeConfirmModal()">&times;</button>
@@ -793,9 +781,10 @@ table.data-table input:focus, table.data-table select:focus { outline: none; bor
     </div>
   </div>
 </div>
+
 <script type="module">
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot } from 'firebase/firestore';
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, addDoc, query, orderBy, where, onSnapshot, limit } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyChHl5eqHX70m5qh8w5oOj261qqnopzp_c",
@@ -827,7 +816,7 @@ const RATE_LIMITS = {
 };
 
 /* ============================================
-   УТИЛИТЫ (твои)
+   УТИЛИТЫ
    ============================================ */
 function escapeHTML(str) {
   if (!str) return '';
@@ -895,8 +884,23 @@ function toMillis(date) {
   return isNaN(t) ? 0 : t;
 }
 
+async function sha256Hex(str) {
+  try {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 32);
+  } catch (e) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = ((hash << 5) - hash) + str.charCodeAt(i);
+      hash |= 0;
+    }
+    return Math.abs(hash).toString(36);
+  }
+}
+
 /* ============================================
-   ГЕНЕРАЦИЯ И ПРОВЕРКА 6-ЗНАЧНЫХ КОДОВ (твои)
+   ГЕНЕРАЦИЯ И ПРОВЕРКА 6-ЗНАЧНЫХ КОДОВ
    ============================================ */
 function getCurrentTimeWindow() {
   return Math.floor(Date.now() / (CODE_LIFETIME * 1000));
@@ -981,7 +985,7 @@ function checkRateLimit(key) {
 }
 
 /* ============================================
-   АВТОРИЗАЦИЯ (твоя)
+   АВТОРИЗАЦИЯ
    ============================================ */
 let loginAttempts = 0;
 const MAX_ATTEMPTS = 5;
@@ -1070,6 +1074,7 @@ let allUsers = [];
 let allComments = [];
 let allReviews = [];
 let allTokens = [];
+let allBannedDevices = [];
 let currentTab = 'dashboard';
 let clientSearch = '';
 let commentsFilter = 'pending';
@@ -1088,7 +1093,33 @@ let codeInputBuffer = ['', '', '', '', '', ''];
 let banSelectedDuration = '24h';
 
 /* ============================================
-   ЗАГРУЗКА ДАННЫХ (твоя)
+   FINGERPRINT
+   ============================================ */
+async function getUserFingerprint(user) {
+  const parts = [
+    user.id || '',
+    user.email || '',
+    user.phone || '',
+    user.createdAt || ''
+  ];
+  return 'user_' + await sha256Hex(parts.join('|'));
+}
+
+async function getBrowserFingerprint(user) {
+  const parts = [
+    navigator.userAgent || '',
+    screen.width + 'x' + screen.height,
+    screen.colorDepth || 0,
+    new Date().getTimezoneOffset(),
+    navigator.language || '',
+    navigator.hardwareConcurrency || 0,
+    user.id || ''
+  ];
+  return 'fp_' + await sha256Hex(parts.join('|'));
+}
+
+/* ============================================
+   ЗАГРУЗКА ДАННЫХ
    ============================================ */
 async function loadAllData() {
   if (isDataLoaded) return;
@@ -1120,6 +1151,12 @@ async function loadAllData() {
       tokensSnap.forEach(d => allTokens.push({ id: d.id, ...d.data() }));
     } catch (e) { allTokens = []; }
 
+    try {
+      const bannedSnap = await getDocs(collection(db, 'bannedDevices'));
+      allBannedDevices = [];
+      bannedSnap.forEach(d => allBannedDevices.push({ id: d.id, ...d.data() }));
+    } catch (e) { allBannedDevices = []; }
+
     loadComments();
     await loadCodeLogs();
 
@@ -1130,7 +1167,8 @@ async function loadAllData() {
       reviews: allReviews.length,
       posts: allBlogPosts.length,
       codes: allTokens.length,
-      comments: allComments.length
+      comments: allComments.length,
+      banned: allBannedDevices.length
     });
   } catch (e) {
     console.error('Ошибка загрузки:', e);
@@ -1217,7 +1255,7 @@ function updateBadges() {
 }
 
 /* ============================================
-   НАВИГАЦИЯ (твоя + users)
+   НАВИГАЦИЯ
    ============================================ */
 const TAB_META = {
   dashboard: { emoji: '📊', title: 'Дашборд', subtitle: 'Общая сводка по салону' },
@@ -1318,7 +1356,7 @@ window.refreshAll = async function() {
 };
 
 /* ============================================
-   ДАШБОРД (твой оригинал)
+   ДАШБОРД
    ============================================ */
 function renderDashboard() {
   const totalUsers = allUsers.length;
@@ -1471,6 +1509,10 @@ function renderDashboard() {
           <span class="mm-value">${formatNumber(allTokens.length)}</span>
         </div>
         <div class="metric-mini">
+          <span class="mm-label">🚫 Забанено устройств:</span>
+          <span class="mm-value">${allBannedDevices.filter(d => d.active).length}</span>
+        </div>
+        <div class="metric-mini">
           <span class="mm-label">🕒 Обновлено:</span>
           <span class="mm-value">${new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'})}</span>
         </div>
@@ -1480,7 +1522,7 @@ function renderDashboard() {
 }
 
 /* ============================================
-   КОДЫ КЛИЕНТОВ (твой оригинал)
+   КОДЫ КЛИЕНТОВ
    ============================================ */
 function renderCodesTab() {
   return `
@@ -1757,7 +1799,7 @@ function renderCodeLogs() {
 }
 
 /* ============================================
-   КЛИЕНТЫ (твой оригинал)
+   КЛИЕНТЫ
    ============================================ */
 function renderClients() {
   const searchLower = (clientSearch || '').toLowerCase().trim();
@@ -1893,6 +1935,22 @@ window.showClient = async function(userId) {
       ${user.cardId ? `<div style="margin-top:8px;"><code class="cell-mono" style="font-size:14px;">${escapeHTML(user.cardId)}</code></div>` : ''}
     </div>
 
+    ${user.banned ? `
+      <div style="background:var(--red-soft);border:1px solid rgba(231,76,60,0.3);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+        <i class="fas fa-ban" style="color:var(--red);font-size:20px;"></i>
+        <div style="flex:1;">
+          <div style="font-weight:700;color:var(--red);">Пользователь забанен</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">
+            ${user.banReason ? `Причина: ${escapeHTML(user.banReason)}` : ''}
+            ${user.bannedUntil ? `<br>До: ${user.bannedUntil === 'forever' ? 'навсегда' : formatDate(user.bannedUntil)}` : ''}
+          </div>
+        </div>
+        <button class="btn btn-success btn-sm" onclick="closeClientModal();unbanUser('${user.id}')">
+          <i class="fas fa-unlock"></i> Разбанить
+        </button>
+      </div>
+    ` : ''}
+
     <div style="background:linear-gradient(145deg, rgba(201,169,110,0.15), rgba(201,169,110,0.03));border:1px solid var(--border-color);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:20px;">
       <div style="font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;">☀️ Баланс минут</div>
       <div style="font-size:48px;font-weight:900;color:var(--gold);line-height:1;margin:6px 0;">${user.minutes || 0}</div>
@@ -2014,7 +2072,7 @@ window.spendMinutes = async function(userId) {
 };
 
 /* ============================================
-   МАСТЕРА (твой оригинал)
+   МАСТЕРА
    ============================================ */
 function renderMasters() {
   if (allMasters.length === 0) {
@@ -2351,7 +2409,7 @@ window.deleteMaster = async function(id) {
 };
 
 /* ============================================
-   БЛОГ (твой оригинал)
+   БЛОГ
    ============================================ */
 function renderBlogAdmin() {
   let postsHtml = '';
@@ -2466,7 +2524,7 @@ window.deletePost = async function(id) {
 };
 
 /* ============================================
-   ОТЗЫВЫ (твой оригинал)
+   ОТЗЫВЫ
    ============================================ */
 function renderReviewsAdmin() {
   const total = allReviews.length;
@@ -2525,7 +2583,7 @@ window.deleteReview = async function(id) {
 };
 
 /* ============================================
-   КОММЕНТАРИИ С МОДЕРАЦИЕЙ (НОВОЕ)
+   КОММЕНТАРИИ С МОДЕРАЦИЕЙ
    ============================================ */
 function renderCommentsAdmin() {
   const pendingCount = allComments.filter(c => c.status === 'pending' && !c.isDeleted).length;
@@ -2789,7 +2847,7 @@ window.closeCommentModal = function() {
 };
 
 /* ============================================
-   ПОЛЬЗОВАТЕЛИ (НОВОЕ)
+   ПОЛЬЗОВАТЕЛИ
    ============================================ */
 function renderUsersAdmin() {
   const total = allUsers.length;
@@ -2862,7 +2920,7 @@ function renderUsersTable() {
 
   return filtered.map(u => {
     const initial = (u.name || u.email || '?').charAt(0).toUpperCase();
-    const isProtected = u.id === 'legacy' || u.email === 'Studio1Admin';
+    const isProtected = u.email === 'Studio1Admin';
 
     const statusBadges = [
       u.banned ? `<span class="status-badge banned"><i class="fas fa-ban"></i> Забанен</span>` : '',
@@ -2990,52 +3048,63 @@ window.applyBan = async function(e) {
       bannedAt: new Date().toISOString()
     };
 
+    // ============ БАН ПО УСТРОЙСТВУ (ИСПРАВЛЕНО) ============
     if (byDevice) {
-      const fp = generateDeviceFingerprint();
+      // Fingerprint пользователя (стабильный — по данным профиля)
+      const userFp = await getUserFingerprint(u);
+      // Fingerprint браузера (для доп. защиты)
+      const browserFp = await getBrowserFingerprint(u);
+
       updates.bannedByDevice = true;
-      updates.bannedDeviceId = fp;
+      updates.bannedDeviceId = userFp;
+
+      const banRecord = {
+        bannedUserId: userId,
+        bannedUserEmail: u.email || '',
+        bannedUserName: u.name || '',
+        reason,
+        bannedBy: 'Studio1Admin',
+        bannedAt: new Date().toISOString(),
+        until: bannedUntil,
+        active: true
+      };
 
       try {
-        await setDoc(doc(db, 'bannedDevices', fp), {
-          deviceId: fp,
-          bannedUserId: userId,
-          bannedUserEmail: u.email,
-          reason,
-          bannedBy: 'Studio1Admin',
-          bannedAt: new Date().toISOString(),
-          until: bannedUntil
-        });
-      } catch (er) { console.warn('Ошибка записи bannedDevices:', er); }
+        await setDoc(doc(db, 'bannedDevices', userFp), { ...banRecord, deviceId: userFp, type: 'user_fingerprint' });
+      } catch (er) { console.warn('userFp save error:', er); }
+
+      try {
+        await setDoc(doc(db, 'bannedDevices', browserFp), { ...banRecord, deviceId: browserFp, type: 'browser_fingerprint' });
+      } catch (er) { console.warn('browserFp save error:', er); }
     }
 
+    // Сохраняем бан в профиле пользователя
     await updateDoc(doc(db, 'users', userId), updates);
-    Object.assign(u, updates);
 
+    // ============ ДУБЛИРУЕМ В ОТДЕЛЬНУЮ КОЛЛЕКЦИЮ bans ============
+    try {
+      await setDoc(doc(db, 'bans', userId), {
+        userId,
+        userEmail: u.email || '',
+        userName: u.name || '',
+        banned: true,
+        bannedUntil,
+        banReason: reason,
+        bannedBy: 'Studio1Admin',
+        bannedAt: new Date().toISOString(),
+        bannedByDevice: byDevice || false
+      });
+    } catch (er) { console.warn('bans save error:', er); }
+
+    Object.assign(u, updates);
     showToast(`Пользователь ${u.name || u.email} забанен ✅`, 'success');
     closeBanModal();
     renderContent('users');
   } catch (e) {
+    console.error(e);
     showToast('Ошибка бана: ' + e.message, 'error');
   }
 };
-
-function generateDeviceFingerprint() {
-  const parts = [
-    navigator.userAgent,
-    screen.width + 'x' + screen.height,
-    screen.colorDepth,
-    new Date().getTimezoneOffset(),
-    navigator.language,
-    navigator.hardwareConcurrency || 0
-  ];
-  const str = parts.join('|');
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = ((hash << 5) - hash) + str.charCodeAt(i);
-    hash |= 0;
-  }
-  return 'fp_' + Math.abs(hash).toString(36);
-}
 
 window.unbanUser = async function(userId) {
   const u = allUsers.find(x => x.id === userId);
@@ -3053,6 +3122,21 @@ window.unbanUser = async function(userId) {
           bannedDeviceId: null,
           banReason: null
         });
+
+        // Удаляем из bans
+        try { await deleteDoc(doc(db, 'bans', userId)); } catch (e) {}
+
+        // Удаляем из bannedDevices
+        try {
+          const snap = await getDocs(collection(db, 'bannedDevices'));
+          const toDelete = [];
+          snap.forEach(d => {
+            const data = d.data();
+            if (data.bannedUserId === userId) toDelete.push(d.ref);
+          });
+          for (const ref of toDelete) await deleteDoc(ref);
+        } catch (e) {}
+
         Object.assign(u, { banned: false, bannedUntil: null, bannedByDevice: false, bannedDeviceId: null });
         showToast('Пользователь разбанен ✅', 'success');
         renderContent('users');
@@ -3164,7 +3248,7 @@ window.showConfirm = function(title, text, onConfirm) {
 };
 
 /* ============================================
-   АНАЛИТИКА (твой оригинал)
+   АНАЛИТИКА
    ============================================ */
 function renderAnalytics() {
   const totalUsers = allUsers.length;
@@ -3176,7 +3260,7 @@ function renderAnalytics() {
       <div class="empty-analytics">
         <span class="empty-icon">📈</span>
         <h3>Аналитика пока недоступна</h3>
-        <p>Для построения отчётов нужны данные. Как только у вас появятся клиенты, отзывы или операции — вся аналитика заполнится автоматически.</p>
+        <p>Для построения отчётов нужны данные.</p>
       </div>
     `;
   }
@@ -3780,7 +3864,7 @@ document.addEventListener('keydown', (e) => {
 
 window.addEventListener('error', (e) => console.error('Global error:', e));
 
-console.log('%c🎨 Админка Студия №1 v4.5', 'color:#C9A96E;font-size:16px;font-weight:bold;');
+console.log('%c🎨 Админка Студия №1 v4.6 (fixed ban)', 'color:#C9A96E;font-size:16px;font-weight:bold;');
 console.log('%c🔑 Коды + модерация + управление пользователями', 'color:#E8D5A8;font-size:12px;');
 </script>
 </body>
