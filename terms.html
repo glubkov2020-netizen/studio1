@@ -1,4 +1,3 @@
-html
 <!DOCTYPE html>
 <html lang="ru" data-theme="dark">
 <head>
@@ -7,578 +6,1727 @@ html
 <title>Пользовательское соглашение — Студия №1</title>
 <meta name="description" content="Пользовательское соглашение сайта studiia1.ru — ИП Мельникова Н.В. (Студия №1, Кемерово)" />
 <meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#0D0D0D" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
 <style>
+/* ============================================================
+   STUDIO №1 — Пользовательское соглашение v2.0
+   Палитра: тёмная / светлая с золотым акцентом
+   ============================================================ */
+
 :root {
-  --bg-primary: #0D0D0D;
-  --bg-secondary: #161616;
+  --bg-primary: #0B0B0B;
+  --bg-secondary: #141414;
+  --bg-elevated: #1A1A1A;
   --bg-card: rgba(255, 255, 255, 0.04);
-  --bg-card-hover: rgba(255, 255, 255, 0.06);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
   --text-primary: #F0EBE6;
-  --text-secondary: #D0CBC6;
+  --text-secondary: #CFCAC5;
   --text-muted: #8A8580;
   --border-color: rgba(201, 169, 110, 0.15);
-  --border-gold: rgba(201, 169, 110, 0.4);
+  --border-gold: rgba(201, 169, 110, 0.45);
   --gold: #C9A96E;
   --gold-light: #E8D5A8;
   --gold-dark: #A8894E;
+  --gold-glow: rgba(201, 169, 110, 0.25);
   --gold-gradient: linear-gradient(135deg, #C9A96E, #E8D5A8, #C9A96E);
+  --gold-gradient-soft: linear-gradient(135deg, rgba(201,169,110,0.15), rgba(232,213,168,0.05));
   --danger: #E74C3C;
   --danger-bg: rgba(231, 76, 60, 0.08);
-  --shadow-soft: 0 4px 24px rgba(0,0,0,0.25);
-  --shadow-gold: 0 0 24px rgba(201, 169, 110, 0.15);
+  --success: #4CAF50;
+  --shadow-soft: 0 4px 24px rgba(0,0,0,0.35);
+  --shadow-elevated: 0 12px 40px rgba(0,0,0,0.45);
+  --shadow-gold: 0 0 32px rgba(201, 169, 110, 0.18);
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
+  --radius-xl: 26px;
   --radius-pill: 999px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s var(--ease);
+  --transition: 0.35s var(--ease);
+  --transition-slow: 0.6s var(--ease-out);
+  --header-h: 64px;
 }
+
 [data-theme="light"] {
   --bg-primary: #FCF9F5;
-  --bg-secondary: #F8F5F0;
-  --bg-card: rgba(0, 0, 0, 0.02);
-  --bg-card-hover: rgba(0, 0, 0, 0.035);
-  --text-primary: #1E1E1E;
+  --bg-secondary: #F6F2EC;
+  --bg-elevated: #FFFFFF;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --text-primary: #1A1A1A;
   --text-secondary: #3D3D3D;
   --text-muted: #7A7A7A;
-  --border-color: rgba(201, 169, 110, 0.2);
-  --shadow-soft: 0 4px 24px rgba(0,0,0,0.06);
+  --border-color: rgba(201, 169, 110, 0.25);
+  --border-gold: rgba(201, 169, 110, 0.55);
+  --gold-dark: #8A6E3A;
+  --shadow-soft: 0 4px 24px rgba(120, 90, 40, 0.08);
+  --shadow-elevated: 0 12px 40px rgba(120, 90, 40, 0.12);
+  --shadow-gold: 0 0 32px rgba(201, 169, 110, 0.22);
+  --danger-bg: rgba(231, 76, 60, 0.07);
 }
+
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 16px;
   color: var(--text-primary);
   background: var(--bg-primary);
   line-height: 1.75;
   min-height: 100vh;
-  padding: 40px 20px 80px;
+  padding: 0 20px 100px;
   background-image:
-    radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.08) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 100%, rgba(201, 169, 110, 0.04) 0%, transparent 60%);
+    radial-gradient(ellipse at 15% 20%, rgba(201, 169, 110, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 60%, rgba(201, 169, 110, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(201, 169, 110, 0.05) 0%, transparent 60%);
   background-attachment: fixed;
+  overflow-x: hidden;
+  transition: background-color var(--transition), color var(--transition);
 }
-.container { max-width: 920px; margin: 0 auto; }
 
-/* Back link */
-.back-link {
-  display: inline-flex; align-items: center; gap: 8px;
-  color: var(--gold); text-decoration: none;
-  font-size: 14px; font-weight: 500; margin-bottom: 32px;
-  padding: 10px 20px; border: 1px solid var(--border-color);
-  border-radius: var(--radius-pill); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: var(--bg-card);
-  backdrop-filter: blur(8px);
+/* ---------- Progress bar ---------- */
+.read-progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px; width: 0%;
+  background: var(--gold-gradient);
+  z-index: 1000;
+  transition: width 0.08s linear;
+  box-shadow: 0 0 12px var(--gold-glow);
 }
-.back-link:hover {
-  background: var(--gold); color: #0D0D0D; border-color: var(--gold);
-  transform: translateY(-2px);
+
+/* ---------- Sticky Header ---------- */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  background: color-mix(in srgb, var(--bg-primary) 78%, transparent);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid transparent;
+  z-index: 900;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+.topbar.scrolled {
+  border-bottom-color: var(--border-color);
+  background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+}
+.topbar-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700; font-size: 19px; letter-spacing: 0.4px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.topbar-brand .brand-mark {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--gold-gradient);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #0D0D0D; font-size: 12px; font-weight: 800;
   box-shadow: var(--shadow-gold);
+  font-family: 'Inter', sans-serif;
 }
-
-/* Header */
-.doc-header {
-  position: relative;
-  padding-bottom: 28px;
-  margin-bottom: 36px;
-  border-bottom: 1px solid var(--border-color);
-}
-h1 {
-  font-family: 'Cormorant Garamond', 'Inter', serif;
-  font-size: clamp(30px, 6vw, 52px);
-  font-weight: 700;
-  margin-bottom: 12px;
-  line-height: 1.15;
-  letter-spacing: -0.5px;
-}
-h1 span {
+.topbar-brand span.gold {
   background: var(--gold-gradient); background-size: 300% auto;
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text; animation: shimmer 8s ease-in-out infinite;
-  font-style: italic;
 }
-@keyframes shimmer { 0%,100% { background-position: 0% center; } 50% { background-position: 200% center; } }
-.subtitle {
-  color: var(--text-muted); font-size: 15px;
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-}
-.subtitle::before {
-  content: ''; display: inline-block;
-  width: 24px; height: 1px; background: var(--gold); flex-shrink: 0;
-}
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
 
-/* Document meta */
-.doc-meta {
-  background: var(--bg-card);
+/* ---------- Icon buttons (theme, print) ---------- */
+.icon-btn {
+  width: 42px; height: 42px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 22px 26px; margin-bottom: 32px;
-  font-size: 13.5px; color: var(--text-secondary); line-height: 1.9;
-  position: relative; overflow: hidden;
+  background: var(--bg-card);
+  color: var(--gold);
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
 }
-.doc-meta::before {
-  content: ''; position: absolute; top: 0; left: 0;
-  width: 3px; height: 100%; background: var(--gold-gradient);
+.icon-btn:hover {
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
 }
-.doc-meta strong { color: var(--gold); font-weight: 600; }
-.doc-meta a { color: var(--gold-light); }
-.doc-meta a:hover { color: var(--gold); }
+.icon-btn:active { transform: translateY(0) scale(0.96); }
+.icon-btn svg { width: 18px; height: 18px; transition: transform var(--transition); }
+.icon-btn:hover svg { transform: rotate(-8deg) scale(1.08); }
 
-/* Table of contents */
+/* ---------- Layout ---------- */
+.layout {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-top: calc(var(--header-h) + 40px);
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.content { min-width: 0; max-width: 900px; }
+
+/* ---------- Sidebar / TOC ---------- */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  max-height: calc(100vh - var(--header-h) - 48px);
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-gold) transparent;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-gold); border-radius: 4px; }
+
 .toc {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 24px 28px;
-  margin: 0 0 40px;
-  font-size: 14px;
+  border-radius: var(--radius-lg);
+  padding: 22px 20px 22px 22px;
   position: relative;
+  overflow: hidden;
 }
 .toc::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: var(--gold-gradient);
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-  opacity: 0.6;
+  height: 2px; background: var(--gold-gradient); opacity: 0.7;
 }
-.toc h3 {
-  margin-top: 0;
+.toc::after {
+  content: ''; position: absolute; top: -50px; right: -50px;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  pointer-events: none;
+  opacity: 0.5;
+}
+.toc-title {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2.2px;
   color: var(--gold);
-  font-size: 13px;
   margin-bottom: 16px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 600;
-  display: flex; align-items: center; gap: 8px;
+  position: relative; z-index: 1;
 }
+.toc-title .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 0 var(--gold-glow);
+  animation: pulseDot 2.4s var(--ease) infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 var(--gold-glow); }
+  50%      { box-shadow: 0 0 0 8px transparent; }
+}
+
 .toc ol {
-  margin: 0 0 0 22px;
-  columns: 1;
-  counter-reset: item;
+  list-style: none;
+  counter-reset: toc;
+  margin: 0;
+  position: relative; z-index: 1;
 }
 .toc li {
-  margin-bottom: 7px;
-  position: relative;
-  padding-left: 4px;
-  transition: padding-left 0.2s ease;
+  counter-increment: toc;
+  margin-bottom: 3px;
 }
-.toc li:hover { padding-left: 8px; }
-.toc li::marker { color: var(--gold-dark); font-weight: 600; font-size: 12px; }
 .toc a {
-  color: var(--text-secondary); font-size: 13.5px;
-  transition: color 0.2s ease;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 1px;
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  text-decoration: none;
+  line-height: 1.45;
+  transition: all var(--transition-fast);
+  position: relative;
+  border-left: 2px solid transparent;
 }
-.toc a:hover { color: var(--gold); border-bottom-color: var(--border-gold); text-decoration: none; }
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--gold-dark);
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  min-width: 22px;
+  letter-spacing: 0.5px;
+  transition: color var(--transition-fast);
+  padding-top: 2px;
+}
+.toc a:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+.toc a:hover::before { color: var(--gold); }
+.toc a.active {
+  background: var(--gold-gradient-soft);
+  border-left-color: var(--gold);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.toc a.active::before { color: var(--gold-light); }
 
-/* Headings */
+/* Mobile TOC */
+.toc-mobile {
+  display: none;
+  margin: 0 0 32px;
+}
+
+/* ---------- Back link ---------- */
+.back-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--gold); text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  margin-bottom: 28px;
+  padding: 10px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  transition: all var(--transition);
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+.back-link::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(232,213,168,0.12), transparent);
+  transition: left 0.7s var(--ease);
+}
+.back-link:hover::before { left: 100%; }
+.back-link:hover {
+  background: var(--gold);
+  color: #0D0D0D;
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+.back-link svg { transition: transform var(--transition); }
+.back-link:hover svg { transform: translateX(-4px); }
+
+/* ---------- Header ---------- */
+.doc-header {
+  position: relative;
+  padding-bottom: 32px;
+  margin-bottom: 36px;
+  border-bottom: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.9s var(--ease-out) 0.05s forwards;
+}
+.doc-header::after {
+  content: '';
+  position: absolute; bottom: -1px; left: 0;
+  width: 80px; height: 2px;
+  background: var(--gold-gradient);
+}
+.header-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: var(--gold);
+  padding: 7px 14px;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-pill);
+  background: var(--gold-gradient-soft);
+  margin-bottom: 18px;
+}
+.header-badge .live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
+  animation: pulseDot 2.4s var(--ease) infinite;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', 'Inter', serif;
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 700;
+  margin-bottom: 14px;
+  line-height: 1.1;
+  letter-spacing: -0.6px;
+}
+h1 span {
+  background: var(--gold-gradient);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 8s ease-in-out infinite;
+  font-style: italic;
+  font-weight: 600;
+}
+@keyframes shimmer {
+  0%, 100% { background-position: 0% center; }
+  50%      { background-position: 200% center; }
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 15px;
+  display: flex; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+  line-height: 1.6;
+}
+.subtitle::before {
+  content: '';
+  display: inline-block;
+  width: 28px; height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ---------- Summary cards ---------- */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 0 0 36px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s var(--ease-out) 0.2s forwards;
+}
+.summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px 18px 16px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+.summary-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 100% 0%, var(--gold-glow), transparent 60%);
+  opacity: 0; transition: opacity var(--transition);
+  pointer-events: none;
+}
+.summary-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-soft);
+}
+.summary-card:hover::before { opacity: 0.6; }
+.summary-card .s-icon {
+  width: 34px; height: 34px;
+  border-radius: var(--radius-sm);
+  background: var(--gold-gradient-soft);
+  border: 1px solid var(--border-gold);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  margin-bottom: 12px;
+  transition: transform var(--transition);
+}
+.summary-card:hover .s-icon { transform: rotate(-8deg) scale(1.05); }
+.summary-card .s-icon svg { width: 16px; height: 16px; }
+.summary-card .s-title {
+  font-size: 13px; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  letter-spacing: 0.2px;
+}
+.summary-card .s-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ---------- Document meta ---------- */
+.doc-meta {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 40px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 2;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.doc-meta::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold-gradient);
+}
+.doc-meta::after {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  opacity: 0.35; pointer-events: none;
+}
+.doc-meta:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-soft);
+}
+.doc-meta-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 8px;
+  align-items: baseline;
+  padding: 4px 0;
+  position: relative; z-index: 1;
+}
+.doc-meta-row + .doc-meta-row { border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 4px; }
+.doc-meta strong { color: var(--gold); font-weight: 600; }
+.doc-meta a {
+  color: var(--gold-light);
+  position: relative;
+  display: inline-block;
+  transition: color var(--transition-fast);
+}
+.doc-meta a::after {
+  content: ''; position: absolute; left: 0; bottom: -1px;
+  width: 0; height: 1px; background: var(--gold-light);
+  transition: width var(--transition);
+}
+.doc-meta a:hover { color: var(--gold); }
+.doc-meta a:hover::after { width: 100%; }
+
+/* copy mini button */
+.copy-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-left: 6px;
+  vertical-align: middle;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+.copy-btn svg { width: 11px; height: 11px; }
+.copy-btn:hover {
+  color: var(--gold);
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+}
+.copy-btn.copied {
+  color: var(--success);
+  border-color: rgba(76, 175, 80, 0.5);
+}
+.copy-btn::after {
+  content: attr(data-tooltip);
+  position: absolute; bottom: calc(100% + 6px); left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  border: 1px solid var(--border-color);
+  z-index: 10;
+}
+.copy-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---------- Headings ---------- */
 h2 {
-  font-size: clamp(19px, 3.2vw, 24px);
+  font-size: clamp(20px, 3.2vw, 26px);
   font-weight: 700;
   color: var(--text-primary);
-  margin: 48px 0 18px;
-  padding-left: 18px;
-  border-left: 3px solid var(--gold);
+  margin: 56px 0 20px;
+  padding-left: 52px;
   line-height: 1.3;
   letter-spacing: -0.3px;
-  scroll-margin-top: 24px;
+  scroll-margin-top: calc(var(--header-h) + 24px);
   position: relative;
+  display: flex; align-items: center; gap: 14px;
+  transition: color var(--transition-fast);
+}
+h2 .num {
+  position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--gold-gradient-soft);
+  border: 1px solid var(--border-gold);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 800;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  flex-shrink: 0;
+  transition: all var(--transition);
+  box-shadow: 0 0 0 0 var(--gold-glow);
+}
+h2:hover .num {
+  background: var(--gold);
+  color: #0D0D0D;
+  transform: translateY(-50%) rotate(-8deg) scale(1.06);
+  box-shadow: 0 0 0 6px var(--gold-glow);
 }
 h2::after {
-  content: ''; position: absolute; left: 18px; bottom: -6px;
-  width: 40px; height: 1px; background: var(--border-gold);
+  content: '';
+  position: absolute; left: 52px; bottom: -10px;
+  width: 48px; height: 2px;
+  background: var(--gold-gradient);
+  border-radius: 2px;
+  transition: width var(--transition);
 }
+h2:hover::after { width: 90px; }
+
 h3 {
   font-size: 17px; font-weight: 600;
   color: var(--text-primary);
-  margin: 28px 0 12px;
+  margin: 30px 0 14px;
   letter-spacing: -0.2px;
+  display: flex; align-items: center; gap: 10px;
+}
+h3::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--gold-glow);
 }
 
-/* Text */
-p { margin-bottom: 14px; color: var(--text-secondary); }
-ul, ol { margin: 14px 0 18px 24px; color: var(--text-secondary); }
-li { margin-bottom: 8px; padding-left: 2px; }
-li::marker { color: var(--gold-dark); }
+/* ---------- Text ---------- */
+p {
+  margin-bottom: 15px;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+ul, ol {
+  margin: 15px 0 20px 26px;
+  color: var(--text-secondary);
+}
+ul { list-style: none; margin-left: 0; }
+ul li {
+  margin-bottom: 10px;
+  padding-left: 22px;
+  position: relative;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+ul li::before {
+  content: '';
+  position: absolute; left: 0; top: 12px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold-dark);
+  transition: all var(--transition-fast);
+}
+ul li:hover { color: var(--text-primary); }
+ul li:hover::before {
+  background: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-glow);
+  transform: scale(1.2);
+}
+ol li { margin-bottom: 8px; padding-left: 4px; }
+ol li::marker { color: var(--gold-dark); font-weight: 600; }
 strong { color: var(--text-primary); font-weight: 600; }
-a { color: var(--gold); text-decoration: none; transition: color 0.2s ease; }
-a:hover { text-decoration: underline; color: var(--gold-light); }
 
-/* Callouts */
+/* inline links with animated underline */
+p a, li a:not(.toc a) {
+  color: var(--gold);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: color var(--transition-fast);
+}
+p a::after, li a:not(.toc a)::after {
+  content: '';
+  position: absolute; left: 0; bottom: 1px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform var(--transition);
+}
+p a:hover, li a:not(.toc a):hover {
+  color: var(--gold-light);
+}
+p a:hover::after, li a:not(.toc a):hover::after {
+  transform-origin: left;
+  animation: linkSlide 0.6s var(--ease);
+}
+@keyframes linkSlide {
+  0% { transform: scaleX(1); transform-origin: right; }
+  50% { transform: scaleX(0); transform-origin: right; }
+  51% { transform: scaleX(0); transform-origin: left; }
+  100% { transform: scaleX(1); transform-origin: left; }
+}
+
+/* ---------- Callouts ---------- */
 .highlight,
 .warning-box {
-  padding: 18px 22px;
-  border-radius: var(--radius-sm);
-  margin: 20px 0;
+  padding: 20px 24px 20px 56px;
+  border-radius: var(--radius-md);
+  margin: 24px 0;
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 1.75;
   position: relative;
   border-left-width: 3px;
   border-left-style: solid;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.highlight::before,
+.warning-box::before {
+  position: absolute; left: 20px; top: 20px;
+  font-size: 20px; line-height: 1;
 }
 .highlight {
   background: rgba(201, 169, 110, 0.08);
   border-left-color: var(--gold);
 }
+.highlight::before { content: '💡'; }
 .warning-box {
   background: var(--danger-bg);
   border-left-color: var(--danger);
 }
+.warning-box::before { content: '⚠️'; }
 .warning-box strong { color: var(--danger); }
+.highlight:hover,
+.warning-box:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-soft);
+}
 
-/* Contact block */
+/* ---------- Contact block ---------- */
 .contact-block {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 26px 30px;
-  margin-top: 24px;
+  border-radius: var(--radius-lg);
+  padding: 30px 34px;
+  margin-top: 28px;
   font-size: 14.5px;
   line-height: 2;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: all var(--transition);
 }
-.contact-block:hover {
-  border-color: var(--border-gold);
-  background: var(--bg-card-hover);
+.contact-block::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold-gradient);
+  opacity: 0.8;
 }
 .contact-block::after {
   content: '';
-  position: absolute; top: -40px; right: -40px;
-  width: 120px; height: 120px;
-  background: radial-gradient(circle, rgba(201, 169, 110, 0.12), transparent 70%);
-  pointer-events: none;
+  position: absolute; top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  opacity: 0.45; pointer-events: none;
+  transition: opacity var(--transition);
 }
+.contact-block:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-3px);
+}
+.contact-block:hover::after { opacity: 0.7; }
 .contact-block strong { color: var(--gold); }
 
-/* Version info */
+/* ---------- Version info ---------- */
 .version-info {
-  margin-top: 56px;
-  padding: 28px 24px 0;
+  margin-top: 64px;
+  padding: 32px 24px 0;
   border-top: 1px solid var(--border-color);
   font-size: 13px;
   color: var(--text-muted);
   text-align: center;
   line-height: 1.9;
+  position: relative;
+}
+.version-info::before {
+  content: '';
+  position: absolute; top: -1px; left: 50%;
+  transform: translateX(-50%);
+  width: 80px; height: 2px;
+  background: var(--gold-gradient);
 }
 .version-info p { color: var(--text-muted); margin-bottom: 4px; }
 .version-info strong { color: var(--text-secondary); font-weight: 500; }
-
-/* Responsive */
-@media (max-width: 640px) {
-  body { padding: 20px 14px 60px; }
-  h2 { padding-left: 12px; margin-top: 40px; }
-  h2::after { left: 12px; }
-  .toc { padding: 18px 20px; }
-  .doc-meta { padding: 18px 20px; font-size: 13px; }
-  .contact-block { padding: 20px 22px; }
+.version-info .ver-num {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-pill);
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
 }
+
+/* ---------- Back to top ---------- */
+.back-top {
+  position: fixed;
+  right: 24px; bottom: 24px;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  color: #0D0D0D;
+  border: none;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-elevated), 0 0 0 0 var(--gold-glow);
+  opacity: 0;
+  transform: translateY(20px) scale(0.85);
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+  z-index: 800;
+}
+.back-top.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.back-top:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-elevated), 0 0 0 8px var(--gold-glow);
+}
+.back-top:active { transform: translateY(-2px) scale(0.98); }
+.back-top svg { width: 20px; height: 20px; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%; bottom: 32px;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-gold);
+  color: var(--text-primary);
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 13.5px;
+  font-weight: 500;
+  box-shadow: var(--shadow-elevated);
+  opacity: 0;
+  transition: opacity var(--transition), transform var(--transition-slow);
+  z-index: 1200;
+  display: flex; align-items: center; gap: 10px;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast svg { width: 16px; height: 16px; color: var(--success); }
+
+/* ---------- Section reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Footer nav ---------- */
+.footer-nav {
+  margin: 48px 0 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--border-color);
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center;
+}
+.nav-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 13px; font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.nav-chip:hover {
+  border-color: var(--border-gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+.nav-chip svg { width: 14px; height: 14px; }
+
+/* ---------- Animations ---------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: calc(var(--header-h) + 24px);
+  }
+  .sidebar { display: none; }
+  .content { max-width: 100%; }
+  .toc-mobile {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 6px 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .toc-mobile::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--gold-gradient); opacity: 0.7;
+  }
+  .toc-mobile summary {
+    cursor: pointer;
+    padding: 14px 14px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--gold);
+    list-style: none;
+    transition: color var(--transition-fast);
+  }
+  .toc-mobile summary::-webkit-details-marker { display: none; }
+  .toc-mobile summary::after {
+    content: '';
+    margin-left: auto;
+    width: 8px; height: 8px;
+    border-right: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform var(--transition);
+  }
+  .toc-mobile[open] summary::after {
+    transform: rotate(-135deg) translateY(-2px);
+  }
+  .toc-mobile ol { margin: 4px 12px 14px; }
+}
+
+@media (max-width: 640px) {
+  body { padding: 0 14px 80px; font-size: 15px; }
+  .topbar { padding: 0 14px; }
+  .topbar-brand { font-size: 16px; }
+  .topbar-brand span:not(.gold) { display: none; }
+  h2 { padding-left: 46px; margin-top: 44px; }
+  h2 .num { width: 34px; height: 34px; font-size: 12px; }
+  h2::after { left: 46px; }
+  h3 { font-size: 16px; }
+  .doc-meta { padding: 20px 22px; font-size: 13px; }
+  .doc-meta-row { grid-template-columns: 1fr; gap: 2px; }
+  .contact-block { padding: 24px 22px; }
+  .back-top { right: 16px; bottom: 16px; width: 44px; height: 44px; }
+  .summary { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .summary-card { padding: 14px 14px 12px; }
+  .icon-btn { width: 38px; height: 38px; }
+  .icon-btn svg { width: 16px; height: 16px; }
+  .footer-nav { gap: 8px; }
+  .nav-chip { font-size: 12px; padding: 8px 14px; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .doc-header, .summary { opacity: 1; transform: none; }
+}
+
+/* ---------- Print ---------- */
 @media print {
   body { background: #fff; color: #000; padding: 0; }
-  .back-link, .toc { display: none; }
-  h1 span { -webkit-text-fill-color: #C9A96E; }
+  .topbar, .read-progress, .sidebar, .back-link, .toc-mobile,
+  .back-top, .footer-nav, .icon-btn, .copy-btn, .toast { display: none !important; }
+  .layout { padding-top: 0; grid-template-columns: 1fr; }
+  h1 span { -webkit-text-fill-color: #A8894E; background: none; }
+  a { color: #8A6E3A; text-decoration: underline; }
+  .doc-meta, .contact-block, .highlight, .warning-box, .summary-card {
+    border-color: #ddd;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+  h2, h3 { break-after: avoid; }
+}
+
+/* ---------- Utilities ---------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 </style>
 </head>
 <body>
-<div class="container">
 
-  <a href="index.html" class="back-link">← Вернуться на сайт</a>
+<!-- Progress bar -->
+<div class="read-progress" id="progress" aria-hidden="true"></div>
 
-  <header class="doc-header">
-    <h1>Пользовательское <span>соглашение</span></h1>
-    <p class="subtitle">Правила использования сайта studiia1.ru и сервисов ИП Мельникова Н.В.</p>
-  </header>
-
-  <div class="doc-meta">
-    <strong>Оператор (Администрация):</strong> Индивидуальный предприниматель Мельникова Наталья Викторовна<br>
-    <strong>ИНН:</strong> 420526028556 &nbsp;|&nbsp; <strong>ОГРНИП:</strong> 305420503500052<br>
-    <strong>Юридический адрес:</strong> 650023, г. Кемерово, проспект Притомский, д. 25, кв. 68<br>
-    <strong>Фактический адрес:</strong> 650023, г. Кемерово, Пионерский бульвар, 3, офис 224<br>
-    <strong>Email:</strong> <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a><br>
-    <strong>Телефон:</strong> <a href="tel:+79516062001">+7 (951) 606-20-01</a><br>
-    <strong>Сайт:</strong> studiia1.ru
+<!-- Sticky top bar -->
+<header class="topbar" id="topbar">
+  <a href="index.html" class="topbar-brand" aria-label="Студия №1 — на главную">
+    <span class="brand-mark">№1</span>
+    <span>Студия <span class="gold">№1</span></span>
+  </a>
+  <div class="topbar-actions">
+    <button class="icon-btn" id="printBtn" aria-label="Распечатать документ" title="Распечатать">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 9V2h12v7"/>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+        <rect x="6" y="14" width="12" height="8"/>
+      </svg>
+    </button>
+    <button class="icon-btn" id="themeBtn" aria-label="Переключить тему" title="Сменить тему">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
   </div>
-
-  <nav class="toc">
-    <h3>📑 Содержание</h3>
-    <ol>
-      <li><a href="#t1">Общие положения</a></li>
-      <li><a href="#t2">Термины и определения</a></li>
-      <li><a href="#t3">Предмет соглашения</a></li>
-      <li><a href="#t4">Регистрация и аккаунт</a></li>
-      <li><a href="#t5">Права и обязанности Пользователя</a></li>
-      <li><a href="#t6">Права и обязанности Администрации</a></li>
-      <li><a href="#t7">Пользовательский контент</a></li>
-      <li><a href="#t8">Интеллектуальная собственность</a></li>
-      <li><a href="#t9">Персональные данные</a></li>
-      <li><a href="#t10">Ограничение ответственности</a></li>
-      <li><a href="#t11">Блокировка и удаление аккаунта</a></li>
-      <li><a href="#t12">Разрешение споров</a></li>
-      <li><a href="#t13">Изменение соглашения</a></li>
-      <li><a href="#t14">Контакты</a></li>
-    </ol>
-  </nav>
-
-  <h2 id="t1">1. Общие положения</h2>
-
-  <p>1.1. Настоящее Пользовательское соглашение (далее — Соглашение) регулирует отношения между Индивидуальным предпринимателем Мельниковой Натальей Викторовной (далее — Администрация, Оператор) и любым лицом, использующим сайт <strong>studiia1.ru</strong> (далее — Сайт).</p>
-
-  <p>1.2. Использование Сайта любым способом, включая просмотр, регистрацию, оставление отзывов и комментариев, оформление записи на услуги, означает <strong>полное и безоговорочное согласие</strong> Пользователя с условиями настоящего Соглашения.</p>
-
-  <p>1.3. В случае несогласия с условиями Соглашения Пользователь обязан прекратить использование Сайта.</p>
-
-  <p>1.4. Соглашение вступает в силу с момента начала использования Сайта и действует бессрочно до момента его отзыва Пользователем или прекращения работы Сайта.</p>
-
-  <h2 id="t2">2. Термины и определения</h2>
-
-  <ul>
-    <li><strong>Сайт</strong> — совокупность программных средств, доступных по адресу studiia1.ru, включая все поддомены и страницы;</li>
-    <li><strong>Администрация</strong> — ИП Мельникова Н.В., владелец Сайта;</li>
-    <li><strong>Пользователь</strong> — любое физическое лицо, использующее Сайт, включая зарегистрированных и незарегистрированных пользователей;</li>
-    <li><strong>Аккаунт</strong> — учётная запись Пользователя, созданная при регистрации, позволяющая получить доступ к расширенному функционалу Сайта (личный кабинет, карта минут, отзывы);</li>
-    <li><strong>Пользовательский контент</strong> — отзывы, комментарии, фотографии, оценки и иные материалы, публикуемые Пользователем на Сайте;</li>
-    <li><strong>Карта минут</strong> — виртуальная бонусная карта лояльности, отображающая количество накопленных минут (бонусов);</li>
-    <li><strong>Услуги</strong> — услуги салона красоты, оказываемые ИП Мельникова Н.В.</li>
-  </ul>
-
-  <h2 id="t3">3. Предмет соглашения</h2>
-
-  <p>3.1. Администрация предоставляет Пользователю доступ к функционалу Сайта на условиях, изложенных в настоящем Соглашении.</p>
-
-  <p>3.2. Функционал Сайта включает:</p>
-
-  <ul>
-    <li>просмотр информации об услугах и мастерах салона;</li>
-    <li>ознакомление с ценами и расписанием;</li>
-    <li>запись на услуги через внешние сервисы или по телефону;</li>
-    <li>регистрацию личного кабинета;</li>
-    <li>просмотр и управление картой минут (бонусной программой);</li>
-    <li>оставление отзывов и комментариев;</li>
-    <li>обратную связь с Администрацией.</li>
-  </ul>
-
-  <p>3.3. Сайт не является публичной офертой в соответствии со ст. 437 ГК РФ. Цены и услуги, указанные на Сайте, носят информационный характер и могут быть изменены.</p>
-
-  <p>3.4. Запись на услуги осуществляется через внешний сервис (Дикиди) или по телефону <a href="tel:+79516062001">+7 (951) 606-20-01</a>.</p>
-
-  <h2 id="t4">4. Регистрация и аккаунт</h2>
-
-  <p>4.1. Для доступа к расширенному функционалу (личный кабинет, карта минут, отзывы) Пользователь может пройти регистрацию, указав:</p>
-
-  <ul>
-    <li>адрес электронной почты (email);</li>
-    <li>пароль;</li>
-    <li>имя или псевдоним (по желанию);</li>
-    <li>номер телефона (по желанию).</li>
-  </ul>
-
-  <p>4.2. При регистрации Пользователь обязан:</p>
-
-  <ul>
-    <li>предоставить достоверные данные;</li>
-    <li>подтвердить согласие с <a href="privacy.html" target="_blank" rel="noopener">Политикой конфиденциальности</a>;</li>
-    <li>дать <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a>;</li>
-    <li>подтвердить, что ему исполнилось <strong>18 лет</strong> (или получено согласие законных представителей).</li>
-  </ul>
-
-  <p>4.3. Пользователь несёт ответственность за сохранность своих логина и пароля. Все действия, совершённые с использованием его аккаунта, считаются совершёнными самим Пользователем.</p>
-
-  <p>4.4. При обнаружении несанкционированного доступа к аккаунту Пользователь обязан незамедлительно уведомить Администрацию по адресу <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a>.</p>
-
-  <p>4.5. Запрещается создание нескольких аккаунтов одним лицом, если это делается с целью обхода ограничений (блокировок, накрутки отзывов).</p>
-
-  <h2 id="t5">5. Права и обязанности Пользователя</h2>
-
-  <p>5.1. Пользователь вправе:</p>
-
-  <ul>
-    <li>использовать функционал Сайта в личных некоммерческих целях;</li>
-    <li>оставлять отзывы, комментарии, оценки, если это соответствует действительности;</li>
-    <li>обращаться к Администрации с вопросами, предложениями и претензиями;</li>
-    <li>отозвать согласие на обработку персональных данных в любой момент;</li>
-    <li>требовать удаления своего аккаунта и связанных данных.</li>
-  </ul>
-
-  <p>5.2. Пользователь обязуется:</p>
-
-  <ul>
-    <li>соблюдать законодательство Российской Федерации;</li>
-    <li>не нарушать работу Сайта, не пытаться получить несанкционированный доступ к серверной части, базе данных, чужим аккаунтам;</li>
-    <li>не публиковать контент, нарушающий права третьих лиц, содержащий оскорбления, спам, рекламу, экстремизм, материалы 18+;</li>
-    <li>не использовать Сайт для противоправных действий;</li>
-    <li>не выдавать себя за других лиц;</li>
-    <li>предоставлять достоверные данные при регистрации;</li>
-    <li>не размещать вредоносный код, вирусы, не совершать действий, приводящих к сбоям в работе Сайта.</li>
-  </ul>
-
-  <div class="warning-box">
-    <strong>⚠️ Внимание:</strong> За нарушение правил настоящего Соглашения Администрация вправе заблокировать аккаунт Пользователя без предварительного уведомления, а также удалить или отклонить публикацию недопустимого контента.
-  </div>
-
-  <h2 id="t6">6. Права и обязанности Администрации</h2>
-
-  <p>6.1. Администрация вправе:</p>
-
-  <ul>
-    <li>изменять функционал Сайта, добавлять или удалять разделы, услуги, материалы без предварительного уведомления;</li>
-    <li>проводить модерацию пользовательского контента;</li>
-    <li>отклонять публикацию или удалять отзывы и комментарии, нарушающие Соглашение;</li>
-    <li>блокировать или удалять аккаунты Пользователей за нарушение правил;</li>
-    <li>направлять сервисные уведомления на email (подтверждение записи, восстановление пароля, изменения на Сайте);</li>
-    <li>приостанавливать работу Сайта для технического обслуживания, обновления, ремонта;</li>
-    <li>изменять условия настоящего Соглашения в любое время.</li>
-  </ul>
-
-  <p>6.2. Администрация обязуется:</p>
-
-  <ul>
-    <li>обеспечивать работоспособность Сайта (за исключением времени технического обслуживания);</li>
-    <li>обрабатывать персональные данные в соответствии с <a href="privacy.html" target="_blank" rel="noopener">Политикой конфиденциальности</a>;</li>
-    <li>рассматривать обращения Пользователей в течение 30 календарных дней;</li>
-    <li>не передавать персональные данные третьим лицам без согласия Пользователя, кроме случаев, предусмотренных законом.</li>
-  </ul>
-
-  <h2 id="t7">7. Пользовательский контент</h2>
-
-  <p>7.1. Пользователь, публикуя отзывы, комментарии, фотографии или иные материалы на Сайте, <strong>подтверждает, что:</strong></p>
-
-  <ul>
-    <li>обладает всеми необходимыми правами на публикацию этого контента;</li>
-    <li>публикуемый контент не нарушает права третьих лиц (авторские, смежные, на изображение);</li>
-    <li>контент соответствует действительности (для отзывов);</li>
-    <li>контент не содержит оскорблений, клеветы, экстремизма, материалов 18+.</li>
-  </ul>
-
-  <p>7.2. Публикуя контент, Пользователь предоставляет Администрации <strong>безвозмездную, неисключительную лицензию</strong> на его использование в целях работы Сайта: отображение, копирование (для резервных копий), публикацию в соцсетях салона, модерацию.</p>
-
-  <p>7.3. <strong>Модерация контента:</strong> все комментарии и отзывы проходят предварительную модерацию Администрацией. Публикация может быть отложена или отклонена без объяснения причин.</p>
-
-  <p>7.4. Администрация вправе удалить любой пользовательский контент без предварительного уведомления, если он нарушает Соглашение или законодательство РФ.</p>
-
-  <p>7.5. Пользователь вправе в любой момент удалить свой контент (отзыв, комментарий), если функционал Сайта это позволяет.</p>
-
-  <h2 id="t8">8. Интеллектуальная собственность</h2>
-
-  <p>8.1. Все элементы Сайта (тексты, изображения, логотипы, дизайн, программный код, структура, база данных) являются интеллектуальной собственностью Администрации или используются на законных основаниях.</p>
-
-  <p>8.2. Запрещается:</p>
-
-  <ul>
-    <li>копирование, воспроизведение, распространение материалов Сайта без письменного согласия Администрации;</li>
-    <li>использование логотипа и бренда «Студия №1» без разрешения;</li>
-    <li>парсинг, автоматизированный сбор данных с Сайта.</li>
-  </ul>
-
-  <p>8.3. Цитирование материалов Сайта допускается с обязательной ссылкой на источник (<strong>studiia1.ru</strong>).</p>
-
-  <h2 id="t9">9. Персональные данные</h2>
-
-  <p>9.1. Обработка персональных данных Пользователя осуществляется в соответствии с:</p>
-
-  <ul>
-    <li>Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных»;</li>
-    <li><a href="privacy.html" target="_blank" rel="noopener">Политикой конфиденциальности</a>;</li>
-    <li><a href="consent.html" target="_blank" rel="noopener">Согласием на обработку персональных данных</a>.</li>
-  </ul>
-
-  <p>9.2. Регистрируясь на Сайте, Пользователь подтверждает своё согласие на обработку персональных данных на условиях, изложенных в указанных документах.</p>
-
-  <p>9.3. Пользователь вправе в любой момент отозвать согласие на обработку персональных данных, направив уведомление по адресу <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a> или через личный кабинет.</p>
-
-  <h2 id="t10">10. Ограничение ответственности</h2>
-
-  <p>10.1. Сайт предоставляется по принципу <strong>«как есть» (as is)</strong>. Администрация не гарантирует:</p>
-
-  <ul>
-    <li>бесперебойную работу Сайта;</li>
-    <li>отсутствие ошибок в программном обеспечении;</li>
-    <li>соответствие Сайта ожиданиям Пользователя;</li>
-    <li>сохранность пользовательского контента в случае технических сбоев.</li>
-  </ul>
-
-  <p>10.2. Администрация не несёт ответственности за:</p>
-
-  <ul>
-    <li>ущерб, возникший в результате использования или невозможности использования Сайта;</li>
-    <li>действия третьих лиц, направленные на нарушение работы Сайта (DDoS-атаки, взломы, вирусы);</li>
-    <li>содержание внешних ресурсов, ссылки на которые могут быть размещены на Сайте;</li>
-    <li>достоверность пользовательского контента;</li>
-    <li>упущенную выгоду, моральный вред, косвенные убытки.</li>
-  </ul>
-
-  <p>10.3. Пользователь несёт ответственность за свои действия на Сайте, включая публикуемый контент и соблюдение законодательства РФ.</p>
-
-  <p>10.4. Ответственность Администрации ограничена суммой, фактически уплаченной Пользователем за услуги салона (если применимо), но не более 10 000 (десяти тысяч) рублей.</p>
-
-  <h2 id="t11">11. Блокировка и удаление аккаунта</h2>
-
-  <p>11.1. Администрация вправе заблокировать или удалить аккаунт Пользователя в случае:</p>
-
-  <ul>
-    <li>нарушения условий настоящего Соглашения;</li>
-    <li>публикации недопустимого контента;</li>
-    <li>попытки взлома, несанкционированного доступа;</li>
-    <li>использования Сайта для противоправных действий;</li>
-    <li>по требованию уполномоченных государственных органов.</li>
-  </ul>
-
-  <p>11.2. Блокировка может быть:</p>
-
-  <ul>
-    <li><strong>временной</strong> — на срок от 1 часа до 30 суток;</li>
-    <li><strong>постоянной</strong> — без права восстановления;</li>
-    <li><strong>по устройству</strong> — с запретом доступа с определённого устройства.</li>
-  </ul>
-
-  <p>11.3. Пользователь вправе удалить свой аккаунт самостоятельно через личный кабинет или направив уведомление по адресу <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a>.</p>
-
-  <p>11.4. При удалении аккаунта персональные данные Пользователя уничтожаются в течение 30 календарных дней, за исключением данных, хранение которых требуется законодательством.</p>
-
-  <h2 id="t12">12. Разрешение споров</h2>
-
-  <p>12.1. Все споры, возникающие в связи с использованием Сайта, разрешаются путём переговоров.</p>
-
-  <p>12.2. Претензионный порядок: Пользователь направляет письменную претензию по адресу <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a> или почтой по юридическому адресу. Срок рассмотрения претензии — <strong>30 (тридцать) календарных дней</strong>.</p>
-
-  <p>12.3. При недостижении согласия спор передаётся на рассмотрение в суд по месту нахождения Администрации (г. Кемерово) в соответствии с законодательством РФ.</p>
-
-  <p>12.4. К настоящему Соглашению применяется материальное право Российской Федерации.</p>
-
-  <h2 id="t13">13. Изменение соглашения</h2>
-
-  <p>13.1. Администрация вправе вносить изменения в настоящее Соглашение в любое время без предварительного уведомления Пользователя.</p>
-
-  <p>13.2. Новая редакция вступает в силу с момента её публикации на Сайте по адресу <strong>studiia1.ru/terms.html</strong>.</p>
-
-  <p>13.3. Продолжая использовать Сайт после публикации новой редакции, Пользователь подтверждает своё согласие с изменениями.</p>
-
-  <p>13.4. Актуальная версия Соглашения всегда доступна на Сайте.</p>
-
-  <h2 id="t14">14. Контакты</h2>
-
-  <div class="contact-block">
-    <strong>Индивидуальный предприниматель</strong><br>
-    Мельникова Наталья Викторовна<br><br>
-    <strong>ИНН:</strong> 420526028556<br>
-    <strong>ОГРНИП:</strong> 305420503500052<br><br>
-    <strong>Юридический адрес:</strong> 650023, г. Кемерово, проспект Притомский, д. 25, кв. 68<br>
-    <strong>Фактический адрес:</strong> 650023, г. Кемерово, Пионерский бульвар, 3, офис 224<br><br>
-    <strong>Email:</strong> <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a><br>
-    <strong>Телефон:</strong> <a href="tel:+79516062001">+7 (951) 606-20-01</a>
-  </div>
-
-  <div class="version-info">
-    <p><strong>Версия документа:</strong> 1.0</p>
-    <p><strong>Дата публикации:</strong> 16 сентября 2026 г.</p>
-    <p><strong>Дата вступления в силу:</strong> 16 сентября 2026 г.</p>
-    <p style="margin-top: 12px; opacity: 0.7;">© 2026 ИП Мельникова Наталья Викторовна. Все права защищены.</p>
-  </div>
-
+</header>
+
+<!-- Layout -->
+<div class="layout">
+
+  <!-- Sidebar / TOC -->
+  <aside class="sidebar" aria-label="Содержание документа">
+    <nav class="toc" id="toc">
+      <div class="toc-title">
+        <span class="dot"></span>
+        Содержание
+      </div>
+      <ol>
+        <li><a href="#t1">Общие положения</a></li>
+        <li><a href="#t2">Термины и определения</a></li>
+        <li><a href="#t3">Предмет соглашения</a></li>
+        <li><a href="#t4">Регистрация и аккаунт</a></li>
+        <li><a href="#t5">Права и обязанности Пользователя</a></li>
+        <li><a href="#t6">Права и обязанности Администрации</a></li>
+        <li><a href="#t7">Пользовательский контент</a></li>
+        <li><a href="#t8">Интеллектуальная собственность</a></li>
+        <li><a href="#t9">Персональные данные</a></li>
+        <li><a href="#t10">Ограничение ответственности</a></li>
+        <li><a href="#t11">Блокировка и удаление аккаунта</a></li>
+        <li><a href="#t12">Разрешение споров</a></li>
+        <li><a href="#t13">Изменение соглашения</a></li>
+        <li><a href="#t14">Контакты</a></li>
+      </ol>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="content">
+
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </svg>
+      Вернуться на сайт
+    </a>
+
+    <header class="doc-header">
+      <div class="header-badge">
+        <span class="live-dot"></span>
+        Юридический документ · Версия 2.0
+      </div>
+      <h1>Пользовательское <span>соглашение</span></h1>
+      <p class="subtitle">Правила использования сайта studiia1.ru и сервисов ИП Мельникова Н.В.</p>
+    </header>
+
+    <!-- Summary cards -->
+    <section class="summary" aria-label="Ключевые положения">
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/>
+          </svg>
+        </div>
+        <div class="s-title">18+</div>
+        <div class="s-text">Подтверждение совершеннолетия при регистрации</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="s-title">Модерация</div>
+        <div class="s-text">Отзывы и комментарии проверяются Администрацией</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <div class="s-title">152-ФЗ</div>
+        <div class="s-text">Обработка персональных данных по закону РФ</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="s-title">30 дней</div>
+        <div class="s-text">Срок рассмотрения претензии Пользователя</div>
+      </div>
+    </section>
+
+    <!-- Document meta -->
+    <div class="doc-meta">
+      <div class="doc-meta-row">
+        <strong>Оператор (Администрация):</strong>
+        <span>Индивидуальный предприниматель Мельникова Наталья Викторовна</span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>ИНН / ОГРНИП:</strong>
+        <span>420526028556 &nbsp;|&nbsp; 305420503500052
+          <button class="copy-btn" data-copy="420526028556" data-tooltip="Скопировать ИНН" aria-label="Скопировать ИНН">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+        </span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Юридический адрес:</strong>
+        <span>650023, г. Кемерово, проспект Притомский, д. 25, кв. 68</span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Фактический адрес:</strong>
+        <span>650023, г. Кемерово, Пионерский бульвар, 3, офис 224</span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Email:</strong>
+        <span>
+          <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a>
+          <button class="copy-btn" data-copy="Studiia1@mail.ru" data-tooltip="Скопировать email" aria-label="Скопировать email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+        </span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Телефон:</strong>
+        <span>
+          <a href="tel:+79516062001">+7 (951) 606-20-01</a>
+          <button class="copy-btn" data-copy="+79516062001" data-tooltip="Скопировать телефон" aria-label="Скопировать телефон">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+        </span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Сайт:</strong>
+        <span><a href="https://studiia1.ru" rel="noopener noreferrer">studiia1.ru</a></span>
+      </div>
+    </div>
+
+    <!-- Mobile TOC (collapsible) -->
+    <details class="toc-mobile">
+      <summary>📑 Содержание документа</summary>
+      <ol>
+        <li><a href="#t1">Общие положения</a></li>
+        <li><a href="#t2">Термины и определения</a></li>
+        <li><a href="#t3">Предмет соглашения</a></li>
+        <li><a href="#t4">Регистрация и аккаунт</a></li>
+        <li><a href="#t5">Права и обязанности Пользователя</a></li>
+        <li><a href="#t6">Права и обязанности Администрации</a></li>
+        <li><a href="#t7">Пользовательский контент</a></li>
+        <li><a href="#t8">Интеллектуальная собственность</a></li>
+        <li><a href="#t9">Персональные данные</a></li>
+        <li><a href="#t10">Ограничение ответственности</a></li>
+        <li><a href="#t11">Блокировка и удаление аккаунта</a></li>
+        <li><a href="#t12">Разрешение споров</a></li>
+        <li><a href="#t13">Изменение соглашения</a></li>
+        <li><a href="#t14">Контакты</a></li>
+      </ol>
+    </details>
+
+    <!-- ==================== SECTIONS ==================== -->
+
+    <h2 id="t1" class="reveal"><span class="num">01</span>1. Общие положения</h2>
+
+    <div class="reveal">
+      <p>1.1. Настоящее Пользовательское соглашение (далее — Соглашение) регулирует отношения между Индивидуальным предпринимателем Мельниковой Натальей Викторовной (далее — Администрация, Оператор) и любым лицом, использующим сайт <strong>studiia1.ru</strong> (далее — Сайт).</p>
+
+      <p>1.2. Использование Сайта любым способом, включая просмотр, регистрацию, оставление отзывов и комментариев, оформление записи на услуги, означает <strong>полное и безоговорочное согласие</strong> Пользователя с условиями настоящего Соглашения.</p>
+
+      <p>1.3. В случае несогласия с условиями Соглашения Пользователь обязан прекратить использование Сайта.</p>
+
+      <p>1.4. Соглашение вступает в силу с момента начала использования Сайта и действует бессрочно до момента его отзыва Пользователем или прекращения работы Сайта.</p>
+    </div>
+
+    <h2 id="t2" class="reveal"><span class="num">02</span>2. Термины и определения</h2>
+
+    <div class="reveal">
+      <ul>
+        <li><strong>Сайт</strong> — совокупность программных средств, доступных по адресу studiia1.ru, включая все поддомены и страницы;</li>
+        <li><strong>Администрация</strong> — ИП Мельникова Н.В., владелец Сайта;</li>
+        <li><strong>Пользователь</strong> — любое физическое лицо, использующее Сайт, включая зарегистрированных и незарегистрированных пользователей;</li>
+        <li><strong>Аккаунт</strong> — учётная запись Пользователя, созданная при регистрации, позволяющая получить доступ к расширенному функционалу Сайта (личный кабинет, карта минут, отзывы);</li>
+        <li><strong>Пользовательский контент</strong> — отзывы, комментарии, фотографии, оценки и иные материалы, публикуемые Пользователем на Сайте;</li>
+        <li><strong>Карта минут</strong> — виртуальная бонусная карта лояльности, отображающая количество накопленных минут (бонусов);</li>
+        <li><strong>Услуги</strong> — услуги салона красоты, оказываемые ИП Мельникова Н.В.</li>
+      </ul>
+    </div>
+
+    <h2 id="t3" class="reveal"><span class="num">03</span>3. Предмет соглашения</h2>
+
+    <div class="reveal">
+      <p>3.1. Администрация предоставляет Пользователю доступ к функционалу Сайта на условиях, изложенных в настоящем Соглашении.</p>
+
+      <p>3.2. Функционал Сайта включает:</p>
+
+      <ul>
+        <li>просмотр информации об услугах и мастерах салона;</li>
+        <li>ознакомление с ценами и расписанием;</li>
+        <li>запись на услуги через внешние сервисы или по телефону;</li>
+        <li>регистрацию личного кабинета;</li>
+        <li>просмотр и управление картой минут (бонусной программой);</li>
+        <li>оставление отзывов и комментариев;</li>
+        <li>обратную связь с Администрацией.</li>
+      </ul>
+
+      <p>3.3. Сайт не является публичной офертой в соответствии со ст. 437 ГК РФ. Цены и услуги, указанные на Сайте, носят информационный характер и могут быть изменены.</p>
+
+      <p>3.4. Запись на услуги осуществляется через внешний сервис (Дикиди) или по телефону <a href="tel:+79516062001">+7 (951) 606-20-01</a>.</p>
+    </div>
+
+    <h2 id="t4" class="reveal"><span class="num">04</span>4. Регистрация и аккаунт</h2>
+
+    <div class="reveal">
+      <p>4.1. Для доступа к расширенному функционалу (личный кабинет, карта минут, отзывы) Пользователь может пройти регистрацию, указав:</p>
+
+      <ul>
+        <li>адрес электронной почты (email);</li>
+        <li>пароль;</li>
+        <li>имя или псевдоним (по желанию);</li>
+        <li>номер телефона (по желанию).</li>
+      </ul>
+
+      <p>4.2. При регистрации Пользователь обязан:</p>
+
+      <ul>
+        <li>предоставить достоверные данные;</li>
+        <li>подтвердить согласие с <a href="privacy.html" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a>;</li>
+        <li>дать <a href="consent.html" target="_blank" rel="noopener noreferrer">согласие на обработку персональных данных</a>;</li>
+        <li>подтвердить, что ему исполнилось <strong>18 лет</strong> (или получено согласие законных представителей).</li>
+      </ul>
+
+      <p>4.3. Пользователь несёт ответственность за сохранность своих логина и пароля. Все действия, совершённые с использованием его аккаунта, считаются совершёнными самим Пользователем.</p>
+
+      <p>4.4. При обнаружении несанкционированного доступа к аккаунту Пользователь обязан незамедлительно уведомить Администрацию по адресу <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a>.</p>
+
+      <p>4.5. Запрещается создание нескольких аккаунтов одним лицом, если это делается с целью обхода ограничений (блокировок, накрутки отзывов).</p>
+    </div>
+
+    <h2 id="t5" class="reveal"><span class="num">05</span>5. Права и обязанности Пользователя</h2>
+
+    <div class="reveal">
+      <p>5.1. Пользователь вправе:</p>
+
+      <ul>
+        <li>использовать функционал Сайта в личных некоммерческих целях;</li>
+        <li>оставлять отзывы, комментарии, оценки, если это соответствует действительности;</li>
+        <li>обращаться к Администрации с вопросами, предложениями и претензиями;</li>
+        <li>отозвать согласие на обработку персональных данных в любой момент;</li>
+        <li>требовать удаления своего аккаунта и связанных данных.</li>
+      </ul>
+
+      <p>5.2. Пользователь обязуется:</p>
+
+      <ul>
+        <li>соблюдать законодательство Российской Федерации;</li>
+        <li>не нарушать работу Сайта, не пытаться получить несанкционированный доступ к серверной части, базе данных, чужим аккаунтам;</li>
+        <li>не публиковать контент, нарушающий права третьих лиц, содержащий оскорбления, спам, рекламу, экстремизм, материалы 18+;</li>
+        <li>не использовать Сайт для противоправных действий;</li>
+        <li>не выдавать себя за других лиц;</li>
+        <li>предоставлять достоверные данные при регистрации;</li>
+        <li>не размещать вредоносный код, вирусы, не совершать действий, приводящих к сбоям в работе Сайта.</li>
+      </ul>
+
+      <div class="warning-box">
+        <strong>Внимание:</strong> За нарушение правил настоящего Соглашения Администрация вправе заблокировать аккаунт Пользователя без предварительного уведомления, а также удалить или отклонить публикацию недопустимого контента.
+      </div>
+    </div>
+
+    <h2 id="t6" class="reveal"><span class="num">06</span>6. Права и обязанности Администрации</h2>
+
+    <div class="reveal">
+      <p>6.1. Администрация вправе:</p>
+
+      <ul>
+        <li>изменять функционал Сайта, добавлять или удалять разделы, услуги, материалы без предварительного уведомления;</li>
+        <li>проводить модерацию пользовательского контента;</li>
+        <li>отклонять публикацию или удалять отзывы и комментарии, нарушающие Соглашение;</li>
+        <li>блокировать или удалять аккаунты Пользователей за нарушение правил;</li>
+        <li>направлять сервисные уведомления на email (подтверждение записи, восстановление пароля, изменения на Сайте);</li>
+        <li>приостанавливать работу Сайта для технического обслуживания, обновления, ремонта;</li>
+        <li>изменять условия настоящего Соглашения в любое время.</li>
+      </ul>
+
+      <p>6.2. Администрация обязуется:</p>
+
+      <ul>
+        <li>обеспечивать работоспособность Сайта (за исключением времени технического обслуживания);</li>
+        <li>обрабатывать персональные данные в соответствии с <a href="privacy.html" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a>;</li>
+        <li>рассматривать обращения Пользователей в течение 30 календарных дней;</li>
+        <li>не передавать персональные данные третьим лицам без согласия Пользователя, кроме случаев, предусмотренных законом.</li>
+      </ul>
+    </div>
+
+    <h2 id="t7" class="reveal"><span class="num">07</span>7. Пользовательский контент</h2>
+
+    <div class="reveal">
+      <p>7.1. Пользователь, публикуя отзывы, комментарии, фотографии или иные материалы на Сайте, <strong>подтверждает, что:</strong></p>
+
+      <ul>
+        <li>обладает всеми необходимыми правами на публикацию этого контента;</li>
+        <li>публикуемый контент не нарушает права третьих лиц (авторские, смежные, на изображение);</li>
+        <li>контент соответствует действительности (для отзывов);</li>
+        <li>контент не содержит оскорблений, клеветы, экстремизма, материалов 18+.</li>
+      </ul>
+
+      <p>7.2. Публикуя контент, Пользователь предоставляет Администрации <strong>безвозмездную, неисключительную лицензию</strong> на его использование в целях работы Сайта: отображение, копирование (для резервных копий), публикацию в соцсетях салона, модерацию.</p>
+
+      <p>7.3. <strong>Модерация контента:</strong> все комментарии и отзывы проходят предварительную модерацию Администрацией. Публикация может быть отложена или отклонена без объяснения причин.</p>
+
+      <p>7.4. Администрация вправе удалить любой пользовательский контент без предварительного уведомления, если он нарушает Соглашение или законодательство РФ.</p>
+
+      <p>7.5. Пользователь вправе в любой момент удалить свой контент (отзыв, комментарий), если функционал Сайта это позволяет.</p>
+    </div>
+
+    <h2 id="t8" class="reveal"><span class="num">08</span>8. Интеллектуальная собственность</h2>
+
+    <div class="reveal">
+      <p>8.1. Все элементы Сайта (тексты, изображения, логотипы, дизайн, программный код, структура, база данных) являются интеллектуальной собственностью Администрации или используются на законных основаниях.</p>
+
+      <p>8.2. Запрещается:</p>
+
+      <ul>
+        <li>копирование, воспроизведение, распространение материалов Сайта без письменного согласия Администрации;</li>
+        <li>использование логотипа и бренда «Студия №1» без разрешения;</li>
+        <li>парсинг, автоматизированный сбор данных с Сайта.</li>
+      </ul>
+
+      <p>8.3. Цитирование материалов Сайта допускается с обязательной ссылкой на источник (<strong>studiia1.ru</strong>).</p>
+    </div>
+
+    <h2 id="t9" class="reveal"><span class="num">09</span>9. Персональные данные</h2>
+
+    <div class="reveal">
+      <p>9.1. Обработка персональных данных Пользователя осуществляется в соответствии с:</p>
+
+      <ul>
+        <li>Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных»;</li>
+        <li><a href="privacy.html" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a>;</li>
+        <li><a href="consent.html" target="_blank" rel="noopener noreferrer">Согласием на обработку персональных данных</a>.</li>
+      </ul>
+
+      <p>9.2. Регистрируясь на Сайте, Пользователь подтверждает своё согласие на обработку персональных данных на условиях, изложенных в указанных документах.</p>
+
+      <p>9.3. Пользователь вправе в любой момент отозвать согласие на обработку персональных данных, направив уведомление по адресу <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a> или через личный кабинет.</p>
+    </div>
+
+    <h2 id="t10" class="reveal"><span class="num">10</span>10. Ограничение ответственности</h2>
+
+    <div class="reveal">
+      <p>10.1. Сайт предоставляется по принципу <strong>«как есть» (as is)</strong>. Администрация не гарантирует:</p>
+
+      <ul>
+        <li>бесперебойную работу Сайта;</li>
+        <li>отсутствие ошибок в программном обеспечении;</li>
+        <li>соответствие Сайта ожиданиям Пользователя;</li>
+        <li>сохранность пользовательского контента в случае технических сбоев.</li>
+      </ul>
+
+      <p>10.2. Администрация не несёт ответственности за:</p>
+
+      <ul>
+        <li>ущерб, возникший в результате использования или невозможности использования Сайта;</li>
+        <li>действия третьих лиц, направленные на нарушение работы Сайта (DDoS-атаки, взломы, вирусы);</li>
+        <li>содержание внешних ресурсов, ссылки на которые могут быть размещены на Сайте;</li>
+        <li>достоверность пользовательского контента;</li>
+        <li>упущенную выгоду, моральный вред, косвенные убытки.</li>
+      </ul>
+
+      <p>10.3. Пользователь несёт ответственность за свои действия на Сайте, включая публикуемый контент и соблюдение законодательства РФ.</p>
+
+      <p>10.4. Ответственность Администрации ограничена суммой, фактически уплаченной Пользователем за услуги салона (если применимо), но не более 10 000 (десяти тысяч) рублей.</p>
+    </div>
+
+    <h2 id="t11" class="reveal"><span class="num">11</span>11. Блокировка и удаление аккаунта</h2>
+
+    <div class="reveal">
+      <p>11.1. Администрация вправе заблокировать или удалить аккаунт Пользователя в случае:</p>
+
+      <ul>
+        <li>нарушения условий настоящего Соглашения;</li>
+        <li>публикации недопустимого контента;</li>
+        <li>попытки взлома, несанкционированного доступа;</li>
+        <li>использования Сайта для противоправных действий;</li>
+        <li>по требованию уполномоченных государственных органов.</li>
+      </ul>
+
+      <p>11.2. Блокировка может быть:</p>
+
+      <ul>
+        <li><strong>временной</strong> — на срок от 1 часа до 30 суток;</li>
+        <li><strong>постоянной</strong> — без права восстановления;</li>
+        <li><strong>по устройству</strong> — с запретом доступа с определённого устройства.</li>
+      </ul>
+
+      <p>11.3. Пользователь вправе удалить свой аккаунт самостоятельно через личный кабинет или направив уведомление по адресу <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a>.</p>
+
+      <p>11.4. При удалении аккаунта персональные данные Пользователя уничтожаются в течение 30 календарных дней, за исключением данных, хранение которых требуется законодательством.</p>
+    </div>
+
+    <h2 id="t12" class="reveal"><span class="num">12</span>12. Разрешение споров</h2>
+
+    <div class="reveal">
+      <p>12.1. Все споры, возникающие в связи с использованием Сайта, разрешаются путём переговоров.</p>
+
+      <p>12.2. Претензионный порядок: Пользователь направляет письменную претензию по адресу <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a> или почтой по юридическому адресу. Срок рассмотрения претензии — <strong>30 (тридцать) календарных дней</strong>.</p>
+
+      <p>12.3. При недостижении согласия спор передаётся на рассмотрение в суд по месту нахождения Администрации (г. Кемерово) в соответствии с законодательством РФ.</p>
+
+      <p>12.4. К настоящему Соглашению применяется материальное право Российской Федерации.</p>
+    </div>
+
+    <h2 id="t13" class="reveal"><span class="num">13</span>13. Изменение соглашения</h2>
+
+    <div class="reveal">
+      <p>13.1. Администрация вправе вносить изменения в настоящее Соглашение в любое время без предварительного уведомления Пользователя.</p>
+
+      <p>13.2. Новая редакция вступает в силу с момента её публикации на Сайте по адресу <strong>studiia1.ru/terms.html</strong>.</p>
+
+      <p>13.3. Продолжая использовать Сайт после публикации новой редакции, Пользователь подтверждает своё согласие с изменениями.</p>
+
+      <p>13.4. Актуальная версия Соглашения всегда доступна на Сайте.</p>
+    </div>
+
+    <h2 id="t14" class="reveal"><span class="num">14</span>14. Контакты</h2>
+
+    <div class="contact-block reveal">
+      <strong>Индивидуальный предприниматель</strong><br>
+      Мельникова Наталья Викторовна<br><br>
+      <strong>ИНН:</strong> 420526028556<br>
+      <strong>ОГРНИП:</strong> 305420503500052<br><br>
+      <strong>Юридический адрес:</strong> 650023, г. Кемерово, проспект Притомский, д. 25, кв. 68<br>
+      <strong>Фактический адрес:</strong> 650023, г. Кемерово, Пионерский бульвар, 3, офис 224<br><br>
+      <strong>Email:</strong> <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a><br>
+      <strong>Телефон:</strong> <a href="tel:+79516062001">+7 (951) 606-20-01</a>
+    </div>
+
+    <!-- Footer nav -->
+    <div class="footer-nav reveal">
+      <button class="nav-chip" id="toTop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="19" x2="12" y2="5"/>
+          <polyline points="5 12 12 5 19 12"/>
+        </svg>
+        Наверх
+      </button>
+      <a href="#toc" class="nav-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"/>
+          <line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/>
+          <line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+        К содержанию
+      </a>
+      <a href="#t14" class="nav-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <polyline points="19 12 12 19 5 12"/>
+        </svg>
+        В конец
+      </a>
+      <button class="nav-chip" id="printBtn2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9V2h12v7"/>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        Распечатать
+      </button>
+    </div>
+
+    <div class="version-info">
+      <p><strong>Версия документа:</strong> <span class="ver-num">2.0</span></p>
+      <p><strong>Предыдущая версия:</strong> 1.0 (16 сентября 2026 г.)</p>
+      <p><strong>Дата публикации:</strong> 16 сентября 2026 г.</p>
+      <p><strong>Дата вступления в силу:</strong> 16 сентября 2026 г.</p>
+      <p style="margin-top: 12px; opacity: 0.7;">© 2026 ИП Мельникова Наталья Викторовна. Все права защищены.</p>
+    </div>
+
+  </main>
 </div>
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="5"/>
+    <polyline points="5 12 12 5 19 12"/>
+  </svg>
+</button>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+  <span id="toastText">Скопировано</span>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ============================================================
+     1. THEME
+     ============================================================ */
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const themeIcon = document.getElementById('themeIcon');
+  const moonPath = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  const sunPath = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
+
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    themeIcon.innerHTML = theme === 'dark' ? moonPath : sunPath;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0B0B0B' : '#FCF9F5');
+    try { localStorage.setItem('studiia-theme', theme); } catch (e) {}
+  }
+
+  let savedTheme = null;
+  try { savedTheme = localStorage.getItem('studiia-theme'); } catch (e) {}
+  if (!savedTheme) {
+    savedTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+  setTheme(savedTheme);
+
+  themeBtn.addEventListener('click', () => {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ============================================================
+     2. PROGRESS BAR + TOPBAR + BACKTOP (throttled via rAF)
+     ============================================================ */
+  const progress = document.getElementById('progress');
+  const topbar = document.getElementById('topbar');
+  const backTop = document.getElementById('backTop');
+  let ticking = false;
+
+  function updateScroll() {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const height = h.scrollHeight - h.clientHeight;
+    const pct = height > 0 ? (scrolled / height) * 100 : 0;
+    progress.style.width = pct + '%';
+    topbar.classList.toggle('scrolled', scrolled > 20);
+    backTop.classList.toggle('visible', scrolled > 400);
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  updateScroll();
+
+  /* ============================================================
+     3. BACK TO TOP
+     ============================================================ */
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  backTop.addEventListener('click', scrollToTop);
+  const toTopChip = document.getElementById('toTop');
+  if (toTopChip) toTopChip.addEventListener('click', scrollToTop);
+
+  /* ============================================================
+     4. PRINT
+     ============================================================ */
+  function printDoc() { window.print(); }
+  const printBtn = document.getElementById('printBtn');
+  const printBtn2 = document.getElementById('printBtn2');
+  if (printBtn) printBtn.addEventListener('click', printDoc);
+  if (printBtn2) printBtn2.addEventListener('click', printDoc);
+
+  /* ============================================================
+     5. REVEAL ON SCROLL
+     ============================================================ */
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObs.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  /* ============================================================
+     6. ACTIVE TOC LINK
+     ============================================================ */
+  const tocLinks = Array.from(document.querySelectorAll('.sidebar .toc a'));
+  const sections = tocLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  if ('IntersectionObserver' in window && sections.length) {
+    const linkMap = new Map();
+    tocLinks.forEach(a => linkMap.set(a.getAttribute('href'), a));
+
+    const sectionObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = '#' + entry.target.id;
+          tocLinks.forEach(a => a.classList.remove('active'));
+          const active = linkMap.get(id);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(s => sectionObs.observe(s));
+  }
+
+  /* ============================================================
+     7. COPY BUTTONS
+     ============================================================ */
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+  let toastTimer = null;
+
+  function showToast(msg) {
+    toastText.textContent = msg || 'Скопировано';
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const value = btn.getAttribute('data-copy');
+      if (!value) return;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = value;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.classList.add('copied');
+        const original = btn.getAttribute('data-tooltip');
+        btn.setAttribute('data-tooltip', 'Скопировано!');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          if (original) btn.setAttribute('data-tooltip', original);
+        }, 1800);
+        showToast('Скопировано: ' + value);
+      } catch (err) {
+        showToast('Не удалось скопировать');
+      }
+    });
+  });
+
+  /* ============================================================
+     8. SMOOTH ANCHOR SCROLL WITH OFFSET
+     ============================================================ */
+  const headerH = 64;
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const rect = target.getBoundingClientRect();
+      const y = rect.top + window.pageYOffset - headerH - 20;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      // close mobile TOC if open
+      const mobileToc = document.querySelector('.toc-mobile[open]');
+      if (mobileToc) mobileToc.removeAttribute('open');
+    });
+  });
+
+  /* ============================================================
+     9. MOBILE TOC — auto close on outside click
+     ============================================================ */
+  const mobileToc = document.querySelector('.toc-mobile');
+  if (mobileToc) {
+    document.addEventListener('click', (e) => {
+      if (mobileToc.hasAttribute('open') && !mobileToc.contains(e.target)) {
+        mobileToc.removeAttribute('open');
+      }
+    });
+  }
+
+  /* ============================================================
+     10. KEYBOARD SHORTCUTS (accessibility bonus)
+     ============================================================ */
+  document.addEventListener('keydown', (e) => {
+    // Ctrl/Cmd + P — печать
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
+      // браузер сам обработает — ничего не блокируем
+    }
+    // "T" без модификаторов + не в input — наверх
+    if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === 't') {
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      scrollToTop();
+    }
+  });
+
+})();
+</script>
 </body>
 </html>
