@@ -6,468 +6,2322 @@
 <title>Согласие на обработку персональных данных — Студия №1</title>
 <meta name="description" content="Согласие на обработку персональных данных ИП Мельникова Н.В. (Студия №1, Кемерово)" />
 <meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#0B0B0B" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
 <style>
+/* ============================================================
+   STUDIO №1 — Согласие на обработку ПДн v2.0
+   ============================================================ */
+
 :root {
-  --bg-primary: #0D0D0D;
-  --bg-secondary: #161616;
+  --bg-primary: #0B0B0B;
+  --bg-secondary: #141414;
+  --bg-elevated: #1A1A1A;
   --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
   --text-primary: #F0EBE6;
-  --text-secondary: #D0CBC6;
+  --text-secondary: #CFCAC5;
   --text-muted: #8A8580;
   --border-color: rgba(201, 169, 110, 0.15);
+  --border-gold: rgba(201, 169, 110, 0.45);
   --gold: #C9A96E;
   --gold-light: #E8D5A8;
+  --gold-dark: #A8894E;
+  --gold-glow: rgba(201, 169, 110, 0.25);
   --gold-gradient: linear-gradient(135deg, #C9A96E, #E8D5A8, #C9A96E);
+  --gold-gradient-soft: linear-gradient(135deg, rgba(201,169,110,0.15), rgba(232,213,168,0.05));
+  --danger: #E74C3C;
+  --danger-bg: rgba(231, 76, 60, 0.08);
+  --success: #27AE60;
+  --success-bg: rgba(39, 174, 96, 0.12);
+  --shadow-soft: 0 4px 24px rgba(0,0,0,0.35);
+  --shadow-elevated: 0 12px 40px rgba(0,0,0,0.45);
+  --shadow-gold: 0 0 32px rgba(201, 169, 110, 0.18);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
+  --radius-pill: 999px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s var(--ease);
+  --transition: 0.35s var(--ease);
+  --transition-slow: 0.6s var(--ease-out);
+  --header-h: 64px;
 }
+
 [data-theme="light"] {
   --bg-primary: #FCF9F5;
-  --bg-secondary: #F8F5F0;
-  --bg-card: rgba(0, 0, 0, 0.02);
-  --text-primary: #1E1E1E;
+  --bg-secondary: #F6F2EC;
+  --bg-elevated: #FFFFFF;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --text-primary: #1A1A1A;
   --text-secondary: #3D3D3D;
   --text-muted: #7A7A7A;
-  --border-color: rgba(201, 169, 110, 0.2);
+  --border-color: rgba(201, 169, 110, 0.25);
+  --border-gold: rgba(201, 169, 110, 0.55);
+  --gold-dark: #8A6E3A;
+  --shadow-soft: 0 4px 24px rgba(120, 90, 40, 0.08);
+  --shadow-elevated: 0 12px 40px rgba(120, 90, 40, 0.12);
+  --shadow-gold: 0 0 32px rgba(201, 169, 110, 0.22);
+  --danger-bg: rgba(231, 76, 60, 0.07);
 }
+
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
   color: var(--text-primary);
   background: var(--bg-primary);
-  line-height: 1.7;
+  line-height: 1.75;
   min-height: 100vh;
-  padding: 40px 20px 80px;
-  background-image: radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.08) 0%, transparent 55%),
-                    radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.05) 0%, transparent 50%);
+  padding: 0 20px 100px;
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(201, 169, 110, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 60%, rgba(201, 169, 110, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(201, 169, 110, 0.05) 0%, transparent 60%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  transition: background-color var(--transition), color var(--transition);
 }
-.container { max-width: 900px; margin: 0 auto; }
-.back-link {
-  display: inline-flex; align-items: center; gap: 8px;
-  color: var(--gold); text-decoration: none;
-  font-size: 14px; font-weight: 500; margin-bottom: 30px;
-  padding: 8px 16px; border: 1px solid var(--border-color);
-  border-radius: 30px; transition: all 0.3s;
+
+/* ---------- Progress bar ---------- */
+.read-progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px; width: 0%;
+  background: var(--gold-gradient);
+  z-index: 1000;
+  transition: width 0.08s linear;
+  box-shadow: 0 0 12px var(--gold-glow);
 }
-.back-link:hover { background: var(--gold); color: #000; border-color: var(--gold); transform: translateY(-2px); }
-h1 { font-size: clamp(24px, 5vw, 38px); font-weight: 800; margin-bottom: 8px; line-height: 1.2; }
-h1 span {
+
+/* ---------- Sticky Header ---------- */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  background: color-mix(in srgb, var(--bg-primary) 78%, transparent);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid transparent;
+  z-index: 900;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+.topbar.scrolled {
+  border-bottom-color: var(--border-color);
+  background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+}
+.topbar-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700; font-size: 19px; letter-spacing: 0.4px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.topbar-brand .brand-mark {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--gold-gradient);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #0D0D0D; font-size: 12px; font-weight: 800;
+  box-shadow: var(--shadow-gold);
+  font-family: 'Inter', sans-serif;
+}
+.topbar-brand span.gold {
   background: var(--gold-gradient); background-size: 300% auto;
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text; animation: shimmer 6s ease-in-out infinite;
+  background-clip: text; animation: shimmer 8s ease-in-out infinite;
 }
-@keyframes shimmer { 0%,100% { background-position: 0% center; } 50% { background-position: 200% center; } }
-.subtitle {
-  color: var(--text-muted); font-size: 14px;
-  margin-bottom: 40px; padding-bottom: 24px;
-  border-bottom: 1px solid var(--border-color);
-}
-.doc-meta {
-  background: var(--bg-card); border: 1px solid var(--border-color);
-  border-radius: 12px; padding: 16px 20px; margin-bottom: 32px;
-  font-size: 13px; color: var(--text-secondary); line-height: 1.8;
-}
-.doc-meta strong { color: var(--gold); }
-h2 {
-  font-size: clamp(18px, 3vw, 22px); font-weight: 700;
-  color: var(--text-primary); margin: 36px 0 16px;
-  padding-left: 16px; border-left: 3px solid var(--gold);
-}
-h3 { font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 24px 0 12px; }
-p { margin-bottom: 14px; color: var(--text-secondary); }
-ul, ol { margin: 12px 0 16px 24px; color: var(--text-secondary); }
-li { margin-bottom: 8px; }
-strong { color: var(--text-primary); font-weight: 600; }
-.highlight {
-  background: rgba(201, 169, 110, 0.08);
-  border-left: 3px solid var(--gold);
-  padding: 14px 18px; border-radius: 8px;
-  margin: 16px 0; font-size: 14px;
-}
-.consent-form {
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
+
+/* ---------- Icon buttons ---------- */
+.icon-btn {
+  width: 42px; height: 42px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
   background: var(--bg-card);
-  border: 2px solid var(--gold);
-  border-radius: 16px;
-  padding: 28px 24px;
-  margin: 32px 0;
+  color: var(--gold);
+  cursor: pointer;
+  transition: all var(--transition);
   position: relative;
   overflow: hidden;
+}
+.icon-btn:hover {
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+.icon-btn:active { transform: translateY(0) scale(0.96); }
+.icon-btn svg { width: 18px; height: 18px; transition: transform var(--transition); }
+.icon-btn:hover svg { transform: rotate(-8deg) scale(1.08); }
+
+/* ---------- Layout ---------- */
+.layout {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-top: calc(var(--header-h) + 40px);
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.content { min-width: 0; max-width: 900px; }
+
+/* ---------- Sidebar / TOC ---------- */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  max-height: calc(100vh - var(--header-h) - 48px);
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-gold) transparent;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-gold); border-radius: 4px; }
+
+.toc {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px 22px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.toc::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold-gradient); opacity: 0.7;
+}
+.toc::after {
+  content: ''; position: absolute; top: -50px; right: -50px;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  pointer-events: none;
+  opacity: 0.5;
+}
+.toc-title {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2.2px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  position: relative; z-index: 1;
+}
+.toc-title .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 0 var(--gold-glow);
+  animation: pulseDot 2.4s var(--ease) infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 var(--gold-glow); }
+  50%      { box-shadow: 0 0 0 8px transparent; }
+}
+
+.toc ol {
+  list-style: none;
+  counter-reset: toc;
+  margin: 0;
+  position: relative; z-index: 1;
+}
+.toc li {
+  counter-increment: toc;
+  margin-bottom: 3px;
+}
+.toc a {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  text-decoration: none;
+  line-height: 1.45;
+  transition: all var(--transition-fast);
+  position: relative;
+  border-left: 2px solid transparent;
+}
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--gold-dark);
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  min-width: 22px;
+  letter-spacing: 0.5px;
+  transition: color var(--transition-fast);
+  padding-top: 2px;
+}
+.toc a:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+.toc a:hover::before { color: var(--gold); }
+.toc a.active {
+  background: var(--gold-gradient-soft);
+  border-left-color: var(--gold);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.toc a.active::before { color: var(--gold-light); }
+
+/* Mobile TOC */
+.toc-mobile {
+  display: none;
+  margin: 0 0 32px;
+}
+
+/* ---------- Back link ---------- */
+.back-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--gold); text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  margin-bottom: 28px;
+  padding: 10px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  transition: all var(--transition);
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+.back-link::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(232,213,168,0.12), transparent);
+  transition: left 0.7s var(--ease);
+}
+.back-link:hover::before { left: 100%; }
+.back-link:hover {
+  background: var(--gold);
+  color: #0D0D0D;
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+.back-link svg { transition: transform var(--transition); }
+.back-link:hover svg { transform: translateX(-4px); }
+
+/* ---------- Header ---------- */
+.doc-header {
+  position: relative;
+  padding-bottom: 32px;
+  margin-bottom: 36px;
+  border-bottom: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.9s var(--ease-out) 0.05s forwards;
+}
+.doc-header::after {
+  content: '';
+  position: absolute; bottom: -1px; left: 0;
+  width: 80px; height: 2px;
+  background: var(--gold-gradient);
+}
+.header-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: var(--gold);
+  padding: 7px 14px;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-pill);
+  background: var(--gold-gradient-soft);
+  margin-bottom: 18px;
+}
+.header-badge .live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
+  animation: pulseDot 2.4s var(--ease) infinite;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', 'Inter', serif;
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 700;
+  margin-bottom: 14px;
+  line-height: 1.1;
+  letter-spacing: -0.6px;
+}
+h1 span {
+  background: var(--gold-gradient);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 8s ease-in-out infinite;
+  font-style: italic;
+  font-weight: 600;
+}
+@keyframes shimmer {
+  0%, 100% { background-position: 0% center; }
+  50%      { background-position: 200% center; }
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 15px;
+  display: flex; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+  line-height: 1.6;
+}
+.subtitle::before {
+  content: '';
+  display: inline-block;
+  width: 28px; height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ---------- Summary cards ---------- */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 0 0 36px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s var(--ease-out) 0.2s forwards;
+}
+.summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px 18px 16px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+.summary-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 100% 0%, var(--gold-glow), transparent 60%);
+  opacity: 0; transition: opacity var(--transition);
+  pointer-events: none;
+}
+.summary-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-soft);
+}
+.summary-card:hover::before { opacity: 0.6; }
+.summary-card .s-icon {
+  width: 34px; height: 34px;
+  border-radius: var(--radius-sm);
+  background: var(--gold-gradient-soft);
+  border: 1px solid var(--border-gold);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  margin-bottom: 12px;
+  transition: transform var(--transition);
+}
+.summary-card:hover .s-icon { transform: rotate(-8deg) scale(1.05); }
+.summary-card .s-icon svg { width: 16px; height: 16px; }
+.summary-card .s-title {
+  font-size: 13px; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  letter-spacing: 0.2px;
+}
+.summary-card .s-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ---------- Document meta ---------- */
+.doc-meta {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 40px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 2;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.doc-meta::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold-gradient);
+}
+.doc-meta::after {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  opacity: 0.35; pointer-events: none;
+}
+.doc-meta:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-soft);
+}
+.doc-meta-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 8px;
+  align-items: baseline;
+  padding: 4px 0;
+  position: relative; z-index: 1;
+}
+.doc-meta-row + .doc-meta-row { border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 4px; }
+.doc-meta strong { color: var(--gold); font-weight: 600; }
+.doc-meta a {
+  color: var(--gold-light);
+  position: relative;
+  display: inline-block;
+  transition: color var(--transition-fast);
+}
+.doc-meta a::after {
+  content: ''; position: absolute; left: 0; bottom: -1px;
+  width: 0; height: 1px; background: var(--gold-light);
+  transition: width var(--transition);
+}
+.doc-meta a:hover { color: var(--gold); }
+.doc-meta a:hover::after { width: 100%; }
+
+/* copy mini button */
+.copy-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-left: 6px;
+  vertical-align: middle;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+.copy-btn svg { width: 11px; height: 11px; }
+.copy-btn:hover {
+  color: var(--gold);
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+}
+.copy-btn.copied {
+  color: var(--success);
+  border-color: rgba(39, 174, 96, 0.5);
+}
+.copy-btn::after {
+  content: attr(data-tooltip);
+  position: absolute; bottom: calc(100% + 6px); left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  border: 1px solid var(--border-color);
+  z-index: 10;
+}
+.copy-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---------- Headings ---------- */
+h2 {
+  font-size: clamp(20px, 3.2vw, 26px);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 56px 0 20px;
+  padding-left: 52px;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+  scroll-margin-top: calc(var(--header-h) + 24px);
+  position: relative;
+  display: flex; align-items: center; gap: 14px;
+  transition: color var(--transition-fast);
+}
+h2 .num {
+  position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--gold-gradient-soft);
+  border: 1px solid var(--border-gold);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 800;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  flex-shrink: 0;
+  transition: all var(--transition);
+  box-shadow: 0 0 0 0 var(--gold-glow);
+}
+h2:hover .num {
+  background: var(--gold);
+  color: #0D0D0D;
+  transform: translateY(-50%) rotate(-8deg) scale(1.06);
+  box-shadow: 0 0 0 6px var(--gold-glow);
+}
+h2::after {
+  content: '';
+  position: absolute; left: 52px; bottom: -10px;
+  width: 48px; height: 2px;
+  background: var(--gold-gradient);
+  border-radius: 2px;
+  transition: width var(--transition);
+}
+h2:hover::after { width: 90px; }
+
+h3 {
+  font-size: 17px; font-weight: 600;
+  color: var(--text-primary);
+  margin: 30px 0 14px;
+  letter-spacing: -0.2px;
+  display: flex; align-items: center; gap: 10px;
+}
+h3::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+
+/* ---------- Text ---------- */
+p {
+  margin-bottom: 15px;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+ul, ol {
+  margin: 15px 0 20px 26px;
+  color: var(--text-secondary);
+}
+ul { list-style: none; margin-left: 0; }
+ul li {
+  margin-bottom: 10px;
+  padding-left: 22px;
+  position: relative;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+ul li::before {
+  content: '';
+  position: absolute; left: 0; top: 12px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold-dark);
+  transition: all var(--transition-fast);
+}
+ul li:hover { color: var(--text-primary); }
+ul li:hover::before {
+  background: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-glow);
+  transform: scale(1.2);
+}
+ol li { margin-bottom: 8px; padding-left: 4px; }
+ol li::marker { color: var(--gold-dark); font-weight: 600; }
+strong { color: var(--text-primary); font-weight: 600; }
+
+/* inline links */
+p a, li a:not(.toc a) {
+  color: var(--gold);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: color var(--transition-fast);
+}
+p a::after, li a:not(.toc a)::after {
+  content: '';
+  position: absolute; left: 0; bottom: 1px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform var(--transition);
+}
+p a:hover, li a:not(.toc a):hover {
+  color: var(--gold-light);
+}
+p a:hover::after, li a:not(.toc a):hover::after {
+  transform-origin: left;
+  animation: linkSlide 0.6s var(--ease);
+}
+@keyframes linkSlide {
+  0% { transform: scaleX(1); transform-origin: right; }
+  50% { transform: scaleX(0); transform-origin: right; }
+  51% { transform: scaleX(0); transform-origin: left; }
+  100% { transform: scaleX(1); transform-origin: left; }
+}
+
+/* ---------- Callouts ---------- */
+.highlight,
+.warning-box {
+  padding: 20px 24px 20px 56px;
+  border-radius: var(--radius-md);
+  margin: 24px 0;
+  font-size: 14px;
+  line-height: 1.75;
+  position: relative;
+  border-left-width: 3px;
+  border-left-style: solid;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.highlight::before,
+.warning-box::before {
+  position: absolute; left: 20px; top: 20px;
+  font-size: 20px; line-height: 1;
+}
+.highlight {
+  background: rgba(201, 169, 110, 0.08);
+  border-left-color: var(--gold);
+}
+.highlight::before { content: '💡'; }
+.warning-box {
+  background: var(--danger-bg);
+  border-left-color: var(--danger);
+}
+.warning-box::before { content: '⚠️'; }
+.warning-box strong { color: var(--danger); }
+.highlight:hover,
+.warning-box:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* ============================================================
+   CONSENT FORM
+   ============================================================ */
+.consent-form {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  margin: 40px 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow var(--transition);
 }
 .consent-form::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
   height: 3px; background: var(--gold-gradient);
-  background-size: 200% auto; animation: shimmer 4s ease-in-out infinite;
+  background-size: 200% auto;
+  animation: shimmer 4s ease-in-out infinite;
 }
-.consent-form h2 { border: none; padding: 0; margin-top: 0; text-align: center; }
+.consent-form::after {
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  opacity: 0.4; pointer-events: none;
+}
+.consent-form:hover {
+  box-shadow: var(--shadow-elevated), var(--shadow-gold);
+}
+.consent-form h2 {
+  border: none; padding: 0; margin: 0 0 8px;
+  text-align: center; justify-content: center;
+  font-size: clamp(20px, 3vw, 24px);
+}
+.consent-form h2::after { display: none; }
 .consent-form .form-icon {
   font-size: 42px; text-align: center; display: block;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   filter: drop-shadow(0 4px 12px rgba(201, 169, 110, 0.4));
+  animation: floatIcon 3s ease-in-out infinite;
 }
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+.form-lead {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+  max-width: 480px;
+  margin-left: auto; margin-right: auto;
+}
+
+/* Progress counter */
+.form-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  background: var(--gold-gradient-soft);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+.form-progress .fp-bar {
+  flex: 1;
+  height: 5px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+.form-progress .fp-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold-gradient);
+  border-radius: 3px;
+  transition: width 0.5s var(--ease-out);
+}
+.form-progress .fp-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+  min-width: 44px;
+  text-align: right;
+}
+
+/* Field rows */
 .field-row {
   display: flex; flex-direction: column; gap: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+  position: relative;
 }
 .field-row label {
   font-size: 13px; font-weight: 600;
   color: var(--text-secondary);
+  display: flex; align-items: center; gap: 6px;
 }
 .field-row label .required {
-  color: #E74C3C; margin-left: 4px;
+  color: var(--danger);
+  margin-left: 2px;
+  font-weight: 700;
+}
+.field-input-wrap {
+  position: relative;
+  display: flex; align-items: center;
+}
+.field-input-wrap .input-icon {
+  position: absolute; left: 14px;
+  color: var(--text-muted);
+  width: 16px; height: 16px;
+  pointer-events: none;
+  transition: color var(--transition-fast);
 }
 .field-row input[type="text"],
 .field-row input[type="email"],
-.field-row input[type="tel"] {
-  padding: 12px 16px;
+.field-row input[type="tel"],
+.field-row input[type="date"] {
+  padding: 13px 16px 13px 42px;
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   color: var(--text-primary);
   font-size: 15px;
   font-family: 'Inter', sans-serif;
-  transition: all 0.3s;
+  width: 100%;
+  transition: all var(--transition);
 }
+.field-row input::placeholder { color: var(--text-muted); opacity: 0.6; }
 .field-row input:focus {
   outline: none;
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+  background: var(--bg-card-hover);
 }
+.field-row input:focus ~ .input-icon,
+.field-input-wrap:focus-within .input-icon {
+  color: var(--gold);
+}
+.field-row input.valid {
+  border-color: rgba(39, 174, 96, 0.5);
+}
+.field-row input.invalid {
+  border-color: rgba(231, 76, 60, 0.5);
+}
+.field-error {
+  font-size: 12px;
+  color: var(--danger);
+  margin-top: 2px;
+  min-height: 14px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+.field-error.show { opacity: 1; transform: translateY(0); }
+
+/* Checkbox rows */
 .checkbox-row {
   display: flex; align-items: flex-start; gap: 12px;
-  margin: 16px 0; padding: 14px 16px;
+  margin: 14px 0; padding: 14px 16px;
   background: rgba(201, 169, 110, 0.04);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all var(--transition);
+  position: relative;
 }
 .checkbox-row:hover {
   background: rgba(201, 169, 110, 0.08);
   border-color: var(--gold);
+  transform: translateY(-1px);
+}
+.checkbox-row.checked {
+  background: var(--gold-gradient-soft);
+  border-color: var(--border-gold);
 }
 .checkbox-row input[type="checkbox"] {
-  width: 20px; height: 20px; flex-shrink: 0;
-  margin-top: 2px;
-  accent-color: var(--gold);
-  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.checkbox-custom {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  border: 2px solid var(--border-gold);
+  background: var(--bg-secondary);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+  margin-top: 1px;
+  position: relative;
+}
+.checkbox-custom svg {
+  width: 13px; height: 13px;
+  color: #0D0D0D;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all var(--transition);
+}
+.checkbox-row input[type="checkbox"]:checked ~ .checkbox-custom {
+  background: var(--gold-gradient);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-glow);
+}
+.checkbox-row input[type="checkbox"]:checked ~ .checkbox-custom svg {
+  opacity: 1;
+  transform: scale(1);
+}
+.checkbox-row input[type="checkbox"]:focus-visible ~ .checkbox-custom {
+  box-shadow: 0 0 0 4px var(--gold-glow);
 }
 .checkbox-row .cb-text {
   font-size: 14px; color: var(--text-secondary);
   line-height: 1.6;
 }
+.checkbox-row .cb-text strong { color: var(--text-primary); }
 .checkbox-row .cb-text a {
   color: var(--gold); text-decoration: none;
   font-weight: 600;
+  border-bottom: 1px dashed var(--border-gold);
+  transition: border-color var(--transition-fast);
 }
-.checkbox-row .cb-text a:hover { text-decoration: underline; }
+.checkbox-row .cb-text a:hover {
+  border-bottom-color: var(--gold);
+  border-bottom-style: solid;
+}
+
+/* Submit button */
 .submit-btn {
   width: 100%;
-  padding: 16px 24px;
+  padding: 17px 24px;
   background: var(--gold-gradient);
   background-size: 200% auto;
-  color: #fff;
-  font-weight: 700;
+  color: #0D0D0D;
+  font-weight: 800;
   font-size: 16px;
   border: none;
-  border-radius: 60px;
+  border-radius: var(--radius-pill);
   cursor: pointer;
-  transition: all 0.4s;
+  transition: all 0.4s var(--ease);
   box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
-  margin-top: 8px;
+  margin-top: 12px;
   font-family: 'Inter', sans-serif;
+  letter-spacing: 0.3px;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
 }
+.submit-btn::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transition: left 0.7s var(--ease);
+}
+.submit-btn:hover:not(:disabled)::before { left: 100%; }
 .submit-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(201, 169, 110, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 34px rgba(201, 169, 110, 0.55);
   background-position: right center;
 }
+.submit-btn:active:not(:disabled) {
+  transform: translateY(-1px);
+}
 .submit-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.5;
   cursor: not-allowed;
   transform: none;
 }
+.submit-btn.loading {
+  pointer-events: none;
+}
+.submit-btn .btn-spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(13,13,13,0.3);
+  border-top-color: #0D0D0D;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: none;
+}
+.submit-btn.loading .btn-spinner { display: inline-block; }
+.submit-btn.loading .btn-label { opacity: 0.7; }
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 24px 12px 12px;
+  animation: fadeUp 0.6s var(--ease-out);
+}
+.form-success.show { display: block; }
+.form-success .check-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+  box-shadow: 0 0 0 8px var(--gold-glow);
+  animation: checkPop 0.6s var(--ease-out);
+}
+.form-success .check-circle svg {
+  width: 36px; height: 36px;
+  color: #0D0D0D;
+  stroke-width: 3;
+}
+@keyframes checkPop {
+  0% { transform: scale(0.4); opacity: 0; }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.form-success h3 {
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: var(--gold);
+}
+.form-success h3::before { display: none; }
+.form-success p {
+  color: var(--text-muted);
+  font-size: 14px;
+  max-width: 400px;
+  margin: 0 auto 18px;
+}
+.form-success button {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--border-gold);
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.form-success button:hover {
+  background: var(--gold);
+  color: #0D0D0D;
+  border-color: var(--gold);
+}
+
+/* ---------- Contact block ---------- */
 .contact-block {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin-top: 24px;
-  font-size: 14px;
+  border-radius: var(--radius-lg);
+  padding: 30px 34px;
+  margin-top: 28px;
+  font-size: 14.5px;
+  line-height: 2;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
 }
-.contact-block a { color: var(--gold); text-decoration: none; }
-.contact-block a:hover { text-decoration: underline; }
+.contact-block::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold-gradient);
+  opacity: 0.8;
+}
+.contact-block::after {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  opacity: 0.45; pointer-events: none;
+  transition: opacity var(--transition);
+}
+.contact-block:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-3px);
+}
+.contact-block:hover::after { opacity: 0.7; }
+.contact-block a { color: var(--gold); text-decoration: none; transition: color var(--transition-fast); }
+.contact-block a:hover { color: var(--gold-light); text-decoration: underline; }
+.contact-block strong { color: var(--gold); }
+
+/* ---------- Version info ---------- */
 .version-info {
-  margin-top: 48px;
-  padding-top: 24px;
+  margin-top: 64px;
+  padding: 32px 24px 0;
   border-top: 1px solid var(--border-color);
   font-size: 13px;
   color: var(--text-muted);
   text-align: center;
+  line-height: 1.9;
+  position: relative;
 }
+.version-info::before {
+  content: '';
+  position: absolute; top: -1px; left: 50%;
+  transform: translateX(-50%);
+  width: 80px; height: 2px;
+  background: var(--gold-gradient);
+}
+.version-info p { color: var(--text-muted); margin-bottom: 4px; }
+.version-info strong { color: var(--text-secondary); font-weight: 500; }
+.version-info .ver-num {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-pill);
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Back to top ---------- */
+.back-top {
+  position: fixed;
+  right: 24px; bottom: 24px;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  color: #0D0D0D;
+  border: none;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-elevated), 0 0 0 0 var(--gold-glow);
+  opacity: 0;
+  transform: translateY(20px) scale(0.85);
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+  z-index: 800;
+}
+.back-top.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.back-top:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-elevated), 0 0 0 8px var(--gold-glow);
+}
+.back-top:active { transform: translateY(-2px) scale(0.98); }
+.back-top svg { width: 20px; height: 20px; }
+
+/* ---------- Toast ---------- */
 .toast {
   position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: #27AE60;
-  color: #fff;
-  padding: 14px 24px;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: 600;
-  box-shadow: 0 8px 32px rgba(39, 174, 96, 0.4);
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: 9999;
+  left: 50%; bottom: 32px;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-gold);
+  color: var(--text-primary);
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 13.5px;
+  font-weight: 500;
+  box-shadow: var(--shadow-elevated);
+  opacity: 0;
+  transition: opacity var(--transition), transform var(--transition-slow);
+  z-index: 1200;
+  display: flex; align-items: center; gap: 10px;
+  pointer-events: none;
+  max-width: calc(100% - 32px);
 }
-.toast.show { transform: translateX(-50%) translateY(0); }
-.toast.error { background: #E74C3C; box-shadow: 0 8px 32px rgba(231, 76, 60, 0.4); }
-@media (max-width: 600px) {
-  body { padding: 20px 14px 60px; }
-  h2 { padding-left: 12px; }
-  .consent-form { padding: 20px 16px; }
-  .consent-form h2 { font-size: 18px; }
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast svg { width: 16px; height: 16px; flex-shrink: 0; }
+.toast.success { border-color: rgba(39, 174, 96, 0.6); }
+.toast.success svg { color: var(--success); }
+.toast.error { border-color: rgba(231, 76, 60, 0.6); }
+.toast.error svg { color: var(--danger); }
+
+/* ---------- Section reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Footer nav ---------- */
+.footer-nav {
+  margin: 48px 0 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--border-color);
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center;
+}
+.nav-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 13px; font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition);
+  cursor: pointer;
+  font-family: inherit;
+}
+.nav-chip:hover {
+  border-color: var(--border-gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+.nav-chip svg { width: 14px; height: 14px; }
+
+/* ---------- Animations ---------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: calc(var(--header-h) + 24px);
+  }
+  .sidebar { display: none; }
+  .content { max-width: 100%; }
+  .toc-mobile {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 6px 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .toc-mobile::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--gold-gradient); opacity: 0.7;
+  }
+  .toc-mobile summary {
+    cursor: pointer;
+    padding: 14px 14px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--gold);
+    list-style: none;
+    transition: color var(--transition-fast);
+  }
+  .toc-mobile summary::-webkit-details-marker { display: none; }
+  .toc-mobile summary::after {
+    content: '';
+    margin-left: auto;
+    width: 8px; height: 8px;
+    border-right: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform var(--transition);
+  }
+  .toc-mobile[open] summary::after {
+    transform: rotate(-135deg) translateY(-2px);
+  }
+  .toc-mobile ol { margin: 4px 12px 14px; }
+  .toc-mobile ol li { margin-bottom: 6px; }
+}
+
+@media (max-width: 640px) {
+  body { padding: 0 14px 80px; font-size: 15px; }
+  .topbar { padding: 0 14px; }
+  .topbar-brand { font-size: 16px; }
+  .topbar-brand span:not(.gold) { display: none; }
+  h2 { padding-left: 46px; margin-top: 44px; }
+  h2 .num { width: 34px; height: 34px; font-size: 12px; }
+  h2::after { left: 46px; }
+  h3 { font-size: 16px; }
+  .doc-meta { padding: 20px 22px; font-size: 13px; }
+  .doc-meta-row { grid-template-columns: 1fr; gap: 2px; }
+  .contact-block { padding: 24px 22px; }
+  .back-top { right: 16px; bottom: 16px; width: 44px; height: 44px; }
+  .summary { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .summary-card { padding: 14px 14px 12px; }
+  .icon-btn { width: 38px; height: 38px; }
+  .icon-btn svg { width: 16px; height: 16px; }
+  .footer-nav { gap: 8px; }
+  .nav-chip { font-size: 12px; padding: 8px 14px; }
+  .consent-form { padding: 24px 18px; border-radius: var(--radius-lg); }
+  .consent-form h2 { font-size: 20px; }
+  .form-progress { padding: 10px 12px; }
+  .checkbox-row { padding: 12px 14px; }
+  .checkbox-row .cb-text { font-size: 13px; }
+  .field-row input[type="text"],
+  .field-row input[type="email"],
+  .field-row input[type="tel"],
+  .field-row input[type="date"] { font-size: 16px; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .doc-header, .summary { opacity: 1; transform: none; }
+  .consent-form .form-icon { animation: none; }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  body { background: #fff; color: #000; padding: 0; }
+  .topbar, .read-progress, .sidebar, .back-link, .toc-mobile,
+  .back-top, .footer-nav, .icon-btn, .copy-btn, .toast,
+  .consent-form, .form-progress { display: none !important; }
+  .layout { padding-top: 0; grid-template-columns: 1fr; }
+  h1 span { -webkit-text-fill-color: #A8894E; background: none; }
+  a { color: #8A6E3A; text-decoration: underline; }
+  .doc-meta, .contact-block, .highlight, .warning-box, .summary-card {
+    border-color: #ddd; box-shadow: none; break-inside: avoid;
+  }
+  h2, h3 { break-after: avoid; }
+}
+
+/* ---------- Utilities ---------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 </style>
 </head>
 <body>
-<div class="container">
 
-  <a href="index.html" class="back-link">← Вернуться на сайт</a>
+<!-- Progress bar -->
+<div class="read-progress" id="progress" aria-hidden="true"></div>
 
-  <h1>Согласие на <span>обработку персональных данных</span></h1>
-  <p class="subtitle">В соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных»</p>
-
-  <div class="doc-meta">
-    <strong>Оператор:</strong> Индивидуальный предприниматель Мельникова Наталья Викторовна<br>
-    <strong>ИНН:</strong> 420526028556 &nbsp;|&nbsp; <strong>ОГРНИП:</strong> 305420503500052<br>
-    <strong>Юридический адрес:</strong> 650023, г. Кемерово, проспект Притомский, д. 25, кв. 68<br>
-    <strong>Фактический адрес:</strong> 650023, г. Кемерово, Пионерский бульвар, 3, офис 224<br>
-    <strong>Email:</strong> <a href="mailto:Studiia1@mail.ru" style="color: var(--gold);">Studiia1@mail.ru</a><br>
-    <strong>Телефон:</strong> <a href="tel:+79516062001" style="color: var(--gold);">+7 (951) 606-20-01</a>
+<!-- Sticky top bar -->
+<header class="topbar" id="topbar">
+  <a href="index.html" class="topbar-brand" aria-label="Студия №1 — на главную">
+    <span class="brand-mark">№1</span>
+    <span>Студия <span class="gold">№1</span></span>
+  </a>
+  <div class="topbar-actions">
+    <button class="icon-btn" id="printBtn" aria-label="Распечатать документ" title="Распечатать">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 9V2h12v7"/>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+        <rect x="6" y="14" width="12" height="8"/>
+      </svg>
+    </button>
+    <button class="icon-btn" id="themeBtn" aria-label="Переключить тему" title="Сменить тему">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
   </div>
+</header>
 
-  <h2>1. Предмет согласия</h2>
+<!-- Layout -->
+<div class="layout">
 
-  <p>Настоящим я, субъект персональных данных, действуя свободно, своей волей и в своём интересе, даю согласие ИП Мельникова Наталья Викторовна (далее — Оператор) на обработку моих персональных данных на следующих условиях.</p>
-
-  <h2>2. Перечень персональных данных</h2>
-
-  <p>Согласие даётся на обработку следующих категорий персональных данных:</p>
-
-  <ul>
-    <li><strong>Фамилия, имя, отчество</strong> (при предоставлении);</li>
-    <li><strong>Адрес электронной почты</strong> (email);</li>
-    <li><strong>Номер контактного телефона</strong>;</li>
-    <li><strong>Фотография профиля</strong> (при добровольной загрузке в личный кабинет);</li>
-    <li><strong>Дата рождения</strong> (при предоставлении);</li>
-    <li><strong>Пользовательский контент</strong>: отзывы, комментарии, фотографии (при добровольной публикации);</li>
-    <li><strong>Технические данные</strong>: IP-адрес, данные cookies, сведения о браузере и устройстве, дата и время посещения, идентификатор сессии;</li>
-    <li><strong>Информация об услугах</strong>: история записей, посещений, оказанных услуг, бонусных минут (в рамках программы лояльности).</li>
-  </ul>
-
-  <h2>3. Цели обработки персональных данных</h2>
-
-  <p>Персональные данные обрабатываются в следующих целях:</p>
-
-  <ul>
-    <li>Идентификация пользователя для предоставления доступа к личному кабинету и функционалу Сайта;</li>
-    <li>Регистрация и авторизация пользователя на Сайте studiia1.ru;</li>
-    <li>Оказание услуг салона красоты и информирование о них (запись, подтверждение, напоминания);</li>
-    <li>Обратная связь: обработка обращений, отзывов, комментариев;</li>
-    <li>Ведение программы лояльности (учёт бонусных минут);</li>
-    <li>Направление сервисных уведомлений (подтверждение записи, восстановление пароля, изменения в работе Сайта);</li>
-    <li>Улучшение качества обслуживания и работы Сайта на основе обезличенных данных;</li>
-    <li>Исполнение требований законодательства Российской Федерации.</li>
-  </ul>
-
-  <h2>4. Перечень действий с персональными данными</h2>
-
-  <p>Согласие даётся на совершение следующих действий с персональными данными:</p>
-
-  <ul>
-    <li>сбор, запись, систематизация, накопление, хранение;</li>
-    <li>уточнение (обновление, изменение), извлечение, использование;</li>
-    <li>передача (предоставление, доступ) — в объёме, необходимом для работы Сайта;</li>
-    <li>обезличивание, блокирование, удаление, уничтожение.</li>
-  </ul>
-
-  <p>Обработка осуществляется как <strong>с использованием средств автоматизации</strong> (посредством инфраструктуры Firebase, Google LLC), так и <strong>без использования</strong> таких средств (при ручной обработке обращений).</p>
-
-  <h2>5. Согласие на трансграничную передачу данных</h2>
-
-  <div class="highlight">
-    <strong>⚠️ ВАЖНАЯ ИНФОРМАЦИЯ</strong><br><br>
-    Персональные данные Пользователей хранятся и обрабатываются с использованием облачной инфраструктуры <strong>Firebase</strong> (Google LLC), серверы которой расположены в <strong>Европейском союзе (Франкфурт, Германия)</strong>.<br><br>
-    Давая настоящее согласие, я подтверждаю, что ознакомлен с данным фактом, понимаю последствия трансграничной передачи и <strong>не возражаю</strong> против передачи моих персональных данных на территорию Европейского союза.
-  </div>
-
-  <h2>6. Срок действия согласия</h2>
-
-  <p>6.1. Согласие действует со дня его предоставления до дня его отзыва субъектом персональных данных, но не более <strong>3 (трёх) лет</strong> с момента последнего взаимодействия с Сайтом.</p>
-
-  <p>6.2. Согласие может быть отозвано в любой момент путём направления письменного уведомления Оператору по адресу электронной почты <a href="mailto:Studiia1@mail.ru" style="color: var(--gold);">Studiia1@mail.ru</a> или через личный кабинет на Сайте.</p>
-
-  <p>6.3. После отзыва согласия Оператор прекращает обработку персональных данных и уничтожает их в течение <strong>30 (тридцати) календарных дней</strong>, за исключением случаев, когда обработка должна быть продолжена в соответствии с законодательством РФ.</p>
-
-  <h2>7. Права субъекта персональных данных</h2>
-
-  <p>Я подтверждаю, что мне разъяснены мои права в соответствии со ст. 14 Федерального закона № 152-ФЗ «О персональных данных»:</p>
-
-  <ul>
-    <li>право на получение информации, касающейся обработки моих персональных данных;</li>
-    <li>право на доступ к моим персональным данным;</li>
-    <li>право на уточнение, блокирование или уничтожение данных, если они являются неполными, устаревшими, неточными, незаконно полученными или не являются необходимыми для заявленной цели обработки;</li>
-    <li>право на отзыв настоящего согласия;</li>
-    <li>право на обжалование действий Оператора в Роскомнадзоре или в судебном порядке;</li>
-    <li>право на защиту своих прав и законных интересов, включая возмещение убытков и компенсацию морального вреда.</li>
-  </ul>
-
-  <h2>8. Порядок предоставления согласия</h2>
-
-  <p>8.1. Согласие предоставляется путём:</p>
-
-  <ul>
-    <li>проставления отметки в соответствующем чекбоксе при регистрации на Сайте;</li>
-    <li>нажатия кнопки «Зарегистрироваться» после проставления отметок;</li>
-    <li>либо путём заполнения формы ниже.</li>
-  </ul>
-
-  <p>8.2. Дата и время предоставления согласия, а также IP-адрес субъекта фиксируются Оператором в информационной системе.</p>
-
-  <h2>9. Подтверждение согласия</h2>
-
-  <p>Ознакомившись с настоящим документом, я подтверждаю своё согласие на обработку персональных данных на указанных выше условиях.</p>
-
-  <div class="consent-form">
-    <span class="form-icon">📋</span>
-    <h2>Форма подтверждения согласия</h2>
-    <p style="text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">
-      Заполните форму, чтобы зафиксировать ваше согласие
-    </p>
-
-    <form id="consentForm" onsubmit="submitConsent(event)">
-      <div class="field-row">
-        <label>Фамилия, имя, отчество <span class="required">*</span></label>
-        <input type="text" id="fullName" placeholder="Иванова Мария Сергеевна" required />
+  <!-- Sidebar / TOC -->
+  <aside class="sidebar" aria-label="Содержание документа">
+    <nav class="toc" id="toc">
+      <div class="toc-title">
+        <span class="dot"></span>
+        Содержание
       </div>
+      <ol>
+        <li><a href="#t1">Предмет согласия</a></li>
+        <li><a href="#t2">Перечень персональных данных</a></li>
+        <li><a href="#t3">Цели обработки</a></li>
+        <li><a href="#t4">Перечень действий с данными</a></li>
+        <li><a href="#t5">Трансграничная передача</a></li>
+        <li><a href="#t6">Срок действия согласия</a></li>
+        <li><a href="#t7">Права субъекта ПДн</a></li>
+        <li><a href="#t8">Порядок предоставления</a></li>
+        <li><a href="#t9">Подтверждение согласия</a></li>
+        <li><a href="#t10">Контакты Оператора</a></li>
+      </ol>
+    </nav>
+  </aside>
 
-      <div class="field-row">
-        <label>Email <span class="required">*</span></label>
-        <input type="email" id="email" placeholder="example@mail.ru" required />
+  <!-- Main content -->
+  <main class="content">
+
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </svg>
+      Вернуться на сайт
+    </a>
+
+    <header class="doc-header">
+      <div class="header-badge">
+        <span class="live-dot"></span>
+        Юридический документ · 152-ФЗ · Версия 2.0
       </div>
+      <h1>Согласие на <span>обработку персональных данных</span></h1>
+      <p class="subtitle">В соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных»</p>
+    </header>
 
-      <div class="field-row">
-        <label>Телефон</label>
-        <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" />
+    <!-- Summary cards -->
+    <section class="summary" aria-label="Ключевые положения">
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+        </div>
+        <div class="s-title">152-ФЗ</div>
+        <div class="s-text">Обработка по Федеральному закону о персональных данных</div>
       </div>
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="s-title">3 года</div>
+        <div class="s-text">Максимальный срок действия согласия</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div class="s-title">ЕС · Firebase</div>
+        <div class="s-text">Трансграничная передача (Франкфурт, Германия)</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+        </div>
+        <div class="s-title">Отзыв</div>
+        <div class="s-text">Возможность отозвать согласие в любой момент</div>
+      </div>
+    </section>
 
-      <label class="checkbox-row">
-        <input type="checkbox" id="consent1" required />
-        <span class="cb-text">
-          Я даю <strong>согласие на обработку персональных данных</strong> на условиях, изложенных в настоящем документе.
+    <!-- Document meta -->
+    <div class="doc-meta">
+      <div class="doc-meta-row">
+        <strong>Оператор:</strong>
+        <span>Индивидуальный предприниматель Мельникова Наталья Викторовна</span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>ИНН / ОГРНИП:</strong>
+        <span>420526028556 &nbsp;|&nbsp; 305420503500052
+          <button class="copy-btn" data-copy="420526028556" data-tooltip="Скопировать ИНН" aria-label="Скопировать ИНН">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
         </span>
-      </label>
-
-      <label class="checkbox-row">
-        <input type="checkbox" id="consent2" required />
-        <span class="cb-text">
-          Я ознакомлен(а) с <a href="privacy.html" target="_blank">Политикой конфиденциальности</a> и подтверждаю своё согласие с ней.
+      </div>
+      <div class="doc-meta-row">
+        <strong>Юридический адрес:</strong>
+        <span>650023, г. Кемерово, проспект Притомский, д. 25, кв. 68</span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Фактический адрес:</strong>
+        <span>650023, г. Кемерово, Пионерский бульвар, 3, офис 224</span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Email:</strong>
+        <span>
+          <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a>
+          <button class="copy-btn" data-copy="Studiia1@mail.ru" data-tooltip="Скопировать email" aria-label="Скопировать email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
         </span>
-      </label>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Телефон:</strong>
+        <span>
+          <a href="tel:+79516062001">+7 (951) 606-20-01</a>
+          <button class="copy-btn" data-copy="+79516062001" data-tooltip="Скопировать телефон" aria-label="Скопировать телефон">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+        </span>
+      </div>
+    </div>
 
-      <button type="submit" class="submit-btn" id="submitBtn">
-        ✍️ Подтвердить согласие
+    <!-- Mobile TOC (collapsible) -->
+    <details class="toc-mobile">
+      <summary>📑 Содержание документа</summary>
+      <ol>
+        <li><a href="#t1">Предмет согласия</a></li>
+        <li><a href="#t2">Перечень персональных данных</a></li>
+        <li><a href="#t3">Цели обработки</a></li>
+        <li><a href="#t4">Перечень действий с данными</a></li>
+        <li><a href="#t5">Трансграничная передача</a></li>
+        <li><a href="#t6">Срок действия согласия</a></li>
+        <li><a href="#t7">Права субъекта ПДн</a></li>
+        <li><a href="#t8">Порядок предоставления</a></li>
+        <li><a href="#t9">Подтверждение согласия</a></li>
+        <li><a href="#t10">Контакты Оператора</a></li>
+      </ol>
+    </details>
+
+    <!-- ==================== SECTIONS ==================== -->
+
+    <h2 id="t1" class="reveal"><span class="num">01</span>1. Предмет согласия</h2>
+
+    <div class="reveal">
+      <p>Настоящим я, субъект персональных данных, действуя свободно, своей волей и в своём интересе, даю согласие ИП Мельникова Наталья Викторовна (далее — Оператор) на обработку моих персональных данных на следующих условиях.</p>
+    </div>
+
+    <h2 id="t2" class="reveal"><span class="num">02</span>2. Перечень персональных данных</h2>
+
+    <div class="reveal">
+      <p>Согласие даётся на обработку следующих категорий персональных данных:</p>
+
+      <ul>
+        <li><strong>Фамилия, имя, отчество</strong> (при предоставлении);</li>
+        <li><strong>Адрес электронной почты</strong> (email);</li>
+        <li><strong>Номер контактного телефона</strong>;</li>
+        <li><strong>Фотография профиля</strong> (при добровольной загрузке в личный кабинет);</li>
+        <li><strong>Дата рождения</strong> (при предоставлении);</li>
+        <li><strong>Пользовательский контент</strong>: отзывы, комментарии, фотографии (при добровольной публикации);</li>
+        <li><strong>Технические данные</strong>: IP-адрес, данные cookies, сведения о браузере и устройстве, дата и время посещения, идентификатор сессии;</li>
+        <li><strong>Информация об услугах</strong>: история записей, посещений, оказанных услуг, бонусных минут (в рамках программы лояльности).</li>
+      </ul>
+    </div>
+
+    <h2 id="t3" class="reveal"><span class="num">03</span>3. Цели обработки персональных данных</h2>
+
+    <div class="reveal">
+      <p>Персональные данные обрабатываются в следующих целях:</p>
+
+      <ul>
+        <li>Идентификация пользователя для предоставления доступа к личному кабинету и функционалу Сайта;</li>
+        <li>Регистрация и авторизация пользователя на Сайте studiia1.ru;</li>
+        <li>Оказание услуг салона красоты и информирование о них (запись, подтверждение, напоминания);</li>
+        <li>Обратная связь: обработка обращений, отзывов, комментариев;</li>
+        <li>Ведение программы лояльности (учёт бонусных минут);</li>
+        <li>Направление сервисных уведомлений (подтверждение записи, восстановление пароля, изменения в работе Сайта);</li>
+        <li>Улучшение качества обслуживания и работы Сайта на основе обезличенных данных;</li>
+        <li>Исполнение требований законодательства Российской Федерации.</li>
+      </ul>
+    </div>
+
+    <h2 id="t4" class="reveal"><span class="num">04</span>4. Перечень действий с персональными данными</h2>
+
+    <div class="reveal">
+      <p>Согласие даётся на совершение следующих действий с персональными данными:</p>
+
+      <ul>
+        <li>сбор, запись, систематизация, накопление, хранение;</li>
+        <li>уточнение (обновление, изменение), извлечение, использование;</li>
+        <li>передача (предоставление, доступ) — в объёме, необходимом для работы Сайта;</li>
+        <li>обезличивание, блокирование, удаление, уничтожение.</li>
+      </ul>
+
+      <p>Обработка осуществляется как <strong>с использованием средств автоматизации</strong> (посредством инфраструктуры Firebase, Google LLC), так и <strong>без использования</strong> таких средств (при ручной обработке обращений).</p>
+    </div>
+
+    <h2 id="t5" class="reveal"><span class="num">05</span>5. Согласие на трансграничную передачу данных</h2>
+
+    <div class="reveal">
+      <div class="highlight">
+        <strong>⚠️ ВАЖНАЯ ИНФОРМАЦИЯ</strong><br><br>
+        Персональные данные Пользователей хранятся и обрабатываются с использованием облачной инфраструктуры <strong>Firebase</strong> (Google LLC), серверы которой расположены в <strong>Европейском союзе (Франкфурт, Германия)</strong>.<br><br>
+        Давая настоящее согласие, я подтверждаю, что ознакомлен с данным фактом, понимаю последствия трансграничной передачи и <strong>не возражаю</strong> против передачи моих персональных данных на территорию Европейского союза.
+      </div>
+    </div>
+
+    <h2 id="t6" class="reveal"><span class="num">06</span>6. Срок действия согласия</h2>
+
+    <div class="reveal">
+      <p>6.1. Согласие действует со дня его предоставления до дня его отзыва субъектом персональных данных, но не более <strong>3 (трёх) лет</strong> с момента последнего взаимодействия с Сайтом.</p>
+
+      <p>6.2. Согласие может быть отозвано в любой момент путём направления письменного уведомления Оператору по адресу электронной почты <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a> или через личный кабинет на Сайте.</p>
+
+      <p>6.3. После отзыва согласия Оператор прекращает обработку персональных данных и уничтожает их в течение <strong>30 (тридцати) календарных дней</strong>, за исключением случаев, когда обработка должна быть продолжена в соответствии с законодательством РФ.</p>
+    </div>
+
+    <h2 id="t7" class="reveal"><span class="num">07</span>7. Права субъекта персональных данных</h2>
+
+    <div class="reveal">
+      <p>Я подтверждаю, что мне разъяснены мои права в соответствии со ст. 14 Федерального закона № 152-ФЗ «О персональных данных»:</p>
+
+      <ul>
+        <li>право на получение информации, касающейся обработки моих персональных данных;</li>
+        <li>право на доступ к моим персональным данным;</li>
+        <li>право на уточнение, блокирование или уничтожение данных, если они являются неполными, устаревшими, неточными, незаконно полученными или не являются необходимыми для заявленной цели обработки;</li>
+        <li>право на отзыв настоящего согласия;</li>
+        <li>право на обжалование действий Оператора в Роскомнадзоре или в судебном порядке;</li>
+        <li>право на защиту своих прав и законных интересов, включая возмещение убытков и компенсацию морального вреда.</li>
+      </ul>
+    </div>
+
+    <h2 id="t8" class="reveal"><span class="num">08</span>8. Порядок предоставления согласия</h2>
+
+    <div class="reveal">
+      <p>8.1. Согласие предоставляется путём:</p>
+
+      <ul>
+        <li>проставления отметки в соответствующем чекбоксе при регистрации на Сайте;</li>
+        <li>нажатия кнопки «Зарегистрироваться» после проставления отметок;</li>
+        <li>либо путём заполнения формы ниже.</li>
+      </ul>
+
+      <p>8.2. Дата и время предоставления согласия, а также IP-адрес субъекта фиксируются Оператором в информационной системе.</p>
+    </div>
+
+    <h2 id="t9" class="reveal"><span class="num">09</span>9. Подтверждение согласия</h2>
+
+    <div class="reveal">
+      <p>Ознакомившись с настоящим документом, я подтверждаю своё согласие на обработку персональных данных на указанных выше условиях.</p>
+    </div>
+
+    <!-- ==================== CONSENT FORM ==================== -->
+    <div class="consent-form reveal">
+      <span class="form-icon">📋</span>
+      <h2>Форма подтверждения согласия</h2>
+      <p class="form-lead">Заполните форму, чтобы зафиксировать ваше согласие</p>
+
+      <!-- Progress counter -->
+      <div class="form-progress" id="formProgress" aria-hidden="true">
+        <span class="fp-label" id="fpLabel">0 / 4</span>
+        <div class="fp-bar"><div class="fp-fill" id="fpFill"></div></div>
+      </div>
+
+      <form id="consentForm" novalidate>
+        <div class="field-row">
+          <label for="fullName">Фамилия, имя, отчество <span class="required">*</span></label>
+          <div class="field-input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="text" id="fullName" name="fullName" placeholder="Иванова Мария Сергеевна" autocomplete="name" required />
+          </div>
+          <span class="field-error" id="fullNameError"></span>
+        </div>
+
+        <div class="field-row">
+          <label for="email">Email <span class="required">*</span></label>
+          <div class="field-input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <input type="email" id="email" name="email" placeholder="example@mail.ru" autocomplete="email" required />
+          </div>
+          <span class="field-error" id="emailError"></span>
+        </div>
+
+        <div class="field-row">
+          <label for="phone">Телефон</label>
+          <div class="field-input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" />
+          </div>
+          <span class="field-error" id="phoneError"></span>
+        </div>
+
+        <div class="field-row">
+          <label for="birthDate">Дата рождения</label>
+          <div class="field-input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <input type="date" id="birthDate" name="birthDate" autocomplete="bday" />
+          </div>
+          <span class="field-error" id="birthDateError"></span>
+        </div>
+
+        <label class="checkbox-row" for="consent1">
+          <input type="checkbox" id="consent1" required />
+          <span class="checkbox-custom" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </span>
+          <span class="cb-text">
+            Я даю <strong>согласие на обработку персональных данных</strong> на условиях, изложенных в настоящем документе.
+          </span>
+        </label>
+
+        <label class="checkbox-row" for="consent2">
+          <input type="checkbox" id="consent2" required />
+          <span class="checkbox-custom" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </span>
+          <span class="cb-text">
+            Я ознакомлен(а) с <a href="privacy.html" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a> и подтверждаю своё согласие с ней.
+          </span>
+        </label>
+
+        <label class="checkbox-row" for="consent3">
+          <input type="checkbox" id="consent3" required />
+          <span class="checkbox-custom" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </span>
+          <span class="cb-text">
+            Я согласен(на) на <strong>трансграничную передачу</strong> моих персональных данных в Европейский союз (Firebase, Франкфурт), как описано в разделе 5.
+          </span>
+        </label>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <span class="btn-label">✍️ Подтвердить согласие</span>
+        </button>
+      </form>
+
+      <!-- Success state (hidden by default) -->
+      <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+        <div class="check-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3>Согласие зафиксировано</h3>
+        <p>Спасибо! Ваше согласие на обработку персональных данных сохранено. Копия отправлена на указанный email.</p>
+        <button type="button" id="resetForm">Заполнить ещё раз</button>
+      </div>
+    </div>
+
+    <h2 id="t10" class="reveal"><span class="num">10</span>10. Контакты Оператора</h2>
+
+    <div class="reveal">
+      <p>По всем вопросам, связанным с обработкой персональных данных, вы можете обратиться:</p>
+
+      <div class="contact-block">
+        <strong>Email:</strong> <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a><br>
+        <strong>Телефон:</strong> <a href="tel:+79516062001">+7 (951) 606-20-01</a><br>
+        <strong>Почтовый адрес:</strong> 650023, г. Кемерово, проспект Притомский, д. 25, кв. 68<br>
+        <strong>Фактический адрес:</strong> 650023, г. Кемерово, Пионерский бульвар, 3, офис 224
+      </div>
+
+      <p style="margin-top: 24px;">Срок рассмотрения обращений — <strong>30 (тридцать) календарных дней</strong> с момента получения.</p>
+    </div>
+
+    <!-- Footer nav -->
+    <div class="footer-nav reveal">
+      <button class="nav-chip" id="toTop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="19" x2="12" y2="5"/>
+          <polyline points="5 12 12 5 19 12"/>
+        </svg>
+        Наверх
       </button>
-    </form>
-  </div>
+      <a href="#toc" class="nav-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"/>
+          <line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/>
+          <line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+        К содержанию
+      </a>
+      <a href="#t10" class="nav-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <polyline points="19 12 12 19 5 12"/>
+        </svg>
+        В конец
+      </a>
+      <button class="nav-chip" id="printBtn2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9V2h12v7"/>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        Распечатать
+      </button>
+    </div>
 
-  <h2>10. Контакты Оператора</h2>
+    <div class="version-info">
+      <p><strong>Версия документа:</strong> <span class="ver-num">2.0</span></p>
+      <p><strong>Предыдущая версия:</strong> 1.0 (16 сентября 2026 г.)</p>
+      <p><strong>Дата публикации:</strong> 16 сентября 2026 г.</p>
+      <p><strong>Дата вступления в силу:</strong> 16 сентября 2026 г.</p>
+      <p style="margin-top: 12px; opacity: 0.7;">© 2026 ИП Мельникова Наталья Викторовна. Все права защищены.</p>
+    </div>
 
-  <p>По всем вопросам, связанным с обработкой персональных данных, вы можете обратиться:</p>
-
-  <div class="contact-block">
-    <strong>Email:</strong> <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a><br>
-    <strong>Телефон:</strong> <a href="tel:+79516062001">+7 (951) 606-20-01</a><br>
-    <strong>Почтовый адрес:</strong> 650023, г. Кемерово, проспект Притомский, д. 25, кв. 68<br>
-    <strong>Фактический адрес:</strong> 650023, г. Кемерово, Пионерский бульвар, 3, офис 224
-  </div>
-
-  <p style="margin-top: 24px;">Срок рассмотрения обращений — <strong>30 (тридцать) календарных дней</strong> с момента получения.</p>
-
-  <div class="version-info">
-    <p><strong>Версия документа:</strong> 1.0</p>
-    <p><strong>Дата публикации:</strong> 16 сентября 2026 г.</p>
-    <p><strong>Дата вступления в силу:</strong> 16 сентября 2026 г.</p>
-    <p style="margin-top: 12px; opacity: 0.7;">© 2026 ИП Мельникова Наталья Викторовна. Все права защищены.</p>
-  </div>
-
+  </main>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- Back to top -->
+<button class="back-top" id="backTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="5"/>
+    <polyline points="5 12 12 5 19 12"/>
+  </svg>
+</button>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+  <span id="toastText">Скопировано</span>
+</div>
 
 <script>
-// Показ уведомления
-function showToast(msg, isError = false) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (isError ? ' error' : '');
-  setTimeout(() => t.classList.remove('show'), 4000);
-}
+(function() {
+  'use strict';
 
-// Сохранение согласия (пока без Firebase — просто локально + сообщение)
-// Позже интегрируем с Firestore
-async function submitConsent(e) {
-  e.preventDefault();
+  /* ============================================================
+     1. THEME
+     ============================================================ */
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const themeIcon = document.getElementById('themeIcon');
+  const moonPath = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  const sunPath = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
 
-  const fullName = document.getElementById('fullName').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const c1 = document.getElementById('consent1').checked;
-  const c2 = document.getElementById('consent2').checked;
-
-  if (!fullName || !email) {
-    showToast('Заполните ФИО и email', true);
-    return;
-  }
-  if (!c1 || !c2) {
-    showToast('Поставьте обе галочки согласия', true);
-    return;
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    themeIcon.innerHTML = theme === 'dark' ? moonPath : sunPath;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0B0B0B' : '#FCF9F5');
+    try { localStorage.setItem('studiia-theme', theme); } catch (e) {}
   }
 
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.textContent = '⏳ Отправка...';
-
-  const consentData = {
-    fullName,
-    email,
-    phone,
-    consents: {
-      personalData: { granted: true, date: new Date().toISOString(), version: '1.0' },
-      privacyPolicy: { granted: true, date: new Date().toISOString(), version: '1.0' }
-    },
-    userAgent: navigator.userAgent,
-    source: 'consent-page'
-  };
-
-  try {
-    // Если Firebase уже загружен на странице — сохраняем
-    // Иначе — просто сохраняем в localStorage (позже свяжем с аккаунтом)
-    localStorage.setItem('consent_granted', JSON.stringify(consentData));
-
-    // TODO: интеграция с Firestore (сделаю в следующем шаге)
-    // await addDoc(collection(db, 'consents'), consentData);
-
-    showToast('✅ Согласие зафиксировано. Спасибо!');
-    document.getElementById('consentForm').reset();
-  } catch (err) {
-    showToast('Ошибка: ' + err.message, true);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '✍️ Подтвердить согласие';
+  let savedTheme = null;
+  try { savedTheme = localStorage.getItem('studiia-theme'); } catch (e) {}
+  if (!savedTheme) {
+    savedTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   }
-}
+  setTheme(savedTheme);
+
+  themeBtn.addEventListener('click', () => {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ============================================================
+     2. PROGRESS BAR + TOPBAR + BACKTOP
+     ============================================================ */
+  const progress = document.getElementById('progress');
+  const topbar = document.getElementById('topbar');
+  const backTop = document.getElementById('backTop');
+  let ticking = false;
+
+  function updateScroll() {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const height = h.scrollHeight - h.clientHeight;
+    const pct = height > 0 ? (scrolled / height) * 100 : 0;
+    progress.style.width = pct + '%';
+    topbar.classList.toggle('scrolled', scrolled > 20);
+    backTop.classList.toggle('visible', scrolled > 400);
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  updateScroll();
+
+  /* ============================================================
+     3. BACK TO TOP
+     ============================================================ */
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  backTop.addEventListener('click', scrollToTop);
+  const toTopChip = document.getElementById('toTop');
+  if (toTopChip) toTopChip.addEventListener('click', scrollToTop);
+
+  /* ============================================================
+     4. PRINT
+     ============================================================ */
+  function printDoc() { window.print(); }
+  const printBtn = document.getElementById('printBtn');
+  const printBtn2 = document.getElementById('printBtn2');
+  if (printBtn) printBtn.addEventListener('click', printDoc);
+  if (printBtn2) printBtn2.addEventListener('click', printDoc);
+
+  /* ============================================================
+     5. REVEAL ON SCROLL
+     ============================================================ */
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObs.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  /* ============================================================
+     6. ACTIVE TOC LINK
+     ============================================================ */
+  const tocLinks = Array.from(document.querySelectorAll('.sidebar .toc a'));
+  const sections = tocLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  if ('IntersectionObserver' in window && sections.length) {
+    const linkMap = new Map();
+    tocLinks.forEach(a => linkMap.set(a.getAttribute('href'), a));
+
+    const sectionObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = '#' + entry.target.id;
+          tocLinks.forEach(a => a.classList.remove('active'));
+          const active = linkMap.get(id);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(s => sectionObs.observe(s));
+  }
+
+  /* ============================================================
+     7. COPY BUTTONS
+     ============================================================ */
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+  let toastTimer = null;
+
+  function showToast(msg, type) {
+    toastText.textContent = msg || 'Скопировано';
+    toast.className = 'toast show' + (type ? ' ' + type : '');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+  }
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const value = btn.getAttribute('data-copy');
+      if (!value) return;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = value;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.classList.add('copied');
+        const original = btn.getAttribute('data-tooltip');
+        btn.setAttribute('data-tooltip', 'Скопировано!');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          if (original) btn.setAttribute('data-tooltip', original);
+        }, 1800);
+        showToast('Скопировано: ' + value, 'success');
+      } catch (err) {
+        showToast('Не удалось скопировать', 'error');
+      }
+    });
+  });
+
+  /* ============================================================
+     8. SMOOTH ANCHOR SCROLL WITH OFFSET
+     ============================================================ */
+  const headerH = 64;
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const rect = target.getBoundingClientRect();
+      const y = rect.top + window.pageYOffset - headerH - 20;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      const mobileToc = document.querySelector('.toc-mobile[open]');
+      if (mobileToc) mobileToc.removeAttribute('open');
+    });
+  });
+
+  /* ============================================================
+     9. MOBILE TOC — auto close on outside click
+     ============================================================ */
+  const mobileToc = document.querySelector('.toc-mobile');
+  if (mobileToc) {
+    document.addEventListener('click', (e) => {
+      if (mobileToc.hasAttribute('open') && !mobileToc.contains(e.target)) {
+        mobileToc.removeAttribute('open');
+      }
+    });
+  }
+
+  /* ============================================================
+     10. CONSENT FORM — validation, phone mask, progress
+     ============================================================ */
+  const form = document.getElementById('consentForm');
+  const fullNameInput = document.getElementById('fullName');
+  const emailInput = document.getElementById('email');
+  const phoneInput = document.getElementById('phone');
+  const birthDateInput = document.getElementById('birthDate');
+  const consent1 = document.getElementById('consent1');
+  const consent2 = document.getElementById('consent2');
+  const consent3 = document.getElementById('consent3');
+  const submitBtn = document.getElementById('submitBtn');
+  const formSuccess = document.getElementById('formSuccess');
+  const resetBtn = document.getElementById('resetForm');
+  const fpFill = document.getElementById('fpFill');
+  const fpLabel = document.getElementById('fpLabel');
+
+  const DRAFT_KEY = 'studiia-consent-draft';
+  const TOTAL_FIELDS = 4;
+
+  // --- Phone mask ---
+  function formatPhone(value) {
+    const digits = value.replace(/\D/g, '').slice(0, 11);
+    if (!digits) return '';
+    let out = '+7';
+    if (digits.length > 1) {
+      const rest = digits[0] === '7' || digits[0] === '8' ? digits.slice(1) : digits;
+      if (rest.length > 0) out += ' (' + rest.slice(0, 3);
+      if (rest.length >= 3) out += ')';
+      if (rest.length > 3) out += ' ' + rest.slice(3, 6);
+      if (rest.length > 6) out += '-' + rest.slice(6, 8);
+      if (rest.length > 8) out += '-' + rest.slice(8, 10);
+    }
+    return out;
+  }
+
+  phoneInput.addEventListener('input', (e) => {
+    const pos = e.target.selectionStart;
+    const before = e.target.value;
+    const formatted = formatPhone(before);
+    e.target.value = formatted;
+    // maintain cursor reasonably
+    if (formatted.length > before.length && pos === before.length) {
+      e.target.setSelectionRange(formatted.length, formatted.length);
+    }
+    validatePhone();
+    updateProgress();
+    saveDraft();
+  });
+  phoneInput.addEventListener('focus', () => {
+    if (!phoneInput.value) phoneInput.value = '+7 (';
+    setTimeout(() => phoneInput.setSelectionRange(phoneInput.value.length, phoneInput.value.length), 0);
+  });
+  phoneInput.addEventListener('blur', () => {
+    if (phoneInput.value === '+7 (' || phoneInput.value === '+7') phoneInput.value = '';
+    validatePhone();
+  });
+
+  // --- Validation ---
+  function setFieldState(input, errorEl, isValid, message) {
+    if (input.value.trim() === '' && !message) {
+      input.classList.remove('valid', 'invalid');
+      errorEl.classList.remove('show');
+      errorEl.textContent = '';
+      return;
+    }
+    if (isValid) {
+      input.classList.add('valid');
+      input.classList.remove('invalid');
+      errorEl.classList.remove('show');
+      errorEl.textContent = '';
+    } else {
+      input.classList.add('invalid');
+      input.classList.remove('valid');
+      errorEl.textContent = message || '';
+      errorEl.classList.toggle('show', !!message);
+    }
+  }
+
+  function validateName() {
+    const v = fullNameInput.value.trim();
+    const ok = v.length >= 2 && /[а-яёa-z]/i.test(v) && !/\d/.test(v);
+    setFieldState(fullNameInput, document.getElementById('fullNameError'), ok,
+      v.length < 2 ? 'Введите имя (минимум 2 символа)' : 'Имя не должно содержать цифр');
+    return ok;
+  }
+
+  function validateEmail() {
+    const v = emailInput.value.trim();
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const ok = re.test(v);
+    setFieldState(emailInput, document.getElementById('emailError'), ok,
+      'Введите корректный email');
+    return ok;
+  }
+
+  function validatePhone() {
+    const v = phoneInput.value.trim();
+    if (!v) {
+      phoneInput.classList.remove('valid', 'invalid');
+      document.getElementById('phoneError').classList.remove('show');
+      return true; // optional
+    }
+    const digits = v.replace(/\D/g, '');
+    const ok = digits.length === 11;
+    setFieldState(phoneInput, document.getElementById('phoneError'), ok,
+      'Введите номер полностью: +7 (XXX) XXX-XX-XX');
+    return ok;
+  }
+
+  function validateBirthDate() {
+    const v = birthDateInput.value;
+    if (!v) {
+      birthDateInput.classList.remove('valid', 'invalid');
+      return true;
+    }
+    const year = new Date(v).getFullYear();
+    const ok = year >= 1900 && year <= new Date().getFullYear();
+    setFieldState(birthDateInput, document.getElementById('birthDateError'), ok,
+      'Введите корректную дату');
+    return ok;
+  }
+
+  // --- Progress ---
+  function updateProgress() {
+    let filled = 0;
+    if (fullNameInput.value.trim() && validateName()) filled++;
+    if (emailInput.value.trim() && validateEmail()) filled++;
+    if (phoneInput.value.trim() && validatePhone()) filled++;
+    if (consent1.checked) filled++;
+
+    const pct = (filled / TOTAL_FIELDS) * 100;
+    fpFill.style.width = pct + '%';
+    fpLabel.textContent = filled + ' / ' + TOTAL_FIELDS;
+  }
+
+  // --- Checkbox row visual state ---
+  [consent1, consent2, consent3].forEach(cb => {
+    const row = cb.closest('.checkbox-row');
+    function sync() { row.classList.toggle('checked', cb.checked); }
+    cb.addEventListener('change', () => { sync(); updateProgress(); saveDraft(); });
+    sync();
+  });
+
+  // --- Input listeners ---
+  fullNameInput.addEventListener('input', () => { validateName(); updateProgress(); saveDraft(); });
+  fullNameInput.addEventListener('blur', validateName);
+  emailInput.addEventListener('input', () => { validateEmail(); updateProgress(); saveDraft(); });
+  emailInput.addEventListener('blur', validateEmail);
+  birthDateInput.addEventListener('change', () => { validateBirthDate(); saveDraft(); });
+
+  // --- Draft save/restore ---
+  function saveDraft() {
+    try {
+      const draft = {
+        fullName: fullNameInput.value,
+        email: emailInput.value,
+        phone: phoneInput.value,
+        birthDate: birthDateInput.value,
+        c1: consent1.checked,
+        c2: consent2.checked,
+        c3: consent3.checked,
+        savedAt: Date.now()
+      };
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    } catch (e) {}
+  }
+
+  function restoreDraft() {
+    try {
+      const raw = localStorage.getItem(DRAFT_KEY);
+      if (!raw) return;
+      const d = JSON.parse(raw);
+      // актуально в течение 7 дней
+      if (d.savedAt && Date.now() - d.savedAt > 7 * 24 * 60 * 60 * 1000) {
+        localStorage.removeItem(DRAFT_KEY);
+        return;
+      }
+      if (d.fullName) fullNameInput.value = d.fullName;
+      if (d.email) emailInput.value = d.email;
+      if (d.phone) phoneInput.value = d.phone;
+      if (d.birthDate) birthDateInput.value = d.birthDate;
+      if (d.c1) consent1.checked = true;
+      if (d.c2) consent2.checked = true;
+      if (d.c3) consent3.checked = true;
+      [consent1, consent2, consent3].forEach(cb => {
+        cb.closest('.checkbox-row').classList.toggle('checked', cb.checked);
+      });
+    } catch (e) {}
+  }
+  restoreDraft();
+  updateProgress();
+
+  // --- Submit ---
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const okName = validateName();
+    const okEmail = validateEmail();
+    const okPhone = validatePhone();
+    const okDate = validateBirthDate();
+    const okConsents = consent1.checked && consent2.checked && consent3.checked;
+
+    if (!okName || !okEmail || !okPhone || !okDate) {
+      showToast('Проверьте правильность заполнения полей', 'error');
+      const firstInvalid = form.querySelector('input.invalid');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+    if (!okConsents) {
+      showToast('Поставьте все три галочки согласия', 'error');
+      return;
+    }
+
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    const label = submitBtn.querySelector('.btn-label');
+    const originalLabel = label.textContent;
+    label.textContent = 'Отправка...';
+
+    const consentData = {
+      fullName: fullNameInput.value.trim(),
+      email: emailInput.value.trim(),
+      phone: phoneInput.value.trim(),
+      birthDate: birthDateInput.value || null,
+      consents: {
+        personalData: { granted: true, date: new Date().toISOString(), version: '2.0' },
+        privacyPolicy: { granted: true, date: new Date().toISOString(), version: '2.0' },
+        crossBorder: { granted: true, date: new Date().toISOString(), version: '2.0' }
+      },
+      userAgent: navigator.userAgent,
+      source: 'consent-page',
+      pageUrl: location.href
+    };
+
+    try {
+      // Имитация запроса (позже — интеграция с Firebase/Firestore)
+      await new Promise(resolve => setTimeout(resolve, 900));
+
+      localStorage.setItem('consent_granted', JSON.stringify(consentData));
+      localStorage.removeItem(DRAFT_KEY);
+
+      // TODO: интеграция с Firestore
+      // await addDoc(collection(db, 'consents'), consentData);
+
+      // Показываем success
+      form.style.display = 'none';
+      document.querySelector('.form-progress').style.display = 'none';
+      formSuccess.classList.add('show');
+      showToast('Согласие зафиксировано. Спасибо!', 'success');
+    } catch (err) {
+      showToast('Ошибка: ' + err.message, 'error');
+    } finally {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+      label.textContent = originalLabel;
+    }
+  });
+
+  // --- Reset ---
+  resetBtn.addEventListener('click', () => {
+    form.reset();
+    [consent1, consent2, consent3].forEach(cb => {
+      cb.closest('.checkbox-row').classList.remove('checked');
+    });
+    [fullNameInput, emailInput, phoneInput, birthDateInput].forEach(inp => {
+      inp.classList.remove('valid', 'invalid');
+    });
+    formSuccess.classList.remove('show');
+    form.style.display = '';
+    document.querySelector('.form-progress').style.display = '';
+    updateProgress();
+    localStorage.removeItem(DRAFT_KEY);
+    fullNameInput.focus();
+  });
+
+  /* ============================================================
+     11. KEYBOARD SHORTCUTS
+     ============================================================ */
+  document.addEventListener('keydown', (e) => {
+    if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === 't') {
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      scrollToTop();
+    }
+  });
+
+})();
 </script>
 </body>
 </html>
