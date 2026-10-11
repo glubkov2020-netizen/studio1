@@ -6,68 +6,351 @@
 <title>Политика конфиденциальности — Студия №1</title>
 <meta name="description" content="Политика в отношении обработки персональных данных ИП Мельникова Н.В. (Студия №1, Кемерово)" />
 <meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#0B0B0B" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
 <style>
+/* ============================================================
+   STUDIO №1 — Политика конфиденциальности v2.0
+   ============================================================ */
+
 :root {
-  --bg-primary: #0D0D0D;
-  --bg-secondary: #161616;
+  --bg-primary: #0B0B0B;
+  --bg-secondary: #141414;
+  --bg-elevated: #1A1A1A;
   --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
   --text-primary: #F0EBE6;
-  --text-secondary: #D0CBC6;
+  --text-secondary: #CFCAC5;
   --text-muted: #8A8580;
   --border-color: rgba(201, 169, 110, 0.15);
+  --border-gold: rgba(201, 169, 110, 0.45);
   --gold: #C9A96E;
   --gold-light: #E8D5A8;
+  --gold-dark: #A8894E;
+  --gold-glow: rgba(201, 169, 110, 0.25);
   --gold-gradient: linear-gradient(135deg, #C9A96E, #E8D5A8, #C9A96E);
+  --gold-gradient-soft: linear-gradient(135deg, rgba(201,169,110,0.15), rgba(232,213,168,0.05));
+  --danger: #E74C3C;
+  --danger-bg: rgba(231, 76, 60, 0.08);
+  --success: #27AE60;
+  --success-bg: rgba(39, 174, 96, 0.12);
+  --shadow-soft: 0 4px 24px rgba(0,0,0,0.35);
+  --shadow-elevated: 0 12px 40px rgba(0,0,0,0.45);
+  --shadow-gold: 0 0 32px rgba(201, 169, 110, 0.18);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
+  --radius-pill: 999px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s var(--ease);
+  --transition: 0.35s var(--ease);
+  --transition-slow: 0.6s var(--ease-out);
+  --header-h: 64px;
 }
+
 [data-theme="light"] {
   --bg-primary: #FCF9F5;
-  --bg-secondary: #F8F5F0;
-  --bg-card: rgba(0, 0, 0, 0.02);
-  --text-primary: #1E1E1E;
+  --bg-secondary: #F6F2EC;
+  --bg-elevated: #FFFFFF;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --text-primary: #1A1A1A;
   --text-secondary: #3D3D3D;
   --text-muted: #7A7A7A;
-  --border-color: rgba(201, 169, 110, 0.2);
+  --border-color: rgba(201, 169, 110, 0.25);
+  --border-gold: rgba(201, 169, 110, 0.55);
+  --gold-dark: #8A6E3A;
+  --shadow-soft: 0 4px 24px rgba(120, 90, 40, 0.08);
+  --shadow-elevated: 0 12px 40px rgba(120, 90, 40, 0.12);
+  --shadow-gold: 0 0 32px rgba(201, 169, 110, 0.22);
+  --danger-bg: rgba(231, 76, 60, 0.07);
 }
+
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
   color: var(--text-primary);
   background: var(--bg-primary);
-  line-height: 1.7;
+  line-height: 1.75;
   min-height: 100vh;
-  padding: 40px 20px 80px;
-  background-image: radial-gradient(ellipse at 15% 25%, rgba(201, 169, 110, 0.08) 0%, transparent 55%),
-                    radial-gradient(ellipse at 85% 70%, rgba(201, 169, 110, 0.05) 0%, transparent 50%);
+  padding: 0 20px 100px;
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(201, 169, 110, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 60%, rgba(201, 169, 110, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(201, 169, 110, 0.05) 0%, transparent 60%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  transition: background-color var(--transition), color var(--transition);
 }
-.container { max-width: 900px; margin: 0 auto; }
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--gold);
+
+/* ---------- Progress bar ---------- */
+.read-progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px; width: 0%;
+  background: var(--gold-gradient);
+  z-index: 1000;
+  transition: width 0.08s linear;
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+/* ---------- Sticky Header ---------- */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  background: color-mix(in srgb, var(--bg-primary) 78%, transparent);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid transparent;
+  z-index: 900;
+  transition: border-color var(--transition), background var(--transition);
+}
+.topbar.scrolled {
+  border-bottom-color: var(--border-color);
+  background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+}
+.topbar-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700; font-size: 19px; letter-spacing: 0.4px;
+  color: var(--text-primary);
   text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 30px;
-  padding: 8px 16px;
-  border: 1px solid var(--border-color);
-  border-radius: 30px;
-  transition: all 0.3s;
 }
+.topbar-brand .brand-mark {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--gold-gradient);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #0D0D0D; font-size: 12px; font-weight: 800;
+  box-shadow: var(--shadow-gold);
+  font-family: 'Inter', sans-serif;
+}
+.topbar-brand span.gold {
+  background: var(--gold-gradient); background-size: 300% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; animation: shimmer 8s ease-in-out infinite;
+}
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
+
+/* ---------- Icon buttons ---------- */
+.icon-btn {
+  width: 42px; height: 42px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--gold);
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.icon-btn:hover {
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+.icon-btn:active { transform: translateY(0) scale(0.96); }
+.icon-btn svg { width: 18px; height: 18px; transition: transform var(--transition); }
+.icon-btn:hover svg { transform: rotate(-8deg) scale(1.08); }
+
+/* ---------- Layout ---------- */
+.layout {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-top: calc(var(--header-h) + 40px);
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.content { min-width: 0; max-width: 900px; }
+
+/* ---------- Sidebar / TOC ---------- */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  max-height: calc(100vh - var(--header-h) - 48px);
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-gold) transparent;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-gold); border-radius: 4px; }
+
+.toc {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px 22px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.toc::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold-gradient); opacity: 0.7;
+}
+.toc::after {
+  content: ''; position: absolute; top: -50px; right: -50px;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  pointer-events: none;
+  opacity: 0.5;
+}
+.toc-title {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2.2px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  position: relative; z-index: 1;
+}
+.toc-title .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 0 var(--gold-glow);
+  animation: pulseDot 2.4s var(--ease) infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 var(--gold-glow); }
+  50%      { box-shadow: 0 0 0 8px transparent; }
+}
+
+.toc ol {
+  list-style: none;
+  counter-reset: toc;
+  margin: 0;
+  position: relative; z-index: 1;
+}
+.toc li {
+  counter-increment: toc;
+  margin-bottom: 3px;
+}
+.toc a {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  text-decoration: none;
+  line-height: 1.45;
+  transition: all var(--transition-fast);
+  position: relative;
+  border-left: 2px solid transparent;
+}
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  color: var(--gold-dark);
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  min-width: 22px;
+  letter-spacing: 0.5px;
+  transition: color var(--transition-fast);
+  padding-top: 2px;
+}
+.toc a:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+.toc a:hover::before { color: var(--gold); }
+.toc a.active {
+  background: var(--gold-gradient-soft);
+  border-left-color: var(--gold);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.toc a.active::before { color: var(--gold-light); }
+
+/* Mobile TOC */
+.toc-mobile {
+  display: none;
+  margin: 0 0 32px;
+}
+
+/* ---------- Back link ---------- */
+.back-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--gold); text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  margin-bottom: 28px;
+  padding: 10px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  transition: all var(--transition);
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+.back-link::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(232,213,168,0.12), transparent);
+  transition: left 0.7s var(--ease);
+}
+.back-link:hover::before { left: 100%; }
 .back-link:hover {
   background: var(--gold);
-  color: #000;
+  color: #0D0D0D;
   border-color: var(--gold);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
 }
+.back-link svg { transition: transform var(--transition); }
+.back-link:hover svg { transform: translateX(-4px); }
+
+/* ---------- Header ---------- */
+.doc-header {
+  position: relative;
+  padding-bottom: 32px;
+  margin-bottom: 36px;
+  border-bottom: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.9s var(--ease-out) 0.05s forwards;
+}
+.doc-header::after {
+  content: '';
+  position: absolute; bottom: -1px; left: 0;
+  width: 80px; height: 2px;
+  background: var(--gold-gradient);
+}
+.header-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: var(--gold);
+  padding: 7px 14px;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-pill);
+  background: var(--gold-gradient-soft);
+  margin-bottom: 18px;
+}
+.header-badge .live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
+  animation: pulseDot 2.4s var(--ease) infinite;
+}
+
 h1 {
-  font-size: clamp(24px, 5vw, 38px);
-  font-weight: 800;
-  margin-bottom: 8px;
-  line-height: 1.2;
+  font-family: 'Cormorant Garamond', 'Inter', serif;
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 700;
+  margin-bottom: 14px;
+  line-height: 1.1;
+  letter-spacing: -0.6px;
 }
 h1 span {
   background: var(--gold-gradient);
@@ -75,311 +358,1788 @@ h1 span {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer 6s ease-in-out infinite;
+  animation: shimmer 8s ease-in-out infinite;
+  font-style: italic;
+  font-weight: 600;
 }
-@keyframes shimmer { 0%,100% { background-position: 0% center; } 50% { background-position: 200% center; } }
+@keyframes shimmer {
+  0%, 100% { background-position: 0% center; }
+  50%      { background-position: 200% center; }
+}
+
 .subtitle {
   color: var(--text-muted);
-  font-size: 14px;
-  margin-bottom: 40px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--border-color);
+  font-size: 15px;
+  display: flex; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+  line-height: 1.6;
 }
+.subtitle::before {
+  content: '';
+  display: inline-block;
+  width: 28px; height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ---------- Summary cards ---------- */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 0 0 36px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s var(--ease-out) 0.2s forwards;
+}
+.summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px 18px 16px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+.summary-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 100% 0%, var(--gold-glow), transparent 60%);
+  opacity: 0; transition: opacity var(--transition);
+  pointer-events: none;
+}
+.summary-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-soft);
+}
+.summary-card:hover::before { opacity: 0.6; }
+.summary-card .s-icon {
+  width: 34px; height: 34px;
+  border-radius: var(--radius-sm);
+  background: var(--gold-gradient-soft);
+  border: 1px solid var(--border-gold);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  margin-bottom: 12px;
+  transition: transform var(--transition);
+}
+.summary-card:hover .s-icon { transform: rotate(-8deg) scale(1.05); }
+.summary-card .s-icon svg { width: 16px; height: 16px; }
+.summary-card .s-title {
+  font-size: 13px; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  letter-spacing: 0.2px;
+}
+.summary-card .s-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ---------- Quick links / mini nav ---------- */
+.quick-nav {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin: 0 0 36px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.9s var(--ease-out) 0.35s forwards;
+}
+.quick-nav a {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+.quick-nav a:hover {
+  color: var(--gold);
+  border-color: var(--border-gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+.quick-nav a::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold-glow);
+}
+
+/* ---------- Document meta ---------- */
 .doc-meta {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 16px 20px;
-  margin-bottom: 32px;
-  font-size: 13px;
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 40px;
+  font-size: 13.5px;
   color: var(--text-secondary);
-  line-height: 1.8;
+  line-height: 2;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
-.doc-meta strong { color: var(--gold); }
+.doc-meta::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold-gradient);
+}
+.doc-meta::after {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  opacity: 0.35; pointer-events: none;
+}
+.doc-meta:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-soft);
+}
+.doc-meta-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 8px;
+  align-items: baseline;
+  padding: 4px 0;
+  position: relative; z-index: 1;
+}
+.doc-meta-row + .doc-meta-row { border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 4px; }
+.doc-meta strong { color: var(--gold); font-weight: 600; }
+.doc-meta a {
+  color: var(--gold-light);
+  position: relative;
+  display: inline-block;
+  transition: color var(--transition-fast);
+}
+.doc-meta a::after {
+  content: ''; position: absolute; left: 0; bottom: -1px;
+  width: 0; height: 1px; background: var(--gold-light);
+  transition: width var(--transition);
+}
+.doc-meta a:hover { color: var(--gold); }
+.doc-meta a:hover::after { width: 100%; }
+
+/* copy mini button */
+.copy-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-left: 6px;
+  vertical-align: middle;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+.copy-btn svg { width: 11px; height: 11px; }
+.copy-btn:hover {
+  color: var(--gold);
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+}
+.copy-btn.copied {
+  color: var(--success);
+  border-color: rgba(39, 174, 96, 0.5);
+}
+.copy-btn::after {
+  content: attr(data-tooltip);
+  position: absolute; bottom: calc(100% + 6px); left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  border: 1px solid var(--border-color);
+  z-index: 10;
+}
+.copy-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---------- Headings ---------- */
 h2 {
-  font-size: clamp(18px, 3vw, 22px);
+  font-size: clamp(20px, 3.2vw, 26px);
   font-weight: 700;
   color: var(--text-primary);
-  margin: 36px 0 16px;
-  padding-left: 16px;
-  border-left: 3px solid var(--gold);
+  margin: 56px 0 20px;
+  padding-left: 52px;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+  scroll-margin-top: calc(var(--header-h) + 24px);
+  position: relative;
+  display: flex; align-items: center; gap: 14px;
+  transition: color var(--transition-fast);
 }
+h2 .num {
+  position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--gold-gradient-soft);
+  border: 1px solid var(--border-gold);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 800;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  flex-shrink: 0;
+  transition: all var(--transition);
+  box-shadow: 0 0 0 0 var(--gold-glow);
+}
+h2:hover .num {
+  background: var(--gold);
+  color: #0D0D0D;
+  transform: translateY(-50%) rotate(-8deg) scale(1.06);
+  box-shadow: 0 0 0 6px var(--gold-glow);
+}
+h2::after {
+  content: '';
+  position: absolute; left: 52px; bottom: -10px;
+  width: 48px; height: 2px;
+  background: var(--gold-gradient);
+  border-radius: 2px;
+  transition: width var(--transition);
+}
+h2:hover::after { width: 90px; }
+
 h3 {
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 17px; font-weight: 600;
   color: var(--text-primary);
-  margin: 24px 0 12px;
+  margin: 30px 0 14px;
+  letter-spacing: -0.2px;
+  display: flex; align-items: center; gap: 10px;
 }
-p { margin-bottom: 14px; color: var(--text-secondary); }
-ul, ol { margin: 12px 0 16px 24px; color: var(--text-secondary); }
-li { margin-bottom: 8px; }
+h3::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+
+/* ---------- Text ---------- */
+p {
+  margin-bottom: 15px;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+ul, ol {
+  margin: 15px 0 20px 26px;
+  color: var(--text-secondary);
+}
+ul { list-style: none; margin-left: 0; }
+ul li {
+  margin-bottom: 10px;
+  padding-left: 22px;
+  position: relative;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+ul li::before {
+  content: '';
+  position: absolute; left: 0; top: 12px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold-dark);
+  transition: all var(--transition-fast);
+}
+ul li:hover { color: var(--text-primary); }
+ul li:hover::before {
+  background: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-glow);
+  transform: scale(1.2);
+}
+ol li { margin-bottom: 8px; padding-left: 4px; }
+ol li::marker { color: var(--gold-dark); font-weight: 600; }
 strong { color: var(--text-primary); font-weight: 600; }
+
+/* inline links */
+p a, li a:not(.toc a) {
+  color: var(--gold);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: color var(--transition-fast);
+}
+p a::after, li a:not(.toc a)::after {
+  content: '';
+  position: absolute; left: 0; bottom: 1px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform var(--transition);
+}
+p a:hover, li a:not(.toc a):hover {
+  color: var(--gold-light);
+}
+p a:hover::after, li a:not(.toc a):hover::after {
+  transform-origin: left;
+  animation: linkSlide 0.6s var(--ease);
+}
+@keyframes linkSlide {
+  0% { transform: scaleX(1); transform-origin: right; }
+  50% { transform: scaleX(0); transform-origin: right; }
+  51% { transform: scaleX(0); transform-origin: left; }
+  100% { transform: scaleX(1); transform-origin: left; }
+}
+
+/* ---------- Callouts ---------- */
+.highlight,
+.warning-box {
+  padding: 20px 24px 20px 56px;
+  border-radius: var(--radius-md);
+  margin: 24px 0;
+  font-size: 14px;
+  line-height: 1.75;
+  position: relative;
+  border-left-width: 3px;
+  border-left-style: solid;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.highlight::before,
+.warning-box::before {
+  position: absolute; left: 20px; top: 20px;
+  font-size: 20px; line-height: 1;
+}
 .highlight {
   background: rgba(201, 169, 110, 0.08);
-  border-left: 3px solid var(--gold);
-  padding: 14px 18px;
-  border-radius: 8px;
-  margin: 16px 0;
-  font-size: 14px;
+  border-left-color: var(--gold);
+}
+.highlight::before { content: '💡'; }
+.warning-box {
+  background: var(--danger-bg);
+  border-left-color: var(--danger);
+}
+.warning-box::before { content: '⚠️'; }
+.warning-box strong { color: var(--danger); }
+.highlight:hover,
+.warning-box:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* ---------- Table ---------- */
+.table-wrap {
+  margin: 24px 0 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+}
+.table-wrap::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold-gradient); opacity: 0.6;
 }
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 16px 0;
   font-size: 14px;
-  background: var(--bg-card);
-  border-radius: 8px;
-  overflow: hidden;
 }
 th, td {
-  padding: 12px 14px;
+  padding: 14px 16px;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
+  vertical-align: top;
 }
 th {
-  background: rgba(201, 169, 110, 0.1);
+  background: rgba(201, 169, 110, 0.08);
   color: var(--gold);
   font-weight: 700;
-  font-size: 12px;
+  font-size: 11.5px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.2px;
+  white-space: nowrap;
 }
 td { color: var(--text-secondary); }
+td:first-child {
+  color: var(--text-primary);
+  font-weight: 600;
+  white-space: nowrap;
+}
 tr:last-child td { border-bottom: none; }
+tbody tr {
+  transition: background var(--transition-fast);
+  position: relative;
+}
+tbody tr:hover {
+  background: var(--bg-card-hover);
+}
+tbody tr:hover td:first-child {
+  color: var(--gold);
+}
+.cat-emoji {
+  margin-right: 8px;
+  filter: drop-shadow(0 0 6px var(--gold-glow));
+}
+/* cascade reveal for rows */
+tbody tr {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), background var(--transition-fast);
+}
+.table-wrap.in tbody tr { opacity: 1; transform: translateY(0); }
+.table-wrap.in tbody tr:nth-child(1) { transition-delay: 0.05s; }
+.table-wrap.in tbody tr:nth-child(2) { transition-delay: 0.10s; }
+.table-wrap.in tbody tr:nth-child(3) { transition-delay: 0.15s; }
+.table-wrap.in tbody tr:nth-child(4) { transition-delay: 0.20s; }
+.table-wrap.in tbody tr:nth-child(5) { transition-delay: 0.25s; }
+
+/* ---------- Rights cards (details/summary) ---------- */
+.rights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin: 20px 0 24px;
+}
+.right-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0;
+  overflow: hidden;
+  transition: all var(--transition);
+  position: relative;
+}
+.right-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; bottom: 0;
+  width: 3px; background: var(--gold-gradient);
+  opacity: 0; transition: opacity var(--transition);
+}
+.right-card:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+.right-card:hover::before { opacity: 1; }
+.right-card summary {
+  cursor: pointer;
+  padding: 16px 18px 16px 46px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  list-style: none;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+.right-card summary::-webkit-details-marker { display: none; }
+.right-card summary::before {
+  content: '';
+  position: absolute; left: 18px; top: 50%;
+  width: 18px; height: 18px;
+  transform: translateY(-50%);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9A96E' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: transform var(--transition);
+}
+.right-card[open] summary::before {
+  transform: translateY(-50%) rotate(-180deg);
+}
+.right-card[open] summary {
+  color: var(--gold);
+  border-bottom: 1px solid var(--border-color);
+}
+.right-card .rc-body {
+  padding: 14px 20px 18px 46px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  animation: fadeUp 0.4s var(--ease-out);
+}
+
+/* ---------- Data flow diagram ---------- */
+.data-flow {
+  margin: 28px 0;
+  padding: 28px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.data-flow::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold-gradient); opacity: 0.7;
+}
+.flow-title {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.flow-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; flex-wrap: wrap;
+}
+.flow-node {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px;
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  min-width: 120px;
+  transition: all var(--transition);
+  position: relative;
+}
+.flow-node:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+}
+.flow-node .fn-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--gold-gradient-soft);
+  border: 1px solid var(--border-gold);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--gold);
+}
+.flow-node .fn-icon svg { width: 18px; height: 18px; }
+.flow-node .fn-label {
+  font-size: 12.5px; font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.flow-node .fn-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+.flow-arrow {
+  color: var(--gold);
+  display: inline-flex; align-items: center;
+  animation: flowArrow 1.8s var(--ease) infinite;
+}
+.flow-arrow svg { width: 24px; height: 24px; }
+@keyframes flowArrow {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50%      { transform: translateX(4px); opacity: 1; }
+}
+
+/* ---------- CTA: withdraw consent ---------- */
+.cta-withdraw {
+  margin: 28px 0;
+  padding: 24px 26px;
+  background: var(--gold-gradient-soft);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  display: flex; flex-direction: column; gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-withdraw::before {
+  content: '';
+  position: absolute; top: -30px; right: -30px;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  opacity: 0.5; pointer-events: none;
+}
+.cta-withdraw h4 {
+  font-size: 15px; font-weight: 700;
+  color: var(--text-primary);
+  display: flex; align-items: center; gap: 10px;
+}
+.cta-withdraw h4 svg { width: 18px; height: 18px; color: var(--gold); }
+.cta-withdraw p {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  align-self: flex-start;
+  padding: 11px 22px;
+  background: var(--gold-gradient);
+  background-size: 200% auto;
+  color: #0D0D0D;
+  font-size: 13.5px;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+  box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(201, 169, 110, 0.5);
+  background-position: right center;
+}
+.cta-btn svg { width: 14px; height: 14px; }
+
+/* ---------- Contact block ---------- */
 .contact-block {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin-top: 24px;
-  font-size: 14px;
+  border-radius: var(--radius-lg);
+  padding: 30px 34px;
+  margin-top: 28px;
+  font-size: 14.5px;
+  line-height: 2;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
 }
-.contact-block a { color: var(--gold); text-decoration: none; }
-.contact-block a:hover { text-decoration: underline; }
+.contact-block::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold-gradient);
+  opacity: 0.8;
+}
+.contact-block::after {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  opacity: 0.45; pointer-events: none;
+  transition: opacity var(--transition);
+}
+.contact-block:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-3px);
+}
+.contact-block:hover::after { opacity: 0.7; }
+.contact-block a { color: var(--gold); text-decoration: none; transition: color var(--transition-fast); }
+.contact-block a:hover { color: var(--gold-light); text-decoration: underline; }
+.contact-block strong { color: var(--gold); }
+
+/* ---------- Version info ---------- */
 .version-info {
-  margin-top: 48px;
-  padding-top: 24px;
+  margin-top: 64px;
+  padding: 32px 24px 0;
   border-top: 1px solid var(--border-color);
   font-size: 13px;
   color: var(--text-muted);
   text-align: center;
+  line-height: 1.9;
+  position: relative;
 }
-@media (max-width: 600px) {
-  body { padding: 20px 14px 60px; }
-  h2 { padding-left: 12px; }
-  table { font-size: 12px; }
-  th, td { padding: 8px 10px; }
+.version-info::before {
+  content: '';
+  position: absolute; top: -1px; left: 50%;
+  transform: translateX(-50%);
+  width: 80px; height: 2px;
+  background: var(--gold-gradient);
+}
+.version-info p { color: var(--text-muted); margin-bottom: 4px; }
+.version-info strong { color: var(--text-secondary); font-weight: 500; }
+.version-info .ver-num {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-pill);
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Back to top ---------- */
+.back-top {
+  position: fixed;
+  right: 24px; bottom: 24px;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  color: #0D0D0D;
+  border: none;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-elevated), 0 0 0 0 var(--gold-glow);
+  opacity: 0;
+  transform: translateY(20px) scale(0.85);
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+  z-index: 800;
+}
+.back-top.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.back-top:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-elevated), 0 0 0 8px var(--gold-glow);
+}
+.back-top:active { transform: translateY(-2px) scale(0.98); }
+.back-top svg { width: 20px; height: 20px; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%; bottom: 32px;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-gold);
+  color: var(--text-primary);
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 13.5px;
+  font-weight: 500;
+  box-shadow: var(--shadow-elevated);
+  opacity: 0;
+  transition: opacity var(--transition), transform var(--transition-slow);
+  z-index: 1200;
+  display: flex; align-items: center; gap: 10px;
+  pointer-events: none;
+  max-width: calc(100% - 32px);
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast svg { width: 16px; height: 16px; flex-shrink: 0; }
+.toast.success { border-color: rgba(39, 174, 96, 0.6); }
+.toast.success svg { color: var(--success); }
+.toast.error { border-color: rgba(231, 76, 60, 0.6); }
+.toast.error svg { color: var(--danger); }
+
+/* ---------- Section reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Footer nav ---------- */
+.footer-nav {
+  margin: 48px 0 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--border-color);
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center;
+}
+.nav-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 13px; font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition);
+  cursor: pointer;
+  font-family: inherit;
+}
+.nav-chip:hover {
+  border-color: var(--border-gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+.nav-chip svg { width: 14px; height: 14px; }
+
+/* ---------- Animations ---------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: calc(var(--header-h) + 24px);
+  }
+  .sidebar { display: none; }
+  .content { max-width: 100%; }
+  .toc-mobile {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 6px 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .toc-mobile::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--gold-gradient); opacity: 0.7;
+  }
+  .toc-mobile summary {
+    cursor: pointer;
+    padding: 14px 14px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--gold);
+    list-style: none;
+    transition: color var(--transition-fast);
+  }
+  .toc-mobile summary::-webkit-details-marker { display: none; }
+  .toc-mobile summary::after {
+    content: '';
+    margin-left: auto;
+    width: 8px; height: 8px;
+    border-right: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform var(--transition);
+  }
+  .toc-mobile[open] summary::after {
+    transform: rotate(-135deg) translateY(-2px);
+  }
+  .toc-mobile ol { margin: 4px 12px 14px; }
+  .toc-mobile ol li { margin-bottom: 6px; }
+}
+
+@media (max-width: 700px) {
+  /* Table -> cards */
+  .table-wrap { background: transparent; border: none; }
+  .table-wrap::before { display: none; }
+  table, thead, tbody, tr, th, td { display: block; width: 100%; }
+  thead { display: none; }
+  tbody tr {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  tbody tr::before {
+    content: '';
+    position: absolute; top: 0; left: 0; bottom: 0;
+    width: 3px; background: var(--gold-gradient);
+  }
+  tbody tr:hover { border-color: var(--border-gold); }
+  td {
+    padding: 6px 0 6px 14px;
+    border: none;
+    position: relative;
+  }
+  td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  td:first-child { padding-top: 4px; }
+}
+
+@media (max-width: 640px) {
+  body { padding: 0 14px 80px; font-size: 15px; }
+  .topbar { padding: 0 14px; }
+  .topbar-brand { font-size: 16px; }
+  .topbar-brand span:not(.gold) { display: none; }
+  h2 { padding-left: 46px; margin-top: 44px; }
+  h2 .num { width: 34px; height: 34px; font-size: 12px; }
+  h2::after { left: 46px; }
+  h3 { font-size: 16px; }
+  .doc-meta { padding: 20px 22px; font-size: 13px; }
+  .doc-meta-row { grid-template-columns: 1fr; gap: 2px; }
+  .contact-block { padding: 24px 22px; }
+  .back-top { right: 16px; bottom: 16px; width: 44px; height: 44px; }
+  .summary { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .summary-card { padding: 14px 14px 12px; }
+  .icon-btn { width: 38px; height: 38px; }
+  .icon-btn svg { width: 16px; height: 16px; }
+  .footer-nav { gap: 8px; }
+  .nav-chip { font-size: 12px; padding: 8px 14px; }
+  .rights-grid { grid-template-columns: 1fr; }
+  .flow-row { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); }
+  .flow-arrow svg { transform: rotate(90deg); }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .doc-header, .summary, .quick-nav { opacity: 1; transform: none; }
+  tbody tr { opacity: 1; transform: none; }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  body { background: #fff; color: #000; padding: 0; }
+  .topbar, .read-progress, .sidebar, .back-link, .toc-mobile,
+  .back-top, .footer-nav, .icon-btn, .copy-btn, .toast,
+  .quick-nav, .data-flow, .cta-withdraw { display: none !important; }
+  .layout { padding-top: 0; grid-template-columns: 1fr; }
+  h1 span { -webkit-text-fill-color: #A8894E; background: none; }
+  a { color: #8A6E3A; text-decoration: underline; }
+  .doc-meta, .contact-block, .highlight, .warning-box, .summary-card,
+  .table-wrap, .right-card, .flow-node {
+    border-color: #ddd; box-shadow: none; break-inside: avoid;
+  }
+  h2, h3 { break-after: avoid; }
+  tbody tr { opacity: 1 !important; transform: none !important; }
+  .table-wrap { border: 1px solid #ccc; }
+  th { background: #f0e9da; color: #6b4f1c; }
+  .right-card .rc-body { display: block !important; }
+}
+
+/* ---------- Utilities ---------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 </style>
 </head>
 <body>
-<div class="container">
 
-  <a href="index.html" class="back-link">← Вернуться на сайт</a>
+<!-- Progress bar -->
+<div class="read-progress" id="progress" aria-hidden="true"></div>
 
-  <h1>Политика в отношении <span>обработки персональных данных</span></h1>
-  <p class="subtitle">Публичная оферта о политике конфиденциальности и обработке персональных данных</p>
-
-  <div class="doc-meta">
-    <strong>Оператор:</strong> Индивидуальный предприниматель Мельникова Наталья Викторовна<br>
-    <strong>ИНН:</strong> 420526028556 &nbsp;|&nbsp; <strong>ОГРНИП:</strong> 305420503500052<br>
-    <strong>Юридический адрес:</strong> 650023, г. Кемерово, проспект Притомский, д. 25, кв. 68<br>
-    <strong>Фактический адрес:</strong> 650023, г. Кемерово, Пионерский бульвар, 3, офис 224<br>
-    <strong>Контактный email:</strong> <a href="mailto:Studiia1@mail.ru" style="color: var(--gold);">Studiia1@mail.ru</a><br>
-    <strong>Контактный телефон:</strong> <a href="tel:+79516062001" style="color: var(--gold);">+7 (951) 606-20-01</a>
+<!-- Sticky top bar -->
+<header class="topbar" id="topbar">
+  <a href="index.html" class="topbar-brand" aria-label="Студия №1 — на главную">
+    <span class="brand-mark">№1</span>
+    <span>Студия <span class="gold">№1</span></span>
+  </a>
+  <div class="topbar-actions">
+    <button class="icon-btn" id="printBtn" aria-label="Распечатать документ" title="Распечатать">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 9V2h12v7"/>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+        <rect x="6" y="14" width="12" height="8"/>
+      </svg>
+    </button>
+    <button class="icon-btn" id="themeBtn" aria-label="Переключить тему" title="Сменить тему">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
   </div>
+</header>
 
-  <h2>1. Общие положения</h2>
+<!-- Layout -->
+<div class="layout">
 
-  <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» (далее — Закон о персональных данных) и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые ИП Мельникова Наталья Викторовна (далее — Оператор).</p>
+  <!-- Sidebar / TOC -->
+  <aside class="sidebar" aria-label="Содержание документа">
+    <nav class="toc" id="toc">
+      <div class="toc-title">
+        <span class="dot"></span>
+        Содержание
+      </div>
+      <ol>
+        <li><a href="#t1">Общие положения</a></li>
+        <li><a href="#t2">Основные понятия</a></li>
+        <li><a href="#t3">Категории обрабатываемых ПДн</a></li>
+        <li><a href="#t4">Цели обработки</a></li>
+        <li><a href="#t5">Правовые основания</a></li>
+        <li><a href="#t6">Порядок и условия обработки</a></li>
+        <li><a href="#t7">Место хранения ПДн</a></li>
+        <li><a href="#t8">Сроки обработки</a></li>
+        <li><a href="#t9">Права субъекта ПДн</a></li>
+        <li><a href="#t10">Использование cookies</a></li>
+        <li><a href="#t11">Передача третьим лицам</a></li>
+        <li><a href="#t12">Заключительные положения</a></li>
+      </ol>
+    </nav>
+  </aside>
 
-  <p>1.1. Оператор ставит своей важнейшей целью и условием осуществления своей деятельности соблюдение прав и свобод человека и гражданина при обработке его персональных данных, в том числе защиты прав на неприкосновенность частной жизни, личную и семейную тайну.</p>
+  <!-- Main content -->
+  <main class="content">
 
-  <p>1.2. Настоящая политика Оператора в отношении обработки персональных данных (далее — Политика) применяется ко всей информации, которую Оператор может получить о посетителях веб-сайта <strong>studiia1.ru</strong> (далее — Сайт).</p>
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </svg>
+      Вернуться на сайт
+    </a>
 
-  <h2>2. Основные понятия, используемые в Политике</h2>
+    <header class="doc-header">
+      <div class="header-badge">
+        <span class="live-dot"></span>
+        Юридический документ · 152-ФЗ · Версия 2.0
+      </div>
+      <h1>Политика в отношении <span>обработки персональных данных</span></h1>
+      <p class="subtitle">Публичная оферта о политике конфиденциальности и обработке персональных данных</p>
+    </header>
 
-  <ul>
-    <li><strong>Персональные данные</strong> — любая информация, относящаяся к прямо или косвенно определённому или определяемому физическому лицу (субъекту персональных данных);</li>
-    <li><strong>Обработка персональных данных</strong> — любое действие (операция) или совокупность действий (операций), совершаемых с использованием средств автоматизации или без использования таких средств с персональными данными, включая сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (распространение, предоставление, доступ), обезличивание, блокирование, удаление, уничтожение персональных данных;</li>
-    <li><strong>Оператор</strong> — государственный орган, муниципальный орган, юридическое или физическое лицо, самостоятельно или совместно с другими лицами организующие и (или) осуществляющие обработку персональных данных, а также определяющие цели обработки персональных данных, состав персональных данных, подлежащих обработке, действия (операции), совершаемые с персональными данными;</li>
-    <li><strong>Субъект персональных данных</strong> — физическое лицо, к которому относятся персональные данные;</li>
-    <li><strong>Пользователь</strong> — посетитель Сайта, зарегистрированный или использующий функционал Сайта;</li>
-    <li><strong>Cookies</strong> — небольшой фрагмент данных, отправленный веб-сервером и хранимый на компьютере пользователя, который веб-клиент или веб-браузер каждый раз пересылает веб-серверу в HTTP-запросе при попытке открыть страницу соответствующего сайта.</li>
-  </ul>
+    <!-- Summary cards -->
+    <section class="summary" aria-label="Ключевые положения">
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+        </div>
+        <div class="s-title">152-ФЗ</div>
+        <div class="s-text">Обработка по Федеральному закону № 152-ФЗ</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div class="s-title">Firebase · ЕС</div>
+        <div class="s-text">Серверы во Франкфурте (Германия), трансграничная передача</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="s-title">3 года</div>
+        <div class="s-text">Максимальный срок хранения данных</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+        </div>
+        <div class="s-title">30 дней</div>
+        <div class="s-text">Удаление данных после отзыва согласия</div>
+      </div>
+    </section>
 
-  <h2>3. Категории обрабатываемых персональных данных</h2>
+    <!-- Quick nav -->
+    <nav class="quick-nav" aria-label="Быстрый переход">
+      <a href="#t3">📋 Категории данных</a>
+      <a href="#t7">🌍 Где хранятся</a>
+      <a href="#t9">⚖️ Ваши права</a>
+      <a href="#t10">🍪 Cookies</a>
+      <a href="#t11">🤝 Передача третьим лицам</a>
+    </nav>
 
-  <p>3.1. Оператор может обрабатывать следующие персональные данные Пользователя:</p>
+    <!-- Document meta -->
+    <div class="doc-meta">
+      <div class="doc-meta-row">
+        <strong>Оператор:</strong>
+        <span>Индивидуальный предприниматель Мельникова Наталья Викторовна</span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>ИНН / ОГРНИП:</strong>
+        <span>420526028556 &nbsp;|&nbsp; 305420503500052
+          <button class="copy-btn" data-copy="420526028556" data-tooltip="Скопировать ИНН" aria-label="Скопировать ИНН">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+        </span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Юридический адрес:</strong>
+        <span>650023, г. Кемерово, проспект Притомский, д. 25, кв. 68</span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Фактический адрес:</strong>
+        <span>650023, г. Кемерово, Пионерский бульвар, 3, офис 224</span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Контактный email:</strong>
+        <span>
+          <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a>
+          <button class="copy-btn" data-copy="Studiia1@mail.ru" data-tooltip="Скопировать email" aria-label="Скопировать email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+        </span>
+      </div>
+      <div class="doc-meta-row">
+        <strong>Контактный телефон:</strong>
+        <span>
+          <a href="tel:+79516062001">+7 (951) 606-20-01</a>
+          <button class="copy-btn" data-copy="+79516062001" data-tooltip="Скопировать телефон" aria-label="Скопировать телефон">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+        </span>
+      </div>
+    </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Категория</th>
-        <th>Состав данных</th>
-        <th>Цель обработки</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Идентификационные</td>
-        <td>Фамилия, имя, отчество (при предоставлении)</td>
-        <td>Идентификация Пользователя, персонализация услуг</td>
-      </tr>
-      <tr>
-        <td>Контактные</td>
-        <td>Адрес электронной почты, номер телефона</td>
-        <td>Связь с Пользователем, уведомления о записях</td>
-      </tr>
-      <tr>
-        <td>Технические</td>
-        <td>IP-адрес, данные cookies, информация о браузере и устройстве, дата и время посещения</td>
-        <td>Обеспечение работы Сайта, аналитика, безопасность</td>
-      </tr>
-      <tr>
-        <td>Пользовательский контент</td>
-        <td>Отзывы, комментарии, фотографии (при добровольной загрузке)</td>
-        <td>Отображение на Сайте, формирование рейтинга услуг</td>
-      </tr>
-      <tr>
-        <td>История обслуживания</td>
-        <td>Информация о записях, посещениях, услугах (в рамках программы лояльности)</td>
-        <td>Учёт бонусных минут, история операций</td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- Mobile TOC -->
+    <details class="toc-mobile">
+      <summary>📑 Содержание документа</summary>
+      <ol>
+        <li><a href="#t1">Общие положения</a></li>
+        <li><a href="#t2">Основные понятия</a></li>
+        <li><a href="#t3">Категории обрабатываемых ПДн</a></li>
+        <li><a href="#t4">Цели обработки</a></li>
+        <li><a href="#t5">Правовые основания</a></li>
+        <li><a href="#t6">Порядок и условия обработки</a></li>
+        <li><a href="#t7">Место хранения ПДн</a></li>
+        <li><a href="#t8">Сроки обработки</a></li>
+        <li><a href="#t9">Права субъекта ПДн</a></li>
+        <li><a href="#t10">Использование cookies</a></li>
+        <li><a href="#t11">Передача третьим лицам</a></li>
+        <li><a href="#t12">Заключительные положения</a></li>
+      </ol>
+    </details>
 
-  <p>3.2. Оператор <strong>не обрабатывает</strong> специальные категории персональных данных (раса, национальность, политические взгляды, религиозные убеждения, состояние здоровья, интимная жизнь) и биометрические персональные данные.</p>
+    <!-- ==================== SECTIONS ==================== -->
 
-  <p>3.3. Оператор <strong>не обрабатывает</strong> персональные данные лиц, не достигших 18 лет, без согласия их законных представителей.</p>
+    <h2 id="t1" class="reveal"><span class="num">01</span>1. Общие положения</h2>
 
-  <h2>4. Цели обработки персональных данных</h2>
+    <div class="reveal">
+      <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» (далее — Закон о персональных данных) и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые ИП Мельникова Наталья Викторовна (далее — Оператор).</p>
 
-  <ul>
-    <li>Идентификация Пользователя для предоставления доступа к личному кабинету и функционалу Сайта;</li>
-    <li>Оказание услуг салона красоты и информирование о них;</li>
-    <li>Обратная связь с Пользователем: обработка запросов, отзывов, комментариев;</li>
-    <li>Улучшение качества обслуживания и работы Сайта;</li>
-    <li>Проведение статистических и аналитических исследований на основе обезличенных данных;</li>
-    <li>Исполнение требований законодательства Российской Федерации.</li>
-  </ul>
+      <p>1.1. Оператор ставит своей важнейшей целью и условием осуществления своей деятельности соблюдение прав и свобод человека и гражданина при обработке его персональных данных, в том числе защиты прав на неприкосновенность частной жизни, личную и семейную тайну.</p>
 
-  <h2>5. Правовые основания обработки</h2>
+      <p>1.2. Настоящая политика Оператора в отношении обработки персональных данных (далее — Политика) применяется ко всей информации, которую Оператор может получить о посетителях веб-сайта <strong>studiia1.ru</strong> (далее — Сайт).</p>
+    </div>
 
-  <p>5.1. Оператор обрабатывает персональные данные Пользователя только в случае их отправки Пользователем через формы на Сайте, при регистрации или иным способом. Отправляя свои данные, Пользователь выражает согласие с данной Политикой.</p>
+    <h2 id="t2" class="reveal"><span class="num">02</span>2. Основные понятия, используемые в Политике</h2>
 
-  <p>5.2. Правовыми основаниями обработки персональных данных являются:</p>
+    <div class="reveal">
+      <ul>
+        <li><strong>Персональные данные</strong> — любая информация, относящаяся к прямо или косвенно определённому или определяемому физическому лицу (субъекту персональных данных);</li>
+        <li><strong>Обработка персональных данных</strong> — любое действие (операция) или совокупность действий (операций), совершаемых с использованием средств автоматизации или без использования таких средств с персональными данными, включая сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (распространение, предоставление, доступ), обезличивание, блокирование, удаление, уничтожение персональных данных;</li>
+        <li><strong>Оператор</strong> — государственный орган, муниципальный орган, юридическое или физическое лицо, самостоятельно или совместно с другими лицами организующие и (или) осуществляющие обработку персональных данных, а также определяющие цели обработки персональных данных, состав персональных данных, подлежащих обработке, действия (операции), совершаемые с персональными данными;</li>
+        <li><strong>Субъект персональных данных</strong> — физическое лицо, к которому относятся персональные данные;</li>
+        <li><strong>Пользователь</strong> — посетитель Сайта, зарегистрированный или использующий функционал Сайта;</li>
+        <li><strong>Cookies</strong> — небольшой фрагмент данных, отправленный веб-сервером и хранимый на компьютере пользователя, который веб-клиент или веб-браузер каждый раз пересылает веб-серверу в HTTP-запросе при попытке открыть страницу соответствующего сайта.</li>
+      </ul>
+    </div>
 
-  <ul>
-    <li>Федеральный закон от 27.07.2006 № 152-ФЗ «О персональных данных»;</li>
-    <li>Согласие субъекта на обработку его персональных данных (ст. 6 ч. 1 п. 1 Закона);</li>
-    <li>Исполнение договора, стороной которого является субъект персональных данных (ст. 6 ч. 1 п. 5 Закона).</li>
-  </ul>
+    <h2 id="t3" class="reveal"><span class="num">03</span>3. Категории обрабатываемых персональных данных</h2>
 
-  <h2>6. Порядок и условия обработки</h2>
+    <div class="reveal">
+      <p>3.1. Оператор может обрабатывать следующие персональные данные Пользователя:</p>
 
-  <p>6.1. Обработка персональных данных осуществляется с согласия субъекта персональных данных на обработку его персональных данных.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Категория</th>
+              <th>Состав данных</th>
+              <th>Цель обработки</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Категория"><span class="cat-emoji">👤</span>Идентификационные</td>
+              <td data-label="Состав данных">Фамилия, имя, отчество (при предоставлении)</td>
+              <td data-label="Цель обработки">Идентификация Пользователя, персонализация услуг</td>
+            </tr>
+            <tr>
+              <td data-label="Категория"><span class="cat-emoji">📞</span>Контактные</td>
+              <td data-label="Состав данных">Адрес электронной почты, номер телефона</td>
+              <td data-label="Цель обработки">Связь с Пользователем, уведомления о записях</td>
+            </tr>
+            <tr>
+              <td data-label="Категория"><span class="cat-emoji">💻</span>Технические</td>
+              <td data-label="Состав данных">IP-адрес, данные cookies, информация о браузере и устройстве, дата и время посещения</td>
+              <td data-label="Цель обработки">Обеспечение работы Сайта, аналитика, безопасность</td>
+            </tr>
+            <tr>
+              <td data-label="Категория"><span class="cat-emoji">📝</span>Пользовательский контент</td>
+              <td data-label="Состав данных">Отзывы, комментарии, фотографии (при добровольной загрузке)</td>
+              <td data-label="Цель обработки">Отображение на Сайте, формирование рейтинга услуг</td>
+            </tr>
+            <tr>
+              <td data-label="Категория"><span class="cat-emoji">🎁</span>История обслуживания</td>
+              <td data-label="Состав данных">Информация о записях, посещениях, услугах (в рамках программы лояльности)</td>
+              <td data-label="Цель обработки">Учёт бонусных минут, история операций</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <p>6.2. Обработка персональных данных осуществляется следующими способами:</p>
+      <p>3.2. Оператор <strong>не обрабатывает</strong> специальные категории персональных данных (раса, национальность, политические взгляды, религиозные убеждения, состояние здоровья, интимная жизнь) и биометрические персональные данные.</p>
 
-  <ul>
-    <li>с использованием средств автоматизации (с использованием инфраструктуры Firebase — Google LLC);</li>
-    <li>без использования средств автоматизации (в случае ручной обработки обращений).</li>
-  </ul>
+      <p>3.3. Оператор <strong>не обрабатывает</strong> персональные данные лиц, не достигших 18 лет, без согласия их законных представителей.</p>
+    </div>
 
-  <h2>7. Место хранения персональных данных</h2>
+    <h2 id="t4" class="reveal"><span class="num">04</span>4. Цели обработки персональных данных</h2>
 
-  <div class="highlight">
-    <strong>⚠️ ВАЖНАЯ ИНФОРМАЦИЯ</strong><br>
-    Персональные данные Пользователей обрабатываются и хранятся с использованием облачной инфраструктуры <strong>Firebase</strong>, предоставляемой компанией <strong>Google LLC</strong>. Серверы Firebase, на которых размещаются данные, расположены в <strong>Европейском союзе (Франкфурт, Германия)</strong>.<br><br>
-    Давая согласие на обработку персональных данных, Пользователь подтверждает, что ознакомлен с данным фактом и не возражает против трансграничной передачи его персональных данных на территорию Европейского союза.
-  </div>
+    <div class="reveal">
+      <ul>
+        <li>Идентификация Пользователя для предоставления доступа к личному кабинету и функционалу Сайта;</li>
+        <li>Оказание услуг салона красоты и информирование о них;</li>
+        <li>Обратная связь с Пользователем: обработка запросов, отзывов, комментариев;</li>
+        <li>Улучшение качества обслуживания и работы Сайта;</li>
+        <li>Проведение статистических и аналитических исследований на основе обезличенных данных;</li>
+        <li>Исполнение требований законодательства Российской Федерации.</li>
+      </ul>
+    </div>
 
-  <p>7.1. Оператор принимает необходимые правовые, организационные и технические меры для защиты персональных данных от неправомерного доступа, уничтожения, изменения, блокирования, копирования, распространения, а также от иных неправомерных действий третьих лиц.</p>
+    <h2 id="t5" class="reveal"><span class="num">05</span>5. Правовые основания обработки</h2>
 
-  <p>7.2. Для обеспечения безопасности персональных данных используются:</p>
+    <div class="reveal">
+      <p>5.1. Оператор обрабатывает персональные данные Пользователя только в случае их отправки Пользователем через формы на Сайте, при регистрации или иным способом. Отправляя свои данные, Пользователь выражает согласие с данной Политикой.</p>
 
-  <ul>
-    <li>шифрование данных по протоколу HTTPS/TLS;</li>
-    <li>разграничение прав доступа к данным;</li>
-    <li>использование парольной политики и двухфакторной аутентификации (по возможности);</li>
-    <li>регулярное резервное копирование данных.</li>
-  </ul>
+      <p>5.2. Правовыми основаниями обработки персональных данных являются:</p>
 
-  <h2>8. Сроки обработки персональных данных</h2>
+      <ul>
+        <li>Федеральный закон от 27.07.2006 № 152-ФЗ «О персональных данных»;</li>
+        <li>Согласие субъекта на обработку его персональных данных (ст. 6 ч. 1 п. 1 Закона);</li>
+        <li>Исполнение договора, стороной которого является субъект персональных данных (ст. 6 ч. 1 п. 5 Закона).</li>
+      </ul>
+    </div>
 
-  <p>8.1. Обработка персональных данных Пользователя осуществляется до достижения целей обработки, но не более <strong>3 (трёх) лет</strong> с момента последнего взаимодействия Пользователя с Сайтом, если иное не предусмотрено законодательством.</p>
+    <h2 id="t6" class="reveal"><span class="num">06</span>6. Порядок и условия обработки</h2>
 
-  <p>8.2. Пользователь вправе в любой момент отозвать своё согласие на обработку персональных данных, направив соответствующее уведомление Оператору по адресу электронной почты <a href="mailto:Studiia1@mail.ru" style="color: var(--gold);">Studiia1@mail.ru</a>.</p>
+    <div class="reveal">
+      <p>6.1. Обработка персональных данных осуществляется с согласия субъекта персональных данных на обработку его персональных данных.</p>
 
-  <p>8.3. После отзыва согласия Оператор прекращает обработку и удаляет персональные данные Пользователя в течение <strong>30 (тридцати) календарных дней</strong>, за исключением случаев, когда обработка должна быть продолжена в соответствии с законодательством РФ.</p>
+      <p>6.2. Обработка персональных данных осуществляется следующими способами:</p>
 
-  <h2>9. Права субъекта персональных данных</h2>
+      <ul>
+        <li>с использованием средств автоматизации (с использованием инфраструктуры Firebase — Google LLC);</li>
+        <li>без использования средств автоматизации (в случае ручной обработки обращений).</li>
+      </ul>
+    </div>
 
-  <p>9.1. Пользователь имеет право:</p>
+    <h2 id="t7" class="reveal"><span class="num">07</span>7. Место хранения персональных данных</h2>
 
-  <ul>
-    <li>получать информацию, касающуюся обработки его персональных данных;</li>
-    <li>требовать уточнения, блокирования или уничтожения своих персональных данных, если они являются неполными, устаревшими, неточными, незаконно полученными или не являются необходимыми для заявленной цели обработки;</li>
-    <li>отозвать согласие на обработку персональных данных;</li>
-    <li>обжаловать действия или бездействие Оператора в уполномоченный орган по защите прав субъектов персональных данных (Роскомнадзор) или в судебном порядке;</li>
-    <li>на защиту своих прав и законных интересов, в том числе на возмещение убытков и (или) компенсацию морального вреда.</li>
-  </ul>
+    <div class="reveal">
+      <div class="highlight">
+        <strong>⚠️ ВАЖНАЯ ИНФОРМАЦИЯ</strong><br>
+        Персональные данные Пользователей обрабатываются и хранятся с использованием облачной инфраструктуры <strong>Firebase</strong>, предоставляемой компанией <strong>Google LLC</strong>. Серверы Firebase, на которых размещаются данные, расположены в <strong>Европейском союзе (Франкфурт, Германия)</strong>.<br><br>
+        Давая согласие на обработку персональных данных, Пользователь подтверждает, что ознакомлен с данным фактом и не возражает против трансграничной передачи его персональных данных на территорию Европейского союза.
+      </div>
 
-  <p>9.2. Для реализации своих прав Пользователь может обратиться к Оператору:</p>
+      <!-- Data flow diagram -->
+      <div class="data-flow" aria-hidden="true">
+        <div class="flow-title">Путь ваших данных</div>
+        <div class="flow-row">
+          <div class="flow-node">
+            <div class="fn-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="fn-label">Вы</div>
+            <div class="fn-sub">Пользователь</div>
+          </div>
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </div>
+          <div class="flow-node">
+            <div class="fn-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div class="fn-label">Сайт</div>
+            <div class="fn-sub">studiia1.ru</div>
+          </div>
+          <div class="flow-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </div>
+          <div class="flow-node">
+            <div class="fn-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+              </svg>
+            </div>
+            <div class="fn-label">Firebase</div>
+            <div class="fn-sub">Франкфурт, ЕС</div>
+          </div>
+        </div>
+      </div>
 
-  <div class="contact-block">
-    <strong>По email:</strong> <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a><br>
-    <strong>По телефону:</strong> <a href="tel:+79516062001">+7 (951) 606-20-01</a><br>
-    <strong>Почтой:</strong> 650023, г. Кемерово, проспект Притомский, д. 25, кв. 68
-  </div>
+      <p>7.1. Оператор принимает необходимые правовые, организационные и технические меры для защиты персональных данных от неправомерного доступа, уничтожения, изменения, блокирования, копирования, распространения, а также от иных неправомерных действий третьих лиц.</p>
 
-  <p>9.3. Срок рассмотрения обращения — <strong>30 (тридцать) календарных дней</strong> с момента получения обращения.</p>
+      <p>7.2. Для обеспечения безопасности персональных данных используются:</p>
 
-  <h2>10. Использование файлов cookie</h2>
+      <ul>
+        <li>шифрование данных по протоколу HTTPS/TLS;</li>
+        <li>разграничение прав доступа к данным;</li>
+        <li>использование парольной политики и двухфакторной аутентификации (по возможности);</li>
+        <li>регулярное резервное копирование данных.</li>
+      </ul>
+    </div>
 
-  <p>10.1. Сайт использует файлы cookie для:</p>
+    <h2 id="t8" class="reveal"><span class="num">08</span>8. Сроки обработки персональных данных</h2>
 
-  <ul>
-    <li>обеспечения работы авторизации (сохранение сессии Пользователя);</li>
-    <li>сохранения персональных настроек (тема оформления, язык);</li>
-    <li>сбора анонимной статистики посещений (аналитика).</li>
-  </ul>
+    <div class="reveal">
+      <p>8.1. Обработка персональных данных Пользователя осуществляется до достижения целей обработки, но не более <strong>3 (трёх) лет</strong> с момента последнего взаимодействия Пользователя с Сайтом, если иное не предусмотрено законодательством.</p>
 
-  <p>10.2. Пользователь может отключить cookies в настройках своего браузера. Однако в этом случае часть функционала Сайта может работать некорректно.</p>
+      <p>8.2. Пользователь вправе в любой момент отозвать своё согласие на обработку персональных данных, направив соответствующее уведомление Оператору по адресу электронной почты <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a>.</p>
 
-  <p>10.3. Продолжая использовать Сайт, Пользователь соглашается с использованием файлов cookie в соответствии с настоящей Политикой.</p>
+      <p>8.3. После отзыва согласия Оператор прекращает обработку и удаляет персональные данные Пользователя в течение <strong>30 (тридцати) календарных дней</strong>, за исключением случаев, когда обработка должна быть продолжена в соответствии с законодательством РФ.</p>
 
-  <h2>11. Передача персональных данных третьим лицам</h2>
+      <!-- CTA: withdraw consent -->
+      <div class="cta-withdraw">
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          Хотите отозвать согласие?
+        </h4>
+        <p>Нажмите кнопку — откроется письмо на email Оператора с предзаполненной темой «Отзыв согласия на обработку персональных данных». Просто отправьте его.</p>
+        <a class="cta-btn" id="withdrawLink" href="mailto:Studiia1@mail.ru?subject=%D0%9E%D1%82%D0%B7%D1%8B%D0%B2%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85&body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%0A%0A%D0%9F%D1%80%D0%BE%D1%88%D1%83%20%D0%BE%D1%82%D0%BE%D0%B7%D0%B2%D0%B0%D1%82%D1%8C%20%D0%BC%D0%BE%D1%91%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85.%0A%0A%D0%A4%D0%98%D0%9E%3A%20%0AEmail%20%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0%3A%20%0A%0A%D0%A1%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Отправить запрос на отзыв
+        </a>
+      </div>
+    </div>
 
-  <p>11.1. Оператор <strong>не передаёт</strong> персональные данные Пользователей третьим лицам, кроме следующих случаев:</p>
+    <h2 id="t9" class="reveal"><span class="num">09</span>9. Права субъекта персональных данных</h2>
 
-  <ul>
-    <li>Пользователь явно выразил согласие на такую передачу;</li>
-    <li>Передача предусмотрена законодательством РФ (по запросу правоохранительных органов, суда);</li>
-    <li>Передача необходима для исполнения договора (например, платёжным системам при онлайн-оплате);</li>
-    <li>Передача осуществляется техническим партнёрам, обеспечивающим работу Сайта (Firebase, Google LLC), в объёме, необходимом для работы сервиса.</li>
-  </ul>
+    <div class="reveal">
+      <p>9.1. Пользователь имеет право:</p>
 
-  <p>11.2. Все третьи лица, привлекаемые к обработке персональных данных, обязуются соблюдать конфиденциальность и обеспечивать безопасность данных.</p>
+      <!-- Interactive rights cards -->
+      <div class="rights-grid">
+        <details class="right-card">
+          <summary>Получать информацию об обработке</summary>
+          <div class="rc-body">
+            Вы вправе запросить у Оператора сведения о том, какие именно ваши данные обрабатываются, с какими целями, кому передаются и на каком основании.
+          </div>
+        </details>
+        <details class="right-card">
+          <summary>Уточнять, блокировать, уничтожать данные</summary>
+          <div class="rc-body">
+            Если ваши данные неполные, устаревшие, неточные, незаконно полученные или не являются необходимыми для заявленной цели обработки — вы вправе требовать их уточнения, блокирования или уничтожения.
+          </div>
+        </details>
+        <details class="right-card">
+          <summary>Отозвать согласие</summary>
+          <div class="rc-body">
+            Вы можете в любой момент отозвать согласие на обработку персональных данных, направив уведомление Оператору. Данные будут удалены в течение 30 календарных дней.
+          </div>
+        </details>
+        <details class="right-card">
+          <summary>Обжаловать действия Оператора</summary>
+          <div class="rc-body">
+            Вы вправе обжаловать действия или бездействие Оператора в уполномоченный орган по защите прав субъектов персональных данных (Роскомнадзор) или в судебном порядке.
+          </div>
+        </details>
+        <details class="right-card">
+          <summary>Защищать свои интересы</summary>
+          <div class="rc-body">
+            Вы имеете право на защиту своих прав и законных интересов, в том числе на возмещение убытков и (или) компенсацию морального вреда.
+          </div>
+        </details>
+        <details class="right-card">
+          <summary>Обратиться к Оператору</summary>
+          <div class="rc-body">
+            Для реализации своих прав вы можете обратиться по email <a href="mailto:Studiia1@mail.ru" style="color: var(--gold);">Studiia1@mail.ru</a>, по телефону <a href="tel:+79516062001" style="color: var(--gold);">+7 (951) 606-20-01</a> или почтой по адресу Оператора.
+          </div>
+        </details>
+      </div>
 
-  <h2>12. Заключительные положения</h2>
+      <p>9.2. Для реализации своих прав Пользователь может обратиться к Оператору:</p>
 
-  <p>12.1. Оператор вправе вносить изменения в настоящую Политику без согласия Пользователя. Новая редакция Политики вступает в силу с момента её размещения на Сайте.</p>
+      <div class="contact-block">
+        <strong>По email:</strong> <a href="mailto:Studiia1@mail.ru">Studiia1@mail.ru</a><br>
+        <strong>По телефону:</strong> <a href="tel:+79516062001">+7 (951) 606-20-01</a><br>
+        <strong>Почтой:</strong> 650023, г. Кемерово, проспект Притомский, д. 25, кв. 68
+      </div>
 
-  <p>12.2. Актуальная версия Политики всегда доступна по адресу: <strong>studiia1.ru/privacy.html</strong>.</p>
+      <p>9.3. Срок рассмотрения обращения — <strong>30 (тридцать) календарных дней</strong> с момента получения обращения.</p>
+    </div>
 
-  <p>12.3. Продолжая использовать Сайт после внесения изменений в Политику, Пользователь подтверждает своё согласие с новой редакцией.</p>
+    <h2 id="t10" class="reveal"><span class="num">10</span>10. Использование файлов cookie</h2>
 
-  <p>12.4. Все споры, связанные с обработкой персональных данных, разрешаются в соответствии с законодательством Российской Федерации.</p>
+    <div class="reveal">
+      <p>10.1. Сайт использует файлы cookie для:</p>
 
-  <div class="version-info">
-    <p><strong>Версия документа:</strong> 1.0</p>
-    <p><strong>Дата публикации:</strong> 16 сентября 2026 г.</p>
-    <p><strong>Дата вступления в силу:</strong> 16 сентября 2026 г.</p>
-    <p style="margin-top: 12px; opacity: 0.7;">© 2026 ИП Мельникова Наталья Викторовна. Все права защищены.</p>
-  </div>
+      <ul>
+        <li>обеспечения работы авторизации (сохранение сессии Пользователя);</li>
+        <li>сохранения персональных настроек (тема оформления, язык);</li>
+        <li>сбора анонимной статистики посещений (аналитика).</li>
+      </ul>
 
+      <p>10.2. Пользователь может отключить cookies в настройках своего браузера. Однако в этом случае часть функционала Сайта может работать некорректно.</p>
+
+      <p>10.3. Продолжая использовать Сайт, Пользователь соглашается с использованием файлов cookie в соответствии с настоящей Политикой.</p>
+    </div>
+
+    <h2 id="t11" class="reveal"><span class="num">11</span>11. Передача персональных данных третьим лицам</h2>
+
+    <div class="reveal">
+      <p>11.1. Оператор <strong>не передаёт</strong> персональные данные Пользователей третьим лицам, кроме следующих случаев:</p>
+
+      <ul>
+        <li>Пользователь явно выразил согласие на такую передачу;</li>
+        <li>Передача предусмотрена законодательством РФ (по запросу правоохранительных органов, суда);</li>
+        <li>Передача необходима для исполнения договора (например, платёжным системам при онлайн-оплате);</li>
+        <li>Передача осуществляется техническим партнёрам, обеспечивающим работу Сайта (Firebase, Google LLC), в объёме, необходимом для работы сервиса.</li>
+      </ul>
+
+      <p>11.2. Все третьи лица, привлекаемые к обработке персональных данных, обязуются соблюдать конфиденциальность и обеспечивать безопасность данных.</p>
+    </div>
+
+    <h2 id="t12" class="reveal"><span class="num">12</span>12. Заключительные положения</h2>
+
+    <div class="reveal">
+      <p>12.1. Оператор вправе вносить изменения в настоящую Политику без согласия Пользователя. Новая редакция Политики вступает в силу с момента её размещения на Сайте.</p>
+
+      <p>12.2. Актуальная версия Политики всегда доступна по адресу: <strong>studiia1.ru/privacy.html</strong>.</p>
+
+      <p>12.3. Продолжая использовать Сайт после внесения изменений в Политику, Пользователь подтверждает своё согласие с новой редакцией.</p>
+
+      <p>12.4. Все споры, связанные с обработкой персональных данных, разрешаются в соответствии с законодательством Российской Федерации.</p>
+    </div>
+
+    <!-- Footer nav -->
+    <div class="footer-nav reveal">
+      <button class="nav-chip" id="toTop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="19" x2="12" y2="5"/>
+          <polyline points="5 12 12 5 19 12"/>
+        </svg>
+        Наверх
+      </button>
+      <a href="#toc" class="nav-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"/>
+          <line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/>
+          <line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+        К содержанию
+      </a>
+      <a href="#t12" class="nav-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <polyline points="19 12 12 19 5 12"/>
+        </svg>
+        В конец
+      </a>
+      <button class="nav-chip" id="printBtn2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9V2h12v7"/>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        Распечатать
+      </button>
+    </div>
+
+    <div class="version-info">
+      <p><strong>Версия документа:</strong> <span class="ver-num">2.0</span></p>
+      <p><strong>Предыдущая версия:</strong> 1.0 (16 сентября 2026 г.)</p>
+      <p><strong>Дата публикации:</strong> 16 сентября 2026 г.</p>
+      <p><strong>Дата вступления в силу:</strong> 16 сентября 2026 г.</p>
+      <p style="margin-top: 12px; opacity: 0.7;">© 2026 ИП Мельникова Наталья Викторовна. Все права защищены.</p>
+    </div>
+
+  </main>
 </div>
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="5"/>
+    <polyline points="5 12 12 5 19 12"/>
+  </svg>
+</button>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+  <span id="toastText">Скопировано</span>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ============================================================
+     1. THEME
+     ============================================================ */
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const themeIcon = document.getElementById('themeIcon');
+  const moonPath = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  const sunPath = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
+
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    themeIcon.innerHTML = theme === 'dark' ? moonPath : sunPath;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0B0B0B' : '#FCF9F5');
+    try { localStorage.setItem('studiia-theme', theme); } catch (e) {}
+  }
+
+  let savedTheme = null;
+  try { savedTheme = localStorage.getItem('studiia-theme'); } catch (e) {}
+  if (!savedTheme) {
+    savedTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+  setTheme(savedTheme);
+
+  themeBtn.addEventListener('click', () => {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ============================================================
+     2. PROGRESS BAR + TOPBAR + BACKTOP
+     ============================================================ */
+  const progress = document.getElementById('progress');
+  const topbar = document.getElementById('topbar');
+  const backTop = document.getElementById('backTop');
+  let ticking = false;
+
+  function updateScroll() {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const height = h.scrollHeight - h.clientHeight;
+    const pct = height > 0 ? (scrolled / height) * 100 : 0;
+    progress.style.width = pct + '%';
+    topbar.classList.toggle('scrolled', scrolled > 20);
+    backTop.classList.toggle('visible', scrolled > 400);
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  updateScroll();
+
+  /* ============================================================
+     3. BACK TO TOP
+     ============================================================ */
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  backTop.addEventListener('click', scrollToTop);
+  const toTopChip = document.getElementById('toTop');
+  if (toTopChip) toTopChip.addEventListener('click', scrollToTop);
+
+  /* ============================================================
+     4. PRINT
+     ============================================================ */
+  function printDoc() { window.print(); }
+  const printBtn = document.getElementById('printBtn');
+  const printBtn2 = document.getElementById('printBtn2');
+  if (printBtn) printBtn.addEventListener('click', printDoc);
+  if (printBtn2) printBtn2.addEventListener('click', printDoc);
+
+  /* ============================================================
+     5. REVEAL ON SCROLL (+ special handling for table & rights)
+     ============================================================ */
+  const revealEls = document.querySelectorAll('.reveal');
+  const tableWrap = document.querySelector('.table-wrap');
+
+  if ('IntersectionObserver' in window) {
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    // Table cascade
+    if (tableWrap) {
+      const tableObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            tableObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      tableObs.observe(tableWrap);
+    }
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+    if (tableWrap) tableWrap.classList.add('in');
+  }
+
+  /* ============================================================
+     6. ACTIVE TOC LINK
+     ============================================================ */
+  const tocLinks = Array.from(document.querySelectorAll('.sidebar .toc a'));
+  const sections = tocLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  if ('IntersectionObserver' in window && sections.length) {
+    const linkMap = new Map();
+    tocLinks.forEach(a => linkMap.set(a.getAttribute('href'), a));
+
+    const sectionObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = '#' + entry.target.id;
+          tocLinks.forEach(a => a.classList.remove('active'));
+          const active = linkMap.get(id);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(s => sectionObs.observe(s));
+  }
+
+  /* ============================================================
+     7. COPY BUTTONS
+     ============================================================ */
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+  let toastTimer = null;
+
+  function showToast(msg, type) {
+    toastText.textContent = msg || 'Скопировано';
+    toast.className = 'toast show' + (type ? ' ' + type : '');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+  }
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const value = btn.getAttribute('data-copy');
+      if (!value) return;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = value;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.classList.add('copied');
+        const original = btn.getAttribute('data-tooltip');
+        btn.setAttribute('data-tooltip', 'Скопировано!');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          if (original) btn.setAttribute('data-tooltip', original);
+        }, 1800);
+        showToast('Скопировано: ' + value, 'success');
+      } catch (err) {
+        showToast('Не удалось скопировать', 'error');
+      }
+    });
+  });
+
+  /* ============================================================
+     8. SMOOTH ANCHOR SCROLL WITH OFFSET
+     ============================================================ */
+  const headerH = 64;
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const rect = target.getBoundingClientRect();
+      const y = rect.top + window.pageYOffset - headerH - 20;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      const mobileTocOpen = document.querySelector('.toc-mobile[open]');
+      if (mobileTocOpen) mobileTocOpen.removeAttribute('open');
+    });
+  });
+
+  /* ============================================================
+     9. MOBILE TOC — auto close on outside click
+     ============================================================ */
+  const mobileToc = document.querySelector('.toc-mobile');
+  if (mobileToc) {
+    document.addEventListener('click', (e) => {
+      if (mobileToc.hasAttribute('open') && !mobileToc.contains(e.target)) {
+        mobileToc.removeAttribute('open');
+      }
+    });
+  }
+
+  /* ============================================================
+     10. RIGHTS CARDS — close others when one opens (accordion feel)
+     ============================================================ */
+  const rightCards = document.querySelectorAll('.right-card');
+  rightCards.forEach(card => {
+    card.addEventListener('toggle', () => {
+      if (card.open) {
+        rightCards.forEach(other => {
+          if (other !== card && other.open) other.open = false;
+        });
+      }
+    });
+  });
+
+  /* ============================================================
+     11. KEYBOARD SHORTCUTS
+     ============================================================ */
+  document.addEventListener('keydown', (e) => {
+    if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === 't') {
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      scrollToTop();
+    }
+  });
+
+})();
+</script>
 </body>
 </html>
